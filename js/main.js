@@ -53,7 +53,7 @@ function initMobileNav() {
   dropdownItems.forEach(item => {
     const link = item.querySelector('.nav-link');
     link.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 1080) {
         e.preventDefault();
         item.classList.toggle('active-dropdown');
       }
