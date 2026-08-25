@@ -1539,3 +1539,321 @@
   transform: translateY(0);
   opacity: 1;
 }
+
+/* ==========================================================================
+   14. FULL MONTH INTERACTIVE GRID CALENDAR
+   ========================================================================== */
+.monthly-calendar-container {
+  background: var(--white-pure);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-xl);
+  padding: 2.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.calendar-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.calendar-month-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.calendar-month-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: var(--navy-primary);
+  margin: 0;
+  min-width: 240px;
+}
+
+.calendar-nav-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background: var(--white-smoke);
+  border: 1px solid var(--border-subtle);
+  color: var(--navy-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.calendar-nav-btn:hover {
+  background: var(--navy-primary);
+  color: var(--white-pure);
+  border-color: var(--navy-primary);
+}
+
+.btn-calendar-today {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  background: var(--blue-soft);
+  color: var(--blue-royal);
+  border: 1px solid var(--blue-badge-bg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-calendar-today:hover {
+  background: var(--blue-royal);
+  color: var(--white-pure);
+}
+
+.calendar-filter-bar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.cal-filter-btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: var(--white-smoke);
+  border: 1px solid var(--border-subtle);
+  color: var(--gray-700);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.cal-filter-btn:hover {
+  background: var(--gray-200);
+}
+
+.cal-filter-btn.active {
+  background: var(--navy-primary);
+  color: var(--white-pure);
+  border-color: var(--navy-primary);
+}
+
+/* 7-Column Grid */
+.calendar-grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.cal-head-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: var(--navy-primary);
+  color: var(--white-pure);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.cal-head-cell {
+  padding: 0.85rem 0.5rem;
+}
+
+.cal-head-cell.sun {
+  color: #fca5a5;
+}
+
+.cal-head-cell.wed {
+  color: var(--gold-light);
+}
+
+.cal-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-left: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--white-pure);
+}
+
+.cal-day-box {
+  min-height: 125px;
+  border-right: 1px solid var(--border-subtle);
+  border-top: 1px solid var(--border-subtle);
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  transition: background-color var(--transition-fast);
+  position: relative;
+  background: var(--white-pure);
+}
+
+.cal-day-box:hover {
+  background-color: #f8fafc;
+}
+
+.cal-day-box.is-other-month {
+  background-color: #f8fafc;
+  opacity: 0.45;
+}
+
+.cal-day-box.is-today {
+  background-color: #eff6ff;
+  border: 2px solid var(--blue-royal);
+}
+
+.cal-day-number {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--navy-primary);
+  margin-bottom: 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+
+.is-today .cal-day-number {
+  background: var(--blue-royal);
+  color: var(--white-pure);
+}
+
+.cal-events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.cal-chip {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.45rem;
+  border-radius: 4px;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.cal-chip:hover {
+  transform: scale(1.03);
+}
+
+.chip-service {
+  background: #dbeafe;
+  color: #1e3a8a;
+  border-left: 3px solid #1d4ed8;
+}
+
+.chip-prayer {
+  background: #fef3c7;
+  color: #92400e;
+  border-left: 3px solid #d97706;
+}
+
+.chip-fellowship {
+  background: #fee2e2;
+  color: #991b1b;
+  border-left: 3px solid #dc2626;
+}
+
+.chip-youth {
+  background: #f3e8ff;
+  color: #6b21a8;
+  border-left: 3px solid #9333ea;
+}
+
+.chip-special {
+  background: linear-gradient(135deg, #0f2744, #1e3a5f);
+  color: #fbbf24;
+  border-left: 3px solid #fbbf24;
+}
+
+/* Event Detail Modal */
+.cal-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 17, 32, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.cal-modal.is-open {
+  display: flex;
+}
+
+.cal-modal-card {
+  background: var(--white-pure);
+  border-radius: var(--radius-lg);
+  border-top: 6px solid var(--red-primary);
+  max-width: 520px;
+  width: 100%;
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: var(--shadow-xl);
+}
+
+.cal-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--gray-400);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.cal-modal-close:hover {
+  color: var(--navy-primary);
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 768px) {
+  .cal-head-row {
+    font-size: 0.72rem;
+  }
+  .cal-head-cell {
+    padding: 0.5rem 0.2rem;
+  }
+  .cal-day-box {
+    min-height: 85px;
+    padding: 0.35rem 0.2rem;
+  }
+  .cal-chip {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.25rem;
+  }
+  .calendar-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .calendar-month-title-wrap {
+    justify-content: center;
+  }
+  .calendar-filter-bar {
+    justify-content: center;
+  }
+}
+
