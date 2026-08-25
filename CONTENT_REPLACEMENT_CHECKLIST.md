@@ -6,6 +6,9 @@ This document is a comprehensive, easy-to-follow checklist of all placeholder co
 
 ## 🏛️ 1. Church Leadership & Staff
 
+- [x] **Official Church Logo**
+  - **Status:** **Completed** — Integrated [`customer content/FBC Logo v1.png`](file:///Users/jeremysmith/Sandbox/Faith%20Baptist%20Church/Faith%20Baptist%20Church%20v1%20-%20Google/customer%20content/FBC%20Logo%20v1.png) as [`assets/images/fbc_logo.png`](file:///Users/jeremysmith/Sandbox/Faith%20Baptist%20Church/Faith%20Baptist%20Church%20v1%20-%20Google/assets/images/fbc_logo.png) across the sticky header and 4-column footer on all pages.
+
 - [ ] **Pastor's Full Name & Biography**
   - **Current Placeholder:** `Pastor David Miller`
   - **Real Content Needed:** Exact name, short bio, years in ministry, and personal testimony of the pastor.
