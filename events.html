@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events & Calendar | Faith Baptist Church | Fostoria, Ohio</title>
+  <meta name="description" content="Upcoming services, fellowship potlucks, revival meetings, and youth activities at Faith Baptist Church in Fostoria, Ohio.">
+  
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <aside class="top-bar">
+    <div class="container top-bar-inner">
+      <div class="top-bar-left">
+        <span class="top-bar-badge"><span class="pulse-dot"></span> Next Service: Sunday 10:00 AM</span>
+        <span class="top-bar-item">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          11275 W. Twp. Rd. 116, Fostoria, OH 44830
+        </span>
+        <span class="top-bar-item">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          <a href="tel:4193482171">(419) 348-2171</a>
+        </span>
+      </div>
+      <div class="top-bar-right">
+        <span class="top-bar-item"><span class="badge badge-kjv">KJV BIBLE ANCHORED</span></span>
+        <a href="give.html" class="top-bar-item" style="color: #fbbf24; font-weight: 700;">Online Giving</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-emblem">
+          <svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24"><path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6V2z"/></svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Faith <span>Baptist</span> Church</span>
+          <span class="brand-tagline">Bible Believing • Gospel Driven • Fostoria, OH</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu">
+        <div class="nav-item"><a href="index.html" class="nav-link">Home</a></div>
+        <div class="nav-item"><a href="about.html" class="nav-link">About Us</a></div>
+        <div class="nav-item"><a href="ministries.html" class="nav-link">Ministries</a></div>
+        <div class="nav-item"><a href="sermons.html" class="nav-link">Sermons</a></div>
+        <div class="nav-item"><a href="events.html" class="nav-link active">Events</a></div>
+        <div class="nav-item"><a href="give.html" class="nav-link">Give</a></div>
+        <div class="nav-item"><a href="visit.html" class="nav-link">Plan a Visit</a></div>
+        <div class="nav-item"><a href="contact.html" class="nav-link">Contact</a></div>
+      </nav>
+
+      <div class="header-actions">
+        <a href="visit.html" class="btn btn-navy btn-sm">Plan Your Visit</a>
+        <a href="give.html" class="btn btn-red btn-sm">Give Online</a>
+        <button class="mobile-toggle" aria-label="Toggle Navigation Menu">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Banner -->
+  <section class="section section-dark section-patriotic-strip" style="padding: 4rem 0;">
+    <div class="container text-center">
+      <span class="section-eyebrow section-eyebrow-gold">Church Calendar</span>
+      <h1 style="color: var(--white-pure); margin-bottom: 1rem;">Upcoming Events & Gatherings</h1>
+      <p style="max-width: 680px; margin: 0 auto; color: var(--gray-300); font-size: 1.15rem;">
+        Stay connected with fellowship potlucks, special services, and prayer meetings.
+      </p>
+    </div>
+  </section>
+
+  <!-- Countdown & Events Content -->
+  <section class="section bg-light">
+    <div class="container">
+      
+      <!-- Countdown Banner -->
+      <div class="countdown-banner" style="margin-bottom: 3.5rem;">
+        <div class="countdown-content">
+          <span class="badge badge-kjv" style="margin-bottom: 0.75rem;">Next Scheduled Gathering</span>
+          <h3><span id="countdown-service-name" style="color: var(--gold-light);">Sunday Morning Worship</span></h3>
+          <p>Join us in person for preaching from the King James Bible.</p>
+        </div>
+
+        <div class="countdown-timer-wrap">
+          <div class="countdown-unit">
+            <span class="countdown-digit" id="countdown-days">00</span>
+            <span class="countdown-label">Days</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-digit" id="countdown-hours">00</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-digit" id="countdown-mins">00</span>
+            <span class="countdown-label">Mins</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-digit" id="countdown-secs">00</span>
+            <span class="countdown-label">Secs</span>
+          </div>
+        </div>
+
+        <div>
+          <button class="btn btn-gold btn-add-cal" data-event-title="Faith Baptist Church Service">
+            Add to Calendar
+          </button>
+        </div>
+      </div>
+
+      <!-- Weekly Service Schedule Detail -->
+      <div class="card" style="padding: 2.5rem; margin-bottom: 3.5rem;">
+        <h2 class="section-title" style="font-size: 1.6rem; margin-bottom: 1.5rem; color: var(--navy-primary);">
+          Weekly Schedule of Services
+        </h2>
+        <div class="grid-2">
+          
+          <div style="background: var(--white-smoke); padding: 1.5rem; border-radius: var(--radius-md); border-left: 4px solid var(--red-primary);">
+            <h3 style="font-size: 1.2rem; color: var(--navy-primary); margin-bottom: 0.75rem;">Sunday Gatherings</h3>
+            <ul style="display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.95rem; color: var(--gray-700);">
+              <li><strong>9:00 AM:</strong> Sunday School for Adults & Teens</li>
+              <li><strong>10:00 AM:</strong> Main Morning Worship & Young Kids Sunday School Classes</li>
+              <li><strong>10:00 AM:</strong> Staffed Nursery for Tots (Infants & Toddlers)</li>
+              <li><strong>6:00 PM:</strong> Sunday Evening Praise & Preaching Service</li>
+            </ul>
+          </div>
+
+          <div style="background: var(--white-smoke); padding: 1.5rem; border-radius: var(--radius-md); border-left: 4px solid var(--navy-primary);">
+            <h3 style="font-size: 1.2rem; color: var(--navy-primary); margin-bottom: 0.75rem;">Wednesday Gathering</h3>
+            <ul style="display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.95rem; color: var(--gray-700);">
+              <li><strong>7:00 PM:</strong> Midweek Prayer Meeting & In-Depth Bible Study</li>
+              <li>• Corporate prayer for missionary families, sick members, and local revival</li>
+              <li>• Chapter-by-chapter exposition from the King James Bible</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Upcoming Special Events Grid -->
+      <div class="section-header text-center">
+        <span class="section-eyebrow">Mark Your Calendar</span>
+        <h2 class="section-title">Special Church Events</h2>
+      </div>
+
+      <div class="events-grid">
+        
+        <!-- Event 1 -->
+        <div class="event-card">
+          <div class="event-card-header">
+            <img src="assets/images/fellowship_family.jpg" alt="Fellowship Potluck" class="event-card-img">
+            <div class="event-date-badge">
+              <span class="event-date-day">1st</span>
+              <span class="event-date-month">Sun</span>
+            </div>
+          </div>
+          <div class="event-card-body">
+            <h3 class="event-card-title">Monthly Family Potluck</h3>
+            <div class="event-meta">
+              <div class="event-meta-item">🕒 Following 10:00 AM Service</div>
+              <div class="event-meta-item">📍 Fellowship Hall</div>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 1.25rem;">
+              Bring a dish to share and enjoy food and fellowship with our church family and guests.
+            </p>
+            <button class="btn btn-navy btn-sm btn-event-rsvp" data-event-title="Monthly Family Potluck">RSVP to Attend</button>
+          </div>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="event-card">
+          <div class="event-card-header">
+            <img src="assets/images/worship_choir.jpg" alt="Old Fashioned Hymn Sing" class="event-card-img">
+            <div class="event-date-badge">
+              <span class="event-date-day">Last</span>
+              <span class="event-date-month">Sun</span>
+            </div>
+          </div>
+          <div class="event-card-body">
+            <h3 class="event-card-title">Evening Hymn Sing & Testimonies</h3>
+            <div class="event-meta">
+              <div class="event-meta-item">🕒 Sunday at 6:00 PM</div>
+              <div class="event-meta-item">📍 Church Sanctuary</div>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 1.25rem;">
+              An uplifting evening of favorite traditional hymns, choir specials, and praise reports.
+            </p>
+            <button class="btn btn-navy btn-sm btn-event-rsvp" data-event-title="Evening Hymn Sing">RSVP to Attend</button>
+          </div>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="event-card">
+          <div class="event-card-header">
+            <img src="assets/images/sunday_school_class.jpg" alt="Youth Rally" class="event-card-img">
+            <div class="event-date-badge">
+              <span class="event-date-day">Fall</span>
+              <span class="event-date-month">2026</span>
+            </div>
+          </div>
+          <div class="event-card-body">
+            <h3 class="event-card-title">Annual Fall Bible Conference</h3>
+            <div class="event-meta">
+              <div class="event-meta-item">🕒 Friday - Sunday Services</div>
+              <div class="event-meta-item">📍 Main Sanctuary</div>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 1.25rem;">
+              Three powerful days of revival preaching, guest speakers, and special gospel music.
+            </p>
+            <button class="btn btn-navy btn-sm btn-event-rsvp" data-event-title="Fall Bible Conference">RSVP to Attend</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-title">Faith <span>Baptist</span> Church</div>
+          <p class="footer-text">
+            A Bible-believing, Gospel-driven local church in Fostoria, Ohio anchored in the King James Bible.
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links-list">
+            <li><a href="index.html" class="footer-link">Home</a></li>
+            <li><a href="about.html" class="footer-link">About Us</a></li>
+            <li><a href="ministries.html" class="footer-link">Ministries</a></li>
+            <li><a href="sermons.html" class="footer-link">Sermons</a></li>
+            <li><a href="events.html" class="footer-link">Events</a></li>
+            <li><a href="give.html" class="footer-link">Give Online</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-col-title">Service Times</h4>
+          <div class="footer-schedule-row"><span class="footer-schedule-day">Sunday School</span><span class="footer-schedule-time">9:00 AM</span></div>
+          <div class="footer-schedule-row"><span class="footer-schedule-day">Morning Worship</span><span class="footer-schedule-time">10:00 AM</span></div>
+          <div class="footer-schedule-row"><span class="footer-schedule-day">Sunday Evening</span><span class="footer-schedule-time">6:00 PM</span></div>
+          <div class="footer-schedule-row"><span class="footer-schedule-day">Wednesday Prayer</span><span class="footer-schedule-time">7:00 PM</span></div>
+        </div>
+        <div>
+          <h4 class="footer-col-title">Church Office</h4>
+          <div class="footer-contact-item">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span>11275 W. Twp. Rd. 116<br>Fostoria, Ohio 44830</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            <a href="tel:4193482171">(419) 348-2171</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <div class="footer-bottom-inner">
+          <div>© <span class="current-year">2026</span> Faith Baptist Church. All Rights Reserved.</div>
+          <div class="usa-faith-stamp">Bible Believing • Gospel Driven • USA</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/events-calendar.js"></script>
+</body>
+</html>
