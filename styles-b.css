@@ -19,13 +19,13 @@ h1,h2,h3{letter-spacing:-.01em}
 .eyebrow{color:var(--coral);font-weight:800;letter-spacing:.14em;font-size:.8rem;text-transform:uppercase}
 .panel h1{font-size:clamp(1.9rem,3.6vw,3rem);margin:.4rem 0}
 .sub{color:#d8dade;margin-bottom:1.4rem}
-.times-panel{background:#33363a;border-left:4px solid var(--coral);padding:1.1rem 1.3rem;margin-bottom:1.6rem}
+.times-panel{background:#33363a;border-top:2px solid var(--coral);padding:1.1rem 1.3rem;margin-bottom:1.6rem}
 .times-panel p{margin:.25rem 0}
 .btn{display:inline-block;padding:.85rem 1.7rem;font-weight:800;text-decoration:none;border-radius:4px}
 .btn-primary{background:var(--coral);color:#fff}
 .btn-call{background:#fff;color:var(--charcoal);border:2px solid var(--coral)}
 .tasks{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;padding:3rem 4vw;max-width:1200px;margin:0 auto}
-.tasks .card{background:#fff;border-radius:6px;padding:1.4rem;box-shadow:0 1px 5px rgba(0,0,0,.07);border-top:4px solid var(--coral)}
+.tasks .card{background:#fff;border-radius:6px;padding:1.4rem;box-shadow:0 1px 5px rgba(0,0,0,.07)}
 .min-list{background:#fff;padding:3rem 4vw}
 .min-list ul{list-style:none;max-width:760px;margin:1rem auto 0}
 .min-list li{padding:1rem;border-bottom:1px solid #e8e6e1}

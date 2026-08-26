@@ -1,0 +1,191 @@
+[
+  {
+    "variant": "a",
+    "url": "https://faithchapelchurch-a.sololink.cloud/",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "deviceScaleFactor": 1,
+    "mobile": false,
+    "fullPage": true,
+    "scrollY": 0,
+    "document": {
+      "scrollY": 0,
+      "scrollHeight": 3878,
+      "clientWidth": 1440,
+      "clientHeight": 1000,
+      "horizontalOverflow": false
+    },
+    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/a-desktop.png",
+    "capturedAt": "2026-08-26T11:42:09.956Z"
+  },
+  {
+    "variant": "a",
+    "url": "https://faithchapelchurch-a.sololink.cloud/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "deviceScaleFactor": 2,
+    "mobile": true,
+    "fullPage": true,
+    "scrollY": 0,
+    "document": {
+      "scrollY": 0,
+      "scrollHeight": 4720,
+      "clientWidth": 390,
+      "clientHeight": 844,
+      "horizontalOverflow": false
+    },
+    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/a-mobile-390x844-dpr2.png",
+    "capturedAt": "2026-08-26T11:42:12.197Z"
+  },
+  {
+    "variant": "a",
+    "url": "https://faithchapelchurch-a.sololink.cloud/",
+    "viewport": {
+      "width": 430,
+      "height": 932
+    },
+    "deviceScaleFactor": 2,
+    "mobile": true,
+    "fullPage": false,
+    "scrollY": 0,
+    "document": {
+      "scrollY": 0,
+      "scrollHeight": 4602,
+      "clientWidth": 430,
+      "clientHeight": 932,
+      "horizontalOverflow": false
+    },
+    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/a-mobile-430x932-live-check.png",
+    "capturedAt": "2026-08-26T11:42:13.936Z"
+  },
+  {
+    "variant": "b",
+    "url": "https://faithchapelchurch-b.sololink.cloud/",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "deviceScaleFactor": 1,
+    "mobile": false,
+    "fullPage": true,
+    "scrollY": 0,
+    "document": {
+      "scrollY": 0,
+      "scrollHeight": 2271,
+      "clientWidth": 1440,
+      "clientHeight": 1000,
+      "horizontalOverflow": false
+    },
+    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/b-desktop.png",
+    "capturedAt": "2026-08-26T11:42:15.491Z"
+  },
+  {
+    "variant": "b",
+    "url": "https://faithchapelchurch-b.sololink.cloud/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "deviceScaleFactor": 2,
+    "mobile": true,
+    "fullPage": true,
+    "scrollY": 0,
+    "document": {
+      "scrollY": 0,
+      "scrollHeight": 3187,
+      "clientWidth": 390,
+      "clientHeight": 844,
+      "horizontalOverflow": false
+    },
+    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/b-mobile-390x844-dpr2.png",
+    "capturedAt": "2026-08-26T11:42:17.036Z"
+  },
+  {
+    "variant": "b",
+    "url": "https://faithchapelchurch-b.sololink.cloud/",
+    "viewport": {
+      "width": 430,
+      "height": 932
+    },
+    "deviceScaleFactor": 2,
+    "mobile": true,
+    "fullPage": false,
+    "scrollY": 0,
+    "document": {
+      "scrollY": 0,
+      "scrollHeight": 3070,
+      "clientWidth": 430,
+      "clientHeight": 932,
+      "horizontalOverflow": false
+    },
+    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/b-mobile-430x932-live-check.png",
+    "capturedAt": "2026-08-26T11:42:18.468Z"
+  },
+  {
+    "variant": "c",
+    "url": "https://faithchapelchurch-c.sololink.cloud/",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "deviceScaleFactor": 1,
+    "mobile": false,
+    "fullPage": true,
+    "scrollY": 0,
+    "document": {
+      "scrollY": 0,
+      "scrollHeight": 3987,
+      "clientWidth": 1440,
+      "clientHeight": 1000,
+      "horizontalOverflow": false
+    },
+    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/c-desktop.png",
+    "capturedAt": "2026-08-26T11:42:20.260Z"
+  },
+  {
+    "variant": "c",
+    "url": "https://faithchapelchurch-c.sololink.cloud/",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "deviceScaleFactor": 2,
+    "mobile": true,
+    "fullPage": true,
+    "scrollY": 0,
+    "document": {
+      "scrollY": 0,
+      "scrollHeight": 4520,
+      "clientWidth": 390,
+      "clientHeight": 844,
+      "horizontalOverflow": false
+    },
+    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/c-mobile-390x844-dpr2.png",
+    "capturedAt": "2026-08-26T11:42:22.253Z"
+  },
+  {
+    "variant": "c",
+    "url": "https://faithchapelchurch-c.sololink.cloud/",
+    "viewport": {
+      "width": 430,
+      "height": 932
+    },
+    "deviceScaleFactor": 2,
+    "mobile": true,
+    "fullPage": false,
+    "scrollY": 0,
+    "document": {
+      "scrollY": 0,
+      "scrollHeight": 4743,
+      "clientWidth": 430,
+      "clientHeight": 932,
+      "horizontalOverflow": false
+    },
+    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/c-mobile-430x932-live-check.png",
+    "capturedAt": "2026-08-26T11:42:23.592Z"
+  }
+]
