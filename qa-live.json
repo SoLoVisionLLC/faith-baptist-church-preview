@@ -1,4 +1,6 @@
 {
+  "status": "historical_pre_identity_correction",
+  "note": "Preserved historical live checks only; DEV must redeploy and recapture before treating live QA as current.",
   "timestamp": "2026-08-26T11:40:00.159821+00:00",
   "deployed_sha": "c79987966683f7051c0e472661e547dd50be7700",
   "variants": {
@@ -9,48 +11,42 @@
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Faith Chapel Church \u2014 Fostoria, Ohio"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-a.sololink.cloud/visit/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Plan Your Visit \u2014 Faith Chapel Church"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-a.sololink.cloud/beliefs/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "What We Believe \u2014 Faith Chapel Church"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-a.sololink.cloud/ministries/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Ministries \u2014 Faith Chapel Church"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-a.sololink.cloud/events/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Events & Announcements \u2014 Faith Chapel Church"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-a.sololink.cloud/contact/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Contact \u2014 Faith Chapel Church"
+          "maps": true
         }
       ],
       "home_html_sha256": "1406923c9c52e6bf12a4011474b2911d226afe0c0ba8bd097ff4c5b158ea787c"
@@ -62,48 +58,42 @@
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Faith Chapel Church \u2014 Sunday Starts Here | Fostoria, OH"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-b.sololink.cloud/visit/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Plan Your Visit \u2014 Faith Chapel Church"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-b.sololink.cloud/beliefs/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "What We Believe \u2014 Faith Chapel Church"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-b.sololink.cloud/ministries/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Ministries \u2014 Faith Chapel Church"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-b.sololink.cloud/events/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Events & Announcements \u2014 Faith Chapel Church"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-b.sololink.cloud/contact/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Contact \u2014 Faith Chapel Church"
+          "maps": true
         }
       ],
       "home_html_sha256": "7f5b80e3f428d270bcc2ce2863853a0b9c15a3f9934b36023aabfead24baa828"
@@ -115,48 +105,42 @@
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Faith Chapel Church \u2014 Rooted in the Word"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-c.sololink.cloud/visit/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Plan Your Visit \u2014 Faith Chapel Church"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-c.sololink.cloud/beliefs/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "What We Believe \u2014 Faith Chapel Church"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-c.sololink.cloud/ministries/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Ministries \u2014 Faith Chapel Church"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-c.sololink.cloud/events/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Events & Announcements \u2014 Faith Chapel Church"
+          "maps": true
         },
         {
           "url": "https://faithchapelchurch-c.sololink.cloud/contact/",
           "status": 200,
           "noindex": true,
           "tel": true,
-          "maps": true,
-          "title": "Contact \u2014 Faith Chapel Church"
+          "maps": true
         }
       ],
       "home_html_sha256": "9e3d4086fc0cc16db1431e288647069904882f4cbb15aadaa13d24ac00d2999c"

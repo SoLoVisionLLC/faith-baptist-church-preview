@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build Faith Chapel Church preview site: variants A/B/C, static HTML, 6 routes each."""
+"""Build Faith Baptist Church preview site: variants A/B/C, static HTML, 6 routes each."""
 import os, shutil
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -13,7 +13,7 @@ ROUTES = {
     '/contact': 'contact/index.html',
 }
 
-NAME = 'Faith Chapel Church'
+NAME = 'Faith Baptist Church'
 ADDRESS = '11275 W. Township Rd. 116, Fostoria, OH 44830'
 PHONE_DISPLAY = '(419) 348-2171'
 PHONE_TEL = '+14193482171'
@@ -22,10 +22,10 @@ TAGLINE = "Bible believing. Gospel driven. Growing together in God&rsquo;s Word.
 POSITIONING = 'Rooted in the Word. Centered on the Gospel. A church family for Fostoria.'
 
 IMG = {
-    'front': ('/assets/front.png', 'Faith Chapel Church exterior with white steeple and cross'),
-    'land':  ('/assets/church1.jpg', 'Faith Chapel Church building and grounds, wide exterior view'),
-    'close': ('/assets/church2.jpg', 'Inside the sanctuary of Faith Chapel Church, close view of pulpit area'),
-    'wide':  ('/assets/church3.jpg', 'Wide view of the Faith Chapel Church sanctuary'),
+    'front': ('/assets/front.png', 'Faith Baptist Church exterior with white steeple and cross'),
+    'land':  ('/assets/church1.jpg', 'Faith Baptist Church building and grounds, wide exterior view'),
+    'close': ('/assets/church2.jpg', 'Inside the sanctuary of Faith Baptist Church, close view of pulpit area'),
+    'wide':  ('/assets/church3.jpg', 'Wide view of the Faith Baptist Church sanctuary'),
 }
 
 NAV_LINKS = [
@@ -50,14 +50,14 @@ def nav(active):
     links = ''
     for h, t in NAV_LINKS:
         cls = ' class="active" aria-current="page"' if h == active else ''
-        href = 'index.html' if h == '/' else h + '/'
+        href = '/' if h == '/' else h + '/'
         links += f'<a href="{href}"{cls}>{t}</a>'
     return f'''
 <header class="site-header">
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="brand">
     <span class="mark" aria-hidden="true">&#10013;</span>
-    <span class="word">Faith Chapel <strong>Church</strong></span>
+    <span class="word">Faith Baptist <strong>Church</strong></span>
   </div>
   <nav class="nav" aria-label="Main">{links}</nav>
 </header>'''
@@ -113,7 +113,7 @@ CTA_TIMES = '<a class="btn btn-ghost" href="/events/">View Service Times</a>'
 WELCOME_A = '''
 <section class="welcome">
 <h2>Welcome home</h2>
-<p>We are a Bible believing, gospel driven church family in Fostoria, Ohio &mdash; growing together in God&rsquo;s Word. Whether you have never set foot in a church or you are looking for a place to plug back in, you are welcome at Faith Chapel.</p>
+<p>We are a Bible believing, gospel driven church family in Fostoria, Ohio &mdash; growing together in God&rsquo;s Word. Whether you have never set foot in a church or you are looking for a place to plug back in, you are welcome at Faith Baptist Church.</p>
 </section>'''
 
 PATHWAYS_A = '''
@@ -159,7 +159,7 @@ DIRECTIONS_CLOSE = '''
 A_HOME = '''
 <section class="hero">
 <img src="/assets/church1.jpg" alt="''' + IMG['land'][1] + '''">
-<div class="hero-text"><h1>Faith Chapel Church</h1><p>''' + TAGLINE + '''</p>
+<div class="hero-text"><h1>Faith Baptist Church</h1><p>''' + TAGLINE + '''</p>
 <p>''' + CTA_PLAN + ' ' + CTA_TIMES + '''</p></div>
 </section>
 <section class="strip" aria-label="Service times">
@@ -189,7 +189,7 @@ A_BELIEFS = '''
 <img class="feature" src="/assets/church2.jpg" alt="''' + IMG['close'][1] + '''">'''
 
 A_MINISTRIES = '''
-<section><h1>Ministries</h1><p>There is a place for every member of your family at Faith Chapel Church.</p></section>
+<section><h1>Ministries</h1><p>There is a place for every member of your family at Faith Baptist Church.</p></section>
 <section class="cards"><div class="card"><h2>Adults &amp; Teens Sunday School</h2><p class="time">9:00 AM</p><p>Open the Word together before worship.</p></div>
 <div class="card"><h2>Morning Worship</h2><p class="time">10:00 AM</p><p>The whole church gathers to sing, pray, and hear the preaching of God&rsquo;s Word.</p></div>
 <div class="card"><h2>Young Children&rsquo;s Sunday School</h2><p class="time">10:00 AM</p><p>Age-appropriate teaching during the main service.</p></div>
@@ -219,7 +219,7 @@ B_HOME = '''
 <div class="photo"><img src="/assets/front.png" alt="''' + IMG['front'][1] + '''"></div>
 <div class="panel">
 <p class="eyebrow">SUNDAY STARTS HERE</p>
-<h1>Faith Chapel Church</h1>
+<h1>Faith Baptist Church</h1>
 <p class="sub">''' + TAGLINE + '''</p>
 <div class="times-panel"><p class="eyebrow">THIS SUNDAY</p>
 <p><strong>Sunday School</strong> 9:00 AM</p><p><strong>Morning Worship</strong> 10:00 AM</p><p><strong>Evening Service</strong> 6:00 PM</p><p><strong>Wednesday Prayer &amp; Bible Study</strong> 7:00 PM</p></div>
@@ -268,7 +268,7 @@ B_BELIEFS = '''
 <p>Join us Sunday at 10:00 AM.</p></section>'''
 
 B_MINISTRIES = '''
-<section><h1>Ministries</h1><p>Six weekly ways to grow at Faith Chapel Church.</p></section>
+<section><h1>Ministries</h1><p>Six weekly ways to grow at Faith Baptist Church.</p></section>
 <section class="two-col">
 <ul>
 <li id="adults-teens"><strong>Adults &amp; Teens Sunday School</strong> &mdash; Sundays 9:00 AM</li>
@@ -306,7 +306,7 @@ C_HOME = '''
 </section>
 <section class="timetable">
 <h2>Service timetable</h2>
-<table><caption>Every week at Faith Chapel Church</caption><tbody>
+<table><caption>Every week at Faith Baptist Church</caption><tbody>
 <tr><th scope="row">Sunday</th><td class="num">9:00</td><td>Sunday School &mdash; adults and teens</td></tr>
 <tr><th scope="row">Sunday</th><td class="num">10:00</td><td>Main Service &middot; young children&rsquo;s Sunday School &middot; nursery for tots</td></tr>
 <tr><th scope="row">Sunday</th><td class="num">6:00</td><td>Evening Service</td></tr>
@@ -388,28 +388,28 @@ C_CONTACT = '''
 
 PAGES = {
     'a': [
-        ('', 'Faith Chapel Church — Fostoria, Ohio', 'Bible believing, gospel driven church family in Fostoria, Ohio. Sunday services at 9:00 and 10:00 AM.', A_HOME),
-        ('visit', 'Plan Your Visit — Faith Chapel Church', 'Service times, directions, nursery info, and what to expect on your first visit to Faith Chapel Church.', A_VISIT),
-        ('beliefs', 'What We Believe — Faith Chapel Church', 'Bible believing. Gospel driven. Teaching from the KJV Bible.', A_BELIEFS),
-        ('ministries', 'Ministries — Faith Chapel Church', 'Sunday School, children’s classes, nursery, and midweek prayer and Bible study.', A_MINISTRIES),
-        ('events', 'Events & Announcements — Faith Chapel Church', 'Our weekly schedule of gatherings at Faith Chapel Church.', A_EVENTS),
-        ('contact', 'Contact — Faith Chapel Church', 'Call Faith Chapel Church at (419) 348-2171 or visit us in Fostoria, Ohio.', A_CONTACT),
+        ('', 'Faith Baptist Church — Fostoria, Ohio', 'Bible believing, gospel driven church family in Fostoria, Ohio. Sunday services at 9:00 and 10:00 AM.', A_HOME),
+        ('visit', 'Plan Your Visit — Faith Baptist Church', 'Service times, directions, nursery info, and what to expect on your first visit to Faith Baptist Church.', A_VISIT),
+        ('beliefs', 'What We Believe — Faith Baptist Church', 'Bible believing. Gospel driven. Teaching from the KJV Bible.', A_BELIEFS),
+        ('ministries', 'Ministries — Faith Baptist Church', 'Sunday School, children’s classes, nursery, and midweek prayer and Bible study.', A_MINISTRIES),
+        ('events', 'Events & Announcements — Faith Baptist Church', 'Our weekly schedule of gatherings at Faith Baptist Church.', A_EVENTS),
+        ('contact', 'Contact — Faith Baptist Church', 'Call Faith Baptist Church at (419) 348-2171 or visit us in Fostoria, Ohio.', A_CONTACT),
     ],
     'b': [
-        ('', 'Faith Chapel Church — Sunday Starts Here | Fostoria, OH', 'Sunday School 9:00 AM, worship 10:00 AM, evening service 6:00 PM. Plan your visit to Faith Chapel Church in Fostoria, Ohio.', B_HOME),
-        ('visit', 'Plan Your Visit — Faith Chapel Church', 'Your first-Sunday checklist: times, kids, location, and what to expect.', B_VISIT),
-        ('beliefs', 'What We Believe — Faith Chapel Church', 'Bible believing. Gospel driven. KJV foundation.', B_BELIEFS),
-        ('ministries', 'Ministries — Faith Chapel Church', 'Six weekly ministries for every age at Faith Chapel Church.', B_MINISTRIES),
-        ('events', 'Events & Announcements — Faith Chapel Church', 'The weekly rhythm of Faith Chapel Church gatherings.', B_EVENTS),
-        ('contact', 'Contact — Faith Chapel Church', 'Tap to call Faith Chapel Church: (419) 348-2171.', B_CONTACT),
+        ('', 'Faith Baptist Church — Sunday Starts Here | Fostoria, OH', 'Sunday School 9:00 AM, worship 10:00 AM, evening service 6:00 PM. Plan your visit to Faith Baptist Church in Fostoria, Ohio.', B_HOME),
+        ('visit', 'Plan Your Visit — Faith Baptist Church', 'Your first-Sunday checklist: times, kids, location, and what to expect.', B_VISIT),
+        ('beliefs', 'What We Believe — Faith Baptist Church', 'Bible believing. Gospel driven. KJV foundation.', B_BELIEFS),
+        ('ministries', 'Ministries — Faith Baptist Church', 'Six weekly ministries for every age at Faith Baptist Church.', B_MINISTRIES),
+        ('events', 'Events & Announcements — Faith Baptist Church', 'The weekly rhythm of Faith Baptist Church gatherings.', B_EVENTS),
+        ('contact', 'Contact — Faith Baptist Church', 'Tap to call Faith Baptist Church: (419) 348-2171.', B_CONTACT),
     ],
     'c': [
-        ('', 'Faith Chapel Church — Rooted in the Word', 'Rooted in the Word. Centered on the Gospel. A church family for Fostoria, Ohio.', C_HOME),
-        ('visit', 'Plan Your Visit — Faith Chapel Church', 'When to come, where we are, and how your family fits in.', C_VISIT),
-        ('beliefs', 'What We Believe — Faith Chapel Church', 'Rooted in the Word. Centered on the Gospel. Taught from the KJV Bible.', C_BELIEFS),
-        ('ministries', 'Ministries — Faith Chapel Church', 'A measured weekly rhythm of ministry at Faith Chapel Church.', C_MINISTRIES),
-        ('events', 'Events & Announcements — Faith Chapel Church', 'Every week at Faith Chapel Church, in one timetable.', C_EVENTS),
-        ('contact', 'Contact — Faith Chapel Church', 'Phone, address, and directions to Faith Chapel Church.', C_CONTACT),
+        ('', 'Faith Baptist Church — Rooted in the Word', 'Rooted in the Word. Centered on the Gospel. A church family for Fostoria, Ohio.', C_HOME),
+        ('visit', 'Plan Your Visit — Faith Baptist Church', 'When to come, where we are, and how your family fits in.', C_VISIT),
+        ('beliefs', 'What We Believe — Faith Baptist Church', 'Rooted in the Word. Centered on the Gospel. Taught from the KJV Bible.', C_BELIEFS),
+        ('ministries', 'Ministries — Faith Baptist Church', 'A measured weekly rhythm of ministry at Faith Baptist Church.', C_MINISTRIES),
+        ('events', 'Events & Announcements — Faith Baptist Church', 'Every week at Faith Baptist Church, in one timetable.', C_EVENTS),
+        ('contact', 'Contact — Faith Baptist Church', 'Phone, address, and directions to Faith Baptist Church.', C_CONTACT),
     ],
 }
 
