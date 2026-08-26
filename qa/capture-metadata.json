@@ -18,7 +18,7 @@
       "horizontalOverflow": false
     },
     "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/a-desktop.png",
-    "capturedAt": "2026-08-26T11:42:09.956Z"
+    "capturedAt": "2026-08-26T11:46:47.348Z"
   },
   {
     "variant": "a",
@@ -39,7 +39,7 @@
       "horizontalOverflow": false
     },
     "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/a-mobile-390x844-dpr2.png",
-    "capturedAt": "2026-08-26T11:42:12.197Z"
+    "capturedAt": "2026-08-26T11:46:49.675Z"
   },
   {
     "variant": "a",
@@ -60,7 +60,7 @@
       "horizontalOverflow": false
     },
     "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/a-mobile-430x932-live-check.png",
-    "capturedAt": "2026-08-26T11:42:13.936Z"
+    "capturedAt": "2026-08-26T11:46:52.132Z"
   },
   {
     "variant": "b",
@@ -75,13 +75,13 @@
     "scrollY": 0,
     "document": {
       "scrollY": 0,
-      "scrollHeight": 2271,
+      "scrollHeight": 2267,
       "clientWidth": 1440,
       "clientHeight": 1000,
       "horizontalOverflow": false
     },
     "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/b-desktop.png",
-    "capturedAt": "2026-08-26T11:42:15.491Z"
+    "capturedAt": "2026-08-26T11:46:53.651Z"
   },
   {
     "variant": "b",
@@ -96,13 +96,13 @@
     "scrollY": 0,
     "document": {
       "scrollY": 0,
-      "scrollHeight": 3187,
+      "scrollHeight": 3173,
       "clientWidth": 390,
       "clientHeight": 844,
       "horizontalOverflow": false
     },
     "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/b-mobile-390x844-dpr2.png",
-    "capturedAt": "2026-08-26T11:42:17.036Z"
+    "capturedAt": "2026-08-26T11:46:55.118Z"
   },
   {
     "variant": "b",
@@ -117,13 +117,13 @@
     "scrollY": 0,
     "document": {
       "scrollY": 0,
-      "scrollHeight": 3070,
+      "scrollHeight": 3056,
       "clientWidth": 430,
       "clientHeight": 932,
       "horizontalOverflow": false
     },
     "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/b-mobile-430x932-live-check.png",
-    "capturedAt": "2026-08-26T11:42:18.468Z"
+    "capturedAt": "2026-08-26T11:46:56.565Z"
   },
   {
     "variant": "c",
@@ -144,7 +144,7 @@
       "horizontalOverflow": false
     },
     "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/c-desktop.png",
-    "capturedAt": "2026-08-26T11:42:20.260Z"
+    "capturedAt": "2026-08-26T11:46:58.346Z"
   },
   {
     "variant": "c",
@@ -165,7 +165,7 @@
       "horizontalOverflow": false
     },
     "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/c-mobile-390x844-dpr2.png",
-    "capturedAt": "2026-08-26T11:42:22.253Z"
+    "capturedAt": "2026-08-26T11:47:00.354Z"
   },
   {
     "variant": "c",
@@ -186,6 +186,6 @@
       "horizontalOverflow": false
     },
     "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/c-mobile-430x932-live-check.png",
-    "capturedAt": "2026-08-26T11:42:23.592Z"
+    "capturedAt": "2026-08-26T11:47:01.750Z"
   }
 ]
