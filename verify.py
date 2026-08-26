@@ -36,7 +36,17 @@ PHONE_DISPLAY = "(419) 348-2171"
 PHONE_TEL = "+14193482171"
 A_ADDRESS = "11275 W. Twp. Rd. 116, Fostoria, OH 44830"
 A_PHONE_DISPLAY = "419-348-2171"
+A_MAPS_DIR = "https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830"
 A_IDENTITY = "Bible believing. Gospel driven. Growing together in God's Word."
+A_SERVICE_TIMES_PATHWAY_COPY = (
+    "Sunday School for adults and teens begins at 9:00 AM. The main service and young "
+    "children's Sunday School begin at 10:00 AM. Sunday evening service begins at 6:00 PM. "
+    "Wednesday prayer and Bible study begins at 7:00 PM."
+)
+A_CHILDREN_NURSERY_PATHWAY_COPY = (
+    "Young children's Sunday School begins at 10:00 AM. A nursery for tots is available "
+    "during Sunday programming."
+)
 SUPERSEDED_CHURCH_WORD = "Cha" + "pel"
 SUPERSEDED_STREET_NAME = "Syca" + "more"
 FORBIDDEN_TEXT = (
@@ -102,9 +112,11 @@ A_REQUIRED_MAIN_TEXT = {
         "Prayer and Bible study 7:00 PM",
         A_ADDRESS,
         A_PHONE_DISPLAY,
-        "Plan Your Visit",
-        "View Service Times",
-        "Call the Church",
+        "Service Times",
+        A_SERVICE_TIMES_PATHWAY_COPY,
+        "Children and Nursery",
+        A_CHILDREN_NURSERY_PATHWAY_COPY,
+        "Directions",
     ),
     "/visit/": (
         "Plan Your Visit",
@@ -617,6 +629,23 @@ def verify_a_pages(
         if home.class_counts["ministry-row"] != 4:
             errors.append("Variant A home does not contain exactly four ministry rows")
         home_html = home_path.read_text(encoding="utf-8")
+        pathway_contract = re.findall(
+            r'<div class="pathway"><h3>([^<]+)</h3>.*?'
+            r'<a href="([^"]+)"(?: rel="([^"]+)")?>',
+            home_html,
+            flags=re.DOTALL,
+        )
+        expected_pathway_contract = [
+            ("Service Times", "/events/", ""),
+            ("Children and Nursery", "/visit/", ""),
+            ("Directions", A_MAPS_DIR, "noopener"),
+        ]
+        if pathway_contract != expected_pathway_contract:
+            errors.append(
+                "Variant A home pathways must be Service Times -> /events/, "
+                "Children and Nursery -> /visit/, and Directions -> exact Maps target "
+                "with rel=noopener"
+            )
         hero_start = home_html.find('<section class="home-hero"')
         hero_end = home_html.find("</section>", hero_start)
         after_hero = home_html[hero_end + len("</section>") :].lstrip()
@@ -657,6 +686,7 @@ def main() -> int:
         PHONE_TEL,
         A_ADDRESS,
         A_PHONE_DISPLAY,
+        A_MAPS_DIR,
         A_IDENTITY,
         *(item["alt"] for item in A_MEDIA),
     ):

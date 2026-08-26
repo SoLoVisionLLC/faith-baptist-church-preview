@@ -268,9 +268,9 @@ A_HOME = f'''
 </section>
 <section class="pathways page-width" aria-labelledby="pathways-title">
   <h2 id="pathways-title">Start here</h2>
-  <div class="pathway"><h3>Plan Your Visit</h3><p>See the full schedule, address, and information for children and nursery.</p><a href="/visit/">Visit information</a></div>
-  <div class="pathway"><h3>View Service Times</h3><p>Sunday gatherings begin at 9:00 AM, 10:00 AM, and 6:00 PM. Wednesday prayer and Bible study begins at 7:00 PM.</p><a href="/events/">Weekly schedule</a></div>
-  <div class="pathway"><h3>Call the Church</h3><p><a href="tel:{PHONE_TEL}">{A_PHONE_DISPLAY}</a></p></div>
+  <div class="pathway"><h3>Service Times</h3><p>Sunday School for adults and teens begins at 9:00 AM. The main service and young children's Sunday School begin at 10:00 AM. Sunday evening service begins at 6:00 PM. Wednesday prayer and Bible study begins at 7:00 PM.</p><a href="/events/">Weekly schedule</a></div>
+  <div class="pathway"><h3>Children and Nursery</h3><p>Young children's Sunday School begins at 10:00 AM. A nursery for tots is available during Sunday programming.</p><a href="/visit/">Visit information</a></div>
+  <div class="pathway"><h3>Directions</h3><address>{A_ADDRESS}</address><a href="{A_MAPS_DIR}" rel="noopener">Get directions</a></div>
 </section>
 <section class="beliefs-split page-width" aria-labelledby="beliefs-title">
   {a_image('close', 'sanctuary-close')}
