@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "variant": "A",
+  "scope": "Plain Welcome",
+  "authority": {
+    "accepted_base_commit": "ee3623e41b6647b7380c987421f4a2ecb2057749",
+    "brief": "verified Quill five-regime pilot",
+    "identity_line": "Bible believing. Gospel driven. Growing together in God's Word."
+  },
+  "design_regime": {
+    "id": "A",
+    "design_skill_used": false,
+    "design_lookup_used": false,
+    "design_generator_used": false,
+    "design_token_system_imported": false,
+    "forbidden_inputs_used": []
+  },
+  "isolation": {
+    "changed_variant": "A",
+    "generated_variants_b_c_policy": "byte-identical to accepted base commit",
+    "deployment_performed": false
+  },
+  "routes": [
+    "/",
+    "/visit/",
+    "/beliefs/",
+    "/ministries/",
+    "/events/",
+    "/contact/"
+  ],
+  "media": [
+    {
+      "file": "front.png",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_03bb9f01ae214a5fab9b14226879ee59/view?project=solosocialstudio",
+      "bundled_path": "variants/a/assets/front.png",
+      "original_dimensions": {
+        "width": 277,
+        "height": 600
+      },
+      "placements": [
+        "/visit/ exterior portrait"
+      ],
+      "alt": "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+      "sha256": "7b0bce3499ed9df95327af8a9693b70a2876a36be53810d91edf4685ffaa0f3f"
+    },
+    {
+      "file": "church1.jpg",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_a1df2d0ef4c3455cb97d6c24734c16bf/view?project=solosocialstudio",
+      "bundled_path": "variants/a/assets/church1.jpg",
+      "original_dimensions": {
+        "width": 600,
+        "height": 450
+      },
+      "placements": [
+        "/ exterior landscape hero",
+        "/contact/ exterior reference"
+      ],
+      "alt": "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.",
+      "sha256": "9abdb0fd06c69aa12ef11f4954afb50131ad133c5a3314a675c1a136577977f6"
+    },
+    {
+      "file": "church2.jpg",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_01e265a73d32472384612eda393c8ebb/view?project=solosocialstudio",
+      "bundled_path": "variants/a/assets/church2.jpg",
+      "original_dimensions": {
+        "width": 450,
+        "height": 600
+      },
+      "placements": [
+        "/ confirmed beliefs",
+        "/beliefs/ sanctuary close"
+      ],
+      "alt": "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.",
+      "sha256": "6725c18ecea252cd3ad842fae16844a0c1ff1a8f2a4a2a011853bc0a8b68bb92"
+    },
+    {
+      "file": "church3.jpg",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_a357ae8b004b4d0f816a9037f18bffae/view?project=solosocialstudio",
+      "bundled_path": "variants/a/assets/church3.jpg",
+      "original_dimensions": {
+        "width": 450,
+        "height": 600
+      },
+      "placements": [
+        "/ full-width sanctuary",
+        "/ministries/ full-width sanctuary"
+      ],
+      "alt": "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.",
+      "sha256": "75c7128197dd074613eec92fe233e04dff3539c5394f56696b4196a969969b3c"
+    }
+  ],
+  "contract_assertions": {
+    "noindex_nofollow_all_routes": true,
+    "one_h1_per_route": true,
+    "skip_link_and_semantic_landmarks": true,
+    "keyboard_visible_focus": true,
+    "native_disclosure_mobile_navigation": true,
+    "mobile_breakpoint_max_px": 767,
+    "mobile_minimum_control_px": 44,
+    "mobile_body_px": 16,
+    "mobile_hero_aspect_ratio": "4:3",
+    "reduced_motion_handling": true,
+    "factual_copy_gate": true,
+    "exact_media_alts": true
+  }
+}
