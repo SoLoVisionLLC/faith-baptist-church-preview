@@ -1,0 +1,54 @@
+/* Variant B — Sunday Starts Here (conversion-first split hero) */
+:root{--charcoal:#26282b;--coral:#b34632;--paper:#f6f5f2;--ink:#1e2023}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--paper);line-height:1.6;padding-bottom:64px}
+img{max-width:100%;display:block}
+h1,h2,h3{letter-spacing:-.01em}
+.skip-link{position:absolute;left:-9999px;background:var(--charcoal);color:#fff;padding:.5rem 1rem;z-index:99}
+.skip-link:focus{left:1rem;top:1rem}
+.site-header{position:sticky;top:0;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:.8rem 4vw;box-shadow:0 1px 6px rgba(0,0,0,.08);z-index:50}
+.brand .mark{color:var(--coral);font-size:1.5rem;margin-right:.4rem}
+.word{font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:1.05rem}
+.nav a{margin-left:1.2rem;text-decoration:none;color:var(--ink);font-weight:600;padding:.6rem .1rem}
+.nav a.active,.nav a:hover{color:var(--coral)}
+.topbar{background:var(--charcoal);color:#fff;text-align:right;padding:.45rem 4vw;font-weight:700}
+.topbar a{color:#fff;text-decoration:none}
+.split-hero{display:grid;grid-template-columns:1fr 1fr;min-height:78vh}
+.split-hero .photo img{height:78vh;width:100%;object-fit:cover}
+.panel{background:var(--charcoal);color:#fff;padding:3rem 4vw;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{color:var(--coral);font-weight:800;letter-spacing:.14em;font-size:.8rem;text-transform:uppercase}
+.panel h1{font-size:clamp(1.9rem,3.6vw,3rem);margin:.4rem 0}
+.sub{color:#d8dade;margin-bottom:1.4rem}
+.times-panel{background:#33363a;border-left:4px solid var(--coral);padding:1.1rem 1.3rem;margin-bottom:1.6rem}
+.times-panel p{margin:.25rem 0}
+.btn{display:inline-block;padding:.85rem 1.7rem;font-weight:800;text-decoration:none;border-radius:4px}
+.btn-primary{background:var(--coral);color:#fff}
+.btn-call{background:#fff;color:var(--charcoal);border:2px solid var(--coral)}
+.tasks{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;padding:3rem 4vw;max-width:1200px;margin:0 auto}
+.tasks .card{background:#fff;border-radius:6px;padding:1.4rem;box-shadow:0 1px 5px rgba(0,0,0,.07);border-top:4px solid var(--coral)}
+.min-list{background:#fff;padding:3rem 4vw}
+.min-list ul{list-style:none;max-width:760px;margin:1rem auto 0}
+.min-list li{padding:1rem;border-bottom:1px solid #e8e6e1}
+.min-list a{color:var(--ink);text-decoration:none;font-weight:600}
+.min-list a:hover{color:var(--coral)}
+.loc-close{background:var(--charcoal);color:#fff;text-align:center;padding:3.5rem 6vw}
+.loc-close h2{font-size:1.5rem;max-width:640px;margin:0 auto 1rem}
+.addr{font-size:1.1rem;color:#d8dade}
+.loc-close .btn{margin:.4rem}
+section{padding:3rem 6vw;max-width:1100px;margin:0 auto}
+.feature{width:100%;max-height:58vh;object-fit:cover;margin:1rem 0;border-radius:4px}
+.schedule-table{width:100%;border-collapse:collapse;background:#fff;border-radius:6px;overflow:hidden}
+.schedule-table th,.schedule-table td{text-align:left;padding:.9rem 1rem;border-bottom:1px solid #eee}
+.schedule-table tbody tr:nth-child(odd){background:#fbfaf8}
+.dl dt,.dt{font-weight:700;margin-top:1rem}
+.tap-call a{display:block;text-align:center;background:var(--coral);color:#fff;font-size:1.7rem;font-weight:900;padding:1.4rem;border-radius:8px;text-decoration:none;margin-bottom:1.5rem}
+.site-footer{background:#17181a;color:#cfd2d6;padding:2.5rem 6vw;text-align:center}
+.site-footer a{color:#fff;margin:0 .7rem;text-decoration:none}
+.callbar{position:fixed;bottom:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:var(--coral);color:#fff;font-weight:800;text-decoration:none}
+@media(max-width:900px){.tasks{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){
+.split-hero{grid-template-columns:1fr}.split-hero .photo img{height:44vh}
+.nav{display:none}.times-panel p{padding:.55rem 0;border-bottom:1px solid #44474b}
+.tasks{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}

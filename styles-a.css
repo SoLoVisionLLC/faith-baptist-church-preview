@@ -1,0 +1,48 @@
+/* Variant A — The Open Door (trust-first editorial) */
+:root{--brick:#7a2e2a;--navy:#1d2a44;--cream:#faf7f2;--gold:#c9a227;--ink:#22252a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Source Sans 3",system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.65;padding-bottom:64px}
+h1,h2,h3,.word strong{font-family:"Source Serif 4",Georgia,serif;color:var(--navy)}
+img{max-width:100%;display:block}
+.skip-link{position:absolute;left:-9999px;background:var(--navy);color:#fff;padding:.5rem 1rem;z-index:99}
+.skip-link:focus{left:1rem;top:1rem}
+.site-header{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;padding:1rem 4vw;background:var(--cream);border-bottom:3px solid var(--gold);z-index:50}
+.brand .mark{font-size:1.6rem;color:var(--brick);margin-right:.4rem}
+.word{font-size:1.25rem;color:var(--navy)}
+.nav a{margin-left:1.4rem;text-decoration:none;color:var(--ink);padding:.6rem .2rem;font-weight:600}
+.nav a.active,.nav a:hover{color:var(--brick);border-bottom:2px solid var(--gold)}
+.hero{position:relative;min-height:70vh}
+.hero img{width:100%;height:70vh;object-fit:cover}
+.hero-text{position:absolute;inset:auto 0 0 0;background:linear-gradient(transparent,rgba(29,42,68,.85));color:#fff;padding:3rem 6vw 2.5rem}
+.hero-text h1{color:#fff;font-size:clamp(2rem,5vw,3.4rem)}
+.hero-text p:first-of-type{font-size:1.15rem;margin:.5rem 0 1.2rem}
+.strip{background:var(--navy);color:#fff}
+.strip ul{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;padding:1rem 4vw}
+section{padding:3rem 6vw;max-width:1100px;margin:0 auto}
+.btn{display:inline-block;padding:.8rem 1.6rem;border-radius:2px;text-decoration:none;font-weight:700;border:2px solid var(--brick)}
+.btn-primary{background:var(--brick);color:#fff}
+.btn-ghost{background:transparent;color:var(--brick)}
+.btn:hover{filter:brightness(1.08)}
+.steps,.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+.card{background:#fff;border-top:4px solid var(--brick);padding:1.5rem;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.time{font-family:"Source Serif 4",Georgia,serif;font-size:1.3rem;color:var(--brick);font-weight:700}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+.band img{height:46vh;width:100%;object-fit:cover}
+.band p{text-align:center;font-family:"Source Serif 4",Georgia,serif;font-size:1.4rem;color:var(--navy);padding:1.2rem 0}
+.directions-close{background:var(--navy);color:#fff;text-align:center;max-width:none}
+.directions-close h2{color:#fff}
+.tel{color:var(--gold);font-size:1.3rem;font-weight:700;text-decoration:none}
+.feature{width:100%;max-height:60vh;object-fit:cover;margin:1rem 0}
+.schedule-table{width:100%;border-collapse:collapse;background:#fff}
+.schedule-table th,.schedule-table td{text-align:left;padding:.9rem 1rem;border-bottom:1px solid #e5ded4}
+.schedule-table th{font-family:"Source Serif 4",Georgia,serif;color:var(--navy)}
+.quiet dl dt,.dl dt{font-weight:700;color:var(--navy);margin-top:1rem}
+.big-tel a{font-size:1.8rem;color:var(--brick);font-weight:800;text-decoration:none}
+.site-footer{background:var(--navy);color:#dfe4ee;padding:2.5rem 6vw;text-align:center}
+.site-footer a{color:#fff;margin:0 .7rem;text-decoration:none}
+.site-footer p{margin:.35rem 0}
+.callbar{position:fixed;bottom:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;background:var(--brick);color:#fff;font-weight:800;text-decoration:none;letter-spacing:.03em}
+@media(max-width:760px){.site-header{flex-direction:column}.nav{display:flex;flex-wrap:wrap;justify-content:center}.nav a{margin:.2rem .7rem}
+.split,.hero-text{grid-template-columns:1fr}.hero img{height:52vh}.strip ul{flex-direction:column;gap:.4rem;text-align:center}
+.card{width:100%}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
