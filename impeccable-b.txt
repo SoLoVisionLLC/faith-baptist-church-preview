@@ -1,0 +1,7 @@
+Revision 1 live detect: https://faithbaptistchurch-b.sololink.cloud/
+Command: PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome impeccable detect <url>
+Result: 3 anti-pattern findings (exit 2)
+- low-contrast: #b34632 on #26282b, 2.7:1
+- low-contrast: #b34632 on #33363a, 2.2:1
+- kicker-above-heading: “SUNDAY STARTS HERE” above the H1
+Identity/source/noindex/link/live-route checks pass separately; findings are preserved for reviewer visibility and were not falsely reported as zero.

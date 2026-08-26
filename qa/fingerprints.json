@@ -1,0 +1,37 @@
+{
+  "deployed_sha": "20896ee362254c15917031b18cd580ca5e40a797",
+  "home_html_sha256": {
+    "a": "e89ebe582fe8abbc32c7c89b0a229e4dd51c0603f187ba605e56693dc958b041",
+    "b": "f1816fde66b8324ff56a2621f99e343c3b91e708eecc4a62a727a780f36fa11c",
+    "c": "b4872556ba0ad58d2f0a3eefef937c33504141fc8a55728d420efd6c4e750144"
+  },
+  "styles_sha256": {
+    "a": "0d9d8144de85f5280ad4bcd295b80a066dc232746ce84077484afe7dbddf1f20",
+    "b": "d556b7d2ec0dacb9b5717d3580441e92a4ccc46d5d3424109454fe2253f224a3",
+    "c": "cb9a4be0fc4147098597cbd3adb2a1eae15905162e84868c894677c514b3bef3"
+  },
+  "asset_sha256": {
+    "a": {
+      "front.png": "7b0bce3499ed9df95327af8a9693b70a2876a36be53810d91edf4685ffaa0f3f",
+      "church1.jpg": "9abdb0fd06c69aa12ef11f4954afb50131ad133c5a3314a675c1a136577977f6",
+      "church2.jpg": "6725c18ecea252cd3ad842fae16844a0c1ff1a8f2a4a2a011853bc0a8b68bb92",
+      "church3.jpg": "75c7128197dd074613eec92fe233e04dff3539c5394f56696b4196a969969b3c"
+    },
+    "b": {
+      "front.png": "7b0bce3499ed9df95327af8a9693b70a2876a36be53810d91edf4685ffaa0f3f",
+      "church1.jpg": "9abdb0fd06c69aa12ef11f4954afb50131ad133c5a3314a675c1a136577977f6",
+      "church2.jpg": "6725c18ecea252cd3ad842fae16844a0c1ff1a8f2a4a2a011853bc0a8b68bb92",
+      "church3.jpg": "75c7128197dd074613eec92fe233e04dff3539c5394f56696b4196a969969b3c"
+    },
+    "c": {
+      "front.png": "7b0bce3499ed9df95327af8a9693b70a2876a36be53810d91edf4685ffaa0f3f",
+      "church1.jpg": "9abdb0fd06c69aa12ef11f4954afb50131ad133c5a3314a675c1a136577977f6",
+      "church2.jpg": "6725c18ecea252cd3ad842fae16844a0c1ff1a8f2a4a2a011853bc0a8b68bb92",
+      "church3.jpg": "75c7128197dd074613eec92fe233e04dff3539c5394f56696b4196a969969b3c"
+    }
+  },
+  "pairwise_uniqueness": {
+    "home_html": true,
+    "styles": true
+  }
+}

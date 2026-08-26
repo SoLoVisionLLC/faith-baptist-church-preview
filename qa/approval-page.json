@@ -1,6 +1,14 @@
 {
   "id": "71917caf-fe89-4730-bbcf-4b3c24ae85df",
   "url": "https://app.solorecall.com/files/editor/71917caf-fe89-4730-bbcf-4b3c24ae85df",
-  "post_status": 201,
-  "get_status": 200
+  "put_status": 200,
+  "get_status": 200,
+  "revision": 1,
+  "checks": {
+    "title": true,
+    "revision_receipt": true,
+    "new_urls": true,
+    "old_urls_absent": true,
+    "images": true
+  }
 }
