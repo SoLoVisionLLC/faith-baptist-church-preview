@@ -1,7 +1,7 @@
 [
   {
     "variant": "a",
-    "url": "https://faithchapelchurch-a.sololink.cloud/",
+    "url": "https://faithbaptistchurch-a.sololink.cloud/",
     "viewport": {
       "width": 1440,
       "height": 1000
@@ -17,12 +17,12 @@
       "clientHeight": 1000,
       "horizontalOverflow": false
     },
-    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/a-desktop.png",
-    "capturedAt": "2026-08-26T11:46:47.348Z"
+    "file": "/home/solo/.hermes/coding-worker/worktrees/run-20260826T083344-b2f17f71/qa/screenshots/a-desktop.png",
+    "capturedAt": "2026-08-26T12:47:05.857Z"
   },
   {
     "variant": "a",
-    "url": "https://faithchapelchurch-a.sololink.cloud/",
+    "url": "https://faithbaptistchurch-a.sololink.cloud/",
     "viewport": {
       "width": 390,
       "height": 844
@@ -38,12 +38,12 @@
       "clientHeight": 844,
       "horizontalOverflow": false
     },
-    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/a-mobile-390x844-dpr2.png",
-    "capturedAt": "2026-08-26T11:46:49.675Z"
+    "file": "/home/solo/.hermes/coding-worker/worktrees/run-20260826T083344-b2f17f71/qa/screenshots/a-mobile-390x844-dpr2.png",
+    "capturedAt": "2026-08-26T12:47:08.122Z"
   },
   {
     "variant": "a",
-    "url": "https://faithchapelchurch-a.sololink.cloud/",
+    "url": "https://faithbaptistchurch-a.sololink.cloud/",
     "viewport": {
       "width": 430,
       "height": 932
@@ -59,12 +59,12 @@
       "clientHeight": 932,
       "horizontalOverflow": false
     },
-    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/a-mobile-430x932-live-check.png",
-    "capturedAt": "2026-08-26T11:46:52.132Z"
+    "file": "/home/solo/.hermes/coding-worker/worktrees/run-20260826T083344-b2f17f71/qa/screenshots/a-mobile-430x932-live-check.png",
+    "capturedAt": "2026-08-26T12:47:09.870Z"
   },
   {
     "variant": "b",
-    "url": "https://faithchapelchurch-b.sololink.cloud/",
+    "url": "https://faithbaptistchurch-b.sololink.cloud/",
     "viewport": {
       "width": 1440,
       "height": 1000
@@ -80,12 +80,12 @@
       "clientHeight": 1000,
       "horizontalOverflow": false
     },
-    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/b-desktop.png",
-    "capturedAt": "2026-08-26T11:46:53.651Z"
+    "file": "/home/solo/.hermes/coding-worker/worktrees/run-20260826T083344-b2f17f71/qa/screenshots/b-desktop.png",
+    "capturedAt": "2026-08-26T12:47:11.394Z"
   },
   {
     "variant": "b",
-    "url": "https://faithchapelchurch-b.sololink.cloud/",
+    "url": "https://faithbaptistchurch-b.sololink.cloud/",
     "viewport": {
       "width": 390,
       "height": 844
@@ -101,12 +101,12 @@
       "clientHeight": 844,
       "horizontalOverflow": false
     },
-    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/b-mobile-390x844-dpr2.png",
-    "capturedAt": "2026-08-26T11:46:55.118Z"
+    "file": "/home/solo/.hermes/coding-worker/worktrees/run-20260826T083344-b2f17f71/qa/screenshots/b-mobile-390x844-dpr2.png",
+    "capturedAt": "2026-08-26T12:47:12.940Z"
   },
   {
     "variant": "b",
-    "url": "https://faithchapelchurch-b.sololink.cloud/",
+    "url": "https://faithbaptistchurch-b.sololink.cloud/",
     "viewport": {
       "width": 430,
       "height": 932
@@ -122,12 +122,12 @@
       "clientHeight": 932,
       "horizontalOverflow": false
     },
-    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/b-mobile-430x932-live-check.png",
-    "capturedAt": "2026-08-26T11:46:56.565Z"
+    "file": "/home/solo/.hermes/coding-worker/worktrees/run-20260826T083344-b2f17f71/qa/screenshots/b-mobile-430x932-live-check.png",
+    "capturedAt": "2026-08-26T12:47:14.397Z"
   },
   {
     "variant": "c",
-    "url": "https://faithchapelchurch-c.sololink.cloud/",
+    "url": "https://faithbaptistchurch-c.sololink.cloud/",
     "viewport": {
       "width": 1440,
       "height": 1000
@@ -143,12 +143,12 @@
       "clientHeight": 1000,
       "horizontalOverflow": false
     },
-    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/c-desktop.png",
-    "capturedAt": "2026-08-26T11:46:58.346Z"
+    "file": "/home/solo/.hermes/coding-worker/worktrees/run-20260826T083344-b2f17f71/qa/screenshots/c-desktop.png",
+    "capturedAt": "2026-08-26T12:47:16.145Z"
   },
   {
     "variant": "c",
-    "url": "https://faithchapelchurch-c.sololink.cloud/",
+    "url": "https://faithbaptistchurch-c.sololink.cloud/",
     "viewport": {
       "width": 390,
       "height": 844
@@ -164,12 +164,12 @@
       "clientHeight": 844,
       "horizontalOverflow": false
     },
-    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/c-mobile-390x844-dpr2.png",
-    "capturedAt": "2026-08-26T11:47:00.354Z"
+    "file": "/home/solo/.hermes/coding-worker/worktrees/run-20260826T083344-b2f17f71/qa/screenshots/c-mobile-390x844-dpr2.png",
+    "capturedAt": "2026-08-26T12:47:18.267Z"
   },
   {
     "variant": "c",
-    "url": "https://faithchapelchurch-c.sololink.cloud/",
+    "url": "https://faithbaptistchurch-c.sololink.cloud/",
     "viewport": {
       "width": 430,
       "height": 932
@@ -185,7 +185,7 @@
       "clientHeight": 932,
       "horizontalOverflow": false
     },
-    "file": "/home/solo/repos/faith-chapel-church-preview/qa/screenshots/c-mobile-430x932-live-check.png",
-    "capturedAt": "2026-08-26T11:47:01.750Z"
+    "file": "/home/solo/.hermes/coding-worker/worktrees/run-20260826T083344-b2f17f71/qa/screenshots/c-mobile-430x932-live-check.png",
+    "capturedAt": "2026-08-26T12:47:19.797Z"
   }
 ]

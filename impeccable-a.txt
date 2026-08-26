@@ -1,0 +1,9 @@
+Revision 1 live detect: https://faithbaptistchurch-a.sololink.cloud/
+Command: PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome impeccable detect <url>
+Result: 9 anti-pattern findings (exit 2)
+- side-tab: header border-bottom 3px
+- low-contrast: white on #faf7f2, 1.1:1 (two findings)
+- line-length: approximately 118 characters per line
+- side-tab: card border-top 4px (four findings)
+- cream-palette: #faf7f2
+Identity/source/noindex/link/live-route checks pass separately; findings are preserved for reviewer visibility and were not falsely reported as zero.

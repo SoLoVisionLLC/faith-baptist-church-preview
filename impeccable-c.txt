@@ -1,0 +1,7 @@
+Revision 1 live detect: https://faithbaptistchurch-c.sololink.cloud/
+Command: PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome impeccable detect <url>
+Result: 4 anti-pattern findings (exit 2)
+- low-contrast: white on #c05a47, 4.4:1 (two findings)
+- low-contrast: #212328 on #c05a47, 3.6:1
+- cream-palette: #f3ecdd
+Identity/source/noindex/link/live-route checks pass separately; findings are preserved for reviewer visibility and were not falsely reported as zero.

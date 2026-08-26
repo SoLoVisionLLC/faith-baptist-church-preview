@@ -21,7 +21,7 @@ The files in `qa/screenshots/`, the live resource URLs in `qa/capture-metadata.j
 
 | File | Role | Source |
 |---|---|---|
-| assets/front.png | Exterior portrait (steeple/cross) | /home/solo/.hermes/profiles/vector/work/faith-chapel-assets/front.png — Appwrite f_03bb9f01ae214a5fab9b14226879ee59, HTTP 200 verified 2026-08-26 |
+| assets/front.png | Exterior portrait (steeple/cross) | Client asset archive front.png — Appwrite f_03bb9f01ae214a5fab9b14226879ee59, HTTP 200 verified 2026-08-26 |
 | assets/church1.jpg | Exterior landscape | same dir church1.jpg — Appwrite f_a1df2d0ef4c3455cb97d6c24734c16bf, HTTP 200 2026-08-26 |
 | assets/church2.jpg | Sanctuary close | same dir church2.jpg — Appwrite f_01e265a73d32472384612eda393c8ebb, HTTP 200 2026-08-26 |
 | assets/church3.jpg | Sanctuary wide | same dir church3.jpg — Appwrite f_a357ae8b004b4d0f816a9037f18bffae, HTTP 200 2026-08-26 |

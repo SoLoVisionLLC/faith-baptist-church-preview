@@ -1,149 +1,665 @@
 {
-  "status": "historical_pre_identity_correction",
-  "note": "Preserved historical live checks only; DEV must redeploy and recapture before treating live QA as current.",
-  "timestamp": "2026-08-26T11:40:00.159821+00:00",
-  "deployed_sha": "c79987966683f7051c0e472661e547dd50be7700",
+  "timestamp": "2026-08-26T12:45:24.777150+00:00",
+  "status": "revision_1_live_verified",
+  "deployed_sha": "20896ee362254c15917031b18cd580ca5e40a797",
+  "deployments": {
+    "a": "eqssakn35h8939xm23w5xyit",
+    "b": "w10x3son7uhmrdvd9taah78d",
+    "c": "niaphoc30esazdg44xft9hob"
+  },
   "variants": {
     "a": {
+      "base_url": "https://faithbaptistchurch-a.sololink.cloud/",
       "routes": [
         {
-          "url": "https://faithchapelchurch-a.sololink.cloud/",
+          "url": "https://faithbaptistchurch-a.sololink.cloud/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-a.sololink.cloud/",
+          "title": "Faith Baptist Church \u2014 Fostoria, Ohio",
+          "sha256": "e89ebe582fe8abbc32c7c89b0a229e4dd51c0603f187ba605e56693dc958b041",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-a.sololink.cloud/visit/",
+          "url": "https://faithbaptistchurch-a.sololink.cloud/visit/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-a.sololink.cloud/visit/",
+          "title": "Plan Your Visit \u2014 Faith Baptist Church",
+          "sha256": "4492c31735e5da973a78ab3d685dad74ddd1b08a0762b817d31013835c1d59a1",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-a.sololink.cloud/beliefs/",
+          "url": "https://faithbaptistchurch-a.sololink.cloud/beliefs/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-a.sololink.cloud/beliefs/",
+          "title": "What We Believe \u2014 Faith Baptist Church",
+          "sha256": "d0012a402bde9a5edb1ae8d6c901e7aec24720b0dae233262d2e3f11aa8e16a0",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-a.sololink.cloud/ministries/",
+          "url": "https://faithbaptistchurch-a.sololink.cloud/ministries/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-a.sololink.cloud/ministries/",
+          "title": "Ministries \u2014 Faith Baptist Church",
+          "sha256": "3be19a44cbe41aea6f6fe715d1baefc4ef7ff070f2261e07d27b16118f3a2fad",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-a.sololink.cloud/events/",
+          "url": "https://faithbaptistchurch-a.sololink.cloud/events/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-a.sololink.cloud/events/",
+          "title": "Events & Announcements \u2014 Faith Baptist Church",
+          "sha256": "0904a4046e1376e600085eb8700c2358a1e68da2f7161109d1d35db6edfaf5ae",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-a.sololink.cloud/contact/",
+          "url": "https://faithbaptistchurch-a.sololink.cloud/contact/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-a.sololink.cloud/contact/",
+          "title": "Contact \u2014 Faith Baptist Church",
+          "sha256": "ae0c46152888af39fe05d9159db91d48ba6dcb81a8076799a025a449f7992258",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         }
       ],
-      "home_html_sha256": "1406923c9c52e6bf12a4011474b2911d226afe0c0ba8bd097ff4c5b158ea787c"
+      "home_html_sha256": "e89ebe582fe8abbc32c7c89b0a229e4dd51c0603f187ba605e56693dc958b041",
+      "styles_sha256": "0d9d8144de85f5280ad4bcd295b80a066dc232746ce84077484afe7dbddf1f20",
+      "styles_status": 200,
+      "assets": {
+        "front.png": {
+          "status": 200,
+          "sha256": "7b0bce3499ed9df95327af8a9693b70a2876a36be53810d91edf4685ffaa0f3f",
+          "bytes": 466813
+        },
+        "church1.jpg": {
+          "status": 200,
+          "sha256": "9abdb0fd06c69aa12ef11f4954afb50131ad133c5a3314a675c1a136577977f6",
+          "bytes": 86024
+        },
+        "church2.jpg": {
+          "status": 200,
+          "sha256": "6725c18ecea252cd3ad842fae16844a0c1ff1a8f2a4a2a011853bc0a8b68bb92",
+          "bytes": 66160
+        },
+        "church3.jpg": {
+          "status": 200,
+          "sha256": "75c7128197dd074613eec92fe233e04dff3539c5394f56696b4196a969969b3c",
+          "bytes": 55696
+        }
+      }
     },
     "b": {
+      "base_url": "https://faithbaptistchurch-b.sololink.cloud/",
       "routes": [
         {
-          "url": "https://faithchapelchurch-b.sololink.cloud/",
+          "url": "https://faithbaptistchurch-b.sololink.cloud/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-b.sololink.cloud/",
+          "title": "Faith Baptist Church \u2014 Sunday Starts Here | Fostoria, OH",
+          "sha256": "f1816fde66b8324ff56a2621f99e343c3b91e708eecc4a62a727a780f36fa11c",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-b.sololink.cloud/visit/",
+          "url": "https://faithbaptistchurch-b.sololink.cloud/visit/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-b.sololink.cloud/visit/",
+          "title": "Plan Your Visit \u2014 Faith Baptist Church",
+          "sha256": "042a988b6d4f93c267186e3829a5f812d3ce21018722889ed6c8440edb2a5fd1",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-b.sololink.cloud/beliefs/",
+          "url": "https://faithbaptistchurch-b.sololink.cloud/beliefs/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-b.sololink.cloud/beliefs/",
+          "title": "What We Believe \u2014 Faith Baptist Church",
+          "sha256": "efa880d8930a2df97e8a68d2f74efb8371bf6024c5f4f85b70bfbd03d8601838",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-b.sololink.cloud/ministries/",
+          "url": "https://faithbaptistchurch-b.sololink.cloud/ministries/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-b.sololink.cloud/ministries/",
+          "title": "Ministries \u2014 Faith Baptist Church",
+          "sha256": "9eab3fe4dedcbcefb121c62bd50820023fc71e9d23cd8eafe28e1b2232b392a8",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-b.sololink.cloud/events/",
+          "url": "https://faithbaptistchurch-b.sololink.cloud/events/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-b.sololink.cloud/events/",
+          "title": "Events & Announcements \u2014 Faith Baptist Church",
+          "sha256": "2cf621a73f5c2ee5b052758348d99e154e0eb2f7c2997dcd5f39f970b2449fdb",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-b.sololink.cloud/contact/",
+          "url": "https://faithbaptistchurch-b.sololink.cloud/contact/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-b.sololink.cloud/contact/",
+          "title": "Contact \u2014 Faith Baptist Church",
+          "sha256": "2ef9ba349fa4c5e0b59dde9973c149388a8018c0bdedf9425555e91be9f06b72",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         }
       ],
-      "home_html_sha256": "7f5b80e3f428d270bcc2ce2863853a0b9c15a3f9934b36023aabfead24baa828"
+      "home_html_sha256": "f1816fde66b8324ff56a2621f99e343c3b91e708eecc4a62a727a780f36fa11c",
+      "styles_sha256": "d556b7d2ec0dacb9b5717d3580441e92a4ccc46d5d3424109454fe2253f224a3",
+      "styles_status": 200,
+      "assets": {
+        "front.png": {
+          "status": 200,
+          "sha256": "7b0bce3499ed9df95327af8a9693b70a2876a36be53810d91edf4685ffaa0f3f",
+          "bytes": 466813
+        },
+        "church1.jpg": {
+          "status": 200,
+          "sha256": "9abdb0fd06c69aa12ef11f4954afb50131ad133c5a3314a675c1a136577977f6",
+          "bytes": 86024
+        },
+        "church2.jpg": {
+          "status": 200,
+          "sha256": "6725c18ecea252cd3ad842fae16844a0c1ff1a8f2a4a2a011853bc0a8b68bb92",
+          "bytes": 66160
+        },
+        "church3.jpg": {
+          "status": 200,
+          "sha256": "75c7128197dd074613eec92fe233e04dff3539c5394f56696b4196a969969b3c",
+          "bytes": 55696
+        }
+      }
     },
     "c": {
+      "base_url": "https://faithbaptistchurch-c.sololink.cloud/",
       "routes": [
         {
-          "url": "https://faithchapelchurch-c.sololink.cloud/",
+          "url": "https://faithbaptistchurch-c.sololink.cloud/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-c.sololink.cloud/",
+          "title": "Faith Baptist Church \u2014 Rooted in the Word",
+          "sha256": "b4872556ba0ad58d2f0a3eefef937c33504141fc8a55728d420efd6c4e750144",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-c.sololink.cloud/visit/",
+          "url": "https://faithbaptistchurch-c.sololink.cloud/visit/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-c.sololink.cloud/visit/",
+          "title": "Plan Your Visit \u2014 Faith Baptist Church",
+          "sha256": "9b464608866e0f01fda33a146c3d5eab0c1383f199d361e006b35da773a09d72",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-c.sololink.cloud/beliefs/",
+          "url": "https://faithbaptistchurch-c.sololink.cloud/beliefs/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-c.sololink.cloud/beliefs/",
+          "title": "What We Believe \u2014 Faith Baptist Church",
+          "sha256": "4fc21a5f939353b6eb5edd72a36dcad414ce918df3eb0a668185968766518b8d",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-c.sololink.cloud/ministries/",
+          "url": "https://faithbaptistchurch-c.sololink.cloud/ministries/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-c.sololink.cloud/ministries/",
+          "title": "Ministries \u2014 Faith Baptist Church",
+          "sha256": "55416c2f72ea07ba3ea719a1d2c091e223ac993f911785c24e6f92ec2ad7f374",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-c.sololink.cloud/events/",
+          "url": "https://faithbaptistchurch-c.sololink.cloud/events/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-c.sololink.cloud/events/",
+          "title": "Events & Announcements \u2014 Faith Baptist Church",
+          "sha256": "c76376758002e73d9bbf0ce834749aae8c7f02136872cdcf4ca3d4fa964d27fe",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         },
         {
-          "url": "https://faithchapelchurch-c.sololink.cloud/contact/",
+          "url": "https://faithbaptistchurch-c.sololink.cloud/contact/",
           "status": 200,
-          "noindex": true,
-          "tel": true,
-          "maps": true
+          "final_url": "https://faithbaptistchurch-c.sololink.cloud/contact/",
+          "title": "Contact \u2014 Faith Baptist Church",
+          "sha256": "7475980e19f6cd6d265d3fa210b9cc9ed86b9903065d60633c8c634043a3224a",
+          "checks": {
+            "noindex": true,
+            "correct_name": true,
+            "wrong_name_absent": true,
+            "wrong_address_absent": true,
+            "address": true,
+            "tel": true,
+            "maps": true,
+            "local_links": true
+          },
+          "local_link_status": {
+            "/": 200,
+            "//beliefs/": 200,
+            "//contact/": 200,
+            "//events/": 200,
+            "//ministries/": 200,
+            "//visit/": 200,
+            "/beliefs/": 200,
+            "/contact/": 200,
+            "/events/": 200,
+            "/ministries/": 200,
+            "/visit/": 200
+          },
+          "ok": true
         }
       ],
-      "home_html_sha256": "9e3d4086fc0cc16db1431e288647069904882f4cbb15aadaa13d24ac00d2999c"
+      "home_html_sha256": "b4872556ba0ad58d2f0a3eefef937c33504141fc8a55728d420efd6c4e750144",
+      "styles_sha256": "cb9a4be0fc4147098597cbd3adb2a1eae15905162e84868c894677c514b3bef3",
+      "styles_status": 200,
+      "assets": {
+        "front.png": {
+          "status": 200,
+          "sha256": "7b0bce3499ed9df95327af8a9693b70a2876a36be53810d91edf4685ffaa0f3f",
+          "bytes": 466813
+        },
+        "church1.jpg": {
+          "status": 200,
+          "sha256": "9abdb0fd06c69aa12ef11f4954afb50131ad133c5a3314a675c1a136577977f6",
+          "bytes": 86024
+        },
+        "church2.jpg": {
+          "status": 200,
+          "sha256": "6725c18ecea252cd3ad842fae16844a0c1ff1a8f2a4a2a011853bc0a8b68bb92",
+          "bytes": 66160
+        },
+        "church3.jpg": {
+          "status": 200,
+          "sha256": "75c7128197dd074613eec92fe233e04dff3539c5394f56696b4196a969969b3c",
+          "bytes": 55696
+        }
+      }
     }
-  }
+  },
+  "pairwise_uniqueness": {
+    "home_html": true,
+    "styles": true
+  },
+  "all_ok": true
 }
