@@ -6,6 +6,7 @@ import variant_e
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(ROOT, 'variants')
+E_FONT_ASSETS = ('LiberationSansNarrow-Bold.ttf', 'LiberationSansNarrow-LICENSE.txt')
 ROUTES = {
     '/': 'index.html',
     '/visit': 'visit/index.html',
@@ -566,6 +567,10 @@ def main():
     shutil.copy(f'{ROOT}/styles-e.css', os.path.join(e_root, 'styles.css'))
     for fn in ('front.png', 'church1.jpg', 'church2.jpg', 'church3.jpg'):
         shutil.copy(f'{ROOT}/assets/{fn}', os.path.join(e_root, 'assets', fn))
+    e_fonts = os.path.join(e_root, 'assets', 'fonts')
+    os.makedirs(e_fonts, exist_ok=True)
+    for fn in E_FONT_ASSETS:
+        shutil.copy(os.path.join(ROOT, 'assets', 'fonts', fn), os.path.join(e_fonts, fn))
     print('Built.')
 
 

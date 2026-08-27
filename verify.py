@@ -22,6 +22,9 @@ VARIANTS = ("a", "b", "c", "e")
 ACCEPTED_BASE = "ee3623e41b6647b7380c987421f4a2ecb2057749"
 RECEIPT_PATH = ROOT / "variant-a-receipt.json"
 E_RECEIPT_PATH = ROOT / "variant-e-receipt.json"
+E_FONT_FILE = "LiberationSansNarrow-Bold.ttf"
+E_FONT_LICENSE = "LiberationSansNarrow-LICENSE.txt"
+E_FONT_SHA256 = "4cd16b98cea43a9ce4471df068634fce71ab279dfc9b303b6b188bd96b35226a"
 ROUTES = {
     "/": Path("index.html"),
     "/visit/": Path("visit/index.html"),
@@ -768,6 +771,16 @@ def verify_e_pages(
         if route == "/":
             if parser.class_counts["first-view"] != 1 or parser.class_counts["hero-rail"] != 1:
                 errors.append("Variant E home is missing the pinned first viewport")
+            hero_rail = re.search(
+                r'<div class="hero-rail" aria-label="Weekly service times">(.*?)</div>',
+                html,
+                flags=re.DOTALL,
+            )
+            rail_labels = tuple(re.findall(r"<span>([^<]+)</span>", hero_rail.group(1))) if hero_rail else ()
+            if rail_labels != ("Sun 9:00", "Sun 10:00", "Sun 6:00", "Wed 7:00"):
+                errors.append("Variant E home first viewport must contain the four schedule labels")
+            if '<p class="section-mark">Fostoria, Ohio</p>' in html:
+                errors.append("Variant E home retains the refused location eyebrow")
             home_images = [Path(img.get("src") or "").name for img in parser.images]
             if set(home_images) != set(ASSETS):
                 errors.append("Variant E home must meaningfully render all four client rasters")
@@ -788,7 +801,14 @@ def verify_e_pages(
         "--brick:#963c32",
         "--mist:#dce5ea",
         "grid-template-columns:58% 42%",
-        "font-family:\"archivo black\"",
+        '@font-face{font-family:"liberation sans narrow"',
+        'url("/assets/fonts/liberationsansnarrow-bold.ttf")',
+        ".hero-rail{display:grid;grid-template-columns:1fr",
+        ".hero-rail{grid-template-columns:repeat(2,minmax(0,1fr))",
+        ".hero-rail span{font-size:1rem",
+        "::selection{background:var(--brick);color:var(--white)}",
+        "scrollbar-color:var(--navy) var(--mist)",
+        "::-webkit-scrollbar-thumb{background:var(--navy)",
         "@keyframes draw-line",
         "@media(prefers-reduced-motion:reduce)",
         "@media(prefers-reduced-transparency:reduce)",
@@ -797,6 +817,21 @@ def verify_e_pages(
     ):
         if required not in css:
             errors.append(f"styles-e.css is missing direction-contract evidence: {required}")
+    for forbidden in ('font-family:"archivo black"', "font-size:.68rem"):
+        if forbidden in css:
+            errors.append(f"styles-e.css retains superseded finish-review evidence: {forbidden}")
+
+    source_font = ROOT / "assets" / "fonts" / E_FONT_FILE
+    built_font = variant_root / "assets" / "fonts" / E_FONT_FILE
+    source_license = ROOT / "assets" / "fonts" / E_FONT_LICENSE
+    built_license = variant_root / "assets" / "fonts" / E_FONT_LICENSE
+    for label, path in (("source", source_font), ("built", built_font)):
+        if not path.is_file() or sha256(path) != E_FONT_SHA256:
+            errors.append(f"Variant E {label} display font is missing or differs from its source")
+    if not source_license.is_file() or not built_license.is_file():
+        errors.append("Variant E display-font license is not bundled")
+    elif source_license.read_bytes() != built_license.read_bytes():
+        errors.append("Variant E bundled display-font license differs from its source")
 
 
 def verify_e_receipt(errors: list[str]) -> None:

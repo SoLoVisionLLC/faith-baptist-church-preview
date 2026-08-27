@@ -65,7 +65,6 @@ def inner_intro(title, text):
 HOME = f'''<section class="first-view" aria-labelledby="home-title">
   <div class="hero-photo">{image("land")}</div>
   <div class="hero-panel">
-    <p class="section-mark">Fostoria, Ohio</p>
     <h1 id="home-title">Faith Baptist Church</h1>
     <p class="identity">{IDENTITY}</p>
     <a class="button" href="/visit/">Plan Your Visit</a>

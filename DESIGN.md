@@ -11,9 +11,9 @@ colors:
   ink: "#14222D"
 typography:
   display:
-    fontFamily: Archivo Black
+    fontFamily: Liberation Sans Narrow
     fontSize: 3rem
-    fontWeight: 900
+    fontWeight: 700
     lineHeight: 0.95
     letterSpacing: "-0.035em"
   body:
@@ -73,7 +73,7 @@ The visual thesis is a luminous wayfinding system in which recurring service tim
 
 ### Documentation status and finish-review disposition
 
-This file documents the reviewed local output; it does **not** convert that output into an approved shipment. The fresh finish review recorded the exact disposition **`fix`**. Deployment must remain on hold until its five material fixes are applied and a fresh review records **`ship`**. The current reviewed output therefore remains a documented, built world with an unresolved finish gate.
+This file documents the corrected generated output after the bounded finish-review remediation. The earlier fresh finish review recorded the exact disposition **`fix`**; that historical receipt remains intact in `qa/variant-e/detector-finish-review.log.md`. All five material findings from that review are now implemented in source and generated Variant E output. Per the remediation boundary, the Impeccable detector was not run a second time, no replacement finish review was created, and no deployment was performed. The current artifact is ready for DEV to inspect as a working-tree diff.
 
 Authoritative local evidence:
 
@@ -122,20 +122,23 @@ The strategy is **Committed**, not theme-switching. Light mode is the primary re
 - **Ink `#14222D`:** body text on chapel-white fields.
 - No gradient, glow, glass, mixed theme, cream/terracotta default world, or second saturated action color belongs in Variant E.
 
-The finish reviewer accepted the material and ground: real photography, flat navy fields, sharp dividers, chapel white, mist, and brick remain faithful. However, selection and scrollbar surfaces are still unthemed and are one of the required material fixes.
+Real photography, flat navy fields, sharp dividers, chapel white, mist, and brick remain faithful. Browser selection now uses brick with chapel-white text; standards-based and WebKit scrollbar treatments use a navy thumb, mist track, and brick hover state. These browser surfaces therefore remain inside the committed palette.
 
 ## Typography
 
-The intended display voice is **Archivo Black**, or a genuinely comparable obtainable condensed sans. Body copy uses **Source Sans 3**. Display type is compressed, large, blunt, and paired with oversized schedule numerals. The CSS currently declares these families with fallbacks:
+The direction permits **Archivo Black or a genuinely comparable obtainable condensed sans**. The shipped comparable face is **Liberation Sans Narrow Bold**, bundled locally and loaded through `@font-face`; display rendering no longer depends on a system-font fallback. Body copy uses **Source Sans 3** with its existing system fallback stack. Display type is compressed, large, blunt, and paired with oversized schedule numerals.
 
-- Display: `"Archivo Black", "Arial Narrow", Impact, sans-serif`
+- Display: `"Liberation Sans Narrow", "Arial Narrow", sans-serif`, weight 700.
+- Source asset: `assets/fonts/LiberationSansNarrow-Bold.ttf`; built asset: `variants/e/assets/fonts/LiberationSansNarrow-Bold.ttf`.
+- Upstream: `https://github.com/liberationfonts/liberation-sans-narrow`; bundled license: `variants/e/assets/fonts/LiberationSansNarrow-LICENSE.txt`.
+- Font SHA256: `4cd16b98cea43a9ce4471df068634fce71ab279dfc9b303b6b188bd96b35226a`.
 - Body: `"Source Sans 3", "Segoe UI", sans-serif`
 - Body baseline: 17px desktop, 16px below 768px, line-height 1.55.
 - Display line-height: 0.95; letter-spacing: -0.035em.
 - `h1`: `clamp(3rem, 7vw, 7.4rem)` globally; first-view override `clamp(3rem, 6vw, 6.5rem)`.
 - `h2`: `clamp(2.2rem, 5vw, 5.4rem)`.
 
-**Known fidelity failure:** the reviewed artifact does not source or load Archivo Black. The captures therefore render a system fallback and do not achieve the contracted condensed display character. Sourcing the display face is a required finish fix. The tracked uppercase `FOSTORIA, OHIO` eyebrow is also explicitly refused by the direction and must be removed.
+The refused tracked uppercase `FOSTORIA, OHIO` eyebrow is absent from the first viewport. The church name now opens the content hierarchy directly.
 
 ## Layout
 
@@ -158,7 +161,7 @@ The intended display voice is **Archivo Black**, or a genuinely comparable obtai
 6. Ministry Rhythm: staggered, sharp-edged bands rather than cards.
 7. A brick Plan Your Visit close with address, phone, directions, and one primary action.
 
-The reviewed output matches the 58/42 photographic split, exact identity line, immediate CTA, all four schedule points, sharp geometry, and brick-only action color. The first-view rail is currently horizontal, contradicting the embedded promise of a vertical Sunday/Wednesday rail. A vertical desktop rail with a legible responsive mobile adaptation is a required finish fix.
+The output retains the 58/42 photographic split, exact identity line, immediate CTA, all four schedule points, sharp geometry, and brick-only action color. On desktop, the first-view schedule rail is a genuine one-column vertical sequence with four divided rows and a brick progression edge. Below 768px it adapts to a compact two-column, two-row schedule block so every label remains readable and visible.
 
 ### Inner-route composition
 
@@ -184,7 +187,7 @@ At widths below 768px:
 - There must be no horizontal overflow, clipped display type, full-screen photo wall, hidden CTA, or body text below 16px.
 - 430×932 must preserve the balance among first image, CTA, and schedule.
 
-**Known accessibility failure:** the reviewed four schedule labels render at approximately 9–10px (`.68rem`) on mobile. They must be enlarged to clearly readable text while all four remain inside the 390×844 first viewport.
+The four mobile schedule labels render at `1rem` (16px) in a two-by-two adaptation. All four labels, the exact identity line, and the Plan Your Visit CTA remain inside the 390×844 first viewport.
 
 ## Elevation & Depth
 
@@ -296,13 +299,12 @@ Exact alt text and source URLs are normative in `variant-e-receipt.json`; genera
 
 ### Don't
 
-- Do not treat this documented build as finish-approved while disposition remains `fix`.
-- Do not deploy before the five material fixes are applied and a fresh reviewer returns `ship`.
-- Do not retain the horizontal desktop hero rail; the contract requires a vertical rail.
-- Do not ship unloaded display-font fallbacks as the intended Archivo Black voice.
-- Do not use the tracked uppercase location eyebrow.
-- Do not keep the undersized mobile schedule labels.
-- Do not leave browser selection and scrollbar surfaces outside the committed palette.
+- Do not alter the exactly-once detector receipt or present the historical `fix` disposition as a review of the corrected artifact.
+- Do not regress the desktop schedule rail from its vertical sequence or the mobile rail from its readable two-by-two adaptation.
+- Do not remove or hotlink the bundled condensed display font.
+- Do not restore the tracked uppercase location eyebrow.
+- Do not reduce the mobile schedule labels below the documented 16px size.
+- Do not move selection or scrollbar surfaces outside the committed palette.
 - Do not introduce another design regime, a generic church hero/card grid, invented facts, fake forms, or template artifacts.
 
 ### Detector findings and finish-review record
@@ -317,17 +319,17 @@ The detector ran exactly once after the completed six-route implementation:
 
 A fresh isolated finish reviewer, with no build-thread history, received the original request and fixed facts, generated site, authoritative desktop and 390×844 captures, `PRODUCT.md`, direction contract, detector output, and Impeccable 4.1.1 craft floor. It edited nothing and did not rerun the detector.
 
-Exact disposition: **`fix`**.
+Historical exact disposition: **`fix`**.
 
-Material fixes required before shipment:
+The five findings are remediated in the current generated artifact:
 
-1. Implement the promised vertical Sunday/Wednesday first-view rail on desktop, with a legible responsive mobile adaptation.
-2. Source and load Archivo Black or a genuinely comparable condensed display face.
-3. Remove the tracked uppercase `FOSTORIA, OHIO` eyebrow.
-4. Enlarge all four mobile schedule labels from approximately 9–10px while keeping them in the 390×844 first viewport.
-5. Theme browser surfaces, at minimum selection and scrollbar treatment, from the committed palette.
+1. The first-view rail is vertical on desktop and adapts to a legible two-by-two mobile schedule.
+2. Liberation Sans Narrow Bold is bundled and loaded as the direction-approved comparable condensed display face.
+3. The tracked uppercase `FOSTORIA, OHIO` eyebrow has been removed.
+4. All four mobile schedule labels render at 16px and remain within the 390×844 first viewport.
+5. Selection and scrollbar surfaces use only brick, chapel white, navy, and mist.
 
-Keep while fixing: the exact 58/42 real-photo/navy split, immediate identity and CTA, all four first-view schedule points, sharp geometry, singular line motion, and brick-only action color.
+Preserved through remediation: the exact 58/42 real-photo/navy split, immediate identity and CTA, all four first-view schedule points, sharp geometry, singular line motion, and brick-only action color. The detector was not rerun, so its exactly-once receipt remains intact.
 
 ### Build, deployment, and final receipts
 
