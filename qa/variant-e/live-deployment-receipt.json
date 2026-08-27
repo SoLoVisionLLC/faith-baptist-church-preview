@@ -1,0 +1,347 @@
+{
+  "captured_at": "2026-08-27T23:46:00Z",
+  "coolify": {
+    "deployment_status": "finished",
+    "deployment_uuid": "vsvn2jzy76l919f40tn705i3",
+    "environment_uuid": "tu4pl8hme4u0ptjazcyovyum",
+    "project_uuid": "odmsojtf0huw323he24qtugc",
+    "resource_status": "running:healthy",
+    "resource_uuid": "hd9p5a24yudi55xiauv5odc0",
+    "source_sha": "73c440ff37ea4dd57df705a547ab6ff4a96b580b"
+  },
+  "design_regime": {
+    "direction": "Service-Time Compass",
+    "mode": "Persuade",
+    "other_generators_used": [],
+    "skill": "Impeccable",
+    "version": "4.1.1"
+  },
+  "detector": {
+    "exit_code": 2,
+    "finding_count": 2,
+    "findings": "Two contextual false-positive border-accent-on-rounded warnings; preserved in qa/variant-e/detector-finish-review.log.md",
+    "runs": 1,
+    "state": "degraded_regex_fallback"
+  },
+  "direction_contract": {
+    "embedded_first_body_child_all_routes": true,
+    "path": "qa/variant-e/direction-contract.md"
+  },
+  "documentation": {
+    "design_md": "DESIGN.md",
+    "shipped_world_documented": true
+  },
+  "finish_review": {
+    "detector_rerun": false,
+    "exact_disposition": "fix",
+    "fresh_isolated": true,
+    "material_fix_count": 5,
+    "material_fixes_applied": 5,
+    "receipt": "qa/variant-e/detector-finish-review.log.md"
+  },
+  "git": {
+    "branch": "kanban/t_f5efb7ad-variant-e-context",
+    "deployed_source_sha": "73c440ff37ea4dd57df705a547ab6ff4a96b580b",
+    "repo_path": "/home/solo/.hermes/kanban/workspaces/t_67837fdb/repo",
+    "repository": "SoLoVisionLLC/faith-baptist-church-preview"
+  },
+  "live": {
+    "all_four_real_rasters_loaded": true,
+    "all_pass": true,
+    "asset_checks": {
+      "https://faithbaptist-e.sololink.cloud/assets/church1.jpg": {
+        "bytes": 86024,
+        "content_type": "image/jpeg",
+        "pass": true,
+        "sha256": "9abdb0fd06c69aa12ef11f4954afb50131ad133c5a3314a675c1a136577977f6",
+        "status": 200
+      },
+      "https://faithbaptist-e.sololink.cloud/assets/church2.jpg": {
+        "bytes": 66160,
+        "content_type": "image/jpeg",
+        "pass": true,
+        "sha256": "6725c18ecea252cd3ad842fae16844a0c1ff1a8f2a4a2a011853bc0a8b68bb92",
+        "status": 200
+      },
+      "https://faithbaptist-e.sololink.cloud/assets/church3.jpg": {
+        "bytes": 55696,
+        "content_type": "image/jpeg",
+        "pass": true,
+        "sha256": "75c7128197dd074613eec92fe233e04dff3539c5394f56696b4196a969969b3c",
+        "status": 200
+      },
+      "https://faithbaptist-e.sololink.cloud/assets/front.png": {
+        "bytes": 466813,
+        "content_type": "image/png",
+        "pass": true,
+        "sha256": "7b0bce3499ed9df95327af8a9693b70a2876a36be53810d91edf4685ffaa0f3f",
+        "status": 200
+      }
+    },
+    "base_url": "https://faithbaptist-e.sololink.cloud",
+    "exact_alt_text": {
+      "expected": [
+        "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+        "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.",
+        "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.",
+        "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar."
+      ],
+      "pass": true,
+      "seen": [
+        "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.",
+        "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+        "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.",
+        "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag."
+      ]
+    },
+    "https": true,
+    "internal_link_checks": {
+      "https://faithbaptist-e.sololink.cloud": {
+        "final_url": "https://faithbaptist-e.sololink.cloud",
+        "pass": true,
+        "status": 200
+      },
+      "https://faithbaptist-e.sololink.cloud/": {
+        "final_url": "https://faithbaptist-e.sololink.cloud/",
+        "pass": true,
+        "status": 200
+      },
+      "https://faithbaptist-e.sololink.cloud/beliefs/": {
+        "final_url": "https://faithbaptist-e.sololink.cloud/beliefs/",
+        "pass": true,
+        "status": 200
+      },
+      "https://faithbaptist-e.sololink.cloud/contact/": {
+        "final_url": "https://faithbaptist-e.sololink.cloud/contact/",
+        "pass": true,
+        "status": 200
+      },
+      "https://faithbaptist-e.sololink.cloud/events/": {
+        "final_url": "https://faithbaptist-e.sololink.cloud/events/",
+        "pass": true,
+        "status": 200
+      },
+      "https://faithbaptist-e.sololink.cloud/ministries/": {
+        "final_url": "https://faithbaptist-e.sololink.cloud/ministries/",
+        "pass": true,
+        "status": 200
+      },
+      "https://faithbaptist-e.sololink.cloud/visit/": {
+        "final_url": "https://faithbaptist-e.sololink.cloud/visit/",
+        "pass": true,
+        "status": 200
+      }
+    },
+    "routes": {
+      "/": {
+        "content_type": "text/html",
+        "direction_contract_present": true,
+        "final_url": "https://faithbaptist-e.sololink.cloud/",
+        "images": [
+          {
+            "alt": "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.",
+            "src": "/assets/church1.jpg"
+          },
+          {
+            "alt": "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+            "src": "/assets/front.png"
+          },
+          {
+            "alt": "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.",
+            "src": "/assets/church3.jpg"
+          },
+          {
+            "alt": "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.",
+            "src": "/assets/church2.jpg"
+          }
+        ],
+        "internal_links": [
+          "/",
+          "/beliefs/",
+          "/contact/",
+          "/events/",
+          "/ministries/",
+          "/visit/"
+        ],
+        "noindex_nofollow": true,
+        "pass": true,
+        "required_copy": true,
+        "sha256": "0500bab11a39a7cf7dc002adb19ff85a611ff37cb4f93fa4a4654204cc0f9493",
+        "stale_dillon_road_absent": true,
+        "status": 200
+      },
+      "/beliefs/": {
+        "content_type": "text/html",
+        "direction_contract_present": true,
+        "final_url": "https://faithbaptist-e.sololink.cloud/beliefs/",
+        "images": [
+          {
+            "alt": "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.",
+            "src": "/assets/church2.jpg"
+          }
+        ],
+        "internal_links": [
+          "/",
+          "/beliefs/",
+          "/contact/",
+          "/events/",
+          "/ministries/",
+          "/visit/"
+        ],
+        "noindex_nofollow": true,
+        "pass": true,
+        "required_copy": true,
+        "sha256": "5e50fc06a049653788aa81971df3b51b6f1d78f9551dd7cbbb21842bf1418258",
+        "stale_dillon_road_absent": true,
+        "status": 200
+      },
+      "/contact/": {
+        "content_type": "text/html",
+        "direction_contract_present": true,
+        "final_url": "https://faithbaptist-e.sololink.cloud/contact/",
+        "images": [
+          {
+            "alt": "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+            "src": "/assets/front.png"
+          }
+        ],
+        "internal_links": [
+          "/",
+          "/beliefs/",
+          "/contact/",
+          "/events/",
+          "/ministries/",
+          "/visit/"
+        ],
+        "noindex_nofollow": true,
+        "pass": true,
+        "required_copy": true,
+        "sha256": "197d5a1e6cf0733c78479dcbd1e8e7cc777db18db79dfc5c7c39ed9d82eb8c4f",
+        "stale_dillon_road_absent": true,
+        "status": 200
+      },
+      "/events/": {
+        "content_type": "text/html",
+        "direction_contract_present": true,
+        "final_url": "https://faithbaptist-e.sololink.cloud/events/",
+        "images": [],
+        "internal_links": [
+          "/",
+          "/beliefs/",
+          "/contact/",
+          "/events/",
+          "/ministries/",
+          "/visit/"
+        ],
+        "noindex_nofollow": true,
+        "pass": true,
+        "required_copy": true,
+        "sha256": "1112b778421f774fbd43260ac12cc28c7f5c7a95210edf69edd33cfa3cc77642",
+        "stale_dillon_road_absent": true,
+        "status": 200
+      },
+      "/ministries/": {
+        "content_type": "text/html",
+        "direction_contract_present": true,
+        "final_url": "https://faithbaptist-e.sololink.cloud/ministries/",
+        "images": [
+          {
+            "alt": "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.",
+            "src": "/assets/church3.jpg"
+          }
+        ],
+        "internal_links": [
+          "/",
+          "/beliefs/",
+          "/contact/",
+          "/events/",
+          "/ministries/",
+          "/visit/"
+        ],
+        "noindex_nofollow": true,
+        "pass": true,
+        "required_copy": true,
+        "sha256": "42dda94218ea031cd16bd34565113f716a719df8c8ba3833a75a9bf35a26a0c8",
+        "stale_dillon_road_absent": true,
+        "status": 200
+      },
+      "/visit/": {
+        "content_type": "text/html",
+        "direction_contract_present": true,
+        "final_url": "https://faithbaptist-e.sololink.cloud/visit/",
+        "images": [
+          {
+            "alt": "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+            "src": "/assets/front.png"
+          }
+        ],
+        "internal_links": [
+          "/",
+          "/beliefs/",
+          "/contact/",
+          "/events/",
+          "/ministries/",
+          "/visit/"
+        ],
+        "noindex_nofollow": true,
+        "pass": true,
+        "required_copy": true,
+        "sha256": "4ab20e756ad4f3528cf742103004a338d8e8c8a2cabe4a504316f7650d0df45f",
+        "stale_dillon_road_absent": true,
+        "status": 200
+      }
+    }
+  },
+  "schema_version": 1,
+  "variant": "E",
+  "visual_proof": {
+    "desktop_1440x1000_dpr1": {
+      "device_scale_factor": 1,
+      "full_page": true,
+      "http_status": 200,
+      "image_pixels": [
+        1440,
+        4588
+      ],
+      "no_horizontal_overflow": true,
+      "path": "qa/variant-e/screenshots/live-home-desktop-1440x1000.png",
+      "sha256": "0df915b350f56b76f3e3b45a92c0806701409320492b88cc9463c24c3ce528f5",
+      "viewport_css": [
+        1440,
+        1000
+      ]
+    },
+    "mobile_390x844_dpr2": {
+      "device_scale_factor": 2,
+      "full_page": true,
+      "http_status": 200,
+      "image_pixels": [
+        780,
+        10324
+      ],
+      "no_horizontal_overflow": true,
+      "path": "qa/variant-e/screenshots/live-home-mobile-390x844-dpr2.png",
+      "sha256": "d415a50fa1a59099d3f6095ae3b20c225df68a77b1217414fabbbf6a1c72c454",
+      "viewport_css": [
+        390,
+        844
+      ]
+    },
+    "mobile_430x932_dpr2": {
+      "device_scale_factor": 2,
+      "full_page": true,
+      "http_status": 200,
+      "image_pixels": [
+        860,
+        10712
+      ],
+      "no_horizontal_overflow": true,
+      "path": "qa/variant-e/screenshots/live-home-mobile-430x932-dpr2.png",
+      "sha256": "a9f5331d3ef03fed79371b391f9093bce1e12f57730c0b5d05f2c58609b405fc",
+      "viewport_css": [
+        430,
+        932
+      ]
+    }
+  }
+}

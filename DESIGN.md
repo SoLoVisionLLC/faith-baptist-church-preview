@@ -338,7 +338,11 @@ Preserved through remediation: the exact 58/42 real-photo/navy split, immediate 
 - Build command: `python3 build.py`
 - Local verification: `python3 verify.py`
 - Coolify project: **Faith Baptist Church**, project UUID `odmsojtf0huw323he24qtugc`.
-- Target URL: `https://faithbaptist-e.sololink.cloud` or a verified clear equivalent.
-- Variant E requires its own source/build target and Coolify environment/resource.
-- No local-only work counts. A final deployment receipt must record branch, repo path, pushed commit SHA, environment UUID, resource UUID, deployment UUID, deployed SHA, live HTTPS URL, and all six route checks.
-- Deployment identifiers and live URL are intentionally absent from this document until deployment actually occurs; inventing them would violate the product truth contract.
+- Environment: `variant-e`, UUID `tu4pl8hme4u0ptjazcyovyum`.
+- Resource: **Faith Baptist Variant E**, UUID `hd9p5a24yudi55xiauv5odc0`, status `running:healthy`.
+- Deployment: UUID `vsvn2jzy76l919f40tn705i3`, status `finished`, source SHA `73c440ff37ea4dd57df705a547ab6ff4a96b580b`.
+- Live URL: `https://faithbaptist-e.sololink.cloud`; HTTPS and all six routes (`/`, `/visit/`, `/beliefs/`, `/ministries/`, `/events/`, `/contact/`) returned HTTP 200 in the final live check.
+- Every live route contains `noindex,nofollow`, the embedded direction contract, required Faith Baptist copy, working internal links, and no stale Dillon Road copy. All four real rasters load over HTTPS with the exact brief alt text and expected SHA256 values.
+- Live visual proofs: `qa/variant-e/screenshots/live-home-desktop-1440x1000.png` (1440×1000 CSS viewport, DPR1, full-page image 1440×4588, SHA256 `0df915b350f56b76f3e3b45a92c0806701409320492b88cc9463c24c3ce528f5`), `qa/variant-e/screenshots/live-home-mobile-390x844-dpr2.png` (390×844 CSS viewport, DPR2, full-page image 780×10324, SHA256 `d415a50fa1a59099d3f6095ae3b20c225df68a77b1217414fabbbf6a1c72c454`), and `qa/variant-e/screenshots/live-home-mobile-430x932-dpr2.png` (430×932 CSS viewport, DPR2, full-page image 860×10712, SHA256 `a9f5331d3ef03fed79371b391f9093bce1e12f57730c0b5d05f2c58609b405fc`). Each capture is full-page, HTTP 200, and has DOM width equal to viewport width with no horizontal overflow.
+- Machine-readable closeout: `qa/variant-e/live-deployment-receipt.json` records the regime, direction contract, exactly-once degraded detector findings, fresh isolated `fix` disposition, all five applied remediations, branch/path, deployment identifiers, six-route checks, internal-link/copy/media checks, live HTML and raster hashes, and visual-proof hashes.
+- The deployed world remains pinned to source SHA `73c440ff37ea4dd57df705a547ab6ff4a96b580b`; the later receipt-only commit updates documentation and proof files without changing the deployed static output.
