@@ -18,9 +18,10 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parent
 SITE = ROOT / "variants"
-VARIANTS = ("a", "b", "c")
+VARIANTS = ("a", "b", "c", "e")
 ACCEPTED_BASE = "ee3623e41b6647b7380c987421f4a2ecb2057749"
 RECEIPT_PATH = ROOT / "variant-a-receipt.json"
+E_RECEIPT_PATH = ROOT / "variant-e-receipt.json"
 ROUTES = {
     "/": Path("index.html"),
     "/visit/": Path("visit/index.html"),
@@ -661,6 +662,178 @@ def verify_a_pages(
         errors.append("Variant A ministries route does not contain all confirmed recurring gatherings")
 
 
+E_DIRECTION_CONTRACT = """<!--
+THESIS: Service times are the interface. Refuse the conventional church hero followed by a generic card grid.
+OWN-WORLD: Deep navy fields, cold white reading surfaces, brick action color, compressed sans display, sharp image plates, and a numbered weekly compass.
+STORY: A visitor sees who Faith Baptist Church is, understands the complete weekly rhythm, confirms children and nursery options, and chooses Plan Your Visit.
+FIRST VIEWPORT: church1.jpg occupies the left 58 percent. The right 42 percent is navy with the name, exact identity line, Plan Your Visit action, and a vertical Sunday/Wednesday time rail. The CTA is visible at 390x844 without scrolling.
+FORM: Pinned Impeccable Persuade control. Build the brief's committed world, not a softened generic church layout.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
+-->"""
+
+E_REQUIRED_MAIN_TEXT = {
+    "/": (
+        A_IDENTITY,
+        "9:00 AM Sunday School for adults and teens",
+        "10:00 AM Sunday main service Young children's Sunday School and nursery for tots during Sunday programming",
+        "6:00 PM Sunday evening service",
+        "Wednesday 7:00 PM Prayer and Bible study",
+        A_ADDRESS,
+        A_PHONE_DISPLAY,
+    ),
+    "/visit/": (
+        "Plan Your Visit",
+        "Young children's Sunday School begins Sunday at 10:00 AM.",
+        "A nursery for tots is available during Sunday programming.",
+        A_ADDRESS,
+        A_PHONE_DISPLAY,
+    ),
+    "/beliefs/": (
+        "Bible believing.",
+        "Gospel driven.",
+        "We teach from the KJV Bible.",
+    ),
+    "/ministries/": (
+        "Adults and teens Sunday School",
+        "Main service",
+        "Young children's Sunday School",
+        "Nursery for tots",
+        "Sunday evening service",
+        "Prayer and Bible study",
+    ),
+    "/events/": (
+        "The recurring weekly schedule is listed below.",
+        "Current announcements will appear here when supplied.",
+    ),
+    "/contact/": ("Contact Faith Baptist Church", A_PHONE_DISPLAY, A_ADDRESS, "Get Directions"),
+}
+
+
+def verify_e_pages(
+    parsed_documents: dict[Path, DocumentParser], errors: list[str]
+) -> None:
+    variant_root = (SITE / "e").resolve()
+    titles: list[str] = []
+    rendered_media: set[str] = set()
+    for route, route_file in ROUTES.items():
+        page_path = (variant_root / route_file).resolve()
+        parser = parsed_documents.get(page_path)
+        if parser is None:
+            continue
+        relative = page_path.relative_to(ROOT)
+        html = page_path.read_text(encoding="utf-8")
+        titles.append(parser.title)
+
+        body_open = re.search(r"<body[^>]*>\n", html)
+        if not body_open or not html[body_open.end() :].startswith(E_DIRECTION_CONTRACT):
+            errors.append(f"{relative} does not embed the exact direction contract as body first child")
+        for required in E_REQUIRED_MAIN_TEXT[route]:
+            if required not in parser.main_text:
+                errors.append(f"{relative} is missing Variant E route copy: {required}")
+        if parser.tag_counts["h1"] != 1:
+            errors.append(f"{relative} must contain exactly one h1")
+        for landmark in ("header", "main", "footer"):
+            if parser.tag_counts[landmark] != 1:
+                errors.append(f"{relative} must contain exactly one {landmark} landmark")
+        if parser.html_lang != "en":
+            errors.append(f"{relative} does not declare html lang=en")
+        if parser.tag_counts["form"] or parser.tag_counts["script"]:
+            errors.append(f"{relative} contains an unsupported form or script")
+        current = [a for a in parser.anchors if a.get("aria-current") == "page"]
+        if len(current) != 2 or any(a.get("href") != route for a in current):
+            errors.append(f"{relative} navigation does not identify the current route twice")
+        nav_hrefs = [urlsplit(a.get("href") or "").path for a in parser.anchors]
+        for required_route in ROUTES:
+            if required_route not in nav_hrefs:
+                errors.append(f"{relative} is missing canonical route link {required_route}")
+
+        for image in parser.images:
+            filename = Path(image.get("src") or "").name
+            rendered_media.add(filename)
+            manifest = A_MEDIA_BY_FILE.get(filename)
+            if manifest is None:
+                errors.append(f"{relative} renders unmanifested media: {filename}")
+                continue
+            dimensions = manifest["original_dimensions"]
+            if image.get("alt") != manifest["alt"]:
+                errors.append(f"{relative} has incorrect alt text for {filename}")
+            if image.get("width") != str(dimensions["width"]) or image.get("height") != str(dimensions["height"]):
+                errors.append(f"{relative} has incorrect dimensions for {filename}")
+
+        folded_main = parser.main_text.casefold()
+        for value in (*FORBIDDEN_TEXT, *A_PUBLIC_FORBIDDEN):
+            if re.search(rf"\b{re.escape(value.casefold())}\b", folded_main):
+                errors.append(f"{relative} contains forbidden public copy: {value}")
+
+        if route == "/":
+            if parser.class_counts["first-view"] != 1 or parser.class_counts["hero-rail"] != 1:
+                errors.append("Variant E home is missing the pinned first viewport")
+            home_images = [Path(img.get("src") or "").name for img in parser.images]
+            if set(home_images) != set(ASSETS):
+                errors.append("Variant E home must meaningfully render all four client rasters")
+            if parser.class_counts["compass-line"] != 1:
+                errors.append("Variant E home must contain one full Service-Time Compass")
+        elif parser.class_counts["compact-compass"] != 1:
+            errors.append(f"{relative} is missing compact schedule-compass wayfinding")
+
+    if len(titles) != len(set(titles)) or any(not title for title in titles):
+        errors.append("Variant E route titles are missing or not unique")
+    if rendered_media != set(ASSETS):
+        errors.append("Variant E does not render all four bundled client rasters")
+
+    css = (ROOT / "styles-e.css").read_text(encoding="utf-8").casefold()
+    for required in (
+        "--navy:#10283f",
+        "--white:#f7f8f5",
+        "--brick:#963c32",
+        "--mist:#dce5ea",
+        "grid-template-columns:58% 42%",
+        "font-family:\"archivo black\"",
+        "@keyframes draw-line",
+        "@media(prefers-reduced-motion:reduce)",
+        "@media(prefers-reduced-transparency:reduce)",
+        "@media(max-width:767px)",
+        "height:34vh",
+    ):
+        if required not in css:
+            errors.append(f"styles-e.css is missing direction-contract evidence: {required}")
+
+
+def verify_e_receipt(errors: list[str]) -> None:
+    try:
+        receipt = json.loads(E_RECEIPT_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"cannot read Variant E receipt: {exc}")
+        return
+    regime = receipt.get("design_regime", {})
+    if regime != {
+        "skill": "Impeccable",
+        "version": "4.1.1",
+        "mode": "Persuade",
+        "direction": "Service-Time Compass",
+        "other_generators_used": [],
+    }:
+        errors.append("Variant E receipt has an incorrect design regime")
+    if receipt.get("routes") != list(ROUTES):
+        errors.append("Variant E receipt has an incorrect route manifest")
+    media = receipt.get("media", [])
+    if [item.get("file") for item in media] != list(ASSETS):
+        errors.append("Variant E receipt has an incorrect media manifest")
+        return
+    for item in media:
+        source = A_MEDIA_BY_FILE[item["file"]]
+        expected_path = f"variants/e/assets/{item['file']}"
+        if item.get("alt") != source["alt"]:
+            errors.append(f"Variant E receipt has incorrect alt text for {item['file']}")
+        if item.get("original_dimensions") != source["original_dimensions"]:
+            errors.append(f"Variant E receipt has incorrect dimensions for {item['file']}")
+        if item.get("sha256") != source["sha256"] or item.get("bundled_path") != expected_path:
+            errors.append(f"Variant E receipt has incorrect provenance for {item['file']}")
+        bundled = ROOT / expected_path
+        if not bundled.is_file() or sha256(bundled) != source["sha256"]:
+            errors.append(f"Variant E bundled media differs from receipt: {item['file']}")
+
+
 def main() -> int:
     errors: list[str] = []
     expected_pages = {
@@ -703,8 +876,12 @@ def main() -> int:
         parser = parse_document(page_path)
         parsed_documents[page_path] = parser
         variant = relative_path.parts[1]
-        public_address = A_ADDRESS if variant == "a" else ADDRESS
-        public_phone = A_PHONE_DISPLAY if variant == "a" else PHONE_DISPLAY
+        if variant in {"a", "e"}:
+            public_address = A_ADDRESS
+            public_phone = A_PHONE_DISPLAY
+        else:
+            public_address = ADDRESS
+            public_phone = PHONE_DISPLAY
 
         for required in (NAME, public_address, public_phone, f'href="tel:{PHONE_TEL}"'):
             if required not in html:
@@ -790,19 +967,25 @@ def main() -> int:
 
     for route, route_file in ROUTES.items():
         for first, second in itertools.combinations(VARIANTS, 2):
-            first_html = (SITE / first / route_file).read_text(encoding="utf-8").replace(
+            first_path = SITE / first / route_file
+            second_path = SITE / second / route_file
+            if not first_path.is_file() or not second_path.is_file():
+                continue
+            first_html = first_path.read_text(encoding="utf-8").replace(
                 f"v-{first}", "v-*"
             )
-            second_html = (SITE / second / route_file).read_text(encoding="utf-8").replace(
+            second_html = second_path.read_text(encoding="utf-8").replace(
                 f"v-{second}", "v-*"
             )
             if first_html == second_html:
                 errors.append(f"variants {first}/{second} are identical at route {route}")
 
     for first, second in itertools.combinations(VARIANTS, 2):
-        if (SITE / first / "styles.css").read_bytes() == (
-            SITE / second / "styles.css"
-        ).read_bytes():
+        first_styles = SITE / first / "styles.css"
+        second_styles = SITE / second / "styles.css"
+        if not first_styles.is_file() or not second_styles.is_file():
+            continue
+        if first_styles.read_bytes() == second_styles.read_bytes():
             errors.append(f"variant stylesheets {first}/{second} are identical")
 
     for qa_path in (ROOT / "README.md", ROOT / "qa-live.json"):
@@ -814,6 +997,8 @@ def main() -> int:
     verify_receipt(errors)
     verify_a_styles(errors)
     verify_a_pages(parsed_documents, errors)
+    verify_e_pages(parsed_documents, errors)
+    verify_e_receipt(errors)
     verify_base_bytes(errors)
 
     if errors:
@@ -823,7 +1008,7 @@ def main() -> int:
         return 1
 
     print(
-        "Verified 18 pages. Variant A passes exact routes/copy/alts/noindex, media "
+        "Verified 24 pages. Variants A and E pass exact routes/copy/alts/noindex, media "
         "integrity, accessibility/mobile and regime receipts; generated B/C bytes "
         f"match accepted base {ACCEPTED_BASE}."
     )

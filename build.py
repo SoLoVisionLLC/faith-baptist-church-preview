@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Build Faith Baptist Church preview site: variants A/B/C, static HTML, 6 routes each."""
+"""Build Faith Baptist Church static variants, six routes each."""
 import os, shutil
+
+import variant_e
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(ROOT, 'variants')
@@ -554,6 +556,16 @@ def main():
         shutil.copy(f'{ROOT}/styles-{v}.css', f'{SITE}/{v}/styles.css')
         for fn in ('front.png', 'church1.jpg', 'church2.jpg', 'church3.jpg'):
             shutil.copy(f'{ROOT}/assets/{fn}', f'{SITE}/{v}/assets/{fn}')
+    e_root = os.path.join(SITE, 'e')
+    os.makedirs(os.path.join(e_root, 'assets'), exist_ok=True)
+    for slug, title, desc, body in variant_e.PAGES:
+        outdir = e_root if not slug else os.path.join(e_root, slug)
+        os.makedirs(outdir, exist_ok=True)
+        with open(os.path.join(outdir, 'index.html'), 'w') as output:
+            output.write(variant_e.page(slug, title, desc, body))
+    shutil.copy(f'{ROOT}/styles-e.css', os.path.join(e_root, 'styles.css'))
+    for fn in ('front.png', 'church1.jpg', 'church2.jpg', 'church3.jpg'):
+        shutil.copy(f'{ROOT}/assets/{fn}', os.path.join(e_root, 'assets', fn))
     print('Built.')
 
 
