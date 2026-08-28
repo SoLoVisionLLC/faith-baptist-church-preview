@@ -3,7 +3,7 @@
 @font-face{font-family:"Karla";src:url("/assets/fonts/karla-latin.woff2") format("woff2");font-style:normal;font-weight:400 700;font-display:swap}
 :root{--ground:#faf8f5;--ground-alt:#f0ebe3;--text:#2d2a26;--text-muted:#6b6560;--sage:#8fa68f;--sage-light:#b8ccb8;--terracotta:#c67d5a;--terracotta-light:#e8a889;--sand:#d4c4a8;--cream:#f5f0e6}
 *,*::before,*::after{box-sizing:border-box}
-html{font-size:16px;scroll-behavior:smooth}
+html{font-size:16px;scroll-behavior:smooth;overflow-x:hidden}
 body{margin:0;background:var(--ground);color:var(--text);font-family:"Karla",sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 body::before{position:fixed;inset:0;z-index:-3;background:linear-gradient(135deg,rgba(250,248,245,.94),rgba(240,235,227,.78));content:"";pointer-events:none}
 img{display:block;max-width:100%;height:auto}
