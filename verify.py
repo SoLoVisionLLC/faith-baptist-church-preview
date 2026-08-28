@@ -10,6 +10,7 @@ import re
 import struct
 import subprocess
 import sys
+from html import unescape
 from collections import Counter, defaultdict
 from html.parser import HTMLParser
 from pathlib import Path
@@ -18,7 +19,7 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parent
 SITE = ROOT / "variants"
-VARIANTS = ("a", "b", "c", "e")
+VARIANTS = ("a", "b", "c", "d", "e")
 ACCEPTED_BASE = "ee3623e41b6647b7380c987421f4a2ecb2057749"
 C_ISOLATION_BASE = "4788760d42fddf11e47ea26510b142848e71a959"
 CURRENT_MAIN_BASE = "0c90f9f7199542aa1668b98b406cb69c51f9ffd6"
@@ -46,6 +47,7 @@ ROUTES = {
 NAME = "Faith Baptist Church"
 ADDRESS = "11275 W. Township Rd. 116, Fostoria, OH 44830"
 B_ADDRESS = "11275 W. Twp. Rd. 116, Fostoria, OH 44830"
+D_ADDRESS = B_ADDRESS
 PHONE_DISPLAY = "(419) 348-2171"
 PHONE_TEL = "+14193482171"
 A_ADDRESS = "11275 W. Twp. Rd. 116, Fostoria, OH 44830"
@@ -73,6 +75,45 @@ B_ALTS = (
     "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.",
     "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.",
     "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.",
+)
+D_ALT_TEXT = B_ALTS
+D_PUBLIC_COPY_BANNED = (
+    "preview",
+    "concept",
+    "mockup",
+    "demo",
+    "sample",
+    "placeholder",
+    "revision",
+    "redesign",
+    "template",
+    "source-backed",
+    "design direction",
+    "design system",
+    "pilot",
+    "skill",
+    "regime",
+    "solovision",
+    "faith chapel",
+    "dillon road",
+    "grace",
+    "qwery",
+    "ancorthemes",
+    "yoga",
+    "islamic",
+    "agency",
+    "donation",
+    "fake counter",
+    "fake event",
+    "stock-testimonial",
+)
+D_SCHEDULE_FACTS = (
+    ("Sunday", "Sunday School — adults and teens", "9:00 AM"),
+    ("Sunday", "Main Service", "10:00 AM"),
+    ("Sunday", "Young Children’s Sunday School", "10:00 AM"),
+    ("Sunday", "Nursery for tots", "During Sunday programming"),
+    ("Sunday", "Sunday Evening Service", "6:00 PM"),
+    ("Wednesday", "Prayer & Bible Study", "7:00 PM"),
 )
 
 A_MEDIA = [
@@ -1474,6 +1515,7 @@ def main() -> int:
     for required in (
         NAME,
         ADDRESS,
+        D_ADDRESS,
         PHONE_DISPLAY,
         PHONE_TEL,
         A_ADDRESS,
@@ -1498,6 +1540,9 @@ def main() -> int:
         if variant in {"a", "c", "e"}:
             public_address = A_ADDRESS
             public_phone = A_PHONE_DISPLAY
+        elif variant == "d":
+            public_address = D_ADDRESS
+            public_phone = PHONE_DISPLAY
         else:
             public_address = B_ADDRESS
             public_phone = PHONE_DISPLAY
@@ -1616,6 +1661,49 @@ def main() -> int:
             if actual_dimensions != (dimensions["width"], dimensions["height"]):
                 errors.append(f"Variant A {label} media dimensions differ: {item['file']}")
 
+
+    d_root = SITE / "d"
+    d_pages = [d_root / route_file for route_file in ROUTES.values()]
+    for d_page in d_pages:
+        html = d_page.read_text(encoding="utf-8")
+        folded_html = html.casefold()
+        for banned in D_PUBLIC_COPY_BANNED:
+            if banned.casefold() in folded_html:
+                errors.append(
+                    f"{d_page.relative_to(ROOT)} contains banned public copy: {banned}"
+                )
+        if "<blockquote" in folded_html or "testimonial" in folded_html:
+            errors.append(
+                f"{d_page.relative_to(ROOT)} contains rejected quotation or testimonial UI"
+            )
+
+    d_home = (d_root / ROUTES["/"]).read_text(encoding="utf-8")
+    for required in (
+        "New Visitor Questions",
+        "Weekly Schedule",
+        "Verified Place and Schedule Proof",
+        "Confirmed Beliefs",
+        *D_ALT_TEXT,
+    ):
+        if required not in d_home:
+            errors.append(f"variant D home is missing required proof content: {required}")
+    for asset in ASSETS:
+        if f'src="/assets/{asset}"' not in d_home:
+            errors.append(f"variant D home proof is missing image: {asset}")
+
+    for route in ("/", "/visit/", "/events/"):
+        schedule_html = unescape((d_root / ROUTES[route]).read_text(encoding="utf-8"))
+        for day, gathering, time in D_SCHEDULE_FACTS:
+            if not all(value in schedule_html for value in (day, gathering, time)):
+                errors.append(f"variant D route {route} is missing schedule row: {gathering}")
+
+    d_events = unescape((d_root / ROUTES["/events/"]).read_text(encoding="utf-8"))
+    if "Announcements appear here when supplied." not in d_events:
+        errors.append("variant D events page is missing the supplied-announcements notice")
+
+    d_contact = (d_root / ROUTES["/contact/"]).read_text(encoding="utf-8")
+    if "<form" in d_contact.casefold():
+        errors.append("variant D contact page contains an unrequested form")
     for route, route_file in ROUTES.items():
         for first, second in itertools.combinations(VARIANTS, 2):
             first_path = SITE / first / route_file
@@ -1705,9 +1793,10 @@ def main() -> int:
         return 1
 
     print(
-        "Verified 24 pages. Variants A, B, C, and E pass route/copy/alts/noindex, "
+        "Verified 30 pages. Variants A, B, C, D, and E pass route/copy/alts/noindex, "
         "media integrity, accessibility/mobile and regime receipts; generated B output "
-        f"matches {B_SOURCE_COMMIT}, and A/C/E match current main {CURRENT_MAIN_BASE}."
+        f"matches {B_SOURCE_COMMIT}, and A/C/E match current main {CURRENT_MAIN_BASE}; "
+        "Variant D contracts and assets are verified."
     )
     return 0
 

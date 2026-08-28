@@ -34,6 +34,8 @@ ADDRESS = '11275 W. Township Rd. 116, Fostoria, OH 44830'
 PHONE_DISPLAY = '(419) 348-2171'
 PHONE_TEL = '+14193482171'
 MAPS_DIR = 'https://www.google.com/maps/dir/?api=1&destination=11275+W.+Township+Rd.+116%2C+Fostoria%2C+OH+44830'
+D_ADDRESS = '11275 W. Twp. Rd. 116, Fostoria, OH 44830'
+D_MAPS_DIR = 'https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830'
 TAGLINE = "Bible believing. Gospel driven. Growing together in God&rsquo;s Word."
 POSITIONING = 'Rooted in the Word. Centered on the Gospel. A church family for Fostoria.'
 
@@ -245,6 +247,55 @@ def footer_c():
 </footer>'''
 
 
+def nav_d(active):
+    links = ''
+    for href, label in (
+        ('/', 'Home'),
+        ('/beliefs', 'Beliefs'),
+        ('/ministries', 'Ministries'),
+        ('/events', 'Schedule'),
+        ('/contact', 'Contact'),
+    ):
+        cls = ' class="active" aria-current="page"' if href == active else ''
+        path = '/' if href == '/' else href + '/'
+        links += f'<a href="{path}"{cls}>{label}</a>'
+
+    visit_current = ' aria-current="page"' if active == '/visit' else ''
+    return f'''
+<header class="site-header d-site-header">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="d-header-inner">
+    <a class="d-wordmark" href="/" aria-label="Faith Baptist Church home">
+      <span>Faith Baptist</span><strong>Church</strong>
+    </a>
+    <nav class="d-primary-nav" aria-label="Primary navigation">{links}</nav>
+    <div class="d-header-actions">
+      <a class="d-call" href="tel:{PHONE_TEL}" aria-label="Call Faith Baptist Church at {PHONE_DISPLAY}">Call the Church</a>
+      <a class="d-plan" href="/visit/"{visit_current}>Plan Your Visit</a>
+    </div>
+  </div>
+</header>'''
+
+
+def footer_d():
+    links = ''.join(
+        f'<a href="{("/" if href == "/" else href + "/")}">{label}</a>'
+        for href, label in NAV_LINKS
+    )
+    return f'''
+<footer class="site-footer d-site-footer">
+  <div class="d-footer-inner">
+    <div>
+      <p class="d-footer-name"><strong>{NAME}</strong></p>
+      <address>{D_ADDRESS}</address>
+      <p><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
+      <p><a href="{D_MAPS_DIR}" rel="noopener">Get directions</a></p>
+    </div>
+    <nav aria-label="Footer navigation">{links}</nav>
+  </div>
+</footer>'''
+
+
 HEAD = '''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -303,6 +354,11 @@ def page(variant, slug, title, desc, body):
         active = '/' if not slug else f'/{slug}/'
         html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active))
         return html + body + '\n</main>\n' + footer_c() + '\n</body>\n</html>\n'
+    if variant == 'd':
+        active = '/' + slug if slug else '/'
+        html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
+                           nav=nav_d(active))
+        return html + body + '\n</main>\n' + footer_d() + '\n</body>\n</html>\n'
     html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
                        nav=nav('/' + slug if slug else '/', variant))
     return html + body + '\n</main>\n' + footer(variant) + '\n</body>\n</html>\n'
@@ -563,6 +619,215 @@ C_CONTACT = f'''
 <figure class="contact-photo c-page-shell">{c_image('land')}</figure>'''
 
 
+# ---------------- Variant D — Accessible & Ethical ----------------
+
+IMG_D = {
+    'front': 'Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.',
+    'land': 'Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.',
+    'close': 'Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.',
+    'wide': 'Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.',
+}
+
+D_SCHEDULE = [
+    ('Sunday', 'Sunday School — adults and teens', '9:00 AM'),
+    ('Sunday', 'Main Service', '10:00 AM'),
+    ('Sunday', "Young Children&rsquo;s Sunday School", '10:00 AM'),
+    ('Sunday', 'Nursery for tots', 'During Sunday programming'),
+    ('Sunday', 'Sunday Evening Service', '6:00 PM'),
+    ('Wednesday', 'Prayer &amp; Bible Study', '7:00 PM'),
+]
+
+
+def d_schedule_table(caption='Weekly gathering times'):
+    rows = ''.join(
+        '<tr>'
+        f'<th scope="row" data-label="Day">{day}</th>'
+        f'<td data-label="Gathering">{gathering}</td>'
+        f'<td class="schedule-time" data-label="Time">{time}</td>'
+        '</tr>'
+        for day, gathering, time in D_SCHEDULE
+    )
+    return f'''
+<table class="d-schedule-table">
+  <caption>{caption}</caption>
+  <thead><tr><th scope="col">Day</th><th scope="col">Gathering</th><th scope="col">Time</th></tr></thead>
+  <tbody>{rows}</tbody>
+</table>'''
+
+
+D_HOME = '''
+<section class="d-hero" aria-labelledby="d-home-title">
+  <div class="d-hero-copy">
+    <p class="d-eyebrow">Faithful gatherings in Fostoria</p>
+    <h1 id="d-home-title">Faith Baptist <em>Church</em></h1>
+    <p class="d-identity">Bible believing. Gospel driven. Growing together in God&rsquo;s Word.</p>
+    <div class="d-hero-actions">
+      <a class="btn btn-accent" href="/visit/">Plan Your Visit</a>
+      <a class="btn btn-secondary" href="#weekly-schedule">View Service Times</a>
+    </div>
+  </div>
+  <figure class="d-hero-media">
+    <img src="/assets/church1.jpg" width="600" height="450" alt="''' + IMG_D['land'] + '''">
+  </figure>
+</section>
+
+<section class="d-section d-questions" aria-labelledby="visitor-questions-title">
+  <div class="d-section-heading">
+    <p class="d-kicker">Start with what matters</p>
+    <h2 id="visitor-questions-title">New Visitor Questions</h2>
+  </div>
+  <ul class="d-question-list">
+    <li><a href="#weekly-schedule"><span class="d-question">When do you gather?</span><span class="d-answer">Sunday at 9:00 AM, 10:00 AM, and 6:00 PM; Wednesday at 7:00 PM. <strong>View schedule</strong></span></a></li>
+    <li><a href="/visit/#children"><span class="d-question">What is available for children?</span><span class="d-answer">Young children&rsquo;s Sunday School meets at 10:00 AM, with nursery for tots during Sunday programming. <strong>See family details</strong></span></a></li>
+    <li><a href="''' + D_MAPS_DIR + '''" rel="noopener"><span class="d-question">Where is the church?</span><span class="d-answer">11275 W. Twp. Rd. 116, Fostoria, OH 44830. <strong>Get directions</strong></span></a></li>
+    <li><a href="tel:+14193482171"><span class="d-question">Would you rather call?</span><span class="d-answer">Speak with the church at (419) 348-2171. <strong>Call the Church</strong></span></a></li>
+  </ul>
+</section>
+
+<section class="d-section d-weekly" id="weekly-schedule" aria-labelledby="weekly-schedule-title">
+  <div class="d-section-heading">
+    <p class="d-kicker">A clear weekly rhythm</p>
+    <h2 id="weekly-schedule-title">Weekly Schedule</h2>
+  </div>
+''' + d_schedule_table() + '''
+</section>
+
+<section class="d-proof" aria-labelledby="proof-title">
+  <div class="d-section d-proof-inner">
+    <div class="d-section-heading">
+      <p class="d-kicker">Confirmed details</p>
+      <h2 id="proof-title">Verified Place and Schedule Proof</h2>
+      <p>These are the church building, sanctuary, location, and direct phone details.</p>
+    </div>
+    <div class="d-proof-facts" aria-label="Church contact details">
+      <p><span>Address</span><strong>11275 W. Twp. Rd. 116, Fostoria, OH 44830</strong></p>
+      <p><span>Phone</span><a href="tel:+14193482171">(419) 348-2171</a></p>
+      <a class="btn btn-accent" href="''' + D_MAPS_DIR + '''" rel="noopener">Open Directions</a>
+    </div>
+    <div class="d-photo-grid">
+      <figure class="d-photo d-photo-portrait"><img src="/assets/front.png" width="277" height="600" loading="lazy" alt="''' + IMG_D['front'] + '''"><figcaption>Church exterior and steeple</figcaption></figure>
+      <figure class="d-photo d-photo-landscape"><img src="/assets/church1.jpg" width="600" height="450" loading="lazy" alt="''' + IMG_D['land'] + '''"><figcaption>Church grounds and exterior</figcaption></figure>
+      <figure class="d-photo"><img src="/assets/church2.jpg" width="450" height="600" loading="lazy" alt="''' + IMG_D['close'] + '''"><figcaption>Sanctuary and pulpit</figcaption></figure>
+      <figure class="d-photo"><img src="/assets/church3.jpg" width="450" height="600" loading="lazy" alt="''' + IMG_D['wide'] + '''"><figcaption>Sanctuary from the center aisle</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="d-section d-beliefs" aria-labelledby="confirmed-beliefs-title">
+  <div class="d-section-heading">
+    <p class="d-kicker">What is confirmed</p>
+    <h2 id="confirmed-beliefs-title">Confirmed Beliefs</h2>
+  </div>
+  <div class="d-belief-grid">
+    <article><h3>Bible believing</h3><p>God&rsquo;s Word shapes our life together.</p></article>
+    <article><h3>Gospel driven</h3><p>The gospel remains at the center of our gatherings.</p></article>
+    <article><h3>KJV Bible</h3><p>Teaching uses the King James Version.</p></article>
+  </div>
+</section>
+
+<section class="d-contact-cta" aria-labelledby="contact-cta-title">
+  <div>
+    <p class="d-kicker">One direct next step</p>
+    <h2 id="contact-cta-title">Questions before you visit?</h2>
+    <p>Call Faith Baptist Church at (419) 348-2171.</p>
+  </div>
+  <a class="btn btn-accent" href="tel:+14193482171">Call the Church</a>
+</section>'''
+
+D_VISIT = '''
+<section class="d-page-intro" aria-labelledby="visit-title">
+  <p class="d-kicker">Plan with confirmed details</p>
+  <h1 id="visit-title">Plan Your Visit</h1>
+  <p>Find the full weekly schedule, location, directions, and children&rsquo;s ministry details in one place.</p>
+</section>
+<section class="d-section d-priority-details" aria-labelledby="visit-contact-title">
+  <h2 id="visit-contact-title">Phone and directions</h2>
+  <p><strong>Call:</strong> <a href="tel:+14193482171">(419) 348-2171</a></p>
+  <p><strong>Address:</strong> 11275 W. Twp. Rd. 116, Fostoria, OH 44830</p>
+  <p><a class="btn btn-accent" href="''' + D_MAPS_DIR + '''" rel="noopener">Open Directions</a></p>
+</section>
+<section class="d-section d-weekly" aria-labelledby="visit-schedule-title">
+  <h2 id="visit-schedule-title">Full weekly schedule</h2>
+''' + d_schedule_table('Confirmed weekly gathering times') + '''
+</section>
+<section class="d-section d-children" id="children" aria-labelledby="children-title">
+  <h2 id="children-title">Children and nursery</h2>
+  <p>Adults and teens meet for Sunday School at 9:00 AM. Young Children&rsquo;s Sunday School meets at 10:00 AM. A nursery is available for tots during Sunday programming.</p>
+</section>
+<figure class="d-inner-media">
+  <img src="/assets/front.png" width="277" height="600" loading="lazy" alt="''' + IMG_D['front'] + '''">
+  <figcaption>Faith Baptist Church exterior</figcaption>
+</figure>'''
+
+D_BELIEFS = '''
+<section class="d-page-intro" aria-labelledby="beliefs-title">
+  <p class="d-kicker">A concise foundation</p>
+  <h1 id="beliefs-title">What We Believe</h1>
+  <p>These are the three convictions confirmed by Faith Baptist Church.</p>
+</section>
+<section class="d-section d-beliefs" aria-label="Confirmed convictions">
+  <div class="d-belief-grid">
+    <article><h2>Bible believing</h2><p>God&rsquo;s Word shapes our life together.</p></article>
+    <article><h2>Gospel driven</h2><p>The gospel remains at the center of our gatherings.</p></article>
+    <article><h2>KJV Bible</h2><p>Teaching uses the King James Version.</p></article>
+  </div>
+</section>
+<figure class="d-inner-media d-sanctuary-media">
+  <img src="/assets/church2.jpg" width="450" height="600" loading="lazy" alt="''' + IMG_D['close'] + '''">
+  <figcaption>Faith Baptist Church sanctuary</figcaption>
+</figure>'''
+
+D_MINISTRIES = '''
+<section class="d-page-intro" aria-labelledby="ministries-title">
+  <p class="d-kicker">Gather throughout the week</p>
+  <h1 id="ministries-title">Ministries</h1>
+  <p>Explore the confirmed Sunday and Wednesday ministries for adults, teens, children, and tots.</p>
+</section>
+<section class="d-section d-ministry-list" aria-labelledby="ministry-list-title">
+  <h2 id="ministry-list-title">Weekly ministries</h2>
+  <dl>
+    <div><dt>Adults &amp; Teens Sunday School</dt><dd>Sunday at <span class="schedule-time">9:00 AM</span></dd></div>
+    <div><dt>Main Service</dt><dd>Sunday at <span class="schedule-time">10:00 AM</span></dd></div>
+    <div><dt>Young Children&rsquo;s Sunday School</dt><dd>Sunday at <span class="schedule-time">10:00 AM</span></dd></div>
+    <div><dt>Nursery</dt><dd>For tots during Sunday programming</dd></div>
+    <div><dt>Sunday Evening Service</dt><dd>Sunday at <span class="schedule-time">6:00 PM</span></dd></div>
+    <div><dt>Prayer &amp; Bible Study</dt><dd>Wednesday at <span class="schedule-time">7:00 PM</span></dd></div>
+  </dl>
+</section>'''
+
+D_EVENTS = '''
+<section class="d-page-intro" aria-labelledby="events-title">
+  <p class="d-kicker">The recurring church week</p>
+  <h1 id="events-title">Events &amp; Announcements</h1>
+  <p>Use this confirmed weekly schedule to choose a gathering.</p>
+</section>
+<section class="d-section d-weekly" aria-labelledby="events-schedule-title">
+  <h2 id="events-schedule-title">Recurring weekly schedule</h2>
+''' + d_schedule_table('Recurring weekly gatherings') + '''
+  <p class="d-announcement-note">Announcements appear here when supplied.</p>
+</section>'''
+
+D_CONTACT = '''
+<section class="d-page-intro" aria-labelledby="contact-title">
+  <p class="d-kicker">Direct church contact</p>
+  <h1 id="contact-title">Contact</h1>
+  <p>Call the church or open directions to the confirmed Fostoria address.</p>
+</section>
+<section class="d-section d-priority-details" aria-labelledby="contact-details-title">
+  <h2 id="contact-details-title">Phone and location</h2>
+  <p class="d-contact-phone"><a href="tel:+14193482171">(419) 348-2171</a></p>
+  <address>11275 W. Twp. Rd. 116, Fostoria, OH 44830</address>
+  <div class="d-contact-actions">
+    <a class="btn btn-accent" href="tel:+14193482171">Call the Church</a>
+    <a class="btn btn-secondary" href="''' + D_MAPS_DIR + '''" rel="noopener">Open Directions</a>
+  </div>
+</section>
+<figure class="d-inner-media">
+  <img src="/assets/front.png" width="277" height="600" loading="lazy" alt="''' + IMG_D['front'] + '''">
+  <figcaption>Faith Baptist Church exterior</figcaption>
+</figure>'''
+
+
 PAGES = {
     'a': [
         ('', 'Welcome to Faith Baptist Church | Fostoria, Ohio', 'Faith Baptist Church service times and visit information in Fostoria, Ohio.', A_HOME),
@@ -588,13 +853,21 @@ PAGES = {
         ('events', 'Weekly Schedule and Announcements | Faith Baptist Church', 'The recurring weekly schedule and announcements for Faith Baptist Church.', C_EVENTS),
         ('contact', 'Contact Faith Baptist Church | Phone and Directions', 'Phone, address, and directions for Faith Baptist Church.', C_CONTACT),
     ],
+    'd': [
+        ('', 'Faith Baptist Church — Fostoria, Ohio', 'Bible believing. Gospel driven. Growing together in God’s Word. View confirmed gathering times and plan your visit.', D_HOME),
+        ('visit', 'Plan Your Visit — Faith Baptist Church', 'Confirmed gathering times, directions, and children’s ministry details for Faith Baptist Church.', D_VISIT),
+        ('beliefs', 'What We Believe — Faith Baptist Church', 'Bible believing. Gospel driven. Teaching from the KJV Bible.', D_BELIEFS),
+        ('ministries', 'Ministries — Faith Baptist Church', 'Confirmed Sunday and Wednesday ministries at Faith Baptist Church.', D_MINISTRIES),
+        ('events', 'Events & Announcements — Faith Baptist Church', 'Recurring weekly gatherings and supplied announcements at Faith Baptist Church.', D_EVENTS),
+        ('contact', 'Contact — Faith Baptist Church', 'Phone, address, and directions to Faith Baptist Church in Fostoria, Ohio.', D_CONTACT),
+    ],
 }
 
 
 def main():
     if os.path.exists(SITE):
         shutil.rmtree(SITE)
-    for v in ('a', 'b', 'c'):
+    for v in ('a', 'b', 'c', 'd'):
         os.makedirs(f'{SITE}/{v}/assets', exist_ok=True)
         for slug, title, desc, body in PAGES[v]:
             folder = '' if slug == '' else slug
