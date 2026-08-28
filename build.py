@@ -49,6 +49,14 @@ IMG = {
     'wide':  ('/assets/church3.jpg', 'Wide view of the Faith Baptist Church sanctuary'),
 }
 
+B_ADDRESS = '11275 W. Twp. Rd. 116, Fostoria, OH 44830'
+B_ALT = {
+    'front': 'Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.',
+    'land': 'Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.',
+    'close': 'Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.',
+    'wide': 'Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.',
+}
+
 A_IMG = {
     'front': (
         '/assets/front.png',
@@ -103,12 +111,22 @@ SCHEDULE = [
 ]
 
 
-def nav(active):
+def nav(active, variant='a'):
     links = ''
     for h, t in NAV_LINKS:
         cls = ' class="active" aria-current="page"' if h == active else ''
         href = '/' if h == '/' else h + '/'
         links += f'<a href="{href}"{cls}>{t}</a>'
+    if variant == 'b':
+        return f'''
+<header class="site-header">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="brand" href="/">Faith Baptist Church</a>
+  <a class="header-phone" href="tel:{PHONE_TEL}">419-348-2171</a>
+  <details class="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile">{links}</nav></details>
+  <nav class="nav" aria-label="Main">{links}</nav>
+  <a class="header-cta" href="/visit/">Plan Your Visit</a>
+</header>'''
     return f'''
 <header class="site-header">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -120,15 +138,23 @@ def nav(active):
 </header>'''
 
 
-def footer():
+def footer(variant='a'):
+    address = B_ADDRESS if variant == 'b' else ADDRESS
+    footer_links = ''.join(
+        f'<a href="{"/" if h == "/" else h + "/"}">{t}</a>'
+        for h, t in NAV_LINKS
+    ) if variant == 'b' else ''.join(
+        f'<a href="/{"" if h=="/" else h+"/"}">{t}</a>'
+        for h, t in NAV_LINKS
+    )
     return f'''
 <footer class="site-footer">
   <p><strong>{NAME}</strong></p>
-  <p>{ADDRESS}</p>
+  <p>{address}</p>
   <p><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
   <p><a href="{MAPS_DIR}" rel="noopener">Google Maps Directions</a></p>
   <nav aria-label="Footer">
-    {''.join(f'<a href="/{"" if h=="/" else h+"/"}">{t}</a>' for h, t in NAV_LINKS)}
+    {footer_links}
   </nav>
 </footer>
 <a class="callbar" href="tel:{PHONE_TEL}">Call the Church</a>
@@ -278,8 +304,8 @@ def page(variant, slug, title, desc, body):
         html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active))
         return html + body + '\n</main>\n' + footer_c() + '\n</body>\n</html>\n'
     html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
-                       nav=nav('/' + slug if slug else '/'))
-    return html + body + '\n</main>\n' + footer() + '\n</body>\n</html>\n'
+                       nav=nav('/' + slug if slug else '/', variant))
+    return html + body + '\n</main>\n' + footer(variant) + '\n</body>\n</html>\n'
 
 
 # ---------------- shared sections ----------------
@@ -413,88 +439,26 @@ A_CONTACT = f'''
 </section>'''
 
 
-# ---------------- Variant B — Sunday Starts Here ----------------
+# ---------------- Variant B: Sunday Starts Here ----------------
 
 B_HOME = '''
-<section class="topbar" aria-label="Quick contact"><a href="tel:+14193482171">(419) 348-2171</a></section>
-<section class="split-hero">
-<div class="photo"><img src="/assets/front.png" alt="''' + IMG['front'][1] + '''"></div>
-<div class="panel">
-<p class="eyebrow">SUNDAY STARTS HERE</p>
-<h1>Faith Baptist Church</h1>
-<p class="sub">''' + TAGLINE + '''</p>
-<div class="times-panel"><p class="eyebrow">THIS SUNDAY</p>
-<p><strong>Sunday School</strong> 9:00 AM</p><p><strong>Morning Worship</strong> 10:00 AM</p><p><strong>Evening Service</strong> 6:00 PM</p><p><strong>Wednesday Prayer &amp; Bible Study</strong> 7:00 PM</p></div>
-<p>''' + CTA_PLAN + '''</p>
-</div>
-</section>
-<section class="tasks">
-<div class="card"><h2>This Sunday</h2><p>Sunday School 9:00 AM &middot; Worship 10:00 AM &middot; Evening 6:00 PM</p></div>
-<div class="card"><h2>For Children</h2><p>Young children&rsquo;s class at 10:00 AM and nursery care for tots.</p></div>
-<div class="card"><h2>Wednesday Prayer</h2><p>Prayer &amp; Bible Study every Wednesday at 7:00 PM.</p></div>
-<div class="card"><h2>Directions</h2><p>11275 W. Township Rd. 116, Fostoria, OH 44830.</p><p><a href="''' + MAPS_DIR + '''" rel="noopener">Open in Google Maps</a></p></div>
-</section>
-<section class="min-list">
-<h2>Ministry details</h2>
-<ul>
-<li><a href="/ministries/#adults-teens">Adults &amp; Teens Sunday School &mdash; 9:00 AM</a></li>
-<li><a href="/ministries/#worship">Morning Worship &mdash; 10:00 AM</a></li>
-<li><a href="/ministries/#children">Young Children&rsquo;s Class &mdash; 10:00 AM</a></li>
-<li><a href="/ministries/#nursery">Nursery for tots &mdash; during Sunday programming</a></li>
-<li><a href="/ministries/#prayer">Prayer &amp; Bible Study &mdash; Wednesday 7:00 PM</a></li>
-</ul>
-</section>
-<section class="loc-close">
-<h2>New here? Come a few minutes early &mdash; we will save you a seat.</h2>
-<p class="addr">11275 W. Township Rd. 116, Fostoria, OH 44830</p>
-<p><a class="btn btn-call" href="tel:+14193482171">Call (419) 348-2171</a> <a class="btn btn-primary" href="''' + MAPS_DIR + '''" rel="noopener">Directions</a></p>
-</section>'''
+<section class="home-hero"><div class="hero-photo"><img src="/assets/front.png" width="277" height="600" alt="''' + B_ALT['front'] + '''"></div><div class="hero-plan"><h1>Faith Baptist Church</h1><p class="hero-line">''' + TAGLINE + '''</p><div class="sunday-plan" aria-label="Sunday schedule"><div><strong>9:00 AM</strong><span>Sunday School for adults and teens</span></div><div><strong>10:00 AM</strong><span>Main service, young children's class, and nursery</span></div><div><strong>6:00 PM</strong><span>Sunday Evening Service</span></div></div><p>''' + CTA_PLAN + '''</p></div></section>
+<section class="today-band" aria-labelledby="today-title"><h2 id="today-title">Today at Faith Baptist</h2><p><strong>Sunday:</strong> 9:00 AM Sunday School, 10:00 AM main service and children's classes, 6:00 PM evening service.</p><p><strong>Wednesday:</strong> 7:00 PM Prayer and Bible Study.</p></section>
+<section class="task-grid" aria-labelledby="questions-title"><h2 id="questions-title">Plan the practical details</h2><a class="task task-wide" href="/visit/"><strong>This Sunday</strong><span>See every service time and children's option.</span></a><a class="task" href="/ministries/"><strong>For Children</strong><span>Young children's class and nursery details.</span></a><a class="task" href="/events/"><strong>Wednesday Prayer and Bible Study</strong><span>Join us at 7:00 PM.</span></a><a class="task task-location" href="''' + MAPS_DIR + '''" rel="noopener"><strong>Find Us</strong><span>''' + B_ADDRESS + '''</span></a></section>
+<section class="place-story"><img src="/assets/church1.jpg" width="600" height="450" alt="''' + B_ALT['land'] + '''"><div><h2>A local church in Fostoria</h2><p>We are Bible believing, gospel driven, and growing together in God's Word.</p><p><a href="tel:+14193482171">Call the Church at 419-348-2171</a></p></div></section>
+<section class="ministry-groups"><h2>Our weekly rhythm</h2><div><h3>Sunday Learning</h3><p>Adults and teens meet at 9:00 AM. Young children's Sunday School meets at 10:00 AM, with nursery available for tots.</p></div><div><h3>Worship Gatherings</h3><p>The main service begins Sunday at 10:00 AM. Sunday Evening Service begins at 6:00 PM.</p></div><div><h3>Midweek Prayer</h3><p>Wednesday Prayer and Bible Study begins at 7:00 PM.</p></div></section>
+<section class="photo-story" aria-label="Inside Faith Baptist Church"><figure><img src="/assets/church2.jpg" width="450" height="600" alt="''' + B_ALT['close'] + '''"><figcaption>The central pulpit and cross inside the sanctuary.</figcaption></figure><figure><img src="/assets/church3.jpg" width="450" height="600" alt="''' + B_ALT['wide'] + '''"><figcaption>The center aisle leads toward the cross and altar.</figcaption></figure></section>
+<section class="location-close"><h2>Plan Your Visit</h2><p>''' + B_ADDRESS + '''</p><p><a href="tel:+14193482171">419-348-2171</a></p><p><a class="btn btn-primary" href="/visit/">Plan Your Visit</a> <a class="btn btn-secondary" href="''' + MAPS_DIR + '''" rel="noopener">Get Directions</a></p></section>'''
 
-B_VISIT = '''
-<section><h1>Plan Your Visit</h1>
-<img class="feature" src="/assets/front.png" alt="''' + IMG['front'][1] + '''">
-<p class="eyebrow">CHECKLIST FOR YOUR FIRST SUNDAY</p></section>
-<section id="times"><h2>Times</h2>''' + sched_table() + '''</section>
-<section id="kids"><h2>Kids</h2><p>Nursery available for tots during Sunday programming. Young children&rsquo;s Sunday School meets at 10:00 AM; adults and teens at 9:00 AM.</p></section>
-<section id="location"><h2>Location</h2><p>11275 W. Township Rd. 116, Fostoria, OH 44830</p>
-<p><a class="btn btn-primary" href="''' + MAPS_DIR + '''" rel="noopener">Google Maps Directions</a></p></section>
-<section id="expect"><h2>What to expect</h2><ul><li>A warm welcome from a Bible believing, gospel driven church family.</li><li>Teaching from the KJV Bible.</li><li>Room for your whole family, tots to teens.</li></ul></section>'''
+B_VISIT = '''<section class="page-intro"><h1>Plan Your Visit</h1><p>Use this checklist for service times, children and nursery, location, and a direct call.</p></section><section class="visit-checklist"><div><h2>Times</h2>''' + sched_table() + '''</div><div><h2>Children and Nursery</h2><p>Adults and teens meet for Sunday School at 9:00 AM. Young children's Sunday School meets at 10:00 AM, with nursery available for tots during Sunday programming.</p></div><div><h2>Location</h2><p>''' + B_ADDRESS + '''</p><p><a class="btn btn-secondary" href="''' + MAPS_DIR + '''" rel="noopener">Get Directions</a></p></div><div><h2>Call</h2><p><a class="phone-action" href="tel:+14193482171">Call the Church at 419-348-2171</a></p></div></section><img class="feature portrait-feature" src="/assets/front.png" width="277" height="600" alt="''' + B_ALT['front'] + '''">'''
 
-B_BELIEFS = '''
-<section><h1>What We Believe</h1>
-<p class="lede">Bible believing. Gospel driven. Growing together in God&rsquo;s Word.</p>
-<div class="split"><img src="/assets/church2.jpg" alt="''' + IMG['close'][1] + '''">
-<dl><dt>The Bible</dt><dd>God&rsquo;s Word, taught from the King James Version.</dd>
-<dt>The Gospel</dt><dd>Christ at the center of everything we do.</dd>
-<dt>Growing together</dt><dd>One church family, learning side by side.</dd></dl></div>
-<p>Join us Sunday at 10:00 AM.</p></section>'''
+B_BELIEFS = '''<section class="page-intro"><h1>What We Believe</h1><p>These are the confirmed convictions Faith Baptist Church has shared.</p></section><section class="belief-layout"><img src="/assets/church2.jpg" width="450" height="600" alt="''' + B_ALT['close'] + '''"><div><h2>Bible believing</h2><p>We are Bible believing.</p><h2>Gospel driven</h2><p>We are gospel driven.</p><h2>KJV Bible</h2><p>We teach from the KJV Bible.</p></div></section>'''
 
-B_MINISTRIES = '''
-<section><h1>Ministries</h1><p>Six weekly ways to grow at Faith Baptist Church.</p></section>
-<section class="two-col">
-<ul>
-<li id="adults-teens"><strong>Adults &amp; Teens Sunday School</strong> &mdash; Sundays 9:00 AM</li>
-<li id="worship"><strong>Morning Worship</strong> &mdash; Sundays 10:00 AM</li>
-<li id="children"><strong>Young Children&rsquo;s Sunday School</strong> &mdash; Sundays 10:00 AM</li>
-<li id="nursery"><strong>Nursery</strong> &mdash; for tots, during Sunday programming</li>
-<li id="evening"><strong>Sunday Evening Service</strong> &mdash; 6:00 PM</li>
-<li id="prayer"><strong>Prayer &amp; Bible Study</strong> &mdash; Wednesdays 7:00 PM</li>
-</ul>
-</section>
-<img class="feature" src="/assets/church3.jpg" alt="''' + IMG['wide'][1] + '''">
-<p><a class="btn btn-primary" href="/visit/">Plan Your Visit</a></p>'''
+B_MINISTRIES = '''<section class="page-intro"><h1>Ministries</h1><p>Our ministries follow a clear weekly rhythm for adults, teens, children, and tots.</p></section><section class="ministry-groups"><div><h2>Sunday Learning</h2><p>Sunday School begins at 9:00 AM for adults and teens. Young children's Sunday School begins at 10:00 AM. Nursery is available for tots during Sunday programming.</p></div><div><h2>Worship Gatherings</h2><p>The main service begins Sunday at 10:00 AM. Sunday Evening Service begins at 6:00 PM.</p></div><div><h2>Midweek Prayer</h2><p>Wednesday Prayer and Bible Study begins at 7:00 PM.</p></div></section><img class="feature" src="/assets/church3.jpg" width="450" height="600" alt="''' + B_ALT['wide'] + '''"><p class="center-action"><a class="btn btn-primary" href="/visit/">Plan Your Visit</a></p>'''
 
-B_EVENTS = '''
-<section><h1>Events &amp; Announcements</h1>
-<p class="eyebrow">OUR WEEKLY RHYTHM</p>''' + sched_table() + '''
-<p>Watch this space for upcoming announcements &mdash; and hear them first on Sunday morning.</p></section>'''
+B_EVENTS = '''<section class="page-intro"><h1>Events and Announcements</h1><p>Our recurring schedule is grouped by Sunday and Wednesday.</p></section><section class="weekly-groups"><div><h2>Sunday</h2><p><strong>9:00 AM</strong> Sunday School for adults and teens</p><p><strong>10:00 AM</strong> Main service, young children's Sunday School, and nursery</p><p><strong>6:00 PM</strong> Sunday Evening Service</p></div><div><h2>Wednesday</h2><p><strong>7:00 PM</strong> Prayer and Bible Study</p></div></section><section class="announcement-note"><h2>Current Announcements</h2><p>Current announcements will appear here when supplied.</p></section>'''
 
-B_CONTACT = '''
-<section><h1>Contact</h1>
-<p class="tap-call"><a href="tel:+14193482171">Tap to call<br>(419) 348-2171</a></p>
-<p>11275 W. Township Rd. 116, Fostoria, OH 44830</p>
-<p><a class="btn btn-primary" href="''' + MAPS_DIR + '''" rel="noopener">Get Directions</a></p>
-<img class="feature" src="/assets/front.png" alt="''' + IMG['front'][1] + '''"></section>'''
+B_CONTACT = '''<section class="page-intro"><h1>Contact Faith Baptist Church</h1><p>Call the church or open directions to the exact address.</p></section><section class="contact-layout"><div><h2>Call</h2><p><a class="phone-action" href="tel:+14193482171">419-348-2171</a></p><h2>Address</h2><p>''' + B_ADDRESS + '''</p><p><a class="btn btn-secondary" href="''' + MAPS_DIR + '''" rel="noopener">Get Directions</a></p></div><img src="/assets/church1.jpg" width="600" height="450" alt="''' + B_ALT['land'] + '''"></section>'''
 
 
 # ---------------- Variant C — Gathered and Growing / Organic Biomorphic 11 ----------------
@@ -609,12 +573,12 @@ PAGES = {
         ('contact', 'Contact Faith Baptist Church | Phone and Directions', 'Phone, address, and directions for Faith Baptist Church in Fostoria, Ohio.', A_CONTACT),
     ],
     'b': [
-        ('', 'Faith Baptist Church — Sunday Starts Here | Fostoria, OH', 'Sunday School 9:00 AM, worship 10:00 AM, evening service 6:00 PM. Plan your visit to Faith Baptist Church in Fostoria, Ohio.', B_HOME),
-        ('visit', 'Plan Your Visit — Faith Baptist Church', 'Your first-Sunday checklist: times, kids, location, and what to expect.', B_VISIT),
-        ('beliefs', 'What We Believe — Faith Baptist Church', 'Bible believing. Gospel driven. KJV foundation.', B_BELIEFS),
-        ('ministries', 'Ministries — Faith Baptist Church', 'Six weekly ministries for every age at Faith Baptist Church.', B_MINISTRIES),
-        ('events', 'Events & Announcements — Faith Baptist Church', 'The weekly rhythm of Faith Baptist Church gatherings.', B_EVENTS),
-        ('contact', 'Contact — Faith Baptist Church', 'Tap to call Faith Baptist Church: (419) 348-2171.', B_CONTACT),
+        ('', 'Faith Baptist Church | Sunday Starts Here | Fostoria, OH', 'Sunday School 9:00 AM, worship 10:00 AM, evening service 6:00 PM. Plan your visit to Faith Baptist Church in Fostoria, Ohio.', B_HOME),
+        ('visit', 'Plan Your Visit | Faith Baptist Church', 'Your first-Sunday checklist: times, kids, location, and what to expect.', B_VISIT),
+        ('beliefs', 'What We Believe | Faith Baptist Church', 'Bible believing. Gospel driven. KJV foundation.', B_BELIEFS),
+        ('ministries', 'Ministries | Faith Baptist Church', 'Six weekly ministries for every age at Faith Baptist Church.', B_MINISTRIES),
+        ('events', 'Events and Announcements | Faith Baptist Church', 'The weekly rhythm of Faith Baptist Church gatherings.', B_EVENTS),
+        ('contact', 'Contact | Faith Baptist Church', 'Tap to call Faith Baptist Church: (419) 348-2171.', B_CONTACT),
     ],
     'c': [
         ('', 'Faith Baptist Church | Service Times and Visit Information', 'Faith Baptist Church service times, location, and visit information in Fostoria, Ohio.', C_HOME),
@@ -641,6 +605,8 @@ def main():
                 f.write(html)
         # per-variant stylesheet
         shutil.copy(f'{ROOT}/styles-{v}.css', f'{SITE}/{v}/styles.css')
+        if v == 'b':
+            shutil.copy(f'{ROOT}/nginx-b.conf', f'{SITE}/{v}/nginx.conf')
         for fn in ('front.png', 'church1.jpg', 'church2.jpg', 'church3.jpg'):
             shutil.copy(f'{ROOT}/assets/{fn}', f'{SITE}/{v}/assets/{fn}')
         if v == 'c':

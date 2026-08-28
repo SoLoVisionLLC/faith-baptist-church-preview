@@ -1,0 +1,303 @@
+{
+  "base": "https://faithbaptistchurch-b.sololink.cloud",
+  "label": "live",
+  "routes": {
+    "/": {
+      "status": 200,
+      "title": "Faith Baptist Church | Sunday Starts Here | Fostoria, OH",
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "overflow": false,
+      "images": [
+        {
+          "alt": "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+          "complete": true,
+          "width": 277
+        },
+        {
+          "alt": "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.",
+          "complete": true,
+          "width": 600
+        },
+        {
+          "alt": "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.",
+          "complete": true,
+          "width": 450
+        },
+        {
+          "alt": "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.",
+          "complete": true,
+          "width": 450
+        }
+      ],
+      "links": [
+        "#main",
+        "/",
+        "tel:+14193482171",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "/visit/",
+        "/visit/",
+        "/visit/",
+        "/ministries/",
+        "/events/",
+        "https://www.google.com/maps/dir/?api=1&destination=11275+W.+Township+Rd.+116%2C+Fostoria%2C+OH+44830",
+        "tel:+14193482171",
+        "tel:+14193482171",
+        "/visit/",
+        "https://www.google.com/maps/dir/?api=1&destination=11275+W.+Township+Rd.+116%2C+Fostoria%2C+OH+44830",
+        "tel:+14193482171",
+        "https://www.google.com/maps/dir/?api=1&destination=11275+W.+Township+Rd.+116%2C+Fostoria%2C+OH+44830",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "tel:+14193482171"
+      ]
+    },
+    "/visit/": {
+      "status": 200,
+      "title": "Plan Your Visit | Faith Baptist Church",
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "overflow": false,
+      "images": [
+        {
+          "alt": "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+          "complete": true,
+          "width": 277
+        }
+      ],
+      "links": [
+        "#main",
+        "/",
+        "tel:+14193482171",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "/visit/",
+        "https://www.google.com/maps/dir/?api=1&destination=11275+W.+Township+Rd.+116%2C+Fostoria%2C+OH+44830",
+        "tel:+14193482171",
+        "tel:+14193482171",
+        "https://www.google.com/maps/dir/?api=1&destination=11275+W.+Township+Rd.+116%2C+Fostoria%2C+OH+44830",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "tel:+14193482171"
+      ]
+    },
+    "/beliefs/": {
+      "status": 200,
+      "title": "What We Believe | Faith Baptist Church",
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "overflow": false,
+      "images": [
+        {
+          "alt": "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.",
+          "complete": true,
+          "width": 450
+        }
+      ],
+      "links": [
+        "#main",
+        "/",
+        "tel:+14193482171",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "/visit/",
+        "tel:+14193482171",
+        "https://www.google.com/maps/dir/?api=1&destination=11275+W.+Township+Rd.+116%2C+Fostoria%2C+OH+44830",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "tel:+14193482171"
+      ]
+    },
+    "/ministries/": {
+      "status": 200,
+      "title": "Ministries | Faith Baptist Church",
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "overflow": false,
+      "images": [
+        {
+          "alt": "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.",
+          "complete": true,
+          "width": 450
+        }
+      ],
+      "links": [
+        "#main",
+        "/",
+        "tel:+14193482171",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "/visit/",
+        "/visit/",
+        "tel:+14193482171",
+        "https://www.google.com/maps/dir/?api=1&destination=11275+W.+Township+Rd.+116%2C+Fostoria%2C+OH+44830",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "tel:+14193482171"
+      ]
+    },
+    "/events/": {
+      "status": 200,
+      "title": "Events and Announcements | Faith Baptist Church",
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "overflow": false,
+      "images": [],
+      "links": [
+        "#main",
+        "/",
+        "tel:+14193482171",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "/visit/",
+        "tel:+14193482171",
+        "https://www.google.com/maps/dir/?api=1&destination=11275+W.+Township+Rd.+116%2C+Fostoria%2C+OH+44830",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "tel:+14193482171"
+      ]
+    },
+    "/contact/": {
+      "status": 200,
+      "title": "Contact | Faith Baptist Church",
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "overflow": false,
+      "images": [
+        {
+          "alt": "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.",
+          "complete": true,
+          "width": 600
+        }
+      ],
+      "links": [
+        "#main",
+        "/",
+        "tel:+14193482171",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "/visit/",
+        "tel:+14193482171",
+        "https://www.google.com/maps/dir/?api=1&destination=11275+W.+Township+Rd.+116%2C+Fostoria%2C+OH+44830",
+        "tel:+14193482171",
+        "https://www.google.com/maps/dir/?api=1&destination=11275+W.+Township+Rd.+116%2C+Fostoria%2C+OH+44830",
+        "/",
+        "/visit/",
+        "/beliefs/",
+        "/ministries/",
+        "/events/",
+        "/contact/",
+        "tel:+14193482171"
+      ]
+    }
+  },
+  "viewports": {
+    "desktop": {
+      "overflow": false,
+      "ctaBottom": 763.78125,
+      "innerHeight": 1000
+    },
+    "390x844-dpr2": {
+      "menuVisible": true,
+      "overflow": false,
+      "ctaBottom": 797.640625,
+      "innerHeight": 844,
+      "bodySize": "16px",
+      "themeBg": "rgb(248, 250, 252)"
+    },
+    "430x932-dpr2": {
+      "menuVisible": true,
+      "overflow": false,
+      "ctaBottom": 783.46875,
+      "innerHeight": 932,
+      "bodySize": "16px",
+      "themeBg": "rgb(248, 250, 252)"
+    },
+    "dark390": {
+      "bg": "rgb(15, 23, 42)",
+      "text": "rgb(248, 250, 252)",
+      "overflow": false
+    }
+  }
+}

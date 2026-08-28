@@ -21,6 +21,8 @@ SITE = ROOT / "variants"
 VARIANTS = ("a", "b", "c", "e")
 ACCEPTED_BASE = "ee3623e41b6647b7380c987421f4a2ecb2057749"
 C_ISOLATION_BASE = "4788760d42fddf11e47ea26510b142848e71a959"
+CURRENT_MAIN_BASE = "0c90f9f7199542aa1668b98b406cb69c51f9ffd6"
+B_SOURCE_COMMIT = "8bf4043e0a36d0ac5feda0fb1c1a17d3326ea97b"
 RECEIPT_PATH = ROOT / "variant-a-receipt.json"
 C_RECEIPT_PATH = ROOT / "qa" / "variant-c" / "verification-receipt.json"
 E_RECEIPT_PATH = ROOT / "variant-e-receipt.json"
@@ -43,6 +45,7 @@ ROUTES = {
 
 NAME = "Faith Baptist Church"
 ADDRESS = "11275 W. Township Rd. 116, Fostoria, OH 44830"
+B_ADDRESS = "11275 W. Twp. Rd. 116, Fostoria, OH 44830"
 PHONE_DISPLAY = "(419) 348-2171"
 PHONE_TEL = "+14193482171"
 A_ADDRESS = "11275 W. Twp. Rd. 116, Fostoria, OH 44830"
@@ -65,6 +68,12 @@ FORBIDDEN_TEXT = (
     f"220 {SUPERSEDED_STREET_NAME}",
 )
 ASSETS = ("front.png", "church1.jpg", "church2.jpg", "church3.jpg")
+B_ALTS = (
+    "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+    "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.",
+    "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.",
+    "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.",
+)
 
 A_MEDIA = [
     {
@@ -471,13 +480,13 @@ def git_output(args: list[str]) -> subprocess.CompletedProcess[bytes]:
     )
 
 
-def verify_base_bytes(errors: list[str]) -> None:
+def verify_b_source_bytes(errors: list[str]) -> None:
     listing = git_output(
-        ["ls-tree", "-r", "--name-only", ACCEPTED_BASE, "--", "variants/b"]
+        ["ls-tree", "-r", "--name-only", B_SOURCE_COMMIT, "--", "variants/b"]
     )
     if listing.returncode:
         errors.append(
-            f"cannot read accepted B tree {ACCEPTED_BASE}: "
+            f"cannot read Variant B source tree {B_SOURCE_COMMIT}: "
             f"{listing.stderr.decode(errors='replace').strip()}"
         )
         return
@@ -492,27 +501,27 @@ def verify_base_bytes(errors: list[str]) -> None:
         missing = sorted(expected - actual)
         extra = sorted(actual - expected)
         if missing:
-            errors.append(f"B files missing relative to accepted base: {', '.join(missing)}")
+            errors.append(f"B files missing relative to source commit: {', '.join(missing)}")
         if extra:
-            errors.append(f"B files added relative to accepted base: {', '.join(extra)}")
+            errors.append(f"B files added relative to source commit: {', '.join(extra)}")
 
     for relative in sorted(expected & actual):
-        base_blob = git_output(["show", f"{ACCEPTED_BASE}:{relative}"])
+        base_blob = git_output(["show", f"{B_SOURCE_COMMIT}:{relative}"])
         if base_blob.returncode:
-            errors.append(f"cannot read accepted base blob: {relative}")
+            errors.append(f"cannot read Variant B source blob: {relative}")
         elif (ROOT / relative).read_bytes() != base_blob.stdout:
-            errors.append(f"generated B bytes differ from accepted base: {relative}")
+            errors.append(f"generated B bytes differ from source commit: {relative}")
 
 
-def verify_c_isolation(errors: list[str]) -> None:
-    """Variant C work must leave the accepted generated A/B/E trees byte-for-byte intact."""
-    preserved_roots = ("variants/a", "variants/b", "variants/e")
+def verify_preserved_main_bytes(errors: list[str]) -> None:
+    """Variant B work must leave generated A/C/E trees byte-for-byte at current main."""
+    preserved_roots = ("variants/a", "variants/c", "variants/e")
     listing = git_output(
-        ["ls-tree", "-r", "--name-only", C_ISOLATION_BASE, "--", *preserved_roots]
+        ["ls-tree", "-r", "--name-only", CURRENT_MAIN_BASE, "--", *preserved_roots]
     )
     if listing.returncode:
         errors.append(
-            f"cannot read Variant C isolation base {C_ISOLATION_BASE}: "
+            f"cannot read current main base {CURRENT_MAIN_BASE}: "
             f"{listing.stderr.decode(errors='replace').strip()}"
         )
         return
@@ -520,7 +529,7 @@ def verify_c_isolation(errors: list[str]) -> None:
     expected = set(listing.stdout.decode().splitlines())
     actual = {
         path.relative_to(ROOT).as_posix()
-        for variant in ("a", "b", "e")
+        for variant in ("a", "c", "e")
         for path in (SITE / variant).rglob("*")
         if path.is_file()
     }
@@ -528,16 +537,16 @@ def verify_c_isolation(errors: list[str]) -> None:
         missing = sorted(expected - actual)
         extra = sorted(actual - expected)
         if missing:
-            errors.append(f"preserved A/B/E files are missing: {', '.join(missing)}")
+            errors.append(f"preserved A/C/E files are missing: {', '.join(missing)}")
         if extra:
-            errors.append(f"preserved A/B/E files were added: {', '.join(extra)}")
+            errors.append(f"preserved A/C/E files were added: {', '.join(extra)}")
 
     for relative in sorted(expected & actual):
-        base_blob = git_output(["show", f"{C_ISOLATION_BASE}:{relative}"])
+        base_blob = git_output(["show", f"{CURRENT_MAIN_BASE}:{relative}"])
         if base_blob.returncode:
-            errors.append(f"cannot read Variant C isolation blob: {relative}")
+            errors.append(f"cannot read current main blob: {relative}")
         elif (ROOT / relative).read_bytes() != base_blob.stdout:
-            errors.append(f"preserved A/B/E bytes changed: {relative}")
+            errors.append(f"preserved A/C/E bytes changed: {relative}")
 
 
 def verify_receipt(errors: list[str]) -> None:
@@ -1490,12 +1499,35 @@ def main() -> int:
             public_address = A_ADDRESS
             public_phone = A_PHONE_DISPLAY
         else:
-            public_address = ADDRESS
+            public_address = B_ADDRESS
             public_phone = PHONE_DISPLAY
 
         for required in (NAME, public_address, public_phone, f'href="tel:{PHONE_TEL}"'):
             if required not in html:
                 errors.append(f"{relative_path} is missing confirmed value: {required}")
+        if parser.tag_counts["h1"] != 1:
+            errors.append(
+                f"{relative_path} must contain exactly one h1 "
+                f"(found {parser.tag_counts['h1']})"
+            )
+        if variant == "b":
+            for forbidden in (
+                "—",
+                "–",
+                "&mdash;",
+                "&ndash;",
+                "preview",
+                "concept",
+                "mockup",
+                "template",
+                "pilot",
+                "skill",
+                "regime",
+            ):
+                if forbidden.casefold() in html.casefold():
+                    errors.append(
+                        f"{relative_path} contains banned Variant B public copy: {forbidden}"
+                    )
         for forbidden in FORBIDDEN_TEXT:
             if forbidden.casefold() in html.casefold():
                 errors.append(f"{relative_path} contains forbidden text: {forbidden}")
@@ -1559,6 +1591,15 @@ def main() -> int:
         built_styles = variant_root / "styles.css"
         if not built_styles.is_file() or built_styles.read_bytes() != source_styles.read_bytes():
             errors.append(f"variant {variant} stylesheet differs from source")
+        if variant == "b":
+            source_nginx = ROOT / "nginx-b.conf"
+            built_nginx = variant_root / "nginx.conf"
+            if not built_nginx.is_file() or built_nginx.read_bytes() != source_nginx.read_bytes():
+                errors.append("variant b nginx.conf differs from source")
+            elif 'X-Robots-Tag "noindex, nofollow" always' not in built_nginx.read_text(
+                encoding="utf-8"
+            ):
+                errors.append("variant b nginx.conf is missing X-Robots-Tag")
 
     for item in A_MEDIA:
         source_asset = ROOT / "assets" / item["file"]
@@ -1598,6 +1639,48 @@ def main() -> int:
         if first_styles.read_bytes() == second_styles.read_bytes():
             errors.append(f"variant stylesheets {first}/{second} are identical")
 
+    b_alts = {
+        image.get("alt") or ""
+        for page_path, parser in parsed_documents.items()
+        if page_path.relative_to(ROOT).parts[1] == "b"
+        for image in parser.images
+    }
+    for exact_alt in B_ALTS:
+        if exact_alt not in b_alts:
+            errors.append(f"Variant B is missing exact client image alt: {exact_alt}")
+
+    b_css = (ROOT / "styles-b.css").read_text(encoding="utf-8")
+    for required_css in (
+        "#a24532",
+        "prefers-color-scheme: dark",
+        "border-radius: 12px",
+        "border-radius: 8px",
+        "prefers-reduced-motion",
+        "grid-template-columns: 44fr 56fr",
+    ):
+        if required_css not in b_css:
+            errors.append(f"styles-b.css is missing Taste gate: {required_css}")
+    for forbidden_css in ("linear-gradient", "radial-gradient", "h-screen", "animation:"):
+        if forbidden_css in b_css:
+            errors.append(f"styles-b.css contains prohibited Taste pattern: {forbidden_css}")
+
+    receipt = ROOT / "qa" / "variant-b-taste-receipt.md"
+    manifest = ROOT / "qa" / "variant-b-media-manifest.json"
+    if not receipt.is_file():
+        errors.append("missing Variant B Taste regime receipt")
+    else:
+        receipt_text = receipt.read_text(encoding="utf-8")
+        for required in (
+            "design-taste-frontend",
+            "DESIGN_VARIANCE=4",
+            "MOTION_INTENSITY=2",
+            "VISUAL_DENSITY=4",
+        ):
+            if required not in receipt_text:
+                errors.append(f"Variant B receipt is missing: {required}")
+    if not manifest.is_file():
+        errors.append("missing Variant B media manifest")
+
     for qa_path in (ROOT / "README.md", ROOT / "qa-live.json"):
         qa_text = qa_path.read_text(encoding="utf-8")
         superseded_name = f"Faith {SUPERSEDED_CHURCH_WORD} Church"
@@ -1612,8 +1695,8 @@ def main() -> int:
     verify_c_receipt(errors)
     verify_e_pages(parsed_documents, errors)
     verify_e_receipt(errors)
-    verify_base_bytes(errors)
-    verify_c_isolation(errors)
+    verify_b_source_bytes(errors)
+    verify_preserved_main_bytes(errors)
 
     if errors:
         print("Verification failed:")
@@ -1622,9 +1705,9 @@ def main() -> int:
         return 1
 
     print(
-        "Verified 24 pages. Variants A, C, and E pass exact routes/copy/alts/noindex, "
-        "media integrity, accessibility/mobile and regime receipts; generated A/B/E "
-        f"outputs are byte-identical to Variant C isolation base {C_ISOLATION_BASE}."
+        "Verified 24 pages. Variants A, B, C, and E pass route/copy/alts/noindex, "
+        "media integrity, accessibility/mobile and regime receipts; generated B output "
+        f"matches {B_SOURCE_COMMIT}, and A/C/E match current main {CURRENT_MAIN_BASE}."
     )
     return 0
 
