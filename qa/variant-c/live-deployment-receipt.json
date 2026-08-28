@@ -1,0 +1,369 @@
+{
+  "browser_proof": {
+    "mobile_390_no_horizontal_overflow": true,
+    "mobile_430_no_horizontal_overflow": true,
+    "reduced_motion_emulation": {
+      "ambient_animation_duration": "0s",
+      "ambient_animation_name": "none",
+      "hero_animation_duration": "0s",
+      "hero_animation_name": "none",
+      "prefers_reduced_motion_matches": true
+    },
+    "screenshots": [
+      {
+        "device_pixel_ratio": 1,
+        "full_page": true,
+        "path": "qa/variant-c/screenshots/live-home-desktop-1440x1000-full.png",
+        "png_pixel_dimensions": [
+          1440,
+          5260
+        ],
+        "requested_css_viewport": [
+          1440,
+          1000
+        ],
+        "sha256": "73794291508beb59df6d29a71342129a9774a86b410e76471defe25fff78668e"
+      },
+      {
+        "device_pixel_ratio": 2,
+        "full_page": true,
+        "path": "qa/variant-c/screenshots/live-home-mobile-390x844-dpr2-full.png",
+        "png_pixel_dimensions": [
+          780,
+          10614
+        ],
+        "requested_css_viewport": [
+          390,
+          844
+        ],
+        "sha256": "9e3dde32fda5e5f44c76b8f51537e541ca3ea95346a2ee6d2b63f6ef21124ae7"
+      },
+      {
+        "device_pixel_ratio": 2,
+        "full_page": true,
+        "path": "qa/variant-c/screenshots/live-home-mobile-430x932-dpr2-full.png",
+        "png_pixel_dimensions": [
+          860,
+          10932
+        ],
+        "requested_css_viewport": [
+          430,
+          932
+        ],
+        "sha256": "4bf91c6d0fc8745f79d4d645efa21b464acc26e84b1d81c2deb3686924d2607f"
+      }
+    ]
+  },
+  "coolify": {
+    "base_directory": "/variants/c",
+    "deployment_created_at": "2026-08-28T03:43:59.000000Z",
+    "deployment_finished_at": "2026-08-28T03:44:23.000000Z",
+    "deployment_status": "finished",
+    "deployment_uuid": "ffsn8ui4v29au5iwkmfz4rug",
+    "domain": "https://faithbaptistchurch-c.sololink.cloud",
+    "environment_uuid": "bx3fdk35jgh7phf5ocwgnh8t",
+    "instance": "https://coolify.sololink.cloud",
+    "lineage_reused": true,
+    "project_name": "Faith Baptist Church",
+    "project_uuid": "odmsojtf0huw323he24qtugc",
+    "resource_name": "Faith Baptist Variant C",
+    "resource_uuid": "pk45f27kgz6m5ke16uro3hnj",
+    "rollback": "Redeploy prior finished deployment rcj3qe8g3jbe3yw6kef9bj0r at commit 188a210a10bb137af112b844a6cca55f192260a6 if required."
+  },
+  "https": {
+    "all_route_requests_succeeded": true,
+    "validated_by_system_trust_store": true
+  },
+  "links": {
+    "/": {
+      "canonical": true,
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/",
+      "status": 200
+    },
+    "/beliefs/": {
+      "canonical": true,
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/beliefs/",
+      "status": 200
+    },
+    "/contact/": {
+      "canonical": true,
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/contact/",
+      "status": 200
+    },
+    "/events/": {
+      "canonical": true,
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/events/",
+      "status": 200
+    },
+    "/ministries/": {
+      "canonical": true,
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/ministries/",
+      "status": 200
+    },
+    "/visit/": {
+      "canonical": true,
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/visit/",
+      "status": 200
+    }
+  },
+  "media": {
+    "church1.jpg": {
+      "content_type": "image/jpeg",
+      "expected_alt_rendered": true,
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/assets/church1.jpg",
+      "matches_deployed_branch_artifact": true,
+      "rendered_alts": [
+        "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple."
+      ],
+      "rendered_on_routes": [
+        "/",
+        "/contact/"
+      ],
+      "sha256": "9abdb0fd06c69aa12ef11f4954afb50131ad133c5a3314a675c1a136577977f6",
+      "status": 200
+    },
+    "church2.jpg": {
+      "content_type": "image/jpeg",
+      "expected_alt_rendered": true,
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/assets/church2.jpg",
+      "matches_deployed_branch_artifact": true,
+      "rendered_alts": [
+        "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag."
+      ],
+      "rendered_on_routes": [
+        "/",
+        "/beliefs/"
+      ],
+      "sha256": "6725c18ecea252cd3ad842fae16844a0c1ff1a8f2a4a2a011853bc0a8b68bb92",
+      "status": 200
+    },
+    "church3.jpg": {
+      "content_type": "image/jpeg",
+      "expected_alt_rendered": true,
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/assets/church3.jpg",
+      "matches_deployed_branch_artifact": true,
+      "rendered_alts": [
+        "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar."
+      ],
+      "rendered_on_routes": [
+        "/",
+        "/ministries/"
+      ],
+      "sha256": "75c7128197dd074613eec92fe233e04dff3539c5394f56696b4196a969969b3c",
+      "status": 200
+    },
+    "front.png": {
+      "content_type": "image/png",
+      "expected_alt_rendered": true,
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/assets/front.png",
+      "matches_deployed_branch_artifact": true,
+      "rendered_alts": [
+        "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky."
+      ],
+      "rendered_on_routes": [
+        "/",
+        "/visit/"
+      ],
+      "sha256": "7b0bce3499ed9df95327af8a9693b70a2876a36be53810d91edf4685ffaa0f3f",
+      "status": 200
+    }
+  },
+  "routes": {
+    "/": {
+      "content_type": "text/html",
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/",
+      "html_sha256": "28a598fbd202d5985b7581042f8b93fab36ffaa7efbdbc7bff31ef272767309a",
+      "https": true,
+      "images": [
+        {
+          "alt": "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.",
+          "height": "450",
+          "src": "/assets/church1.jpg",
+          "width": "600"
+        },
+        {
+          "alt": "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+          "height": "600",
+          "src": "/assets/front.png",
+          "width": "277"
+        },
+        {
+          "alt": "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.",
+          "height": "600",
+          "src": "/assets/church2.jpg",
+          "width": "450"
+        },
+        {
+          "alt": "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.",
+          "height": "600",
+          "src": "/assets/church3.jpg",
+          "width": "450"
+        }
+      ],
+      "internal_links": [
+        "/",
+        "/beliefs/",
+        "/contact/",
+        "/events/",
+        "/ministries/",
+        "/visit/"
+      ],
+      "internal_links_canonical": true,
+      "matches_deployed_branch_artifact": true,
+      "one_h1": true,
+      "robots_noindex_nofollow": true,
+      "status": 200,
+      "title": "Faith Baptist Church | Service Times and Visit Information"
+    },
+    "/beliefs/": {
+      "content_type": "text/html",
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/beliefs/",
+      "html_sha256": "9a037888ac8adbbe254cce3c0b634e318e4015be69ceebfe91bc34a5214eee1d",
+      "https": true,
+      "images": [
+        {
+          "alt": "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.",
+          "height": "600",
+          "src": "/assets/church2.jpg",
+          "width": "450"
+        }
+      ],
+      "internal_links": [
+        "/",
+        "/beliefs/",
+        "/contact/",
+        "/events/",
+        "/ministries/",
+        "/visit/"
+      ],
+      "internal_links_canonical": true,
+      "matches_deployed_branch_artifact": true,
+      "one_h1": true,
+      "robots_noindex_nofollow": true,
+      "status": 200,
+      "title": "What We Believe | Faith Baptist Church"
+    },
+    "/contact/": {
+      "content_type": "text/html",
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/contact/",
+      "html_sha256": "eb295c2d3888b286feea59fc732cb1743ae8af816f08a2b8b8f709764cf19cdc",
+      "https": true,
+      "images": [
+        {
+          "alt": "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.",
+          "height": "450",
+          "src": "/assets/church1.jpg",
+          "width": "600"
+        }
+      ],
+      "internal_links": [
+        "/",
+        "/beliefs/",
+        "/contact/",
+        "/events/",
+        "/ministries/",
+        "/visit/"
+      ],
+      "internal_links_canonical": true,
+      "matches_deployed_branch_artifact": true,
+      "one_h1": true,
+      "robots_noindex_nofollow": true,
+      "status": 200,
+      "title": "Contact Faith Baptist Church | Phone and Directions"
+    },
+    "/events/": {
+      "content_type": "text/html",
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/events/",
+      "html_sha256": "4ae3657072cd3d0b8b2f1d1c06c6b7cc1bfed0f3e5a0a2f484814d589960b189",
+      "https": true,
+      "images": [],
+      "internal_links": [
+        "/",
+        "/beliefs/",
+        "/contact/",
+        "/events/",
+        "/ministries/",
+        "/visit/"
+      ],
+      "internal_links_canonical": true,
+      "matches_deployed_branch_artifact": true,
+      "one_h1": true,
+      "robots_noindex_nofollow": true,
+      "status": 200,
+      "title": "Weekly Schedule and Announcements | Faith Baptist Church"
+    },
+    "/ministries/": {
+      "content_type": "text/html",
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/ministries/",
+      "html_sha256": "4674f9d6be74023c5938fb2eda657f21a3a28104c6cb0c328233c158f2047ba3",
+      "https": true,
+      "images": [
+        {
+          "alt": "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.",
+          "height": "600",
+          "src": "/assets/church3.jpg",
+          "width": "450"
+        }
+      ],
+      "internal_links": [
+        "/",
+        "/beliefs/",
+        "/contact/",
+        "/events/",
+        "/ministries/",
+        "/visit/"
+      ],
+      "internal_links_canonical": true,
+      "matches_deployed_branch_artifact": true,
+      "one_h1": true,
+      "robots_noindex_nofollow": true,
+      "status": 200,
+      "title": "Recurring Ministries | Faith Baptist Church"
+    },
+    "/visit/": {
+      "content_type": "text/html",
+      "final_url": "https://faithbaptistchurch-c.sololink.cloud/visit/",
+      "html_sha256": "068d86e45b472fee842fc505b0ef358e783bc5ab78e108df5f187c8fdf9c2cff",
+      "https": true,
+      "images": [
+        {
+          "alt": "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+          "height": "600",
+          "src": "/assets/front.png",
+          "width": "277"
+        }
+      ],
+      "internal_links": [
+        "/",
+        "/beliefs/",
+        "/contact/",
+        "/events/",
+        "/ministries/",
+        "/visit/"
+      ],
+      "internal_links_canonical": true,
+      "matches_deployed_branch_artifact": true,
+      "one_h1": true,
+      "robots_noindex_nofollow": true,
+      "status": 200,
+      "title": "Plan Your Visit | Faith Baptist Church"
+    }
+  },
+  "schema_version": 1,
+  "source": {
+    "branch": "variant/c-organic-biomorphic",
+    "deployed_commit": "c540f3991831891184928ad9f13e35abc80458aa",
+    "pr_url": "https://github.com/SoLoVisionLLC/faith-baptist-church-preview/pull/6",
+    "repository": "SoLoVisionLLC/faith-baptist-church-preview"
+  },
+  "task": "t_ceaf5bba",
+  "titles_unique": true,
+  "variant": "C",
+  "verification": {
+    "git diff --check": "pass",
+    "live_failures": [],
+    "python3 build.py": "pass",
+    "python3 verify.py": "pass"
+  },
+  "verified_at_utc": "2026-08-28T03:46:00.484609+00:00"
+}
