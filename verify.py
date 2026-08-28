@@ -20,7 +20,9 @@ ROOT = Path(__file__).resolve().parent
 SITE = ROOT / "variants"
 VARIANTS = ("a", "b", "c", "e")
 ACCEPTED_BASE = "ee3623e41b6647b7380c987421f4a2ecb2057749"
+C_ISOLATION_BASE = "4788760d42fddf11e47ea26510b142848e71a959"
 RECEIPT_PATH = ROOT / "variant-a-receipt.json"
+C_RECEIPT_PATH = ROOT / "qa" / "variant-c" / "verification-receipt.json"
 E_RECEIPT_PATH = ROOT / "variant-e-receipt.json"
 E_FONT_FILE = "LiberationSansNarrow-Bold.ttf"
 E_FONT_LICENSE = "LiberationSansNarrow-LICENSE.txt"
@@ -185,6 +187,124 @@ A_PUBLIC_FORBIDDEN = (
     "doctrine",
     "special event",
     "upcoming event",
+)
+
+C_MEDIA_PLACEMENTS = {
+    "front.png": ["/ Real Place gallery", "/visit/ tall organic anchor"],
+    "church1.jpg": ["/ hero organic mask", "/contact/ exterior photo"],
+    "church2.jpg": ["/ Real Place gallery", "/beliefs/ centered soft mask"],
+    "church3.jpg": ["/ Real Place gallery", "/ministries/ gathering photo"],
+}
+C_MEDIA = [
+    {
+        **item,
+        "bundled_path": f"variants/c/assets/{item['file']}",
+        "placements": C_MEDIA_PLACEMENTS[item["file"]],
+    }
+    for item in A_MEDIA
+]
+C_MEDIA_BY_FILE = {item["file"]: item for item in C_MEDIA}
+C_EXPECTED_IMAGES = {
+    "/": ("church1.jpg", "front.png", "church2.jpg", "church3.jpg"),
+    "/visit/": ("front.png",),
+    "/beliefs/": ("church2.jpg",),
+    "/ministries/": ("church3.jpg",),
+    "/events/": (),
+    "/contact/": ("church1.jpg",),
+}
+C_REQUIRED_MAIN_TEXT = {
+    "/": (
+        "Faith Baptist Church",
+        A_IDENTITY,
+        "Sunday 9:00 AM Sunday School for adults and teens.",
+        "Sunday 10:00 AM Main service. Young children's Sunday School begins at 10:00 AM. A nursery for tots is available during Sunday programming.",
+        "Sunday 6:00 PM Sunday evening service.",
+        "Wednesday 7:00 PM Prayer and Bible study.",
+        "Adults and Teens Sunday School at 9:00 AM.",
+        "Young Children Sunday School at 10:00 AM.",
+        "Nursery Available for tots during Sunday programming.",
+        "Bible believing.",
+        "Gospel driven.",
+        "We teach from the KJV Bible.",
+        A_ADDRESS,
+        A_PHONE_DISPLAY,
+    ),
+    "/visit/": (
+        "Plan Your Visit",
+        "Find the complete weekly schedule, location, children and nursery information, and church phone below.",
+        "Sunday School 9:00 AM Adults and teens.",
+        "Main service 10:00 AM",
+        "Young children's Sunday School 10:00 AM",
+        "Sunday evening service 6:00 PM",
+        "Prayer and Bible study Wednesday at 7:00 PM.",
+        "A nursery for tots is available during Sunday programming.",
+        A_ADDRESS,
+        "Call the Church",
+    ),
+    "/beliefs/": (
+        "What We Believe",
+        "These are the confirmed convictions of Faith Baptist Church.",
+        "Bible believing.",
+        "Gospel driven.",
+        "We teach from the KJV Bible.",
+    ),
+    "/ministries/": (
+        "Ministries",
+        "These recurring gatherings are available each week at Faith Baptist Church.",
+        "Adults and teens Sunday School Sunday at 9:00 AM.",
+        "Main service Sunday at 10:00 AM.",
+        "Young children's Sunday School Sunday at 10:00 AM.",
+        "Nursery for tots Available during Sunday programming.",
+        "Sunday evening service Sunday at 6:00 PM.",
+        "Prayer and Bible study Wednesday at 7:00 PM.",
+    ),
+    "/events/": (
+        "Events & Announcements",
+        "The recurring weekly schedule is listed below.",
+        "Current announcements will appear here when supplied.",
+        "Sunday School 9:00 AM Adults and teens.",
+        "Main service 10:00 AM",
+        "Young children's Sunday School 10:00 AM",
+        "Sunday evening service 6:00 PM",
+        "Prayer and Bible study Wednesday at 7:00 PM.",
+    ),
+    "/contact/": (
+        "Contact Faith Baptist Church",
+        "Call the church or open directions to the exact address.",
+        "Call the Church",
+        A_ADDRESS,
+        "Get Directions",
+    ),
+}
+C_PUBLIC_FORBIDDEN = (
+    "rooted in the word",
+    "centered on the gospel",
+    "one visit and you will know you are home",
+    "the whole family is cared for",
+    "christ crucified",
+    "no one grows alone",
+    "lord's day",
+    "announcements are made in each service",
+    "bloom",
+    "design inspired by nature",
+    "naturally beautiful",
+    "nature's inspiration",
+    "ready to go organic",
+    "fluid shapes",
+    "earthy palette",
+    "gentle motion",
+    "soft edges",
+    "nature types",
+    "handcrafted",
+    "11275 w. township rd. 116",
+    "(419) 348-2171",
+)
+C_FONT_FILES = (
+    "Fraunces-Latin.woff2",
+    "Karla-Latin.woff2",
+    "Fraunces-OFL.txt",
+    "Karla-OFL.txt",
+    "Fraunces-Karla-PROVENANCE.md",
 )
 
 
@@ -353,11 +473,11 @@ def git_output(args: list[str]) -> subprocess.CompletedProcess[bytes]:
 
 def verify_base_bytes(errors: list[str]) -> None:
     listing = git_output(
-        ["ls-tree", "-r", "--name-only", ACCEPTED_BASE, "--", "variants/b", "variants/c"]
+        ["ls-tree", "-r", "--name-only", ACCEPTED_BASE, "--", "variants/b"]
     )
     if listing.returncode:
         errors.append(
-            f"cannot read accepted B/C tree {ACCEPTED_BASE}: "
+            f"cannot read accepted B tree {ACCEPTED_BASE}: "
             f"{listing.stderr.decode(errors='replace').strip()}"
         )
         return
@@ -365,7 +485,42 @@ def verify_base_bytes(errors: list[str]) -> None:
     expected = set(listing.stdout.decode().splitlines())
     actual = {
         path.relative_to(ROOT).as_posix()
-        for variant in ("b", "c")
+        for path in (SITE / "b").rglob("*")
+        if path.is_file()
+    }
+    if actual != expected:
+        missing = sorted(expected - actual)
+        extra = sorted(actual - expected)
+        if missing:
+            errors.append(f"B files missing relative to accepted base: {', '.join(missing)}")
+        if extra:
+            errors.append(f"B files added relative to accepted base: {', '.join(extra)}")
+
+    for relative in sorted(expected & actual):
+        base_blob = git_output(["show", f"{ACCEPTED_BASE}:{relative}"])
+        if base_blob.returncode:
+            errors.append(f"cannot read accepted base blob: {relative}")
+        elif (ROOT / relative).read_bytes() != base_blob.stdout:
+            errors.append(f"generated B bytes differ from accepted base: {relative}")
+
+
+def verify_c_isolation(errors: list[str]) -> None:
+    """Variant C work must leave the accepted generated A/B/E trees byte-for-byte intact."""
+    preserved_roots = ("variants/a", "variants/b", "variants/e")
+    listing = git_output(
+        ["ls-tree", "-r", "--name-only", C_ISOLATION_BASE, "--", *preserved_roots]
+    )
+    if listing.returncode:
+        errors.append(
+            f"cannot read Variant C isolation base {C_ISOLATION_BASE}: "
+            f"{listing.stderr.decode(errors='replace').strip()}"
+        )
+        return
+
+    expected = set(listing.stdout.decode().splitlines())
+    actual = {
+        path.relative_to(ROOT).as_posix()
+        for variant in ("a", "b", "e")
         for path in (SITE / variant).rglob("*")
         if path.is_file()
     }
@@ -373,16 +528,16 @@ def verify_base_bytes(errors: list[str]) -> None:
         missing = sorted(expected - actual)
         extra = sorted(actual - expected)
         if missing:
-            errors.append(f"B/C files missing relative to accepted base: {', '.join(missing)}")
+            errors.append(f"preserved A/B/E files are missing: {', '.join(missing)}")
         if extra:
-            errors.append(f"B/C files added relative to accepted base: {', '.join(extra)}")
+            errors.append(f"preserved A/B/E files were added: {', '.join(extra)}")
 
     for relative in sorted(expected & actual):
-        base_blob = git_output(["show", f"{ACCEPTED_BASE}:{relative}"])
+        base_blob = git_output(["show", f"{C_ISOLATION_BASE}:{relative}"])
         if base_blob.returncode:
-            errors.append(f"cannot read accepted base blob: {relative}")
+            errors.append(f"cannot read Variant C isolation blob: {relative}")
         elif (ROOT / relative).read_bytes() != base_blob.stdout:
-            errors.append(f"generated B/C bytes differ from accepted base: {relative}")
+            errors.append(f"preserved A/B/E bytes changed: {relative}")
 
 
 def verify_receipt(errors: list[str]) -> None:
@@ -668,6 +823,346 @@ def verify_a_pages(
     ministries = parsed_documents.get((variant_root / ROUTES["/ministries/"]).resolve())
     if ministries and ministries.class_counts["ministry-row"] != 6:
         errors.append("Variant A ministries route does not contain all confirmed recurring gatherings")
+
+
+def verify_c_styles(errors: list[str]) -> None:
+    css_path = ROOT / "styles-c.css"
+    try:
+        css = css_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        errors.append(f"cannot read styles-c.css: {exc}")
+        return
+    folded = css.casefold()
+
+    required = (
+        "--ground:#faf8f5",
+        "--ground-alt:#f0ebe3",
+        "--text:#2d2a26",
+        "--text-muted:#6b6560",
+        "--sage:#8fa68f",
+        "--sage-light:#b8ccb8",
+        "--terracotta:#c67d5a",
+        "--terracotta-light:#e8a889",
+        "--sand:#d4c4a8",
+        "--cream:#f5f0e6",
+        '@font-face{font-family:"fraunces"',
+        'url("/assets/fonts/fraunces-latin.woff2") format("woff2")',
+        '@font-face{font-family:"karla"',
+        'url("/assets/fonts/karla-latin.woff2") format("woff2")',
+        'font-family:"karla",sans-serif',
+        'font-family:"fraunces",serif',
+        "font-size:16px",
+        "border-radius:60% 40% 50% 50% / 50% 50% 40% 60%",
+        "box-shadow:0 20px 60px rgba(45,42,38,.10)",
+        "@keyframes organic-morph",
+        "animation:organic-morph 26s ease-in-out infinite",
+        "@media(max-width:767px)",
+        "min-height:44px",
+        "border-radius:48px 28px 48px 28px",
+        "@media(prefers-reduced-motion:reduce)",
+        ".ambient-shape,.hero-image-mask,.visit-field::before{animation:none!important}",
+        "transition-duration:.01ms!important",
+        ":focus-visible",
+    )
+    for value in required:
+        if value not in folded:
+            errors.append(f"styles-c.css is missing Organic Biomorphic evidence: {value}")
+
+    if (
+        ".growing-panel{display:flex;min-height:220px;"
+        "padding:clamp(1.8rem,4vw,3.25rem);flex-direction:column;"
+        "justify-content:center;overflow:hidden}"
+    ) not in folded:
+        errors.append(
+            "styles-c.css must center Growing Together card copy at 1440px, 390px, "
+            "and 430px"
+        )
+
+    expected_colors = {
+        "#faf8f5",
+        "#f0ebe3",
+        "#2d2a26",
+        "#6b6560",
+        "#8fa68f",
+        "#b8ccb8",
+        "#c67d5a",
+        "#e8a889",
+        "#d4c4a8",
+        "#f5f0e6",
+    }
+    actual_colors = {color.casefold() for color in re.findall(r"#[0-9a-fA-F]{6}", css)}
+    if actual_colors != expected_colors:
+        errors.append(
+            "styles-c.css palette differs from Direction 11: "
+            f"{', '.join(sorted(actual_colors))}"
+        )
+
+    for forbidden in (
+        "fonts.googleapis.com",
+        "fonts.gstatic.com",
+        "font-family:georgia",
+        "font-family:inter",
+        "font-family:playfair",
+        "--charcoal:",
+        "--accent:",
+        ".rhythm-stop{animation:",
+        ".rhythm-stop {animation:",
+    ):
+        if forbidden in folded:
+            errors.append(f"styles-c.css contains non-Direction-11 mechanism: {forbidden}")
+
+
+def verify_c_pages(
+    parsed_documents: dict[Path, DocumentParser], errors: list[str]
+) -> None:
+    variant_root = (SITE / "c").resolve()
+    titles: list[str] = []
+    rendered_media: set[str] = set()
+
+    for route, route_file in ROUTES.items():
+        page_path = (variant_root / route_file).resolve()
+        parser = parsed_documents.get(page_path)
+        if parser is None:
+            continue
+        relative = page_path.relative_to(ROOT)
+        html = page_path.read_text(encoding="utf-8")
+        titles.append(parser.title)
+
+        for required in C_REQUIRED_MAIN_TEXT[route]:
+            if required not in parser.main_text:
+                errors.append(f"{relative} is missing exact Variant C route copy: {required}")
+        for required in (NAME, A_ADDRESS, A_PHONE_DISPLAY, f'href="tel:{PHONE_TEL}"'):
+            if required not in html:
+                errors.append(f"{relative} is missing exact Variant C public value: {required}")
+
+        if parser.html_lang != "en":
+            errors.append(f"{relative} does not declare html lang=en")
+        for landmark in ("header", "main", "footer"):
+            if parser.tag_counts[landmark] != 1:
+                errors.append(f"{relative} must contain exactly one {landmark} landmark")
+        if parser.tag_counts["h1"] != 1:
+            errors.append(f"{relative} must contain exactly one h1")
+        if parser.tag_counts["nav"] != 3:
+            errors.append(f"{relative} must contain desktop, mobile, and footer navigation")
+        if parser.tag_counts["details"] != 1 or parser.tag_counts["summary"] != 1:
+            errors.append(f"{relative} is missing native mobile navigation")
+        if parser.tag_counts["form"] or parser.tag_counts["script"]:
+            errors.append(f"{relative} contains an unsupported form or script")
+        if parser.tag_counts["svg"] or parser.tag_counts["i"]:
+            errors.append(f"{relative} contains a fabricated icon mechanism")
+
+        main_attrs = parser.element_attrs["main"]
+        if len(main_attrs) != 1 or main_attrs[0].get("id") != "main" or main_attrs[0].get(
+            "tabindex"
+        ) != "-1":
+            errors.append(f"{relative} has an invalid skip-link target")
+        skip_links = [
+            anchor for anchor in parser.anchors
+            if "skip-link" in (anchor.get("class") or "").split()
+        ]
+        if len(skip_links) != 1 or skip_links[0].get("href") != "#main":
+            errors.append(f"{relative} has an invalid skip link")
+
+        for nav_class in ("c-desktop-navigation", "c-mobile-navigation"):
+            nav_hrefs = [
+                anchor.get("href") for anchor in parser.anchors
+                if anchor.get("_nav_class") == nav_class
+            ]
+            if nav_hrefs != list(ROUTES):
+                errors.append(f"{relative} {nav_class} does not contain six canonical routes")
+        current = [anchor for anchor in parser.anchors if anchor.get("aria-current") == "page"]
+        if len(current) != 2 or any(anchor.get("href") != route for anchor in current):
+            errors.append(f"{relative} navigation does not identify the current route twice")
+        wordmarks = [
+            anchor for anchor in parser.anchors
+            if "c-wordmark" in (anchor.get("class") or "").split()
+        ]
+        if len(wordmarks) != 1 or wordmarks[0].get("href") != "/":
+            errors.append(f"{relative} is missing the text-only Faith Baptist Church wordmark")
+
+        actual_images: list[str] = []
+        for image in parser.images:
+            src = image.get("src") or ""
+            filename = Path(src).name
+            actual_images.append(filename)
+            rendered_media.add(filename)
+            manifest = C_MEDIA_BY_FILE.get(filename)
+            if manifest is None:
+                errors.append(f"{relative} renders unmanifested media: {src}")
+                continue
+            dimensions = manifest["original_dimensions"]
+            if image.get("alt") != manifest["alt"]:
+                errors.append(f"{relative} has incorrect exact alt text for {filename}")
+            if image.get("width") != str(dimensions["width"]) or image.get("height") != str(
+                dimensions["height"]
+            ):
+                errors.append(f"{relative} has incorrect stable dimensions for {filename}")
+        if tuple(actual_images) != C_EXPECTED_IMAGES[route]:
+            errors.append(
+                f"{relative} image placements differ: expected {C_EXPECTED_IMAGES[route]}, "
+                f"found {tuple(actual_images)}"
+            )
+
+        folded_main = parser.main_text.casefold()
+        for value in (*FORBIDDEN_TEXT, *A_PUBLIC_FORBIDDEN, *C_PUBLIC_FORBIDDEN):
+            if re.search(rf"\b{re.escape(value.casefold())}\b", folded_main):
+                errors.append(f"{relative} contains forbidden or invented public copy: {value}")
+
+    if len(titles) != len(set(titles)) or any(not title for title in titles):
+        errors.append("Variant C route titles are missing or not unique")
+    if rendered_media != set(ASSETS):
+        errors.append("Variant C does not meaningfully render all four real client rasters")
+
+    home_path = (variant_root / ROUTES["/"]).resolve()
+    home = parsed_documents.get(home_path)
+    if home:
+        if home.main_text.count(A_IDENTITY) != 1:
+            errors.append("Variant C home must contain the exact identity line exactly once")
+        expected_classes = {
+            "c-home-hero": 1,
+            "hero-image-mask": 1,
+            "weekly-rhythm": 1,
+            "rhythm-stop": 4,
+            "growing-panel": 3,
+            "real-place-gallery": 1,
+            "place-photo": 3,
+            "belief-field": 1,
+            "visit-field": 1,
+        }
+        for class_name, count in expected_classes.items():
+            if home.class_counts[class_name] != count:
+                errors.append(
+                    f"Variant C home requires {count} {class_name} element(s), "
+                    f"found {home.class_counts[class_name]}"
+                )
+        if home.tag_counts["ol"] < 1:
+            errors.append("Variant C Weekly Rhythm must remain a semantic ordered list")
+
+    beliefs = parsed_documents.get((variant_root / ROUTES["/beliefs/"]).resolve())
+    expected_beliefs = (
+        "What We Believe These are the confirmed convictions of Faith Baptist Church. "
+        "Bible believing. Gospel driven. We teach from the KJV Bible."
+    )
+    if beliefs and beliefs.main_text != expected_beliefs:
+        errors.append("Variant C beliefs route contains copy beyond the three confirmed convictions")
+
+    events = parsed_documents.get((variant_root / ROUTES["/events/"]).resolve())
+    if events and (events.class_counts["weekly-rhythm"] != 1 or events.class_counts["rhythm-stop"] != 4):
+        errors.append("Variant C events route must present four schedule stops as a vertical rhythm")
+
+    contact_path = (variant_root / ROUTES["/contact/"]).resolve()
+    if contact_path.is_file():
+        contact_html = contact_path.read_text(encoding="utf-8")
+        photo_index = contact_html.find('<figure class="contact-photo')
+        if photo_index < 0:
+            errors.append("Variant C contact route is missing its exterior photo")
+        elif max(contact_html.find(f'href="tel:{PHONE_TEL}"'), contact_html.find(A_MAPS_DIR)) > photo_index:
+            errors.append("Variant C contact route must put phone and directions before decorative media")
+
+
+def verify_c_receipt(errors: list[str]) -> None:
+    try:
+        receipt = json.loads(C_RECEIPT_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        errors.append(f"cannot read Variant C receipt: {exc}")
+        return
+
+    expected_regime = {
+        "skill": "frontend-design-pro-demo",
+        "version": "1.0.0",
+        "direction": "11 Organic Biomorphic",
+        "source": "/home/solo/.hermes/profiles/vector/skills/design-skills-pilot/frontend-design-pro-demo/demos-v02/11-organic-biomorphic.html",
+        "receipt_text": "Direction 11 Organic Biomorphic, translated to Faith Baptist Church content and real media; no demo content copied.",
+        "other_generators_used": [],
+    }
+    if receipt.get("schema_version") != 1 or receipt.get("task") != "t_ceaf5bba" or receipt.get("variant") != "C":
+        errors.append("Variant C receipt has incorrect schema, task, or variant identity")
+    if receipt.get("design_regime") != expected_regime:
+        errors.append("Variant C receipt has an incorrect design regime")
+    if receipt.get("routes") != list(ROUTES):
+        errors.append("Variant C receipt has an incorrect route manifest")
+    if receipt.get("media") != C_MEDIA:
+        errors.append("Variant C receipt has an incorrect media manifest")
+
+    route_checks = receipt.get("route_checks", {})
+    expected_route_assertions = {
+        "noindex_nofollow": True,
+        "unique_title": True,
+        "exact_copy": True,
+        "canonical_internal_links": True,
+        "one_h1": True,
+    }
+    for route in ROUTES:
+        if route_checks.get(route) != expected_route_assertions:
+            errors.append(f"Variant C receipt has incomplete route checks for {route}")
+
+    expected_contract = {
+        "all_four_real_rasters_bundled": True,
+        "all_four_real_rasters_rendered": True,
+        "exact_alt_text": True,
+        "stable_image_dimensions": True,
+        "exact_client_facts": True,
+        "public_copy_forbidden_hits": [],
+        "skip_link_semantic_landmarks_keyboard_focus": True,
+        "minimum_control_px": 44,
+        "mobile_body_px": 16,
+        "desktop_1440x1000": True,
+        "mobile_390x844_dpr2": True,
+        "mobile_430x932_dpr2": True,
+        "no_horizontal_overflow": True,
+    }
+    if receipt.get("contract_assertions") != expected_contract:
+        errors.append("Variant C receipt has incomplete route/copy/media/accessibility assertions")
+
+    expected_motion = {
+        "prefers_reduced_motion_media_query": True,
+        "morphing_disabled": True,
+        "floating_disabled": True,
+        "transitions_reduced_to_0_01ms": True,
+        "schedule_rows_never_animated": True,
+    }
+    if receipt.get("reduced_motion") != expected_motion:
+        errors.append("Variant C receipt has incomplete reduced-motion evidence")
+
+    expected_isolation = {
+        "base_commit": C_ISOLATION_BASE,
+        "preserved_variants": ["A", "B", "E"],
+        "generated_outputs_byte_identical": True,
+        "worktree_created": False,
+        "branch_switched": False,
+    }
+    if receipt.get("isolation") != expected_isolation:
+        errors.append("Variant C receipt has incorrect isolation evidence")
+
+    source_demo = Path(expected_regime["source"])
+    expected_hashes = {
+        "home_html_sha256": sha256(SITE / "c" / "index.html"),
+        "primary_css_sha256": sha256(SITE / "c" / "styles.css"),
+        "build_source_sha256": sha256(ROOT / "build.py"),
+        "verification_source_sha256": sha256(ROOT / "verify.py"),
+        "direction_source_sha256": sha256(source_demo),
+    }
+    if receipt.get("hashes") != expected_hashes:
+        errors.append("Variant C receipt hashes do not match the current artifact")
+
+    font_records = receipt.get("fonts", [])
+    if [record.get("file") for record in font_records] != list(C_FONT_FILES):
+        errors.append("Variant C receipt has an incomplete font manifest")
+    else:
+        for record in font_records:
+            source_path = ROOT / "assets" / "fonts" / record["file"]
+            built_path = SITE / "c" / "assets" / "fonts" / record["file"]
+            if not source_path.is_file() or not built_path.is_file():
+                errors.append(f"Variant C font artifact is missing: {record['file']}")
+                continue
+            if source_path.read_bytes() != built_path.read_bytes():
+                errors.append(f"Variant C bundled font artifact differs: {record['file']}")
+            if record.get("sha256") != sha256(source_path):
+                errors.append(f"Variant C font receipt hash differs: {record['file']}")
+
+    for check in ("python3 build.py", "python3 verify.py", "git diff --check", "focused isolation checks"):
+        if receipt.get("verification", {}).get(check) != "pass":
+            errors.append(f"Variant C receipt is missing verification result: {check}")
 
 
 E_DIRECTION_CONTRACT = """<!--
@@ -991,7 +1486,7 @@ def main() -> int:
         parser = parse_document(page_path)
         parsed_documents[page_path] = parser
         variant = relative_path.parts[1]
-        if variant in {"a", "e"}:
+        if variant in {"a", "c", "e"}:
             public_address = A_ADDRESS
             public_phone = A_PHONE_DISPLAY
         else:
@@ -1112,9 +1607,13 @@ def main() -> int:
     verify_receipt(errors)
     verify_a_styles(errors)
     verify_a_pages(parsed_documents, errors)
+    verify_c_styles(errors)
+    verify_c_pages(parsed_documents, errors)
+    verify_c_receipt(errors)
     verify_e_pages(parsed_documents, errors)
     verify_e_receipt(errors)
     verify_base_bytes(errors)
+    verify_c_isolation(errors)
 
     if errors:
         print("Verification failed:")
@@ -1123,9 +1622,9 @@ def main() -> int:
         return 1
 
     print(
-        "Verified 24 pages. Variants A and E pass exact routes/copy/alts/noindex, media "
-        "integrity, accessibility/mobile and regime receipts; generated B/C bytes "
-        f"match accepted base {ACCEPTED_BASE}."
+        "Verified 24 pages. Variants A, C, and E pass exact routes/copy/alts/noindex, "
+        "media integrity, accessibility/mobile and regime receipts; generated A/B/E "
+        f"outputs are byte-identical to Variant C isolation base {C_ISOLATION_BASE}."
     )
     return 0
 
