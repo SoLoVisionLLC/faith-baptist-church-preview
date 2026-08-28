@@ -918,13 +918,13 @@ def verify_e_receipt(errors: list[str]) -> None:
             if body_font.get(key) != expected:
                 errors.append(f"Variant E receipt has incorrect Source Sans 3 {key}")
     expected_review = {
-        "exact_disposition": "fix",
+        "exact_disposition": "pass",
         "fresh_isolated": True,
-        "material_fix_count": 2,
+        "material_fix_count": 0,
         "material_fixes_applied": 2,
         "detector_rerun": False,
-        "post_fix_disposition": None,
-        "post_fix_review_state": "pending_independent_review_after_implementation_and_deployment",
+        "post_fix_disposition": "pass",
+        "post_fix_review_state": "fresh_isolated_review_complete",
         "receipt": "qa/variant-e/post-remediation-finish-review.log.md",
     }
     if receipt.get("post_remediation_finish_review") != expected_review:

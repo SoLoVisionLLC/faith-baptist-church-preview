@@ -25,4 +25,13 @@ Recorded on 2026-08-27 as an additive receipt. The historical exactly-once detec
 
 ## Post-fix state
 
-Both requested fixes are implemented in the local source and generated output. No independent post-fix disposition has been issued, and this receipt does not claim `pass`. Deployment was not performed as part of this follow-up change; `qa/variant-e/live-deployment-receipt.json` remains the historical evidence for the already healthy deployment at source SHA `73c440ff37ea4dd57df705a547ab6ff4a96b580b`.
+Both requested fixes are implemented in source and generated output and were deployed at source SHA `7b2bca480fff9740afb54feac4d9764ef4bac188` through Coolify deployment `m3wpqgm67luyhozhvh61m3b3`.
+
+## Fresh isolated post-fix review
+
+- Review target: deployed source SHA `7b2bca480fff9740afb54feac4d9764ef4bac188`, the live HTTPS artifact, current contract/source, and three fresh post-fix full-page proofs.
+- Exact disposition: **`pass`**.
+- Material fix count: **0**.
+- Detector rerun: **no**. The historical detector run count remains exactly one.
+- Other design generators used: none.
+- Reviewer isolation: fresh and read-only; no build-thread history and no file edits.

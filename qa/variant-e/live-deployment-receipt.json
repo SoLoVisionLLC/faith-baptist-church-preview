@@ -1,13 +1,13 @@
 {
-  "captured_at": "2026-08-27T23:46:00Z",
+  "captured_at": "2026-08-28T01:06:50Z",
   "coolify": {
     "deployment_status": "finished",
-    "deployment_uuid": "vsvn2jzy76l919f40tn705i3",
+    "deployment_uuid": "m3wpqgm67luyhozhvh61m3b3",
     "environment_uuid": "tu4pl8hme4u0ptjazcyovyum",
     "project_uuid": "odmsojtf0huw323he24qtugc",
     "resource_status": "running:healthy",
     "resource_uuid": "hd9p5a24yudi55xiauv5odc0",
-    "source_sha": "73c440ff37ea4dd57df705a547ab6ff4a96b580b"
+    "source_sha": "7b2bca480fff9740afb54feac4d9764ef4bac188"
   },
   "design_regime": {
     "direction": "Service-Time Compass",
@@ -33,15 +33,18 @@
   },
   "finish_review": {
     "detector_rerun": false,
-    "exact_disposition": "fix",
+    "exact_disposition": "pass",
     "fresh_isolated": true,
-    "material_fix_count": 5,
-    "material_fixes_applied": 5,
-    "receipt": "qa/variant-e/detector-finish-review.log.md"
+    "material_fix_count": 0,
+    "material_fixes_applied": 2,
+    "other_generators_used": [],
+    "prior_post_remediation_disposition": "fix",
+    "receipt": "qa/variant-e/post-remediation-finish-review.log.md",
+    "reviewed_deployed_sha": "7b2bca480fff9740afb54feac4d9764ef4bac188"
   },
   "git": {
     "branch": "kanban/t_f5efb7ad-variant-e-context",
-    "deployed_source_sha": "73c440ff37ea4dd57df705a547ab6ff4a96b580b",
+    "deployed_source_sha": "7b2bca480fff9740afb54feac4d9764ef4bac188",
     "repo_path": "/home/solo/.hermes/kanban/workspaces/t_67837fdb/repo",
     "repository": "SoLoVisionLLC/faith-baptist-church-preview"
   },
@@ -132,8 +135,19 @@
         "status": 200
       }
     },
+    "post_fix_checks": {
+      "all_six_routes_200": true,
+      "all_six_routes_noindex_nofollow": true,
+      "body_font": "Source Sans 3",
+      "font_loaded_via_document_fonts": true,
+      "font_path": "/assets/fonts/SourceSans3-Latin.woff2",
+      "font_sha256": "59fbf777295755670788ca809b72d082721afbbdfcac37c5c987c1a7e0c74f4d",
+      "https": true,
+      "section_mark_markup_and_css_absent": true
+    },
     "routes": {
       "/": {
+        "bytes": 6257,
         "content_type": "text/html",
         "direction_contract_present": true,
         "final_url": "https://faithbaptist-e.sololink.cloud/",
@@ -166,11 +180,14 @@
         "noindex_nofollow": true,
         "pass": true,
         "required_copy": true,
-        "sha256": "0500bab11a39a7cf7dc002adb19ff85a611ff37cb4f93fa4a4654204cc0f9493",
+        "section_mark_absent": true,
+        "sha256": "dbe2c855178e2d6c3c04b92c66abded1bccb33414ca781904a8cd9f0bfbc453e",
+        "stale_dillon_absent": true,
         "stale_dillon_road_absent": true,
         "status": 200
       },
       "/beliefs/": {
+        "bytes": 4114,
         "content_type": "text/html",
         "direction_contract_present": true,
         "final_url": "https://faithbaptist-e.sololink.cloud/beliefs/",
@@ -191,11 +208,14 @@
         "noindex_nofollow": true,
         "pass": true,
         "required_copy": true,
-        "sha256": "5e50fc06a049653788aa81971df3b51b6f1d78f9551dd7cbbb21842bf1418258",
+        "section_mark_absent": true,
+        "sha256": "f88e4a3ece41cb20cc0dd20548539d81c21c5d1da02ac227152378593cfc0933",
+        "stale_dillon_absent": true,
         "stale_dillon_road_absent": true,
         "status": 200
       },
       "/contact/": {
+        "bytes": 4241,
         "content_type": "text/html",
         "direction_contract_present": true,
         "final_url": "https://faithbaptist-e.sololink.cloud/contact/",
@@ -216,11 +236,14 @@
         "noindex_nofollow": true,
         "pass": true,
         "required_copy": true,
-        "sha256": "197d5a1e6cf0733c78479dcbd1e8e7cc777db18db79dfc5c7c39ed9d82eb8c4f",
+        "section_mark_absent": true,
+        "sha256": "932492215e064864b7af8475a1b8cdfdc5a0e8e382c5ee53410df01922fdc426",
+        "stale_dillon_absent": true,
         "stale_dillon_road_absent": true,
         "status": 200
       },
       "/events/": {
+        "bytes": 3822,
         "content_type": "text/html",
         "direction_contract_present": true,
         "final_url": "https://faithbaptist-e.sololink.cloud/events/",
@@ -236,11 +259,14 @@
         "noindex_nofollow": true,
         "pass": true,
         "required_copy": true,
-        "sha256": "1112b778421f774fbd43260ac12cc28c7f5c7a95210edf69edd33cfa3cc77642",
+        "section_mark_absent": true,
+        "sha256": "374a05d05e73b69cfdb601ce685c13acf3e3713e2800c77b5775aa80c6f1e15b",
+        "stale_dillon_absent": true,
         "stale_dillon_road_absent": true,
         "status": 200
       },
       "/ministries/": {
+        "bytes": 4332,
         "content_type": "text/html",
         "direction_contract_present": true,
         "final_url": "https://faithbaptist-e.sololink.cloud/ministries/",
@@ -261,11 +287,14 @@
         "noindex_nofollow": true,
         "pass": true,
         "required_copy": true,
-        "sha256": "42dda94218ea031cd16bd34565113f716a719df8c8ba3833a75a9bf35a26a0c8",
+        "section_mark_absent": true,
+        "sha256": "05359852ba43b2ff7d71d125508ff9edac33da13ae08e0206f5f9de10ddcfa9b",
+        "stale_dillon_absent": true,
         "stale_dillon_road_absent": true,
         "status": 200
       },
       "/visit/": {
+        "bytes": 4452,
         "content_type": "text/html",
         "direction_contract_present": true,
         "final_url": "https://faithbaptist-e.sololink.cloud/visit/",
@@ -286,7 +315,9 @@
         "noindex_nofollow": true,
         "pass": true,
         "required_copy": true,
-        "sha256": "4ab20e756ad4f3528cf742103004a338d8e8c8a2cabe4a504316f7650d0df45f",
+        "section_mark_absent": true,
+        "sha256": "35d1aa92948115c43c3c87bedffdef4cd17655b50155751e9f06a628ca152cfc",
+        "stale_dillon_absent": true,
         "stale_dillon_road_absent": true,
         "status": 200
       }
@@ -301,11 +332,11 @@
       "http_status": 200,
       "image_pixels": [
         1440,
-        4588
+        4538
       ],
       "no_horizontal_overflow": true,
-      "path": "qa/variant-e/screenshots/live-home-desktop-1440x1000.png",
-      "sha256": "0df915b350f56b76f3e3b45a92c0806701409320492b88cc9463c24c3ce528f5",
+      "path": "qa/variant-e/screenshots/live-post-fix-home-desktop-1440x1000.png",
+      "sha256": "6f8769a4f86bf5ff88aac100ffc1debb51a696cec119e27165d5c789e42e5ae9",
       "viewport_css": [
         1440,
         1000
@@ -317,11 +348,11 @@
       "http_status": 200,
       "image_pixels": [
         780,
-        10324
+        10064
       ],
       "no_horizontal_overflow": true,
-      "path": "qa/variant-e/screenshots/live-home-mobile-390x844-dpr2.png",
-      "sha256": "d415a50fa1a59099d3f6095ae3b20c225df68a77b1217414fabbbf6a1c72c454",
+      "path": "qa/variant-e/screenshots/live-post-fix-home-mobile-390x844-dpr2.png",
+      "sha256": "961a858a674ed77c0a682939d7f49322f30188e67757b38cd509110bad1b10a8",
       "viewport_css": [
         390,
         844
@@ -333,11 +364,11 @@
       "http_status": 200,
       "image_pixels": [
         860,
-        10712
+        10458
       ],
       "no_horizontal_overflow": true,
-      "path": "qa/variant-e/screenshots/live-home-mobile-430x932-dpr2.png",
-      "sha256": "a9f5331d3ef03fed79371b391f9093bce1e12f57730c0b5d05f2c58609b405fc",
+      "path": "qa/variant-e/screenshots/live-post-fix-home-mobile-430x932-dpr2.png",
+      "sha256": "a4285132d3529f0a47f8e1cfed652bf0738712598e8be4a7c3cf14be5667acaf",
       "viewport_css": [
         430,
         932

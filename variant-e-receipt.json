@@ -54,13 +54,13 @@
     }
   ],
   "post_remediation_finish_review": {
-    "exact_disposition": "fix",
+    "exact_disposition": "pass",
     "fresh_isolated": true,
-    "material_fix_count": 2,
+    "material_fix_count": 0,
     "material_fixes_applied": 2,
     "detector_rerun": false,
-    "post_fix_disposition": null,
-    "post_fix_review_state": "pending_independent_review_after_implementation_and_deployment",
+    "post_fix_disposition": "pass",
+    "post_fix_review_state": "fresh_isolated_review_complete",
     "receipt": "qa/variant-e/post-remediation-finish-review.log.md"
   },
   "media": [
