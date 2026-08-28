@@ -159,9 +159,9 @@
   },
   "hashes": {
     "home_html_sha256": "28a598fbd202d5985b7581042f8b93fab36ffaa7efbdbc7bff31ef272767309a",
-    "primary_css_sha256": "19228abf2389fc49d75dd32bbdd81aa03989ab9e0a6622bde33047659bd31e38",
+    "primary_css_sha256": "fb2bc07d4d3a99f2cc1db2662742d72dc488066519e23d7d9c7ac7db782a9430",
     "build_source_sha256": "571ad45405b673ea2b77c2f44ed92519e1b0e63cd131c7dd030ac1814cd78ed4",
-    "verification_source_sha256": "326186482a4d4249ac3ffae2dff25f16f80003f8046f53618d1a833cb05eef23",
+    "verification_source_sha256": "07bc0fca260b34b99028b2d3f4932c9ee51e40137d56c0495ab2b78a22b86ebc",
     "direction_source_sha256": "1416ed806acb804a9339a1a39849240928683f240ea2f78ec34b606dc1fee983"
   },
   "fonts": [

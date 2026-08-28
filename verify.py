@@ -868,6 +868,15 @@ def verify_c_styles(errors: list[str]) -> None:
         if value not in folded:
             errors.append(f"styles-c.css is missing Organic Biomorphic evidence: {value}")
 
+    if not re.search(
+        r"@media\(max-width:400px\)\s*\{\s*\.growing-panel,\.ministry-shape\s*"
+        r"\{\s*justify-content:center\s*\}\s*\}",
+        folded,
+    ):
+        errors.append(
+            "styles-c.css is missing the 390px organic-card text-clipping safeguard"
+        )
+
     expected_colors = {
         "#faf8f5",
         "#f0ebe3",

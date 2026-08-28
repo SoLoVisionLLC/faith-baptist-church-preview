@@ -204,6 +204,9 @@ p{margin-bottom:1rem}
   .c-footer-primary{align-items:flex-start;flex-direction:column}
   .c-footer-navigation{grid-template-columns:1fr 1fr}
 }
+@media(max-width:400px){
+  .growing-panel,.ministry-shape{justify-content:center}
+}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .ambient-shape,.hero-image-mask,.visit-field::before{animation:none!important}
