@@ -13,6 +13,13 @@ E_FONT_ASSETS = (
     'SourceSans3-OFL.txt',
     'SourceSans3-PROVENANCE.md',
 )
+C_FONT_ASSETS = (
+    'Fraunces-Latin.woff2',
+    'Karla-Latin.woff2',
+    'Fraunces-OFL.txt',
+    'Karla-OFL.txt',
+    'Fraunces-Karla-PROVENANCE.md',
+)
 ROUTES = {
     '/': 'index.html',
     '/visit': 'visit/index.html',
@@ -171,6 +178,47 @@ def footer_a():
 '''
 
 
+def c_nav_links(active, class_name):
+    links = ''
+    for href, label in NAV_LINKS:
+        route = '/' if href == '/' else href + '/'
+        current = ' aria-current="page"' if route == active else ''
+        links += f'<a href="{route}"{current}>{label}</a>'
+    return f'<nav class="{class_name}" aria-label="Primary">{links}</nav>'
+
+
+def nav_c(active):
+    return f'''
+<header class="c-site-header">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="c-header-inner">
+    <a class="c-wordmark" href="/">Faith Baptist Church</a>
+    {c_nav_links(active, 'c-desktop-navigation')}
+    <details class="c-menu">
+      <summary>Menu</summary>
+      {c_nav_links(active, 'c-mobile-navigation')}
+    </details>
+  </div>
+</header>'''
+
+
+def footer_c():
+    links = ''.join(
+        f'<a href="{"/" if href == "/" else href + "/"}">{label}</a>'
+        for href, label in NAV_LINKS
+    )
+    return f'''
+<footer class="c-site-footer">
+  <div class="c-footer-primary">
+    <p class="c-footer-name">{NAME}</p>
+    <address>{A_ADDRESS}</address>
+    <a href="tel:{PHONE_TEL}">{A_PHONE_DISPLAY}</a>
+    <a href="{A_MAPS_DIR}" rel="noopener">Directions</a>
+  </div>
+  <nav class="c-footer-navigation" aria-label="Footer">{links}</nav>
+</footer>'''
+
+
 HEAD = '''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -203,11 +251,32 @@ HEAD_A = '''<!DOCTYPE html>
 <main id="main" tabindex="-1">
 '''
 
+HEAD_C = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="/assets/front.png">
+</head>
+<body class="v-c p-{slug}">
+<div class="ambient-layer" aria-hidden="true"><span class="ambient-shape ambient-one"></span><span class="ambient-shape ambient-two"></span></div>
+{nav}
+<main id="main" tabindex="-1">
+'''
+
 def page(variant, slug, title, desc, body):
     if variant == 'a':
         active = '/' + slug if slug else '/'
         html = HEAD_A.format(title=title, desc=desc, slug=slug or 'home', nav=nav_a(active))
         return html + body + '\n</main>\n' + footer_a() + '\n</body>\n</html>\n'
+    if variant == 'c':
+        active = '/' if not slug else f'/{slug}/'
+        html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active))
+        return html + body + '\n</main>\n' + footer_c() + '\n</body>\n</html>\n'
     html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
                        nav=nav('/' + slug if slug else '/'))
     return html + body + '\n</main>\n' + footer() + '\n</body>\n</html>\n'
@@ -428,95 +497,105 @@ B_CONTACT = '''
 <img class="feature" src="/assets/front.png" alt="''' + IMG['front'][1] + '''"></section>'''
 
 
-# ---------------- Variant C — Rooted & Rising ----------------
+# ---------------- Variant C — Gathered and Growing / Organic Biomorphic 11 ----------------
 
-C_HOME = '''
-<section class="opening">
-<div class="display"><h1><span class="line1">Rooted</span> <span class="line2">in the Word</span></h1>
-<p class="subline">Centered on the Gospel. A church family for Fostoria.</p>
-<p>''' + CTA_PLAN + '''</p></div>
-<img src="/assets/front.png" alt="''' + IMG['front'][1] + '''">
-</section>
-<section class="timetable">
-<h2>Service timetable</h2>
-<table><caption>Every week at Faith Baptist Church</caption><tbody>
-<tr><th scope="row">Sunday</th><td class="num">9:00</td><td>Sunday School &mdash; adults and teens</td></tr>
-<tr><th scope="row">Sunday</th><td class="num">10:00</td><td>Main Service &middot; young children&rsquo;s Sunday School &middot; nursery for tots</td></tr>
-<tr><th scope="row">Sunday</th><td class="num">6:00</td><td>Evening Service</td></tr>
-<tr><th scope="row">Wednesday</th><td class="num">7:00</td><td>Prayer &amp; Bible Study</td></tr>
-</tbody></table>
-</section>
-<section class="arch-band">
-<img src="/assets/church1.jpg" alt="''' + IMG['land'][1] + '''">
-<img src="/assets/church3.jpg" alt="''' + IMG['wide'][1] + '''">
-</section>
-<section class="story">
-<img src="/assets/church2.jpg" alt="''' + IMG['close'][1] + '''">
-<div><h2>Bible believing. Gospel driven.</h2>
-<p>We teach from the KJV Bible and keep the gospel at the center of everything.</p>
-<h2>A rhythm for the week</h2>
-<p>Sunday School, morning and evening worship, and midweek prayer hold our family together from one Lord&rsquo;s Day to the next.</p>
-<p><a href="/beliefs/">What we believe</a> &middot; <a href="/ministries/">Our ministries</a></p></div>
-</section>
-<section class="visit-close">
-<img src="/assets/front.png" alt="''' + IMG['front'][1] + '''">
-<div class="plate"><h2>Visit us</h2><p>11275 W. Township Rd. 116, Fostoria, OH 44830</p>
-<p><a href="tel:+14193482171">(419) 348-2171</a></p>
-<p>''' + CTA_PLAN + '</p></div></section>'''
 
-C_VISIT = '''
-<section><h1>Plan Your Visit</h1><p class="lede">One visit and you will know you are home.</p></section>
-<section class="timetable"><h2>When to come</h2>
-<table><tbody>
-<tr><th scope="row">Sunday</th><td class="num">9:00</td><td>Sunday School &mdash; adults and teens</td></tr>
-<tr><th scope="row">Sunday</th><td class="num">10:00</td><td>Main Service &middot; children&rsquo;s class &middot; nursery</td></tr>
-<tr><th scope="row">Sunday</th><td class="num">6:00</td><td>Evening Service</td></tr>
-<tr><th scope="row">Wednesday</th><td class="num">7:00</td><td>Prayer &amp; Bible Study</td></tr>
-</tbody></table></section>
-<section><h2>Where</h2><p>11275 W. Township Rd. 116, Fostoria, OH 44830</p><p><a class="btn btn-primary" href="''' + MAPS_DIR + '''" rel="noopener">Directions</a></p></section>
-<section><h2>Bring the kids</h2><p>Nursery for tots and a dedicated young children&rsquo;s class mean the whole family is cared for.</p></section>
-<img class="feature" src="/assets/front.png" alt="''' + IMG['front'][1] + '''">'''
+def c_image(key, class_name=''):
+    src, alt, width, height = A_IMG[key]
+    css_class = f' class="{class_name}"' if class_name else ''
+    return f'<img{css_class} src="{src}" alt="{alt}" width="{width}" height="{height}">'
 
-C_BELIEFS = '''
-<section class="opening-line"><h1>&ldquo;Rooted in the Word. Centered on the Gospel.&rdquo;</h1></section>
-<section class="editorial">
-<p class="lede">This is what holds us: the Bible, the gospel, and a family growing together in God&rsquo;s Word.</p>
-<p>We are Bible believing. We preach Christ crucified and risen. And we open the King James Bible together every Sunday and Wednesday, letting the Word do its work in us.</p>
-<dl><dt>Bible believing</dt><dd>The Scriptures are our foundation &mdash; taught plainly from the KJV.</dd>
-<dt>Gospel driven</dt><dd>The good news of Jesus shapes our worship, our preaching, our week.</dd>
-<dt>Growing together</dt><dd>No one grows alone here. From the nursery to the Wednesday study, we grow as one family.</dd></dl>
-<p>Sundays at 9:00 and 10:00 AM. Wednesdays at 7:00 PM.</p></section>
-<img class="feature" src="/assets/church2.jpg" alt="''' + IMG['close'][1] + '''">'''
 
-C_MINISTRIES = '''
-<section><h1>Ministries</h1><p class="lede">Measured, faithful, every week.</p></section>
-<section class="timetable">
-<table><tbody>
-<tr><th scope="row">Adults &amp; Teens</th><td class="num">9:00</td><td>Sunday School opens the day in the Word.</td></tr>
-<tr><th scope="row">Worship</th><td class="num">10:00</td><td>The gathered church sings, prays, and hears the Word preached.</td></tr>
-<tr><th scope="row">Children</th><td class="num">10:00</td><td>Young children&rsquo;s Sunday School alongside nursery care for tots.</td></tr>
-<tr><th scope="row">Evening</th><td class="num">6:00</td><td>Sunday Evening Service closes the Lord&rsquo;s Day together.</td></tr>
-<tr><th scope="row">Midweek</th><td class="num">7:00</td><td>Prayer &amp; Bible Study every Wednesday.</td></tr>
-</tbody></table></section>
-<img class="feature" src="/assets/church3.jpg" alt="''' + IMG['wide'][1] + '''">'''
+C_HOME = f'''
+<section class="c-home-hero c-page-shell" aria-labelledby="home-title">
+  <div class="hero-copy">
+    <p class="c-kicker">Fostoria, Ohio</p>
+    <h1 id="home-title">Faith Baptist Church</h1>
+    <p class="identity-line">{A_IDENTITY}</p>
+    <div class="c-actions"><a class="c-button c-button-primary" href="/visit/">Plan Your Visit</a><a class="c-button c-button-secondary" href="/events/">View Service Times</a></div>
+  </div>
+  <figure class="hero-image-plate"><div class="hero-image-mask">{c_image('land')}</div></figure>
+</section>
+<section class="rhythm-section c-page-shell" aria-labelledby="rhythm-title">
+  <div class="section-intro"><p class="c-kicker">Complete weekly schedule</p><h2 id="rhythm-title">Weekly Rhythm</h2></div>
+  <ol class="weekly-rhythm">
+    <li class="rhythm-stop"><p><strong>Sunday</strong> <time datetime="09:00">9:00 AM</time></p><p>Sunday School for adults and teens.</p></li>
+    <li class="rhythm-stop"><p><strong>Sunday</strong> <time datetime="10:00">10:00 AM</time></p><p>Main service. Young children's Sunday School begins at 10:00 AM. A nursery for tots is available during Sunday programming.</p></li>
+    <li class="rhythm-stop"><p><strong>Sunday</strong> <time datetime="18:00">6:00 PM</time></p><p>Sunday evening service.</p></li>
+    <li class="rhythm-stop"><p><strong>Wednesday</strong> <time datetime="19:00">7:00 PM</time></p><p>Prayer and Bible study.</p></li>
+  </ol>
+</section>
+<section class="growing-section c-page-shell" aria-labelledby="growing-title">
+  <div class="section-intro"><p class="c-kicker">Recurring ministries</p><h2 id="growing-title">Growing Together</h2></div>
+  <div class="growing-cluster">
+    <article class="growing-panel panel-wide"><h3>Adults and Teens</h3><p>Sunday School at 9:00 AM.</p></article>
+    <article class="growing-panel panel-tall"><h3>Young Children</h3><p>Sunday School at 10:00 AM.</p></article>
+    <article class="growing-panel panel-small"><h3>Nursery</h3><p>Available for tots during Sunday programming.</p></article>
+  </div>
+</section>
+<section class="place-section c-page-shell" aria-labelledby="place-title">
+  <div class="section-intro"><p class="c-kicker">Church grounds and sanctuary</p><h2 id="place-title">A Real Place</h2></div>
+  <div class="real-place-gallery">
+    <figure class="place-photo place-portrait">{c_image('front')}</figure>
+    <figure class="place-photo place-close">{c_image('close')}</figure>
+    <figure class="place-photo place-wide">{c_image('wide')}</figure>
+  </div>
+</section>
+<section class="belief-field c-page-shell" aria-labelledby="belief-title">
+  <div><p class="c-kicker">Confirmed convictions</p><h2 id="belief-title">What We Believe</h2></div>
+  <ul><li>Bible believing.</li><li>Gospel driven.</li><li>We teach from the KJV Bible.</li></ul>
+  <a class="c-text-link" href="/beliefs/">Read our confirmed beliefs</a>
+</section>
+<section class="visit-field c-page-shell" aria-labelledby="visit-title">
+  <div><p class="c-kicker">Fostoria, Ohio</p><h2 id="visit-title">Plan Your Visit</h2><address>{A_ADDRESS}</address></div>
+  <div class="visit-actions"><a href="tel:{PHONE_TEL}">{A_PHONE_DISPLAY}</a><a class="c-button c-button-dark" href="{A_MAPS_DIR}" rel="noopener">Get Directions</a></div>
+</section>'''
+
+C_VISIT = f'''
+<section class="inner-intro c-page-shell"><p class="c-kicker">Sunday and Wednesday</p><h1>Plan Your Visit</h1><p>Find the complete weekly schedule, location, children and nursery information, and church phone below.</p></section>
+<section class="visit-quick c-page-shell" aria-label="Phone and directions"><a class="c-button c-button-primary" href="tel:{PHONE_TEL}">Call the Church</a><address>{A_ADDRESS}</address><a class="c-text-link" href="{A_MAPS_DIR}" rel="noopener">Get Directions</a></section>
+<section class="visit-layout c-page-shell" aria-labelledby="visit-schedule-title">
+  <div class="visit-schedule"><h2 id="visit-schedule-title">Weekly schedule</h2>
+    <div class="schedule-row"><h3>Sunday School</h3><strong>9:00 AM</strong><p>Adults and teens.</p></div>
+    <div class="schedule-row"><h3>Main service</h3><strong>10:00 AM</strong></div>
+    <div class="schedule-row"><h3>Young children's Sunday School</h3><strong>10:00 AM</strong></div>
+    <div class="schedule-row"><h3>Sunday evening service</h3><strong>6:00 PM</strong></div>
+    <div class="schedule-row"><h3>Prayer and Bible study</h3><p>Wednesday at <strong>7:00 PM</strong>.</p></div>
+    <div class="children-note"><h2>Children and nursery</h2><p>A nursery for tots is available during Sunday programming.</p></div>
+  </div>
+  <figure class="visit-photo-mask">{c_image('front')}</figure>
+</section>'''
+
+C_BELIEFS = f'''
+<section class="beliefs-inner c-page-shell"><div><h1>What We Believe</h1><p>These are the confirmed convictions of Faith Baptist Church.</p><ul><li>Bible believing.</li><li>Gospel driven.</li><li>We teach from the KJV Bible.</li></ul></div><figure class="belief-photo-mask">{c_image('close')}</figure></section>'''
+
+C_MINISTRIES = f'''
+<section class="inner-intro c-page-shell"><p class="c-kicker">Recurring weekly gatherings</p><h1>Ministries</h1><p>These recurring gatherings are available each week at Faith Baptist Church.</p></section>
+<section class="ministry-cluster c-page-shell" aria-label="Recurring ministries">
+  <article class="ministry-shape ministry-a"><h2>Adults and teens Sunday School</h2><p>Sunday at 9:00 AM.</p></article>
+  <article class="ministry-shape ministry-b"><h2>Main service</h2><p>Sunday at 10:00 AM.</p></article>
+  <article class="ministry-shape ministry-c"><h2>Young children's Sunday School</h2><p>Sunday at 10:00 AM.</p></article>
+  <article class="ministry-shape ministry-d"><h2>Nursery for tots</h2><p>Available during Sunday programming.</p></article>
+  <article class="ministry-shape ministry-e"><h2>Sunday evening service</h2><p>Sunday at 6:00 PM.</p></article>
+  <article class="ministry-shape ministry-f"><h2>Prayer and Bible study</h2><p>Wednesday at 7:00 PM.</p></article>
+</section>
+<figure class="ministry-photo c-page-shell">{c_image('wide')}</figure>'''
 
 C_EVENTS = '''
-<section><h1>Events &amp; Announcements</h1><p class="lede">The same table, set every week.</p></section>
-<section class="timetable"><h2>This week &mdash; and every week</h2>
-<table><tbody>
-<tr><th scope="row">Sun</th><td class="num">9:00</td><td>Sunday School (adults &amp; teens)</td></tr>
-<tr><th scope="row">Sun</th><td class="num">10:00</td><td>Morning Service &middot; children&rsquo;s class &middot; nursery</td></tr>
-<tr><th scope="row">Sun</th><td class="num">6:00</td><td>Evening Service</td></tr>
-<tr><th scope="row">Wed</th><td class="num">7:00</td><td>Prayer &amp; Bible Study</td></tr>
-</tbody></table>
-<p>Announcements are made in each service.</p></section>'''
+<section class="inner-intro c-page-shell"><p class="c-kicker">Recurring gatherings</p><h1>Events &amp; Announcements</h1><p>The recurring weekly schedule is listed below.</p><p>Current announcements will appear here when supplied.</p></section>
+<section class="rhythm-section c-page-shell" aria-labelledby="events-rhythm-title"><h2 id="events-rhythm-title">Weekly Rhythm</h2>
+  <ol class="weekly-rhythm">
+    <li class="rhythm-stop"><p><strong>Sunday School</strong> <time datetime="09:00">9:00 AM</time></p><p>Adults and teens.</p></li>
+    <li class="rhythm-stop"><p><strong>Main service</strong> <time datetime="10:00">10:00 AM</time></p><p>Young children's Sunday School <time datetime="10:00">10:00 AM</time>. Nursery for tots during Sunday programming.</p></li>
+    <li class="rhythm-stop"><p><strong>Sunday evening service</strong> <time datetime="18:00">6:00 PM</time></p></li>
+    <li class="rhythm-stop"><p><strong>Prayer and Bible study</strong> Wednesday at <time datetime="19:00">7:00 PM</time>.</p></li>
+  </ol>
+</section>'''
 
-C_CONTACT = '''
-<section><h1>Contact</h1>
-<p class="big-tel"><a href="tel:+14193482171">(419) 348-2171</a></p>
-<p>11275 W. Township Rd. 116, Fostoria, OH 44830</p>
-<p><a class="btn btn-primary" href="''' + MAPS_DIR + '''" rel="noopener">Get Directions</a></p></section>
-<img class="feature" src="/assets/front.png" alt="''' + IMG['front'][1] + '''">'''
+C_CONTACT = f'''
+<section class="inner-intro c-page-shell"><p class="c-kicker">Phone and directions</p><h1>Contact Faith Baptist Church</h1><p>Call the church or open directions to the exact address.</p></section>
+<section class="contact-details c-page-shell" aria-label="Contact details"><a class="contact-phone" href="tel:{PHONE_TEL}"><span>Call the Church</span>{A_PHONE_DISPLAY}</a><address>{A_ADDRESS}</address><a class="c-button c-button-primary" href="{A_MAPS_DIR}" rel="noopener">Get Directions</a></section>
+<figure class="contact-photo c-page-shell">{c_image('land')}</figure>'''
 
 
 PAGES = {
@@ -537,12 +616,12 @@ PAGES = {
         ('contact', 'Contact — Faith Baptist Church', 'Tap to call Faith Baptist Church: (419) 348-2171.', B_CONTACT),
     ],
     'c': [
-        ('', 'Faith Baptist Church — Rooted in the Word', 'Rooted in the Word. Centered on the Gospel. A church family for Fostoria, Ohio.', C_HOME),
-        ('visit', 'Plan Your Visit — Faith Baptist Church', 'When to come, where we are, and how your family fits in.', C_VISIT),
-        ('beliefs', 'What We Believe — Faith Baptist Church', 'Rooted in the Word. Centered on the Gospel. Taught from the KJV Bible.', C_BELIEFS),
-        ('ministries', 'Ministries — Faith Baptist Church', 'A measured weekly rhythm of ministry at Faith Baptist Church.', C_MINISTRIES),
-        ('events', 'Events & Announcements — Faith Baptist Church', 'Every week at Faith Baptist Church, in one timetable.', C_EVENTS),
-        ('contact', 'Contact — Faith Baptist Church', 'Phone, address, and directions to Faith Baptist Church.', C_CONTACT),
+        ('', 'Faith Baptist Church | Service Times and Visit Information', 'Faith Baptist Church service times, location, and visit information in Fostoria, Ohio.', C_HOME),
+        ('visit', 'Plan Your Visit | Faith Baptist Church', 'Complete service times, directions, children, nursery, and phone information.', C_VISIT),
+        ('beliefs', 'What We Believe | Faith Baptist Church', 'Bible believing, gospel driven, and teaching from the KJV Bible.', C_BELIEFS),
+        ('ministries', 'Recurring Ministries | Faith Baptist Church', 'Recurring Sunday and Wednesday gatherings at Faith Baptist Church.', C_MINISTRIES),
+        ('events', 'Weekly Schedule and Announcements | Faith Baptist Church', 'The recurring weekly schedule and announcements for Faith Baptist Church.', C_EVENTS),
+        ('contact', 'Contact Faith Baptist Church | Phone and Directions', 'Phone, address, and directions for Faith Baptist Church.', C_CONTACT),
     ],
 }
 
@@ -563,6 +642,11 @@ def main():
         shutil.copy(f'{ROOT}/styles-{v}.css', f'{SITE}/{v}/styles.css')
         for fn in ('front.png', 'church1.jpg', 'church2.jpg', 'church3.jpg'):
             shutil.copy(f'{ROOT}/assets/{fn}', f'{SITE}/{v}/assets/{fn}')
+        if v == 'c':
+            c_fonts = os.path.join(SITE, 'c', 'assets', 'fonts')
+            os.makedirs(c_fonts, exist_ok=True)
+            for fn in C_FONT_ASSETS:
+                shutil.copy(os.path.join(ROOT, 'assets', 'fonts', fn), os.path.join(c_fonts, fn))
     e_root = os.path.join(SITE, 'e')
     os.makedirs(os.path.join(e_root, 'assets'), exist_ok=True)
     for slug, title, desc, body in variant_e.PAGES:
