@@ -1,0 +1,42 @@
+{
+  "variant": "d",
+  "source_directory": "/home/solo/.hermes/profiles/vector/work/faith-chapel-assets",
+  "assets": [
+    {
+      "filename": "front.png",
+      "bundled_path": "variants/d/assets/front.png",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_03bb9f01ae214a5fab9b14226879ee59/view?project=solosocialstudio",
+      "dimensions": "277x600",
+      "placement": "home proof gallery; visit and contact exterior",
+      "alt": "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+      "sha256": "7b0bce3499ed9df95327af8a9693b70a2876a36be53810d91edf4685ffaa0f3f"
+    },
+    {
+      "filename": "church1.jpg",
+      "bundled_path": "variants/d/assets/church1.jpg",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_a1df2d0ef4c3455cb97d6c24734c16bf/view?project=solosocialstudio",
+      "dimensions": "600x450",
+      "placement": "home hero and proof gallery",
+      "alt": "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.",
+      "sha256": "9abdb0fd06c69aa12ef11f4954afb50131ad133c5a3314a675c1a136577977f6"
+    },
+    {
+      "filename": "church2.jpg",
+      "bundled_path": "variants/d/assets/church2.jpg",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_01e265a73d32472384612eda393c8ebb/view?project=solosocialstudio",
+      "dimensions": "450x600",
+      "placement": "home proof gallery and beliefs",
+      "alt": "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.",
+      "sha256": "6725c18ecea252cd3ad842fae16844a0c1ff1a8f2a4a2a011853bc0a8b68bb92"
+    },
+    {
+      "filename": "church3.jpg",
+      "bundled_path": "variants/d/assets/church3.jpg",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_a357ae8b004b4d0f816a9037f18bffae/view?project=solosocialstudio",
+      "dimensions": "450x600",
+      "placement": "home proof gallery",
+      "alt": "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.",
+      "sha256": "75c7128197dd074613eec92fe233e04dff3539c5394f56696b4196a969969b3c"
+    }
+  ]
+}

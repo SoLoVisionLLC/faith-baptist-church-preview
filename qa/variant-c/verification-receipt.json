@@ -160,8 +160,8 @@
   "hashes": {
     "home_html_sha256": "28a598fbd202d5985b7581042f8b93fab36ffaa7efbdbc7bff31ef272767309a",
     "primary_css_sha256": "47eaed8cb1ddebb26bd7d759cbd2e5f0008c0b235c3e15357424cc6d8ec85464",
-    "build_source_sha256": "6095d281b363b35a718e495acf128fedc680b478ec6150c561f3a90248fb4c46",
-    "verification_source_sha256": "5796272786903fd6ea5ea71069581fbe1d9d15a4f625b1cfcfb7a75ea1dcbc55",
+    "build_source_sha256": "ccf4bd23f6a74c91ce6019af869b21cf5af5ef65666d26297c7296a0293d31e7",
+    "verification_source_sha256": "e3535ec1b09096dea62774b0445c81307efa3f71ff424b53c8b49fa76065b1bc",
     "direction_source_sha256": "1416ed806acb804a9339a1a39849240928683f240ea2f78ec34b606dc1fee983"
   },
   "fonts": [
