@@ -3,7 +3,7 @@
 Static noindex site variants built from the verified Quill five-regime brief:
 
 - `variants/a` — Plain Welcome
-- `variants/b` — Sunday Starts Here
+- `variants/b` — Sunday Starts Here (Taste Skill 4/2/4 visitor planner)
 - `variants/c` — Rooted & Rising
 - `variants/e` — Impeccable 4.1.1 Persuade, Service-Time Compass
 
