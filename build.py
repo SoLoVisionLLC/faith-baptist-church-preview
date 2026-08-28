@@ -503,7 +503,8 @@ B_CONTACT = '''
 def c_image(key, class_name=''):
     src, alt, width, height = A_IMG[key]
     css_class = f' class="{class_name}"' if class_name else ''
-    return f'<img{css_class} src="{src}" alt="{alt}" width="{width}" height="{height}">'
+    tag = f'<img{css_class} src="{src}" alt="{alt}" width="{width}" height="{height}">'
+    return tag
 
 
 C_HOME = f'''
@@ -560,7 +561,7 @@ C_VISIT = f'''
     <div class="schedule-row"><h3>Main service</h3><strong>10:00 AM</strong></div>
     <div class="schedule-row"><h3>Young children's Sunday School</h3><strong>10:00 AM</strong></div>
     <div class="schedule-row"><h3>Sunday evening service</h3><strong>6:00 PM</strong></div>
-    <div class="schedule-row"><h3>Prayer and Bible study</h3><p>Wednesday at <strong>7:00 PM</strong>.</p></div>
+    <div class="schedule-row"><h3>Prayer and Bible study Wednesday at 7:00 PM.</h3></div>
     <div class="children-note"><h2>Children and nursery</h2><p>A nursery for tots is available during Sunday programming.</p></div>
   </div>
   <figure class="visit-photo-mask">{c_image('front')}</figure>
@@ -588,7 +589,7 @@ C_EVENTS = '''
     <li class="rhythm-stop"><p><strong>Sunday School</strong> <time datetime="09:00">9:00 AM</time></p><p>Adults and teens.</p></li>
     <li class="rhythm-stop"><p><strong>Main service</strong> <time datetime="10:00">10:00 AM</time></p><p>Young children's Sunday School <time datetime="10:00">10:00 AM</time>. Nursery for tots during Sunday programming.</p></li>
     <li class="rhythm-stop"><p><strong>Sunday evening service</strong> <time datetime="18:00">6:00 PM</time></p></li>
-    <li class="rhythm-stop"><p><strong>Prayer and Bible study</strong> Wednesday at <time datetime="19:00">7:00 PM</time>.</p></li>
+    <li class="rhythm-stop"><p>Prayer and Bible study Wednesday at <time datetime="19:00">7:00 PM.</time></p></li>
   </ol>
 </section>'''
 
@@ -647,6 +648,11 @@ def main():
             os.makedirs(c_fonts, exist_ok=True)
             for fn in C_FONT_ASSETS:
                 shutil.copy(os.path.join(ROOT, 'assets', 'fonts', fn), os.path.join(c_fonts, fn))
+            for source, alias in (
+                ('Fraunces-Latin.woff2', 'fraunces-latin.woff2'),
+                ('Karla-Latin.woff2', 'karla-latin.woff2'),
+            ):
+                shutil.copy(os.path.join(ROOT, 'assets', 'fonts', source), os.path.join(c_fonts, alias))
     e_root = os.path.join(SITE, 'e')
     os.makedirs(os.path.join(e_root, 'assets'), exist_ok=True)
     for slug, title, desc, body in variant_e.PAGES:
