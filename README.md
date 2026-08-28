@@ -1,15 +1,16 @@
-# Faith Baptist Church — Preview Site (Variants A/B/C)
+# Faith Baptist Church — Static Site Variants
 
-Static noindex preview site, three design variants, per the Quill Design Brief 2026-08-26:
+Static noindex site variants built from the verified Quill five-regime brief:
 
-- `variants/a` — The Open Door (trust-first editorial)
-- `variants/b` — Sunday Starts Here (conversion-first split hero)
-- `variants/c` — Rooted & Rising (bold editorial)
+- `variants/a` — Plain Welcome
+- `variants/b` — Sunday Starts Here
+- `variants/c` — Rooted & Rising
+- `variants/e` — Impeccable 4.1.1 Persuade, Service-Time Compass
 
 Routes per variant: `/`, `/visit`, `/beliefs`, `/ministries`, `/events`, `/contact`
 
 Rebuild: `python3 build.py` (writes HTML from shared content + per-variant CSS).
-Verify locally: `python3 verify.py` (checks all 18 pages, confirmed identity/contact details, noindex, internal links, copied assets, and pairwise variant uniqueness).
+Verify locally: `python3 verify.py` (checks all 24 pages, confirmed identity/contact details, noindex, internal links, copied assets, and pairwise variant uniqueness).
 Deploy: serve each `variants/<x>` directory as a static site root (Dockerfile at repo root uses nginx:alpine; Coolify apps bind `base_directory=/variants/<x>`).
 All pages carry `<meta name="robots" content="noindex, nofollow">`.
 

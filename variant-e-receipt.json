@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "variant": "E",
+  "design_regime": {
+    "skill": "Impeccable",
+    "version": "4.1.1",
+    "mode": "Persuade",
+    "direction": "Service-Time Compass",
+    "other_generators_used": []
+  },
+  "routes": [
+    "/",
+    "/visit/",
+    "/beliefs/",
+    "/ministries/",
+    "/events/",
+    "/contact/"
+  ],
+  "contract_assertions": {
+    "direction_contract_first_body_child_all_routes": true,
+    "noindex_nofollow_all_routes": true,
+    "one_h1_per_route": true,
+    "compact_compass_all_inner_routes": true,
+    "exact_media_alts": true,
+    "all_four_media_rendered": true,
+    "true_mobile_390x844_no_horizontal_overflow": true,
+    "source_sans_3_body_face_bundled_and_loaded": true,
+    "section_mark_eyebrow_markup_and_style_absent": true
+  },
+  "fonts": [
+    {
+      "role": "display",
+      "family": "Liberation Sans Narrow",
+      "source_path": "assets/fonts/LiberationSansNarrow-Bold.ttf",
+      "bundled_path": "variants/e/assets/fonts/LiberationSansNarrow-Bold.ttf",
+      "sha256": "4cd16b98cea43a9ce4471df068634fce71ab279dfc9b303b6b188bd96b35226a",
+      "license_path": "variants/e/assets/fonts/LiberationSansNarrow-LICENSE.txt"
+    },
+    {
+      "role": "body",
+      "family": "Source Sans 3",
+      "source_authority": "Google Fonts upstream of Source Sans 3",
+      "upstream_artifact": "SourceSans3[wght].ttf",
+      "upstream_sha256": "042fe2cc0b933e328410d7acbd0aa6a1873dca5aef81875f4bc214b08825c7b9",
+      "source_path": "assets/fonts/SourceSans3-Latin.woff2",
+      "bundled_path": "variants/e/assets/fonts/SourceSans3-Latin.woff2",
+      "bytes": 45984,
+      "sha256": "59fbf777295755670788ca809b72d082721afbbdfcac37c5c987c1a7e0c74f4d",
+      "unicode": ["U+0000-00FF", "U+2018-2019", "U+2026"],
+      "license_path": "variants/e/assets/fonts/SourceSans3-OFL.txt",
+      "license_sha256": "7fac2f6c6bc47144e2c35e8f41147b3c8c895490d44b46266a5312fe93364d2e",
+      "provenance_path": "variants/e/assets/fonts/SourceSans3-PROVENANCE.md",
+      "loaded_via_font_face": true
+    }
+  ],
+  "post_remediation_finish_review": {
+    "exact_disposition": "pass",
+    "fresh_isolated": true,
+    "material_fix_count": 0,
+    "material_fixes_applied": 2,
+    "detector_rerun": false,
+    "post_fix_disposition": "pass",
+    "post_fix_review_state": "fresh_isolated_review_complete",
+    "receipt": "qa/variant-e/post-remediation-finish-review.log.md"
+  },
+  "media": [
+    {
+      "file": "front.png",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_03bb9f01ae214a5fab9b14226879ee59/view?project=solosocialstudio",
+      "bundled_path": "variants/e/assets/front.png",
+      "original_dimensions": {"width": 277, "height": 600},
+      "placements": ["/ Real Place", "/visit/ exterior portrait", "/contact/ exterior portrait"],
+      "alt": "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+      "sha256": "7b0bce3499ed9df95327af8a9693b70a2876a36be53810d91edf4685ffaa0f3f"
+    },
+    {
+      "file": "church1.jpg",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_a1df2d0ef4c3455cb97d6c24734c16bf/view?project=solosocialstudio",
+      "bundled_path": "variants/e/assets/church1.jpg",
+      "original_dimensions": {"width": 600, "height": 450},
+      "placements": ["/ first viewport 58 percent image plate"],
+      "alt": "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.",
+      "sha256": "9abdb0fd06c69aa12ef11f4954afb50131ad133c5a3314a675c1a136577977f6"
+    },
+    {
+      "file": "church2.jpg",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_01e265a73d32472384612eda393c8ebb/view?project=solosocialstudio",
+      "bundled_path": "variants/e/assets/church2.jpg",
+      "original_dimensions": {"width": 450, "height": 600},
+      "placements": ["/ Conviction Field", "/beliefs/ equal-authority image plate"],
+      "alt": "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.",
+      "sha256": "6725c18ecea252cd3ad842fae16844a0c1ff1a8f2a4a2a011853bc0a8b68bb92"
+    },
+    {
+      "file": "church3.jpg",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_a357ae8b004b4d0f816a9037f18bffae/view?project=solosocialstudio",
+      "bundled_path": "variants/e/assets/church3.jpg",
+      "original_dimensions": {"width": 450, "height": 600},
+      "placements": ["/ Real Place architectural image plate", "/ministries/ gathering image"],
+      "alt": "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.",
+      "sha256": "75c7128197dd074613eec92fe233e04dff3539c5394f56696b4196a969969b3c"
+    }
+  ]
+}
