@@ -6,7 +6,13 @@ import variant_e
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(ROOT, 'variants')
-E_FONT_ASSETS = ('LiberationSansNarrow-Bold.ttf', 'LiberationSansNarrow-LICENSE.txt')
+E_FONT_ASSETS = (
+    'LiberationSansNarrow-Bold.ttf',
+    'LiberationSansNarrow-LICENSE.txt',
+    'SourceSans3-Latin.woff2',
+    'SourceSans3-OFL.txt',
+    'SourceSans3-PROVENANCE.md',
+)
 ROUTES = {
     '/': 'index.html',
     '/visit': 'visit/index.html',

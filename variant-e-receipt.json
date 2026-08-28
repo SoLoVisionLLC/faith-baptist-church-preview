@@ -23,7 +23,45 @@
     "compact_compass_all_inner_routes": true,
     "exact_media_alts": true,
     "all_four_media_rendered": true,
-    "true_mobile_390x844_no_horizontal_overflow": true
+    "true_mobile_390x844_no_horizontal_overflow": true,
+    "source_sans_3_body_face_bundled_and_loaded": true,
+    "section_mark_eyebrow_markup_and_style_absent": true
+  },
+  "fonts": [
+    {
+      "role": "display",
+      "family": "Liberation Sans Narrow",
+      "source_path": "assets/fonts/LiberationSansNarrow-Bold.ttf",
+      "bundled_path": "variants/e/assets/fonts/LiberationSansNarrow-Bold.ttf",
+      "sha256": "4cd16b98cea43a9ce4471df068634fce71ab279dfc9b303b6b188bd96b35226a",
+      "license_path": "variants/e/assets/fonts/LiberationSansNarrow-LICENSE.txt"
+    },
+    {
+      "role": "body",
+      "family": "Source Sans 3",
+      "source_authority": "Google Fonts upstream of Source Sans 3",
+      "upstream_artifact": "SourceSans3[wght].ttf",
+      "upstream_sha256": "042fe2cc0b933e328410d7acbd0aa6a1873dca5aef81875f4bc214b08825c7b9",
+      "source_path": "assets/fonts/SourceSans3-Latin.woff2",
+      "bundled_path": "variants/e/assets/fonts/SourceSans3-Latin.woff2",
+      "bytes": 45984,
+      "sha256": "59fbf777295755670788ca809b72d082721afbbdfcac37c5c987c1a7e0c74f4d",
+      "unicode": ["U+0000-00FF", "U+2018-2019", "U+2026"],
+      "license_path": "variants/e/assets/fonts/SourceSans3-OFL.txt",
+      "license_sha256": "7fac2f6c6bc47144e2c35e8f41147b3c8c895490d44b46266a5312fe93364d2e",
+      "provenance_path": "variants/e/assets/fonts/SourceSans3-PROVENANCE.md",
+      "loaded_via_font_face": true
+    }
+  ],
+  "post_remediation_finish_review": {
+    "exact_disposition": "fix",
+    "fresh_isolated": true,
+    "material_fix_count": 2,
+    "material_fixes_applied": 2,
+    "detector_rerun": false,
+    "post_fix_disposition": null,
+    "post_fix_review_state": "pending_independent_review_after_implementation_and_deployment",
+    "receipt": "qa/variant-e/post-remediation-finish-review.log.md"
   },
   "media": [
     {

@@ -73,7 +73,7 @@ The visual thesis is a luminous wayfinding system in which recurring service tim
 
 ### Documentation status and finish-review disposition
 
-This file documents the corrected generated output after the bounded finish-review remediation. The earlier fresh finish review recorded the exact disposition **`fix`**; that historical receipt remains intact in `qa/variant-e/detector-finish-review.log.md`. All five material findings from that review are now implemented in source and generated Variant E output. Per the remediation boundary, the Impeccable detector was not run a second time, no replacement finish review was created, and no deployment was performed. The current artifact is ready for DEV to inspect as a working-tree diff.
+This file documents the generated output across two bounded finish-review rounds. The earlier fresh finish review recorded the exact disposition **`fix`**; its five findings were remediated, deployed at source SHA `73c440ff37ea4dd57df705a547ab6ff4a96b580b`, and verified `running:healthy` as recorded in `qa/variant-e/live-deployment-receipt.json`. A fresh post-remediation review then recorded the exact disposition **`fix`** with exactly two additional material findings. Both are implemented in the current source and generated Variant E output. The detector was not rerun, no independent post-fix disposition has been issued, and no `pass` is claimed. This follow-up task did not deploy, so the existing live receipt remains evidence for the already healthy earlier deployment while the current local changes await downstream deployment and independent review.
 
 Authoritative local evidence:
 
@@ -81,8 +81,9 @@ Authoritative local evidence:
 - Pilot brief: `docs/faith-baptist-five-regime-pilot-brief.md`
 - Direction contract: `qa/variant-e/direction-contract.md`
 - Impeccable context receipt: `qa/variant-e/impeccable-context.txt`
-- Detector and finish review: `qa/variant-e/detector-finish-review.log.md`
-- Machine-readable build receipt and raster provenance: `variant-e-receipt.json`
+- Historical detector and finish review: `qa/variant-e/detector-finish-review.log.md`
+- Fresh post-remediation finish review and implementation: `qa/variant-e/post-remediation-finish-review.log.md`
+- Machine-readable build receipt, font provenance, and raster provenance: `variant-e-receipt.json`
 - Generated artifact: `variants/e/`
 
 ### Impeccable 4.1.1 execution receipt
@@ -126,19 +127,23 @@ Real photography, flat navy fields, sharp dividers, chapel white, mist, and bric
 
 ## Typography
 
-The direction permits **Archivo Black or a genuinely comparable obtainable condensed sans**. The shipped comparable face is **Liberation Sans Narrow Bold**, bundled locally and loaded through `@font-face`; display rendering no longer depends on a system-font fallback. Body copy uses **Source Sans 3** with its existing system fallback stack. Display type is compressed, large, blunt, and paired with oversized schedule numerals.
+The direction permits **Archivo Black or a genuinely comparable obtainable condensed sans**. The shipped comparable face is **Liberation Sans Narrow Bold**, bundled locally and loaded through `@font-face`; display rendering no longer depends on a system-font fallback. Body copy uses the verified Source Sans 3 Latin WOFF2 subset, also bundled locally and loaded through `@font-face`; the remaining body stack is recovery fallback only. Display type is compressed, large, blunt, and paired with oversized schedule numerals.
 
 - Display: `"Liberation Sans Narrow", "Arial Narrow", sans-serif`, weight 700.
 - Source asset: `assets/fonts/LiberationSansNarrow-Bold.ttf`; built asset: `variants/e/assets/fonts/LiberationSansNarrow-Bold.ttf`.
 - Upstream: `https://github.com/liberationfonts/liberation-sans-narrow`; bundled license: `variants/e/assets/fonts/LiberationSansNarrow-LICENSE.txt`.
 - Font SHA256: `4cd16b98cea43a9ce4471df068634fce71ab279dfc9b303b6b188bd96b35226a`.
-- Body: `"Source Sans 3", "Segoe UI", sans-serif`
+- Body: `"Source Sans 3", "Segoe UI", sans-serif`, variable weight 200–900.
+- Body source asset: `assets/fonts/SourceSans3-Latin.woff2`; built asset: `variants/e/assets/fonts/SourceSans3-Latin.woff2`.
+- Body source authority: Google Fonts upstream of Source Sans 3; upstream `SourceSans3[wght].ttf` SHA256 `042fe2cc0b933e328410d7acbd0aa6a1873dca5aef81875f4bc214b08825c7b9`.
+- Body subset: 45,984-byte WOFF2 covering `U+0000-00FF`, `U+2018-2019`, and `U+2026`; SHA256 `59fbf777295755670788ca809b72d082721afbbdfcac37c5c987c1a7e0c74f4d`.
+- Body license and provenance: `variants/e/assets/fonts/SourceSans3-OFL.txt` and `variants/e/assets/fonts/SourceSans3-PROVENANCE.md`; normalized license SHA256 `7fac2f6c6bc47144e2c35e8f41147b3c8c895490d44b46266a5312fe93364d2e`.
 - Body baseline: 17px desktop, 16px below 768px, line-height 1.55.
 - Display line-height: 0.95; letter-spacing: -0.035em.
 - `h1`: `clamp(3rem, 7vw, 7.4rem)` globally; first-view override `clamp(3rem, 6vw, 6.5rem)`.
 - `h2`: `clamp(2.2rem, 5vw, 5.4rem)`.
 
-The refused tracked uppercase `FOSTORIA, OHIO` eyebrow is absent from the first viewport. The church name now opens the content hierarchy directly.
+No tracked-uppercase section eyebrow system remains. The `section-mark` elements and styling—including Weekly rhythm, Real place, Confirmed convictions, Along the weekly line, Your next point, Faith Baptist Church, Announcements, Call, and Destination markers—are absent; headings and content establish the hierarchy directly.
 
 ## Layout
 
@@ -301,8 +306,8 @@ Exact alt text and source URLs are normative in `variant-e-receipt.json`; genera
 
 - Do not alter the exactly-once detector receipt or present the historical `fix` disposition as a review of the corrected artifact.
 - Do not regress the desktop schedule rail from its vertical sequence or the mobile rail from its readable two-by-two adaptation.
-- Do not remove or hotlink the bundled condensed display font.
-- Do not restore the tracked uppercase location eyebrow.
+- Do not remove or hotlink either bundled font.
+- Do not restore tracked-uppercase section-mark eyebrow elements or styling.
 - Do not reduce the mobile schedule labels below the documented 16px size.
 - Do not move selection or scrollbar surfaces outside the committed palette.
 - Do not introduce another design regime, a generic church hero/card grid, invented facts, fake forms, or template artifacts.
@@ -331,6 +336,13 @@ The five findings are remediated in the current generated artifact:
 
 Preserved through remediation: the exact 58/42 real-photo/navy split, immediate identity and CTA, all four first-view schedule points, sharp geometry, singular line motion, and brick-only action color. The detector was not rerun, so its exactly-once receipt remains intact.
 
+A subsequent fresh isolated post-remediation finish review recorded exact disposition **`fix`** with exactly two material findings:
+
+1. Bundle and load Source Sans 3 for body copy instead of relying on the system fallback stack alone.
+2. Remove the remaining tracked-uppercase section eyebrow treatment and let headings and content establish hierarchy directly.
+
+Both findings are implemented in the current local source and generated output, with regression assertions covering the bundled body face and the absence of `section-mark` markup/style. The additive receipt is `qa/variant-e/post-remediation-finish-review.log.md`. No independent review has evaluated this post-fix artifact yet, so its disposition remains pending and no final `pass` is recorded.
+
 ### Build, deployment, and final receipts
 
 - Repository: `https://github.com/SoLoVisionLLC/faith-baptist-church-preview`
@@ -344,5 +356,6 @@ Preserved through remediation: the exact 58/42 real-photo/navy split, immediate 
 - Live URL: `https://faithbaptist-e.sololink.cloud`; HTTPS and all six routes (`/`, `/visit/`, `/beliefs/`, `/ministries/`, `/events/`, `/contact/`) returned HTTP 200 in the final live check.
 - Every live route contains `noindex,nofollow`, the embedded direction contract, required Faith Baptist copy, working internal links, and no stale Dillon Road copy. All four real rasters load over HTTPS with the exact brief alt text and expected SHA256 values.
 - Live visual proofs: `qa/variant-e/screenshots/live-home-desktop-1440x1000.png` (1440×1000 CSS viewport, DPR1, full-page image 1440×4588, SHA256 `0df915b350f56b76f3e3b45a92c0806701409320492b88cc9463c24c3ce528f5`), `qa/variant-e/screenshots/live-home-mobile-390x844-dpr2.png` (390×844 CSS viewport, DPR2, full-page image 780×10324, SHA256 `d415a50fa1a59099d3f6095ae3b20c225df68a77b1217414fabbbf6a1c72c454`), and `qa/variant-e/screenshots/live-home-mobile-430x932-dpr2.png` (430×932 CSS viewport, DPR2, full-page image 860×10712, SHA256 `a9f5331d3ef03fed79371b391f9093bce1e12f57730c0b5d05f2c58609b405fc`). Each capture is full-page, HTTP 200, and has DOM width equal to viewport width with no horizontal overflow.
-- Machine-readable closeout: `qa/variant-e/live-deployment-receipt.json` records the regime, direction contract, exactly-once degraded detector findings, fresh isolated `fix` disposition, all five applied remediations, branch/path, deployment identifiers, six-route checks, internal-link/copy/media checks, live HTML and raster hashes, and visual-proof hashes.
-- The deployed world remains pinned to source SHA `73c440ff37ea4dd57df705a547ab6ff4a96b580b`; the later receipt-only commit updates documentation and proof files without changing the deployed static output.
+- Historical live closeout: `qa/variant-e/live-deployment-receipt.json` records the regime, direction contract, exactly-once degraded detector findings, earlier fresh isolated `fix` disposition, all five earlier remediations, branch/path, deployment identifiers, six-route checks, internal-link/copy/media checks, live HTML and raster hashes, and visual-proof hashes.
+- Current local closeout: `variant-e-receipt.json` and `qa/variant-e/post-remediation-finish-review.log.md` record the bundled Source Sans 3 face, removed section-mark system, fresh two-finding `fix` disposition, and pending independent post-fix review.
+- The deployed world remains pinned to source SHA `73c440ff37ea4dd57df705a547ab6ff4a96b580b`; this follow-up changes the local artifact without deploying it.

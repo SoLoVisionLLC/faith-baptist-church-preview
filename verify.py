@@ -25,6 +25,11 @@ E_RECEIPT_PATH = ROOT / "variant-e-receipt.json"
 E_FONT_FILE = "LiberationSansNarrow-Bold.ttf"
 E_FONT_LICENSE = "LiberationSansNarrow-LICENSE.txt"
 E_FONT_SHA256 = "4cd16b98cea43a9ce4471df068634fce71ab279dfc9b303b6b188bd96b35226a"
+E_BODY_FONT_FILE = "SourceSans3-Latin.woff2"
+E_BODY_FONT_LICENSE = "SourceSans3-OFL.txt"
+E_BODY_FONT_PROVENANCE = "SourceSans3-PROVENANCE.md"
+E_BODY_FONT_SHA256 = "59fbf777295755670788ca809b72d082721afbbdfcac37c5c987c1a7e0c74f4d"
+E_BODY_FONT_LICENSE_SHA256 = "7fac2f6c6bc47144e2c35e8f41147b3c8c895490d44b46266a5312fe93364d2e"
 ROUTES = {
     "/": Path("index.html"),
     "/visit/": Path("visit/index.html"),
@@ -742,6 +747,8 @@ def verify_e_pages(
             errors.append(f"{relative} does not declare html lang=en")
         if parser.tag_counts["form"] or parser.tag_counts["script"]:
             errors.append(f"{relative} contains an unsupported form or script")
+        if parser.class_counts["section-mark"]:
+            errors.append(f"{relative} retains refused section-mark eyebrow markup")
         current = [a for a in parser.anchors if a.get("aria-current") == "page"]
         if len(current) != 2 or any(a.get("href") != route for a in current):
             errors.append(f"{relative} navigation does not identify the current route twice")
@@ -794,7 +801,13 @@ def verify_e_pages(
     if rendered_media != set(ASSETS):
         errors.append("Variant E does not render all four bundled client rasters")
 
+    variant_e_source = (ROOT / "variant_e.py").read_text(encoding="utf-8").casefold()
+    if 'class="section-mark"' in variant_e_source:
+        errors.append("variant_e.py retains refused section-mark eyebrow markup")
+
     css = (ROOT / "styles-e.css").read_text(encoding="utf-8").casefold()
+    if ".section-mark" in css:
+        errors.append("styles-e.css retains refused section-mark eyebrow styling")
     for required in (
         "--navy:#10283f",
         "--white:#f7f8f5",
@@ -803,6 +816,9 @@ def verify_e_pages(
         "grid-template-columns:58% 42%",
         '@font-face{font-family:"liberation sans narrow"',
         'url("/assets/fonts/liberationsansnarrow-bold.ttf")',
+        '@font-face{font-family:"source sans 3"',
+        'url("/assets/fonts/sourcesans3-latin.woff2") format("woff2")',
+        'body{margin:0;background:var(--white);color:var(--ink);font-family:"source sans 3","segoe ui",sans-serif',
         ".hero-rail{display:grid;grid-template-columns:1fr",
         ".hero-rail{grid-template-columns:repeat(2,minmax(0,1fr))",
         ".hero-rail span{font-size:1rem",
@@ -833,6 +849,33 @@ def verify_e_pages(
     elif source_license.read_bytes() != built_license.read_bytes():
         errors.append("Variant E bundled display-font license differs from its source")
 
+    source_body_font = ROOT / "assets" / "fonts" / E_BODY_FONT_FILE
+    built_body_font = variant_root / "assets" / "fonts" / E_BODY_FONT_FILE
+    source_body_license = ROOT / "assets" / "fonts" / E_BODY_FONT_LICENSE
+    built_body_license = variant_root / "assets" / "fonts" / E_BODY_FONT_LICENSE
+    source_body_provenance = ROOT / "assets" / "fonts" / E_BODY_FONT_PROVENANCE
+    built_body_provenance = variant_root / "assets" / "fonts" / E_BODY_FONT_PROVENANCE
+    for label, path in (("source", source_body_font), ("built", built_body_font)):
+        if not path.is_file() or sha256(path) != E_BODY_FONT_SHA256:
+            errors.append(f"Variant E {label} Source Sans 3 font is missing or differs from its verified subset")
+    for label, path in (("source", source_body_license), ("built", built_body_license)):
+        if not path.is_file() or sha256(path) != E_BODY_FONT_LICENSE_SHA256:
+            errors.append(f"Variant E {label} Source Sans 3 license is missing or differs from its verified source")
+    if not source_body_provenance.is_file() or not built_body_provenance.is_file():
+        errors.append("Variant E Source Sans 3 provenance is not bundled")
+    elif source_body_provenance.read_bytes() != built_body_provenance.read_bytes():
+        errors.append("Variant E bundled Source Sans 3 provenance differs from its source")
+    else:
+        provenance = source_body_provenance.read_text(encoding="utf-8")
+        for required in (
+            "Google Fonts upstream of Source Sans 3",
+            "042fe2cc0b933e328410d7acbd0aa6a1873dca5aef81875f4bc214b08825c7b9",
+            E_BODY_FONT_SHA256,
+            E_BODY_FONT_LICENSE_SHA256,
+        ):
+            if required not in provenance:
+                errors.append(f"Variant E Source Sans 3 provenance is missing: {required}")
+
 
 def verify_e_receipt(errors: list[str]) -> None:
     try:
@@ -851,6 +894,43 @@ def verify_e_receipt(errors: list[str]) -> None:
         errors.append("Variant E receipt has an incorrect design regime")
     if receipt.get("routes") != list(ROUTES):
         errors.append("Variant E receipt has an incorrect route manifest")
+    contract = receipt.get("contract_assertions", {})
+    for assertion in (
+        "source_sans_3_body_face_bundled_and_loaded",
+        "section_mark_eyebrow_markup_and_style_absent",
+    ):
+        if contract.get(assertion) is not True:
+            errors.append(f"Variant E receipt is missing remediation assertion: {assertion}")
+    body_fonts = [font for font in receipt.get("fonts", []) if font.get("role") == "body"]
+    if len(body_fonts) != 1:
+        errors.append("Variant E receipt must contain exactly one body-font record")
+    else:
+        body_font = body_fonts[0]
+        expected_body_font = {
+            "family": "Source Sans 3",
+            "source_path": f"assets/fonts/{E_BODY_FONT_FILE}",
+            "bundled_path": f"variants/e/assets/fonts/{E_BODY_FONT_FILE}",
+            "sha256": E_BODY_FONT_SHA256,
+            "license_sha256": E_BODY_FONT_LICENSE_SHA256,
+            "loaded_via_font_face": True,
+        }
+        for key, expected in expected_body_font.items():
+            if body_font.get(key) != expected:
+                errors.append(f"Variant E receipt has incorrect Source Sans 3 {key}")
+    expected_review = {
+        "exact_disposition": "fix",
+        "fresh_isolated": True,
+        "material_fix_count": 2,
+        "material_fixes_applied": 2,
+        "detector_rerun": False,
+        "post_fix_disposition": None,
+        "post_fix_review_state": "pending_independent_review_after_implementation_and_deployment",
+        "receipt": "qa/variant-e/post-remediation-finish-review.log.md",
+    }
+    if receipt.get("post_remediation_finish_review") != expected_review:
+        errors.append("Variant E receipt has an incorrect post-remediation finish-review record")
+    elif not (ROOT / expected_review["receipt"]).is_file():
+        errors.append("Variant E post-remediation finish-review receipt is missing")
     media = receipt.get("media", [])
     if [item.get("file") for item in media] != list(ASSETS):
         errors.append("Variant E receipt has an incorrect media manifest")

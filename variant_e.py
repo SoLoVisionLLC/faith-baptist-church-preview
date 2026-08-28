@@ -48,7 +48,7 @@ def compass(compact=False):
     cls = "compass compact-compass" if compact else "compass"
     heading = "Weekly compass" if compact else "Service-Time Compass"
     return f'''<section class="{cls}" aria-labelledby="compass-title{'-compact' if compact else ''}">
-  <div class="compass-heading"><p class="section-mark">Weekly rhythm</p><h2 id="compass-title{'-compact' if compact else ''}">{heading}</h2></div>
+  <div class="compass-heading"><h2 id="compass-title{'-compact' if compact else ''}">{heading}</h2></div>
   <ol class="compass-line">
     <li><span class="compass-number">01</span><div><strong>9:00 AM</strong><p>Sunday School for adults and teens</p></div></li>
     <li><span class="compass-number">02</span><div><strong>10:00 AM</strong><p>Sunday main service</p><p>Young children's Sunday School and nursery for tots during Sunday programming</p></div></li>
@@ -59,7 +59,7 @@ def compass(compact=False):
 
 
 def inner_intro(title, text):
-    return f'''<section class="inner-intro"><p class="section-mark">Faith Baptist Church</p><h1>{title}</h1><p>{text}</p></section>'''
+    return f'''<section class="inner-intro"><h1>{title}</h1><p>{text}</p></section>'''
 
 
 HOME = f'''<section class="first-view" aria-labelledby="home-title">
@@ -73,12 +73,12 @@ HOME = f'''<section class="first-view" aria-labelledby="home-title">
 </section>
 {compass()}
 <section class="real-place" aria-labelledby="place-title">
-  <div class="place-copy"><p class="section-mark">Real place</p><h2 id="place-title">A church in Fostoria</h2><address>{ADDRESS}</address><a href="tel:{PHONE_TEL}">{PHONE}</a><a href="{DIRECTIONS}" rel="noopener">Get Directions</a></div>
+  <div class="place-copy"><h2 id="place-title">A church in Fostoria</h2><address>{ADDRESS}</address><a href="tel:{PHONE_TEL}">{PHONE}</a><a href="{DIRECTIONS}" rel="noopener">Get Directions</a></div>
   {image("front", "portrait")}{image("wide", "aisle")}
 </section>
-<section class="conviction" aria-labelledby="conviction-title">{image("close")}<div><p class="section-mark">Confirmed convictions</p><h2 id="conviction-title">What we believe</h2><ul><li>Bible believing.</li><li>Gospel driven.</li><li>We teach from the KJV Bible.</li></ul><a href="/beliefs/">What We Believe</a></div></section>
-<section class="ministry-rhythm" aria-labelledby="ministry-title"><p class="section-mark">Along the weekly line</p><h2 id="ministry-title">Ministry rhythm</h2><div><strong>Sunday 9:00 AM</strong><p>Sunday School for adults and teens.</p></div><div><strong>Sunday 10:00 AM</strong><p>Main service, young children's Sunday School, and nursery for tots.</p></div><div><strong>Sunday 6:00 PM</strong><p>Sunday evening service.</p></div><div><strong>Wednesday 7:00 PM</strong><p>Prayer and Bible study.</p></div></section>
-<section class="visit-close"><div><p class="section-mark">Your next point</p><h2>Plan Your Visit</h2><address>{ADDRESS}</address><a href="tel:{PHONE_TEL}">Call the Church: {PHONE}</a><a href="{DIRECTIONS}" rel="noopener">Get Directions</a></div><a class="button button-light" href="/visit/">Plan Your Visit</a></section>'''
+<section class="conviction" aria-labelledby="conviction-title">{image("close")}<div><h2 id="conviction-title">What we believe</h2><ul><li>Bible believing.</li><li>Gospel driven.</li><li>We teach from the KJV Bible.</li></ul><a href="/beliefs/">What We Believe</a></div></section>
+<section class="ministry-rhythm" aria-labelledby="ministry-title"><h2 id="ministry-title">Ministry rhythm</h2><div><strong>Sunday 9:00 AM</strong><p>Sunday School for adults and teens.</p></div><div><strong>Sunday 10:00 AM</strong><p>Main service, young children's Sunday School, and nursery for tots.</p></div><div><strong>Sunday 6:00 PM</strong><p>Sunday evening service.</p></div><div><strong>Wednesday 7:00 PM</strong><p>Prayer and Bible study.</p></div></section>
+<section class="visit-close"><div><h2>Plan Your Visit</h2><address>{ADDRESS}</address><a href="tel:{PHONE_TEL}">Call the Church: {PHONE}</a><a href="{DIRECTIONS}" rel="noopener">Get Directions</a></div><a class="button button-light" href="/visit/">Plan Your Visit</a></section>'''
 
 VISIT = f'''{inner_intro("Plan Your Visit", "The complete schedule, location, and confirmed children and nursery information are here for your visit.")}
 {compass(True)}
@@ -92,10 +92,10 @@ MINISTRIES = f'''{inner_intro("Ministries", "Recurring gatherings follow one cle
 
 EVENTS = f'''{inner_intro("Events & Announcements", "The recurring weekly schedule is listed below.")}
 {compass(True)}
-<section class="announcement"><p class="section-mark">Announcements</p><h2>Current announcements will appear here when supplied.</h2></section>'''
+<section class="announcement"><h2>Current announcements will appear here when supplied.</h2></section>'''
 
 CONTACT = f'''{inner_intro("Contact Faith Baptist Church", "Call the church or open directions to the exact address.")}
-<section class="contact-destination"><div><p class="section-mark">Call</p><a class="contact-phone" href="tel:{PHONE_TEL}">{PHONE}</a><p class="section-mark">Destination</p><address>{ADDRESS}</address><a class="button" href="{DIRECTIONS}" rel="noopener">Get Directions</a></div>{image("front", "contact-portrait")}</section>{compass(True)}'''
+<section class="contact-destination"><div><a class="contact-phone" href="tel:{PHONE_TEL}">{PHONE}</a><address>{ADDRESS}</address><a class="button" href="{DIRECTIONS}" rel="noopener">Get Directions</a></div>{image("front", "contact-portrait")}</section>{compass(True)}'''
 
 PAGES = (
     ("", "Faith Baptist Church | Service Times and Visit Information", "Faith Baptist Church service times, location, and visit information in Fostoria, Ohio.", HOME),
