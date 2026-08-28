@@ -1,5 +1,10 @@
 {
   "browser_proof": {
+    "growing_card_text_inside": {
+      "desktop_1440": true,
+      "mobile_390": true,
+      "mobile_430": true
+    },
     "mobile_390_no_horizontal_overflow": true,
     "mobile_430_no_horizontal_overflow": true,
     "reduced_motion_emulation": {
@@ -22,7 +27,7 @@
           1440,
           1000
         ],
-        "sha256": "73794291508beb59df6d29a71342129a9774a86b410e76471defe25fff78668e"
+        "sha256": "cd75c02f5506b05c41f376d074dccc7ee4adb106905fd9eecb247d30808963af"
       },
       {
         "device_pixel_ratio": 2,
@@ -36,7 +41,7 @@
           390,
           844
         ],
-        "sha256": "9e3dde32fda5e5f44c76b8f51537e541ca3ea95346a2ee6d2b63f6ef21124ae7"
+        "sha256": "a372fe974c7d33a803afe51b7eb328a2620ddbd0d30ac5fc0a2dddcc2b92b71d"
       },
       {
         "device_pixel_ratio": 2,
@@ -50,16 +55,16 @@
           430,
           932
         ],
-        "sha256": "4bf91c6d0fc8745f79d4d645efa21b464acc26e84b1d81c2deb3686924d2607f"
+        "sha256": "a64da6e34bc3bc3a8d999bd8442a4b8e3ff14d765149ab18471388ff93b32cb7"
       }
     ]
   },
   "coolify": {
     "base_directory": "/variants/c",
-    "deployment_created_at": "2026-08-28T03:43:59.000000Z",
-    "deployment_finished_at": "2026-08-28T03:44:23.000000Z",
+    "deployment_created_at": "2026-08-28T10:03:29.000000Z",
+    "deployment_finished_at": "2026-08-28T10:04:16.000000Z",
     "deployment_status": "finished",
-    "deployment_uuid": "ffsn8ui4v29au5iwkmfz4rug",
+    "deployment_uuid": "vz1s5w0zk618lw9t2sx1xo8q",
     "domain": "https://faithbaptistchurch-c.sololink.cloud",
     "environment_uuid": "bx3fdk35jgh7phf5ocwgnh8t",
     "instance": "https://coolify.sololink.cloud",
@@ -68,7 +73,7 @@
     "project_uuid": "odmsojtf0huw323he24qtugc",
     "resource_name": "Faith Baptist Variant C",
     "resource_uuid": "pk45f27kgz6m5ke16uro3hnj",
-    "rollback": "Redeploy prior finished deployment rcj3qe8g3jbe3yw6kef9bj0r at commit 188a210a10bb137af112b844a6cca55f192260a6 if required."
+    "rollback": "Redeploy prior finished deployment ywvjla7l61waiwy0q4lmkixl at commit 853758c48e2f631bf1fbe686e735636869ec86d7 if required."
   },
   "https": {
     "all_route_requests_succeeded": true,
@@ -167,6 +172,13 @@
       "sha256": "7b0bce3499ed9df95327af8a9693b70a2876a36be53810d91edf4685ffaa0f3f",
       "status": 200
     }
+  },
+  "primary_asset": {
+    "content_type": "text/css",
+    "final_url": "https://faithbaptistchurch-c.sololink.cloud/styles.css",
+    "matches_deployed_branch_artifact": true,
+    "sha256": "47eaed8cb1ddebb26bd7d759cbd2e5f0008c0b235c3e15357424cc6d8ec85464",
+    "status": 200
   },
   "routes": {
     "/": {
@@ -352,7 +364,7 @@
   "schema_version": 1,
   "source": {
     "branch": "variant/c-organic-biomorphic",
-    "deployed_commit": "c540f3991831891184928ad9f13e35abc80458aa",
+    "deployed_commit": "c762d512cdfa5bfb57bbf71ca1a7090ff41c0df4",
     "pr_url": "https://github.com/SoLoVisionLLC/faith-baptist-church-preview/pull/6",
     "repository": "SoLoVisionLLC/faith-baptist-church-preview"
   },
@@ -365,5 +377,5 @@
     "python3 build.py": "pass",
     "python3 verify.py": "pass"
   },
-  "verified_at_utc": "2026-08-28T03:46:00.484609+00:00"
+  "verified_at_utc": "2026-08-28T10:05:56.870053+00:00"
 }
