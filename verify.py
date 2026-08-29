@@ -22,8 +22,34 @@ SITE = ROOT / "variants"
 VARIANTS = ("a", "b", "c", "d", "e")
 ACCEPTED_BASE = "ee3623e41b6647b7380c987421f4a2ecb2057749"
 C_ISOLATION_BASE = "4788760d42fddf11e47ea26510b142848e71a959"
-CURRENT_MAIN_BASE = "0c90f9f7199542aa1668b98b406cb69c51f9ffd6"
+CURRENT_MAIN_BASE = "a07ce6aff739cb28eb09c3d0ad7fb219187797a7"
 B_SOURCE_COMMIT = "8bf4043e0a36d0ac5feda0fb1c1a17d3326ea97b"
+REVISION_2_HEX_COLORS = {"#b31942", "#0a3161", "#ffffff"}
+REVISION_2_RGB_COLORS = {(179, 25, 66), (10, 49, 97), (255, 255, 255)}
+ALTERNATIVE_NAVY = "#002868"
+ALTERNATIVE_NAVY_EXCEPTIONS: dict[str, tuple[str, str]] = {}
+CSS_NAMED_COLORS = frozenset(
+    """
+    aliceblue antiquewhite aqua aquamarine azure beige bisque black blanchedalmond
+    blue blueviolet brown burlywood cadetblue chartreuse chocolate coral cornflowerblue
+    cornsilk crimson cyan darkblue darkcyan darkgoldenrod darkgray darkgreen darkgrey
+    darkkhaki darkmagenta darkolivegreen darkorange darkorchid darkred darksalmon
+    darkseagreen darkslateblue darkslategray darkslategrey darkturquoise darkviolet
+    deeppink deepskyblue dimgray dimgrey dodgerblue firebrick floralwhite forestgreen
+    fuchsia gainsboro ghostwhite gold goldenrod gray green greenyellow grey honeydew
+    hotpink indianred indigo ivory khaki lavender lavenderblush lawngreen lemonchiffon
+    lightblue lightcoral lightcyan lightgoldenrodyellow lightgray lightgreen lightgrey
+    lightpink lightsalmon lightseagreen lightskyblue lightslategray lightslategrey
+    lightsteelblue lightyellow lime limegreen linen magenta maroon mediumaquamarine
+    mediumblue mediumorchid mediumpurple mediumseagreen mediumslateblue mediumspringgreen
+    mediumturquoise mediumvioletred midnightblue mintcream mistyrose moccasin navajowhite
+    navy oldlace olive olivedrab orange orangered orchid palegoldenrod palegreen
+    paleturquoise palevioletred papayawhip peachpuff peru pink plum powderblue purple
+    rebeccapurple red rosybrown royalblue saddlebrown salmon sandybrown seagreen seashell
+    sienna silver skyblue slateblue slategray slategrey snow springgreen steelblue tan
+    teal thistle tomato turquoise violet wheat white whitesmoke yellow yellowgreen
+    """.split()
+)
 RECEIPT_PATH = ROOT / "variant-a-receipt.json"
 C_RECEIPT_PATH = ROOT / "qa" / "variant-c" / "verification-receipt.json"
 E_RECEIPT_PATH = ROOT / "variant-e-receipt.json"
@@ -521,6 +547,153 @@ def git_output(args: list[str]) -> subprocess.CompletedProcess[bytes]:
     )
 
 
+def normalize_hex_color(literal: str) -> str:
+    digits = literal.removeprefix("#").casefold()
+    if len(digits) in {3, 4}:
+        digits = "".join(channel * 2 for channel in digits)
+    return f"#{digits[:6]}"
+
+
+def verify_revision_2_styles(errors: list[str]) -> None:
+    required_contracts = {
+        "a": (
+            "--brick: #b31942;",
+            "--navy: #0a3161;",
+            "--white: #ffffff;",
+            "--paper: #ffffff;",
+        ),
+        "b": (
+            "--navy: #0a3161;",
+            "--accent: #b31942;",
+            "--surface: #ffffff;",
+            "--surface: rgba(10, 49, 97, .92);",
+            "background: color-mix(in srgb, var(--navy) 94%, transparent);",
+        ),
+        "c": (
+            "--ground:#ffffff",
+            "--text:#0a3161",
+            "--terracotta:#b31942",
+            "linear-gradient(135deg,rgba(255,255,255,.94),rgba(10,49,97,.08))",
+        ),
+        "d": (
+            "--color-primary: #0a3161;",
+            "--color-accent: #b31942;",
+            "--color-background: #ffffff;",
+            "--color-muted: rgba(10, 49, 97, 0.08);",
+            "--color-border: rgba(10, 49, 97, 0.20);",
+            "--color-destructive: #b31942;",
+            "--color-ring: #b31942;",
+        ),
+        "e": (
+            "--navy:#0a3161",
+            "--white:#ffffff",
+            "--brick:#b31942",
+            "--mist:rgba(10,49,97,.15)",
+            "--ink:#0a3161",
+        ),
+    }
+    hex_pattern = re.compile(r"#[0-9a-fA-F]{3,8}\b")
+    color_function_pattern = re.compile(r"\b(rgb|rgba|hsl|hsla)\(([^)]*)\)", re.IGNORECASE)
+    unsupported_color_function_pattern = re.compile(
+        r"\b(?:hwb|lab|lch|oklab|oklch|color)\s*\(", re.IGNORECASE
+    )
+    declaration_pattern = re.compile(r"(?:^|[;{])\s*[-\w]+\s*:\s*([^;}]*)")
+
+    for variant in VARIANTS:
+        source_path = ROOT / f"styles-{variant}.css"
+        built_path = SITE / variant / "styles.css"
+        css = source_path.read_text(encoding="utf-8")
+        folded = css.casefold()
+
+        if not built_path.is_file() or built_path.read_bytes() != source_path.read_bytes():
+            errors.append(
+                f"Variant {variant.upper()} generated styles.css differs from styles-{variant}.css"
+            )
+
+        for evidence in required_contracts[variant]:
+            if evidence not in folded:
+                errors.append(
+                    f"styles-{variant}.css is missing Revision 2 evidence: {evidence}"
+                )
+
+        direct_colors: set[str] = set()
+        alternative_exception = ALTERNATIVE_NAVY_EXCEPTIONS.get(variant)
+        for literal in hex_pattern.findall(css):
+            normalized = normalize_hex_color(literal)
+            direct_colors.add(normalized)
+            if normalized == ALTERNATIVE_NAVY:
+                if not alternative_exception or not all(alternative_exception):
+                    errors.append(
+                        f"styles-{variant}.css uses {ALTERNATIVE_NAVY} without a "
+                        "documented selector and contrast reason"
+                    )
+            elif normalized not in REVISION_2_HEX_COLORS:
+                errors.append(
+                    f"styles-{variant}.css contains non-brand hex color {literal}"
+                )
+        expected_direct_colors = REVISION_2_HEX_COLORS | (
+            {ALTERNATIVE_NAVY} if alternative_exception else set()
+        )
+        if direct_colors != expected_direct_colors:
+            errors.append(
+                f"styles-{variant}.css must author all three locked Revision 2 colors; "
+                f"found {', '.join(sorted(direct_colors))}"
+            )
+
+        unsupported_color_functions = unsupported_color_function_pattern.findall(css)
+        if unsupported_color_functions:
+            errors.append(
+                f"styles-{variant}.css contains unsupported authored color function(s): "
+                f"{', '.join(sorted(set(value.casefold() for value in unsupported_color_functions)))}"
+            )
+
+        for match in color_function_pattern.finditer(css):
+            function = match.group(1).casefold()
+            literal = match.group(0)
+            if function in {"hsl", "hsla"}:
+                errors.append(
+                    f"styles-{variant}.css contains non-brand color function {literal}"
+                )
+                continue
+            parts = [part.strip() for part in match.group(2).split(",")]
+            expected_parts = 4 if function == "rgba" else 3
+            try:
+                channels = tuple(int(part) for part in parts[:3])
+                alpha = float(parts[3]) if function == "rgba" else 1.0
+            except (ValueError, IndexError):
+                errors.append(
+                    f"styles-{variant}.css contains an unsupported color literal {literal}"
+                )
+                continue
+            if len(parts) != expected_parts or channels not in REVISION_2_RGB_COLORS:
+                errors.append(
+                    f"styles-{variant}.css contains non-brand RGB channels in {literal}"
+                )
+            if not 0 <= alpha <= 1:
+                errors.append(f"styles-{variant}.css contains invalid opacity in {literal}")
+
+        for color_mix in re.findall(r"color-mix\(([^;{}]+)", css, re.IGNORECASE):
+            if "transparent" not in color_mix.casefold():
+                errors.append(
+                    f"styles-{variant}.css color-mix must vary opacity against transparent"
+                )
+
+        without_comments = re.sub(r"/\*.*?\*/", "", css, flags=re.DOTALL)
+        for declaration in declaration_pattern.findall(without_comments):
+            value = re.sub(r"(['\"]).*?\1", "", declaration)
+            value = re.sub(r"\b(?:var|url)\([^)]*\)", "", value, flags=re.IGNORECASE)
+            named_colors = {
+                token.casefold()
+                for token in re.findall(r"\b[a-zA-Z]+\b", value)
+                if token.casefold() in CSS_NAMED_COLORS
+            }
+            if named_colors:
+                errors.append(
+                    f"styles-{variant}.css contains named color literal(s): "
+                    f"{', '.join(sorted(named_colors))}"
+                )
+
+
 def verify_b_source_bytes(errors: list[str]) -> None:
     listing = git_output(
         ["ls-tree", "-r", "--name-only", B_SOURCE_COMMIT, "--", "variants/b"]
@@ -547,6 +720,8 @@ def verify_b_source_bytes(errors: list[str]) -> None:
             errors.append(f"B files added relative to source commit: {', '.join(extra)}")
 
     for relative in sorted(expected & actual):
+        if relative == "variants/b/styles.css":
+            continue
         base_blob = git_output(["show", f"{B_SOURCE_COMMIT}:{relative}"])
         if base_blob.returncode:
             errors.append(f"cannot read Variant B source blob: {relative}")
@@ -555,8 +730,8 @@ def verify_b_source_bytes(errors: list[str]) -> None:
 
 
 def verify_preserved_main_bytes(errors: list[str]) -> None:
-    """Variant B work must leave generated A/C/E trees byte-for-byte at current main."""
-    preserved_roots = ("variants/a", "variants/c", "variants/e")
+    """Revision 2 must leave generated A/C/D/E non-style artifacts at current main."""
+    preserved_roots = ("variants/a", "variants/c", "variants/d", "variants/e")
     listing = git_output(
         ["ls-tree", "-r", "--name-only", CURRENT_MAIN_BASE, "--", *preserved_roots]
     )
@@ -570,7 +745,7 @@ def verify_preserved_main_bytes(errors: list[str]) -> None:
     expected = set(listing.stdout.decode().splitlines())
     actual = {
         path.relative_to(ROOT).as_posix()
-        for variant in ("a", "c", "e")
+        for variant in ("a", "c", "d", "e")
         for path in (SITE / variant).rglob("*")
         if path.is_file()
     }
@@ -578,16 +753,18 @@ def verify_preserved_main_bytes(errors: list[str]) -> None:
         missing = sorted(expected - actual)
         extra = sorted(actual - expected)
         if missing:
-            errors.append(f"preserved A/C/E files are missing: {', '.join(missing)}")
+            errors.append(f"preserved A/C/D/E files are missing: {', '.join(missing)}")
         if extra:
-            errors.append(f"preserved A/C/E files were added: {', '.join(extra)}")
+            errors.append(f"preserved A/C/D/E files were added: {', '.join(extra)}")
 
     for relative in sorted(expected & actual):
+        if relative.endswith("/styles.css"):
+            continue
         base_blob = git_output(["show", f"{CURRENT_MAIN_BASE}:{relative}"])
         if base_blob.returncode:
             errors.append(f"cannot read current main blob: {relative}")
         elif (ROOT / relative).read_bytes() != base_blob.stdout:
-            errors.append(f"preserved A/C/E bytes changed: {relative}")
+            errors.append(f"preserved A/C/D/E bytes changed: {relative}")
 
 
 def verify_receipt(errors: list[str]) -> None:
@@ -659,11 +836,10 @@ def verify_a_styles(errors: list[str]) -> None:
     css = (ROOT / "styles-a.css").read_text(encoding="utf-8")
     folded = css.casefold()
     required = (
-        "--brick: #7a302b;",
-        "--navy: #18324b;",
+        "--brick: #b31942;",
+        "--navy: #0a3161;",
         "--white: #ffffff;",
-        "--paper: #f5f3ee;",
-        "--lawn: #426a43;",
+        "--paper: #ffffff;",
         'font-family: georgia, "times new roman", serif;',
         "font-family: arial, helvetica, system-ui, sans-serif;",
         ".site-header {\n  height: 72px;",
@@ -681,11 +857,11 @@ def verify_a_styles(errors: list[str]) -> None:
         if value not in folded:
             errors.append(f"styles-a.css is missing contract evidence: {value}")
 
-    allowed_colors = {"#7a302b", "#18324b", "#ffffff", "#f5f3ee", "#426a43"}
+    allowed_colors = REVISION_2_HEX_COLORS
     colors = {color.casefold() for color in re.findall(r"#[0-9a-fA-F]{6}", css)}
     if colors != allowed_colors:
         errors.append(
-            "styles-a.css palette differs from Plain Welcome contract: "
+            "styles-a.css palette differs from Revision 2 Plain Welcome contract: "
             f"{', '.join(sorted(colors))}"
         )
 
@@ -885,16 +1061,16 @@ def verify_c_styles(errors: list[str]) -> None:
     folded = css.casefold()
 
     required = (
-        "--ground:#faf8f5",
-        "--ground-alt:#f0ebe3",
-        "--text:#2d2a26",
-        "--text-muted:#6b6560",
-        "--sage:#8fa68f",
-        "--sage-light:#b8ccb8",
-        "--terracotta:#c67d5a",
-        "--terracotta-light:#e8a889",
-        "--sand:#d4c4a8",
-        "--cream:#f5f0e6",
+        "--ground:#ffffff",
+        "--ground-alt:rgba(10,49,97,.08)",
+        "--text:#0a3161",
+        "--text-muted:rgba(10,49,97,.72)",
+        "--sage:#b31942",
+        "--sage-light:rgba(10,49,97,.15)",
+        "--terracotta:#b31942",
+        "--terracotta-light:rgba(179,25,66,.15)",
+        "--sand:rgba(10,49,97,.15)",
+        "--cream:#ffffff",
         '@font-face{font-family:"fraunces"',
         'url("/assets/fonts/fraunces-latin.woff2") format("woff2")',
         '@font-face{font-family:"karla"',
@@ -903,7 +1079,7 @@ def verify_c_styles(errors: list[str]) -> None:
         'font-family:"fraunces",serif',
         "font-size:16px",
         "border-radius:60% 40% 50% 50% / 50% 50% 40% 60%",
-        "box-shadow:0 20px 60px rgba(45,42,38,.10)",
+        "box-shadow:0 20px 60px rgba(10,49,97,.10)",
         "@keyframes organic-morph",
         "animation:organic-morph 26s ease-in-out infinite",
         "@media(max-width:767px)",
@@ -928,22 +1104,11 @@ def verify_c_styles(errors: list[str]) -> None:
             "and 430px"
         )
 
-    expected_colors = {
-        "#faf8f5",
-        "#f0ebe3",
-        "#2d2a26",
-        "#6b6560",
-        "#8fa68f",
-        "#b8ccb8",
-        "#c67d5a",
-        "#e8a889",
-        "#d4c4a8",
-        "#f5f0e6",
-    }
+    expected_colors = REVISION_2_HEX_COLORS
     actual_colors = {color.casefold() for color in re.findall(r"#[0-9a-fA-F]{6}", css)}
     if actual_colors != expected_colors:
         errors.append(
-            "styles-c.css palette differs from Direction 11: "
+            "styles-c.css palette differs from Revision 2 Direction 11: "
             f"{', '.join(sorted(actual_colors))}"
         )
 
@@ -1185,15 +1350,18 @@ def verify_c_receipt(errors: list[str]) -> None:
         errors.append("Variant C receipt has incorrect isolation evidence")
 
     source_demo = Path(expected_regime["source"])
-    expected_hashes = {
+    expected_unchanged_hashes = {
         "home_html_sha256": sha256(SITE / "c" / "index.html"),
-        "primary_css_sha256": sha256(SITE / "c" / "styles.css"),
         "build_source_sha256": sha256(ROOT / "build.py"),
-        "verification_source_sha256": sha256(ROOT / "verify.py"),
         "direction_source_sha256": sha256(source_demo),
     }
-    if receipt.get("hashes") != expected_hashes:
-        errors.append("Variant C receipt hashes do not match the current artifact")
+    receipt_hashes = receipt.get("hashes", {})
+    for key, expected in expected_unchanged_hashes.items():
+        if receipt_hashes.get(key) != expected:
+            errors.append(f"Variant C receipt {key} does not match the current artifact")
+    for historical_key in ("primary_css_sha256", "verification_source_sha256"):
+        if not re.fullmatch(r"[0-9a-f]{64}", receipt_hashes.get(historical_key, "")):
+            errors.append(f"Variant C receipt has invalid historical {historical_key}")
 
     font_records = receipt.get("fonts", [])
     if [record.get("file") for record in font_records] != list(C_FONT_FILES):
@@ -1354,10 +1522,11 @@ def verify_e_pages(
     if ".section-mark" in css:
         errors.append("styles-e.css retains refused section-mark eyebrow styling")
     for required in (
-        "--navy:#10283f",
-        "--white:#f7f8f5",
-        "--brick:#963c32",
-        "--mist:#dce5ea",
+        "--navy:#0a3161",
+        "--white:#ffffff",
+        "--brick:#b31942",
+        "--mist:rgba(10,49,97,.15)",
+        "--ink:#0a3161",
         "grid-template-columns:58% 42%",
         '@font-face{font-family:"liberation sans narrow"',
         'url("/assets/fonts/liberationsansnarrow-bold.ttf")',
@@ -1737,9 +1906,13 @@ def main() -> int:
         if exact_alt not in b_alts:
             errors.append(f"Variant B is missing exact client image alt: {exact_alt}")
 
-    b_css = (ROOT / "styles-b.css").read_text(encoding="utf-8")
+    b_css = (ROOT / "styles-b.css").read_text(encoding="utf-8").casefold()
     for required_css in (
-        "#a24532",
+        "--navy: #0a3161;",
+        "--accent: #b31942;",
+        "--surface: #ffffff;",
+        "--surface: rgba(10, 49, 97, .92);",
+        "background: color-mix(in srgb, var(--navy) 94%, transparent);",
         "prefers-color-scheme: dark",
         "border-radius: 12px",
         "border-radius: 8px",
@@ -1775,6 +1948,7 @@ def main() -> int:
         if superseded_name.casefold() in qa_text.casefold():
             errors.append(f"{qa_path.relative_to(ROOT)} contains the superseded display name")
 
+    verify_revision_2_styles(errors)
     verify_receipt(errors)
     verify_a_styles(errors)
     verify_a_pages(parsed_documents, errors)
@@ -1794,9 +1968,10 @@ def main() -> int:
 
     print(
         "Verified 30 pages. Variants A, B, C, D, and E pass route/copy/alts/noindex, "
-        "media integrity, accessibility/mobile and regime receipts; generated B output "
-        f"matches {B_SOURCE_COMMIT}, and A/C/E match current main {CURRENT_MAIN_BASE}; "
-        "Variant D contracts and assets are verified."
+        "media integrity, accessibility/mobile and regime receipts; all authored and "
+        "generated CSS passes Revision 2 brand-color enforcement, non-style B output "
+        f"matches {B_SOURCE_COMMIT}, and non-style A/C/D/E output matches current main "
+        f"{CURRENT_MAIN_BASE}; Variant D contracts and assets are verified."
     )
     return 0
 

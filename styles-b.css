@@ -1,31 +1,33 @@
 /* Variant B: Taste Skill 4/2/4, Sunday Starts Here */
 :root {
   color-scheme: light dark;
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --surface-soft: #eef2f6;
-  --surface-strong: #dce3ea;
-  --text: #172033;
-  --muted: #566176;
-  --border: #cbd5e1;
-  --accent: #a24532;
-  --accent-hover: #873727;
-  --on-accent: #ffffff;
-  --shadow: 0 18px 44px rgba(23, 32, 51, .12);
+  --navy: #0A3161;
+  --white: #FFFFFF;
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-soft: rgba(10, 49, 97, .08);
+  --surface-strong: rgba(10, 49, 97, .15);
+  --text: #0A3161;
+  --muted: rgba(10, 49, 97, .72);
+  --border: rgba(10, 49, 97, .24);
+  --accent: #B31942;
+  --accent-hover: #B31942;
+  --on-accent: #FFFFFF;
+  --shadow: 0 18px 44px rgba(10, 49, 97, .12);
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0f172a;
-    --surface: #172033;
-    --surface-soft: #1e293b;
-    --surface-strong: #273449;
-    --text: #f8fafc;
-    --muted: #c2cad6;
-    --border: #46546a;
-    --accent: #c6634d;
-    --accent-hover: #d87660;
-    --on-accent: #ffffff;
-    --shadow: 0 18px 44px rgba(2, 6, 23, .38);
+    --bg: #0A3161;
+    --surface: rgba(10, 49, 97, .92);
+    --surface-soft: rgba(10, 49, 97, .78);
+    --surface-strong: rgba(10, 49, 97, .64);
+    --text: #FFFFFF;
+    --muted: rgba(255, 255, 255, .76);
+    --border: rgba(255, 255, 255, .28);
+    --accent: #B31942;
+    --accent-hover: #B31942;
+    --on-accent: #FFFFFF;
+    --shadow: 0 18px 44px rgba(10, 49, 97, .38);
   }
 }
 * { box-sizing: border-box; }
@@ -41,12 +43,15 @@ h3 { font-size: 1.2rem; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .skip-link { position: fixed; left: 1rem; top: -5rem; z-index: 100; background: var(--surface); color: var(--text); padding: .75rem 1rem; border-radius: 8px; box-shadow: var(--shadow); }
 .skip-link:focus { top: 1rem; }
-.site-header { position: sticky; top: 0; z-index: 50; min-height: 72px; display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 1.25rem; padding: .75rem max(1rem, 4vw); background: color-mix(in srgb, var(--surface) 94%, transparent); border-bottom: 1px solid var(--border); box-shadow: 0 8px 24px rgba(23, 32, 51, .08); }
-.brand { color: var(--text); font-weight: 800; text-decoration: none; white-space: nowrap; }
-.header-phone { min-height: 44px; display: inline-flex; align-items: center; color: var(--text); font-weight: 700; white-space: nowrap; }
+.site-header { position: sticky; top: 0; z-index: 50; min-height: 72px; display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 1.25rem; padding: .75rem max(1rem, 4vw); background: color-mix(in srgb, var(--navy) 94%, transparent); border-bottom: 1px solid rgba(255, 255, 255, .24); box-shadow: 0 8px 24px rgba(10, 49, 97, .08); }
+.brand { color: var(--white); font-weight: 800; text-decoration: none; white-space: nowrap; }
+.header-phone { min-height: 44px; display: inline-flex; align-items: center; color: var(--white); font-weight: 700; white-space: nowrap; }
 .nav { display: flex; justify-content: flex-end; gap: .2rem; white-space: nowrap; }
-.nav a, .mobile-menu a { min-height: 44px; display: inline-flex; align-items: center; padding: .5rem .65rem; border-radius: 8px; color: var(--text); font-weight: 650; text-decoration: none; transition: color 180ms ease, background-color 180ms ease, transform 180ms ease; }
-.nav a:hover, .nav a.active, .mobile-menu a:hover, .mobile-menu a.active { background: var(--surface-soft); color: var(--accent); }
+.nav a, .mobile-menu a { min-height: 44px; display: inline-flex; align-items: center; padding: .5rem .65rem; border-radius: 8px; font-weight: 650; text-decoration: none; transition: color 180ms ease, background-color 180ms ease, transform 180ms ease; }
+.nav a { color: var(--white); }
+.mobile-menu a { color: var(--text); }
+.nav a:hover, .nav a.active { background: var(--accent); color: var(--white); }
+.mobile-menu a:hover, .mobile-menu a.active { background: var(--surface-soft); color: var(--accent); }
 .header-cta, .btn, .phone-action { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; padding: .7rem 1.1rem; border-radius: 8px; font-weight: 800; text-decoration: none; white-space: nowrap; transition: background-color 180ms ease, color 180ms ease, transform 180ms ease; }
 .header-cta, .btn-primary, .phone-action { background: var(--accent); color: var(--on-accent); }
 .header-cta:hover, .btn-primary:hover, .phone-action:hover { background: var(--accent-hover); color: var(--on-accent); }
