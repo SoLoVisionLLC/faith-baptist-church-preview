@@ -2,21 +2,21 @@
 
 /* Variant D — Accessible & Ethical */
 :root {
-  --color-primary: #7C3AED;
+  --color-primary: #0A3161;
   --color-on-primary: #FFFFFF;
-  --color-secondary: #A78BFA;
-  --color-on-secondary: #0F172A;
-  --color-accent: #A16207;
+  --color-secondary: rgba(10, 49, 97, 0.15);
+  --color-on-secondary: #0A3161;
+  --color-accent: #B31942;
   --color-on-accent: #FFFFFF;
-  --color-background: #FAF5FF;
-  --color-foreground: #4C1D95;
+  --color-background: #FFFFFF;
+  --color-foreground: #0A3161;
   --color-card: #FFFFFF;
-  --color-card-foreground: #4C1D95;
-  --color-muted: #ECEEF9;
-  --color-muted-foreground: #475569;
-  --color-border: #DDD6FE;
-  --color-destructive: #DC2626;
-  --color-ring: #7C3AED;
+  --color-card-foreground: #0A3161;
+  --color-muted: rgba(10, 49, 97, 0.08);
+  --color-muted-foreground: rgba(10, 49, 97, 0.72);
+  --color-border: rgba(10, 49, 97, 0.20);
+  --color-destructive: #B31942;
+  --color-ring: #B31942;
   --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: "Playfair Display", Georgia, serif;
   --font-numerals: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
@@ -225,7 +225,7 @@ button:focus-visible,
 .d-plan:hover,
 .btn-accent:hover {
   color: var(--color-on-accent);
-  filter: brightness(0.92);
+  filter: opacity(0.88);
 }
 
 .btn {
