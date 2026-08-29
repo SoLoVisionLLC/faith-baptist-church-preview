@@ -1,10 +1,9 @@
 /* Variant A — Plain Welcome; verified design regime A (no design skill). */
 :root {
-  --brick: #7A302B;
-  --navy: #18324B;
+  --brick: #B31942;
+  --navy: #0A3161;
   --white: #FFFFFF;
-  --paper: #F5F3EE;
-  --lawn: #426A43;
+  --paper: #FFFFFF;
 }
 
 * {
@@ -76,12 +75,12 @@ a {
 }
 
 a:hover {
-  color: var(--lawn);
+  color: var(--brick);
 }
 
 a:focus-visible,
 summary:focus-visible {
-  outline: 3px solid var(--lawn);
+  outline: 3px solid var(--brick);
   outline-offset: 3px;
 }
 
@@ -187,8 +186,8 @@ main:focus {
 .mobile-cta:hover,
 .button.primary:hover {
   color: var(--white);
-  background: var(--lawn);
-  border-color: var(--lawn);
+  background: var(--brick);
+  border-color: var(--brick);
 }
 
 .button.secondary {
