@@ -1,189 +1,103 @@
-/**
- * FAITH BAPTIST CHURCH - MAIN JAVASCRIPT
- * Theme: Grace Church Replicated Architecture • Red, White, and Blue (USA)
- */
+(() => {
+  const header = document.querySelector("[data-header]");
+  const toggle = document.querySelector(".menu-toggle");
+  const nav = document.querySelector("#site-nav");
+  const menuLabel = document.querySelector("[data-menu-label]");
+  const countdown = document.querySelector("#countdown");
+  const nextLabel = document.querySelector("#next-label");
+  const mobileMenu = window.matchMedia("(max-width: 980px)");
 
-document.addEventListener('DOMContentLoaded', () => {
-  initStickyHeader();
-  initMobileNav();
-  initGalleryLightbox();
-  initDynamicYear();
-  initVerseRotator();
-});
-
-// Sticky Header functionality
-function initStickyHeader() {
-  const header = document.querySelector('.site-header');
-  if (!header) return;
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      header.classList.add('is-sticky');
+  const syncMenuAccess = () => {
+    if (!nav) return;
+    const open = toggle?.getAttribute("aria-expanded") === "true";
+    if (mobileMenu.matches && !open) {
+      nav.inert = true;
+      nav.setAttribute("aria-hidden", "true");
     } else {
-      header.classList.remove('is-sticky');
+      nav.inert = false;
+      nav.removeAttribute("aria-hidden");
     }
+  };
+
+  const closeMenu = ({ restoreFocus = false } = {}) => {
+    document.body.classList.remove("menu-open");
+    nav?.classList.remove("is-open");
+    toggle?.setAttribute("aria-expanded", "false");
+    if (menuLabel) menuLabel.textContent = "Open menu";
+    syncMenuAccess();
+    if (restoreFocus) toggle?.focus();
+  };
+
+  toggle?.addEventListener("click", () => {
+    const open = toggle.getAttribute("aria-expanded") === "true";
+    document.body.classList.toggle("menu-open", !open);
+    nav?.classList.toggle("is-open", !open);
+    toggle.setAttribute("aria-expanded", String(!open));
+    if (menuLabel) menuLabel.textContent = open ? "Open menu" : "Close menu";
+    syncMenuAccess();
+    if (!open) nav?.querySelector("a")?.focus();
   });
-}
+  nav
+    ?.querySelectorAll("a")
+    .forEach((link) => link.addEventListener("click", closeMenu));
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMenu({ restoreFocus: true });
+  });
+  mobileMenu.addEventListener("change", () => closeMenu());
+  syncMenuAccess();
 
-// Mobile Navigation Toggle & Drawer
-function initMobileNav() {
-  const toggleBtn = document.querySelector('.mobile-toggle');
-  const navMenu = document.querySelector('.nav-menu');
-  if (!toggleBtn || !navMenu) return;
+  const updateHeader = () =>
+    header?.classList.toggle("is-stuck", window.scrollY > 110);
+  updateHeader();
+  window.addEventListener("scroll", updateHeader, { passive: true });
 
-  // Create close button inside mobile nav if not present
-  if (!navMenu.querySelector('.nav-menu-close')) {
-    const closeBtn = document.createElement('button');
-    closeBtn.className = 'nav-menu-close';
-    closeBtn.setAttribute('aria-label', 'Close Menu');
-    closeBtn.innerHTML = '&times;';
-    navMenu.prepend(closeBtn);
+  const services = [
+    { day: 0, hour: 9, minute: 0, name: "Sunday School" },
+    { day: 0, hour: 10, minute: 0, name: "Sunday Morning Worship" },
+    { day: 0, hour: 18, minute: 0, name: "Sunday Evening Service" },
+    { day: 3, hour: 19, minute: 0, name: "Wednesday Prayer & Bible Study" },
+  ];
 
-    closeBtn.addEventListener('click', () => {
-      navMenu.classList.remove('is-open');
+  const nextService = (now) =>
+    services
+      .map((service) => {
+        const date = new Date(now);
+        const daysAhead = (service.day - now.getDay() + 7) % 7;
+        date.setDate(now.getDate() + daysAhead);
+        date.setHours(service.hour, service.minute, 0, 0);
+        if (date <= now) date.setDate(date.getDate() + 7);
+        return { ...service, date };
+      })
+      .sort((a, b) => a.date - b.date)[0];
+
+  const renderCountdown = () => {
+    if (!countdown || !nextLabel) return;
+    const now = new Date();
+    const next = nextService(now);
+    const totalMinutes = Math.max(0, Math.floor((next.date - now) / 60000));
+    const days = Math.floor(totalMinutes / 1440);
+    const hours = Math.floor((totalMinutes % 1440) / 60);
+    const minutes = totalMinutes % 60;
+    const parts = [];
+    if (days) parts.push(`${days}d`);
+    if (hours || days) parts.push(`${hours}h`);
+    parts.push(`${minutes}m`);
+    nextLabel.textContent = next.name;
+    countdown.textContent = `${next.date.toLocaleDateString(undefined, { weekday: "long" })} at ${next.date.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })} · ${parts.join(" ")} away`;
+  };
+
+  renderCountdown();
+  window.setInterval(renderCountdown, 60000);
+
+  document.querySelectorAll("details").forEach((details) => {
+    details.addEventListener("toggle", () => {
+      if (!details.open) return;
+      document.querySelectorAll("details[open]").forEach((other) => {
+        if (other !== details) other.open = false;
+      });
     });
-  }
-
-  toggleBtn.addEventListener('click', () => {
-    navMenu.classList.toggle('is-open');
   });
 
-  // Handle dropdown clicks on mobile
-  const dropdownItems = navMenu.querySelectorAll('.nav-item.has-dropdown');
-  dropdownItems.forEach(item => {
-    const link = item.querySelector('.nav-link');
-    link.addEventListener('click', (e) => {
-      if (window.innerWidth <= 1080) {
-        e.preventDefault();
-        item.classList.toggle('active-dropdown');
-      }
-    });
-  });
-
-  // Close when clicking outside
-  document.addEventListener('click', (e) => {
-    if (navMenu.classList.contains('is-open') && !navMenu.contains(e.target) && !toggleBtn.contains(e.target)) {
-      navMenu.classList.remove('is-open');
-    }
-  });
-}
-
-// Photo Gallery Lightbox
-function initGalleryLightbox() {
-  const galleryItems = document.querySelectorAll('.gallery-item');
-  if (!galleryItems.length) return;
-
-  let modal = document.querySelector('.lightbox-modal');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.className = 'lightbox-modal';
-    modal.innerHTML = `
-      <div class="lightbox-content">
-        <button class="lightbox-close" aria-label="Close Lightbox">&times;</button>
-        <img class="lightbox-img" src="" alt="Church Photo">
-      </div>
-    `;
-    document.body.appendChild(modal);
-  }
-
-  const modalImg = modal.querySelector('.lightbox-img');
-  const closeBtn = modal.querySelector('.lightbox-close');
-
-  galleryItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const img = item.querySelector('img');
-      if (img) {
-        modalImg.src = img.src;
-        modalImg.alt = img.alt || 'Faith Baptist Church';
-        modal.classList.add('is-open');
-      }
-    });
-  });
-
-  const closeModal = () => modal.classList.remove('is-open');
-  closeBtn.addEventListener('click', closeModal);
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-  });
-}
-
-// Toast notification helper
-function showToast(message, type = 'info') {
-  let toast = document.querySelector('.toast-notice');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.className = 'toast-notice';
-    document.body.appendChild(toast);
-  }
-
-  const icon = type === 'success' ? '✓' : 'ℹ';
-  toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
-  toast.classList.add('show');
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, 4000);
-}
-
-// Dynamic Copyright Year
-function initDynamicYear() {
-  const yearEl = document.querySelector('.current-year');
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
-}
-
-// Daily KJV Scripture Rotator
-const SCRIPTURES = [
-  {
-    verse: "For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast.",
-    ref: "Ephesians 2:8-9 (KJV)"
-  },
-  {
-    verse: "Trust in the LORD with all thine heart; and lean not unto thine own understanding. In all thy ways acknowledge him, and he shall direct thy paths.",
-    ref: "Proverbs 3:5-6 (KJV)"
-  },
-  {
-    verse: "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.",
-    ref: "John 3:16 (KJV)"
-  },
-  {
-    verse: "Thy word is a lamp unto my feet, and a light unto my path.",
-    ref: "Psalm 119:105 (KJV)"
-  },
-  {
-    verse: "I can do all things through Christ which strengtheneth me.",
-    ref: "Philippians 4:13 (KJV)"
-  }
-];
-
-function initVerseRotator() {
-  const verseText = document.getElementById('daily-verse-text');
-  const verseRef = document.getElementById('daily-verse-ref');
-  const btnNext = document.getElementById('btn-next-verse');
-  if (!verseText || !verseRef) return;
-
-  let currentIndex = 0;
-
-  function updateVerse(index) {
-    const item = SCRIPTURES[index];
-    verseText.style.opacity = '0';
-    verseRef.style.opacity = '0';
-    setTimeout(() => {
-      verseText.textContent = `"${item.verse}"`;
-      verseRef.innerHTML = `<span>📖</span> ${item.ref}`;
-      verseText.style.opacity = '1';
-      verseRef.style.opacity = '1';
-    }, 200);
-  }
-
-  if (btnNext) {
-    btnNext.addEventListener('click', () => {
-      currentIndex = (currentIndex + 1) % SCRIPTURES.length;
-      updateVerse(currentIndex);
-    });
-  }
-}
+  const year = document.querySelector("#year");
+  if (year) year.textContent = String(new Date().getFullYear());
+})();
