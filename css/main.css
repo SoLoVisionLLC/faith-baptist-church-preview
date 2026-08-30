@@ -74,7 +74,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .menu-toggle > span:not(.sr-only) { display: block; width: 27px; height: 2px; margin: 6px auto; background: currentColor; transition: transform .2s ease, opacity .2s ease; }
 
 .hero { position: relative; min-height: 745px; padding: 68px 0 84px; overflow: hidden; background: var(--white); }
-.hero-word { position: absolute; left: -18px; bottom: 3px; color: transparent; font: 900 clamp(90px, 15vw, 220px)/.75 var(--sans); letter-spacing: -.04em; -webkit-text-stroke: 1px #d7dfe8; user-select: none; }
 .hero-layout { position: relative; z-index: 2; display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: clamp(56px, 7vw, 108px); }
 .hero-copy { padding: 24px 0 72px; }
 .hero h1 { max-width: 700px; margin: 0; color: var(--navy); font: 700 clamp(59px, 6.4vw, 102px)/.87 var(--display); letter-spacing: -.04em; }
@@ -88,9 +87,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .button-white { color: var(--navy); background: var(--white); border-color: var(--white); }
 .button-outline { color: var(--navy); background: transparent; border-color: var(--navy); }
 .plain-link { min-height: 44px; display: inline-flex; align-items: center; color: var(--navy); font-size: 13px; font-weight: 850; text-underline-offset: 5px; }
-.hero-proof { display: flex; flex-wrap: wrap; gap: 0; margin-top: 48px; border-top: 1px solid var(--line); }
-.hero-proof span { padding: 14px 20px 0 0; color: var(--navy); font-size: 10px; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
-.hero-proof span + span::before { content: "/"; margin-right: 20px; color: var(--red); }
+.hero-proof { display: grid; grid-template-columns: 1.15fr 1fr .88fr; margin-top: 48px; }
+.hero-proof span { min-height: 52px; display: flex; align-items: center; padding: 0 18px; color: var(--white); background: var(--navy); font-size: 10px; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
+.hero-proof span:nth-child(2) { background: var(--red); transform: translateY(8px); }
+.hero-proof span:nth-child(3) { background: var(--blue); transform: translateY(16px); }
 .hero-scene { position: relative; min-height: 535px; padding: 28px 36px 70px 0; }
 .hero-scene::before { content: ""; position: absolute; inset: 0 0 42px 72px; background: var(--navy); }
 .hero-frame { position: relative; z-index: 2; height: 450px; margin-left: -18px; overflow: hidden; border: 12px solid var(--white); }
@@ -268,7 +268,6 @@ details p { max-width: 65ch; margin: 0; padding: 0 34px 24px 0; color: var(--mut
   .hero-copy { padding: 0; }
   .hero h1 { font-size: clamp(57px, 12vw, 88px); }
   .hero-scene { width: calc(100% - 32px); margin-left: auto; }
-  .hero-word { font-size: 19vw; bottom: 35px; }
   .schedule-layout { grid-template-columns: 1fr; }
   .schedule-heading { position: static; }
   .welcome { grid-template-columns: 1fr; }
@@ -298,9 +297,9 @@ details p { max-width: 65ch; margin: 0; padding: 0 34px 24px 0; color: var(--mut
   .hero-lede { margin-top: 24px; font-size: 17px; }
   .hero-actions { align-items: stretch; flex-direction: column; gap: 10px; }
   .plain-link { justify-content: center; }
-  .hero-proof { margin-top: 32px; }
-  .hero-proof span { width: 100%; padding-top: 10px; }
-  .hero-proof span + span::before { margin-right: 10px; }
+  .hero-proof { grid-template-columns: 1fr; margin-top: 32px; }
+  .hero-proof span { min-height: 42px; padding-inline: 14px; }
+  .hero-proof span:nth-child(2), .hero-proof span:nth-child(3) { transform: none; }
   .hero-scene { width: calc(100% - 12px); min-height: 408px; margin-top: 22px; padding: 18px 16px 54px 0; }
   .hero-scene::before { inset: 0 0 34px 34px; }
   .hero-frame { height: 320px; margin-left: 0; border-width: 7px; }
@@ -309,7 +308,6 @@ details p { max-width: 65ch; margin: 0; padding: 0 34px 24px 0; color: var(--mut
   .sunday-ticket { right: -8px; width: 232px; padding: 16px 18px; }
   .sunday-ticket::before { left: -5px; width: 5px; }
   .sunday-ticket strong { font-size: 37px; }
-  .hero-word { display: none; }
   .schedule, .convictions, .visit { padding: 84px 0; }
   .schedule-layout { gap: 46px; }
   .schedule h2, .families h2 { font-size: 50px; }
