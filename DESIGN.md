@@ -1,7 +1,7 @@
 ---
 version: alpha
-name: Faith Baptist Church - Faith in the Heartland
-description: A bright Main Street procession of local faith, clear Sunday guidance, and civic-scale welcome.
+name: Faith Baptist Church - Sunday Bulletin
+description: A white-first editorial bulletin for local faith, clear Sunday guidance, and a calm welcome.
 colors:
   primary-red: "#c41f2c"
   primary-red-dark: "#9f111c"
@@ -98,22 +98,22 @@ components:
     height: "62px"
 ---
 
-# Design System: Faith Baptist Church - Faith in the Heartland
+# Design System: Faith Baptist Church - Sunday Bulletin
 
 ## Overview
 
-**Creative North Star: "Faith in the Heartland"**
+**Creative North Star: "Sunday Bulletin"**
 
-Faith moves through Fostoria like a Main Street procession. The system replaces the expected dark church hero and stacked-card template with daylight, hard civic banners, ruled information, and real local photography. It should feel immediate and neighborly: public enough to read from across the street, warm enough to make a first Sunday feel manageable.
+Faith Baptist is presented like a well-made Sunday bulletin: generous white space, editorial serif headlines, fine navy rules, and small flag-red and flag-blue registration marks. The system replaces the previous civic procession with a calmer, more legible welcome that lets real local photography and clear service information do the persuading.
 
 The visual world belongs to the supplied crest and the church's actual place. Flag red, clear navy, procession blue, and bright white create American energy without political or military cues. Civic-scale Rokkitt headlines carry the public-square voice; a quiet system sans keeps practical details effortless to scan.
 
 **Key Characteristics:**
 
-- Hard-edged red, navy, blue, and white fields arranged as a continuous procession.
-- Monumental Rokkitt headlines paired with plain, high-clarity service information.
-- Real church photography, the supplied crest, ruled schedules, and numbered family bands as proof-bearing structure.
-- Flat, daylight presentation with one coordinated crest-and-star-rail entrance.
+- White paper-like fields with thin navy rules and restrained red and blue accents.
+- Editorial Rokkitt headlines paired with plain, high-clarity service information.
+- Real church photography, the supplied crest, ruled schedules, and open space as proof-bearing structure.
+- Flat daylight presentation with one quiet crest entrance and no decorative background wordmarks.
 - Clear visit actions and content that remains available before animation or scripting completes.
 
 ## Colors
@@ -172,7 +172,7 @@ The palette is bright, civic, and literal: flag colors create orientation and mo
 
 The primary content shell is capped at 1220px with 28px gutters on large screens. The page advances as a procession rather than a stack of cards: asymmetric hero and schedule grids, full-width tonal bands, a split photographic welcome, a scripture window, ruled family rows, and a focused visit destination. Major sections typically use a 120px vertical rhythm.
 
-At 1080px, the shell contracts to a 940px maximum with 20px gutters and complex grids simplify. At 860px, navigation becomes a full-screen menu and primary two-column sections become single-column. At 560px, gutters become 14px, actions stack, headlines are recalibrated, and dense schedule and family grids shed secondary columns rather than overflow.
+At 1080px, the shell contracts to a 940px maximum with 20px gutters and complex grids simplify. At 860px, navigation becomes a full-screen menu and primary two-column sections become single-column. At 560px, gutters become 14px, actions stack, headlines are recalibrated, and the bulletin register and schedule rows stack rather than overflow.
 
 All interactive targets are at least 44px tall. Content is visible by default; responsive and script-enhanced states may reorganize it, but must not make reading dependent on animation.
 

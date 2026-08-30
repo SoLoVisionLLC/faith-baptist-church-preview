@@ -15,8 +15,8 @@ Proof and content: Confirmed weekly schedule, real church address and phone, Bib
 
 Constraints: Red, white, and blue must remain welcoming and nonpartisan. Do not invent leaders, testimonials, events, sermons, social accounts, giving systems, email, or livestreams.
 
-Chosen direction: Faith in the Heartland, expressed as a Main Street procession of hard-edged civic banners, daylight, strong schedule rules, and real local photographs.
+Chosen direction: Sunday Bulletin, expressed as a white-first editorial layout with fine navy rules, restrained flag-red and flag-blue accents, and real local photographs.
 
-Memorable moment: The first viewport pairs a monumental white welcome field with a tall navy photo stage, a crest bridging both, and a red Sunday arrival ticket.
+Memorable moment: The first viewport pairs a generous white welcome field with a framed church photograph, a quiet outlined Sunday card, and a three-part belief register.
 
 Unresolved decisions: Church-supplied leadership, history, email, giving, events, sermons, accessibility details, and social accounts remain replacement-list items.
