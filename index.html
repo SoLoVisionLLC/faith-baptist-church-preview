@@ -1,881 +1,455 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Faith Baptist Church | Fostoria, Ohio | Bible Believing & Gospel Driven</title>
-  <meta name="description" content="Welcome to Faith Baptist Church in Fostoria, Ohio. A Bible-believing, Gospel-driven church using the King James Bible with services on Sundays and Wednesdays. Loving nursery for tots!">
-  
-  <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/responsive.css">
-</head>
-<body>
-
-  <!-- ==========================================================================
-       1. TOP ANNOUNCEMENT & CONTACT BAR (USA BRAND ACCENT)
-       ========================================================================== -->
-  <aside class="top-bar">
-    <div class="container top-bar-inner">
-      <div class="top-bar-left">
-        <span class="top-bar-badge">
-          <span class="pulse-dot"></span> Next Service: Sunday 10:00 AM
-        </span>
-        <span class="top-bar-item">
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-          11275 W. Twp. Rd. 116, Fostoria, OH 44830
-        </span>
-        <span class="top-bar-item">
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-          <a href="tel:4193482171">(419) 348-2171</a>
-        </span>
-      </div>
-      <div class="top-bar-right">
-        <span class="top-bar-item">
-          <span class="badge badge-kjv">KJV BIBLE ANCHORED</span>
-        </span>
-        <a href="give.html" class="top-bar-item" style="color: #fbbf24; font-weight: 700;">
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          Online Giving
-        </a>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#071c38" />
+    <title>Faith Baptist Church | Fostoria, Ohio</title>
+    <meta
+      name="description"
+      content="Faith Baptist Church in Fostoria, Ohio is a Bible-believing, gospel-driven church gathering Sundays and Wednesdays. Plan your first visit."
+    />
+    <meta property="og:title" content="Faith Baptist Church | Fostoria, Ohio" />
+    <meta
+      property="og:description"
+      content="Rooted in truth. Built for community. Come worship with us in Fostoria."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="assets/images/fbc_logo.png" />
+    <link
+      rel="preload"
+      as="image"
+      href="assets/images/church_exterior_front.jpg"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="js/main.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="gathering-bar" aria-label="Next gathering">
+      <div class="shell gathering-bar__inner">
+        <p>
+          <span class="live-dot" aria-hidden="true"></span
+          ><strong id="next-label">Next gathering</strong>
+        </p>
+        <p id="countdown" aria-live="polite">Calculating service time...</p>
+        <a href="#times">View all times</a>
       </div>
     </div>
-  </aside>
-
-  <!-- ==========================================================================
-       2. MAIN STICKY HEADER & NAVIGATION
-       ========================================================================== -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="brand-logo" aria-label="Faith Baptist Church Home">
-        <img src="assets/images/fbc_logo.png" alt="Faith Baptist Church Logo" class="brand-logo-img">
-        <div class="brand-text">
-          <span class="brand-title">Faith <span>Baptist</span> Church</span>
-          <span class="brand-tagline">Bible Believing • Gospel Driven • Fostoria, OH</span>
-        </div>
-      </a>
-
-      <!-- Desktop & Mobile Navigation Links -->
-      <nav class="nav-menu" aria-label="Main Navigation">
-        <div class="nav-item">
-          <a href="index.html" class="nav-link active">Home</a>
-        </div>
-        <div class="nav-item has-dropdown">
-          <a href="about.html" class="nav-link">About Us <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></a>
-          <div class="dropdown-menu">
-            <a href="about.html" class="dropdown-link">Our Story & History</a>
-            <a href="about.html#beliefs" class="dropdown-link">What We Believe (KJV)</a>
-            <a href="about.html#pastor" class="dropdown-link">Pastor & Leadership</a>
-            <a href="about.html#nursery" class="dropdown-link">Tots Nursery & Facilities</a>
-          </div>
-        </div>
-        <div class="nav-item has-dropdown">
-          <a href="ministries.html" class="nav-link">Ministries <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></a>
-          <div class="dropdown-menu">
-            <a href="ministries.html#sunday-school" class="dropdown-link">Sunday School (All Ages)</a>
-            <a href="ministries.html#tots-nursery" class="dropdown-link">Tots Nursery</a>
-            <a href="ministries.html#wednesday-study" class="dropdown-link">Wednesday Prayer & Study</a>
-            <a href="ministries.html#youth-teens" class="dropdown-link">Teens & Youth Group</a>
-            <a href="ministries.html#outreach" class="dropdown-link">Community Outreach</a>
-          </div>
-        </div>
-        <div class="nav-item">
-          <a href="sermons.html" class="nav-link">Sermons</a>
-        </div>
-        <div class="nav-item">
-          <a href="events.html" class="nav-link">Events</a>
-        </div>
-        <div class="nav-item">
-          <a href="give.html" class="nav-link">Give</a>
-        </div>
-        <div class="nav-item">
-          <a href="contact.html" class="nav-link">Contact</a>
-        </div>
-      </nav>
-
-      <!-- Action Buttons -->
-      <div class="header-actions">
-        <a href="visit.html" class="btn btn-navy btn-sm">Plan Your Visit</a>
-        <a href="give.html" class="btn btn-red btn-sm">Give Online</a>
-        <button class="mobile-toggle" aria-label="Toggle Navigation Menu">
-          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    <header class="site-header" data-header>
+      <div class="shell header-inner">
+        <a class="brand" href="#top" aria-label="Faith Baptist Church home">
+          <img src="assets/images/fbc_logo.png" width="58" height="58" alt="" />
+          <span
+            ><strong>Faith Baptist</strong
+            ><small>Church · Fostoria, Ohio</small></span
+          >
+        </a>
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+        >
+          <span></span><span></span><span></span
+          ><span class="sr-only" data-menu-label>Open menu</span>
         </button>
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+          <a href="#welcome">Welcome</a><a href="#beliefs">Beliefs</a
+          ><a href="#ministries">Ministries</a><a href="#times">Service Times</a
+          ><a href="#visit" class="nav-cta">Plan Your Visit</a>
+        </nav>
       </div>
-    </div>
-  </header>
-
-  <!-- ==========================================================================
-       3. HERO SECTION (GRACE THEME INSPIRATION • PATRIOTIC USA MOTIF)
-       ========================================================================== -->
-  <section class="hero-section">
-    <div class="hero-background">
-      <img src="assets/images/hero_landscape.png" alt="Faith Baptist Church Fostoria Ohio" class="hero-bg-img">
-      <div class="hero-overlay"></div>
-    </div>
-    
-    <div class="container hero-content">
-      <div class="hero-badge">
-        <span class="flag-icon">⭐</span>
-        <span>A Gospel-Driven Church In Fostoria, Ohio</span>
-      </div>
-      
-      <h1 class="hero-title">
-        Rooted in Grace. <br>
-        <span class="text-gold">Anchored in the Word.</span>
-      </h1>
-      
-      <p class="hero-description">
-        We are a warm, Bible-believing, Gospel-driven church faithful to the King James Bible. Join us this week for inspiring preaching, uplifting traditional hymns, and loving ministries for the whole family.
-      </p>
-      
-      <div class="hero-buttons">
-        <a href="visit.html" class="btn btn-red btn-lg">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-          Plan Your Visit
-        </a>
-        <a href="sermons.html" class="btn btn-outline-white btn-lg">
-          <span class="btn-play-icon">
-            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-          Listen to Sermons
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       4. TRIPLE FEATURE CARDS (GRACE THEME SIGNATURE OVERLAPPING GRID)
-       ========================================================================== -->
-  <section class="container feature-cards-overlap">
-    <div class="feature-cards-grid">
-      
-      <!-- Card 1: Service Schedule -->
-      <div class="feature-card card-featured">
-        <div class="feature-icon-box">
-          <svg width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    </header>
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-photo" aria-hidden="true"></div>
+        <div class="hero-stars" aria-hidden="true">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span
+          ><span>★</span>
         </div>
-        <h3 class="feature-card-title">Service Times</h3>
-        <p class="feature-card-text">
-          Join our church family every week for gospel preaching, prayer, and uplifting worship.
-        </p>
-        <div class="feature-schedule-list">
-          <div class="feature-schedule-row">
-            <span class="feature-schedule-label">Sunday School (Adults & Teens)</span>
-            <span class="feature-schedule-time">9:00 AM</span>
+        <div class="shell hero-grid">
+          <div class="hero-copy reveal">
+            <h1 id="hero-title">
+              One faith.<br />One family.<br /><em>One place to belong.</em>
+            </h1>
+            <p class="hero-lede">
+              Come as you are and meet a church family growing together in God's
+              Word. There is a place here for you and your whole family.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#visit"
+                >Plan your first visit</a
+              ><a class="button button-ghost" href="tel:+14193482171"
+                >Call 419-348-2171</a
+              >
+            </div>
           </div>
-          <div class="feature-schedule-row">
-            <span class="feature-schedule-label">Sunday Morning Worship & Tots</span>
-            <span class="feature-schedule-time">10:00 AM</span>
+          <aside
+            class="sunday-card reveal"
+            aria-label="This Sunday at Faith Baptist"
+          >
+            <div class="sunday-card__flag" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <p class="sunday-card__kicker">This Sunday</p>
+            <p class="sunday-card__time">10:00 <span>AM</span></p>
+            <h2>Morning Worship</h2>
+            <p>
+              Gospel preaching, prayer, and a warm welcome for every generation.
+            </p>
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830"
+              >Get directions</a
+            >
+          </aside>
+        </div>
+        <div class="hero-stripes" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="scroll-cue" aria-hidden="true">
+          <span></span> Scroll to discover
+        </div>
+      </section>
+      <section class="service-ribbon" id="times" aria-labelledby="times-title">
+        <div class="shell service-ribbon__grid">
+          <div class="service-ribbon__intro reveal">
+            <h2 id="times-title">There is a seat<br />waiting for you.</h2>
           </div>
-          <div class="feature-schedule-row">
-            <span class="feature-schedule-label">Sunday Evening Service</span>
-            <span class="feature-schedule-time">6:00 PM</span>
+          <div class="time-block reveal">
+            <p>Sunday</p>
+            <strong>9:00</strong><span>AM</span
+            ><small>Sunday School<br />Adults & teens</small>
           </div>
-          <div class="feature-schedule-row">
-            <span class="feature-schedule-label">Wednesday Prayer & Bible Study</span>
-            <span class="feature-schedule-time">7:00 PM</span>
+          <div class="time-block time-block--active reveal">
+            <p>Sunday</p>
+            <strong>10:00</strong><span>AM</span
+            ><small>Main service<br />Children & nursery</small>
           </div>
-        </div>
-        <a href="visit.html" class="feature-card-link">
-          Directions & Schedule <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-
-      <!-- Card 2: Plan Your Visit -->
-      <div class="feature-card">
-        <div class="feature-icon-box">
-          <svg width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-        </div>
-        <h3 class="feature-card-title">Plan Your Visit</h3>
-        <p class="feature-card-text">
-          Visiting for the first time? We have convenient parking, friendly greeters, clean nursery care for tots, and Sunday school classes for kids and teens.
-        </p>
-        <ul style="margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--gray-600); display: flex; flex-direction: column; gap: 0.4rem;">
-          <li>✓ Loving, safe nursery for tots</li>
-          <li>✓ Engaging youth and teen classes</li>
-          <li>✓ Traditional, Christ-honoring worship</li>
-        </ul>
-        <a href="visit.html" class="feature-card-link">
-          Visitor Guide <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-
-      <!-- Card 3: Listen & Grow -->
-      <div class="feature-card card-blue">
-        <div class="feature-icon-box">
-          <svg width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"/></svg>
-        </div>
-        <h3 class="feature-card-title">Listen to Sermons</h3>
-        <p class="feature-card-text">
-          Listen to clear, verse-by-verse expository preaching from the King James Bible. Download sermon notes and grow in your daily walk with Christ.
-        </p>
-        <div style="background: var(--blue-soft); border-radius: var(--radius-sm); padding: 0.85rem; margin-bottom: 1.5rem; font-size: 0.88rem; color: var(--navy-primary);">
-          <strong>Featured Series:</strong> Galatians — Standing Fast in Grace
-        </div>
-        <a href="sermons.html" class="feature-card-link" style="color: var(--blue-royal);">
-          Browse Sermon Archive <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       5. WELCOME & ABOUT SECTION (FEATURING REAL CHURCH BUILDING PHOTOS)
-       ========================================================================== -->
-  <section class="section section-patriotic-strip bg-white" id="welcome">
-    <div class="container">
-      <div class="welcome-grid">
-        
-        <!-- Media Column -->
-        <div class="welcome-media-stack">
-          <img src="assets/images/church_exterior_front.jpg" alt="Faith Baptist Church Building in Fostoria, Ohio" class="welcome-main-img">
-          <div class="welcome-floating-badge">
-            <span class="badge-stat">KJV</span>
-            <span class="badge-label">Bible Believing & Gospel Driven</span>
+          <div class="time-block reveal">
+            <p>Sunday</p>
+            <strong>6:00</strong><span>PM</span
+            ><small>Evening<br />service</small>
+          </div>
+          <div class="time-block reveal">
+            <p>Wednesday</p>
+            <strong>7:00</strong><span>PM</span
+            ><small>Prayer &<br />Bible study</small>
           </div>
         </div>
-
-        <!-- Content Column -->
-        <div>
-          <span class="section-eyebrow">Welcome to Faith Baptist</span>
-          <h2 class="section-title">
-            Proclaiming Christ in Fostoria & Beyond
-          </h2>
-          <p class="section-subtitle">
-            Faith Baptist Church is an independent, Bible-believing local assembly dedicated to exalting the Lord Jesus Christ, edifying the saints, and evangelizing the lost.
-          </p>
-          <p>
-            Whether you are searching for a church home or desiring to learn more about God's eternal gift of salvation, we invite you and your family to worship with us. We firmly stand on the inspired, preserved Word of God found in the King James Bible.
-          </p>
-
-          <div class="pillar-list">
-            <div class="pillar-item">
-              <div class="pillar-icon">
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      </section>
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span>FAITH OVER FEAR</span><b>★</b><span>TRUTH WITH LOVE</span
+          ><b>★</b><span>GROWING TOGETHER</span><b>★</b><span>WELCOME HOME</span
+          ><b>★</b><span>FAITH OVER FEAR</span><b>★</b
+          ><span>TRUTH WITH LOVE</span><b>★</b><span>GROWING TOGETHER</span
+          ><b>★</b><span>WELCOME HOME</span><b>★</b>
+        </div>
+      </div>
+      <section class="welcome section" id="welcome">
+        <div class="shell welcome-grid">
+          <div class="welcome-collage reveal">
+            <figure class="photo-main">
+              <img
+                src="assets/images/793a0944-867c-4811-85da-ecd4b9fbdb78.jpg"
+                width="450"
+                height="600"
+                alt="Faith Baptist Church sanctuary viewed from the center aisle toward the pulpit and cross."
+              />
+            </figure>
+            <figure class="photo-small">
+              <img
+                src="assets/images/church_exterior_front.jpg"
+                width="600"
+                height="450"
+                alt="Faith Baptist Church building and steeple across the lawn in Fostoria, Ohio."
+              />
+            </figure>
+            <div class="photo-seal" aria-hidden="true">
+              <span>FBC</span><small>Fostoria<br />Ohio</small>
+            </div>
+          </div>
+          <div class="welcome-copy reveal">
+            <h2>Church should feel like coming home.</h2>
+            <p class="lead">
+              At Faith Baptist Church, the Bible is open, the gospel is clear,
+              and people matter.
+            </p>
+            <p>
+              Whether you have followed Christ for years, are returning to
+              church, or are simply looking for answers, you are invited to take
+              the next step with us. We gather to worship, learn, pray, and
+              encourage one another through every season of life.
+            </p>
+            <div class="welcome-points">
+              <div>
+                <p>
+                  <strong>Truth that stands</strong>Teaching grounded in the
+                  King James Bible.
+                </p>
               </div>
               <div>
-                <h4>KJV Bible Preaching</h4>
-                <p>Uncompromising, verse-by-verse preaching of God's holy word.</p>
-              </div>
-            </div>
-
-            <div class="pillar-item">
-              <div class="pillar-icon">
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                <p>
+                  <strong>People who care</strong>A church family ready to know
+                  your name.
+                </p>
               </div>
               <div>
-                <h4>Gospel Driven</h4>
-                <p>Salvation by grace through faith in the finished work of Christ.</p>
+                <p>
+                  <strong>Room to grow</strong>Weekly worship and classes for
+                  the family.
+                </p>
               </div>
             </div>
-
-            <div class="pillar-item">
-              <div class="pillar-icon">
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-              </div>
+          </div>
+        </div>
+      </section>
+      <section class="sunday-journey section" aria-labelledby="journey-title">
+        <div class="shell">
+          <div class="section-heading reveal">
+            <h2 id="journey-title">Simple. Welcoming. Centered on Christ.</h2>
+            <p>
+              No guesswork for your first visit. Here is how the morning
+              unfolds.
+            </p>
+          </div>
+          <ol class="journey-list">
+            <li class="reveal">
+              <span class="journey-number">01</span>
               <div>
-                <h4>Family Ministries</h4>
-                <p>Sunday school for all ages, teens, and loving nursery for tots.</p>
+                <p class="journey-time">Before 10:00 AM</p>
+                <h3>Arrive & settle in</h3>
+                <p>
+                  Find your way to 11275 W. Twp. Rd. 116. Come in, say hello,
+                  and choose any open seat.
+                </p>
               </div>
-            </div>
-
-            <div class="pillar-item">
-              <div class="pillar-icon">
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              </div>
+              <span class="journey-mark" aria-hidden="true">★</span>
+            </li>
+            <li class="reveal">
+              <span class="journey-number">02</span>
               <div>
-                <h4>Midweek Prayer</h4>
-                <p>Wednesday 7:00 PM corporate prayer and in-depth scripture study.</p>
+                <p class="journey-time">10:00 AM</p>
+                <h3>Worship together</h3>
+                <p>
+                  Join the main service while young children can take part in
+                  Sunday School and nursery care is available for tots.
+                </p>
               </div>
-            </div>
-          </div>
-
-          <div style="display: flex; gap: 1rem; align-items: center;">
-            <a href="about.html" class="btn btn-navy">Learn More About Us</a>
-            <a href="tel:4193482171" class="btn btn-outline-navy">Call Pastor: (419) 348-2171</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       6. INTERACTIVE AUDIO SERMON SHOWCASE (GRACE THEME SIGNATURE)
-       ========================================================================== -->
-  <section class="section section-dark section-patriotic-strip" id="sermons-preview">
-    <div class="container">
-      
-      <div class="section-header text-center">
-        <span class="section-eyebrow section-eyebrow-gold">Latest Message</span>
-        <h2 class="section-title">Listen to Gospel Preaching</h2>
-        <p class="section-subtitle">
-          Feed your soul with expository messages from God's holy word. Listen right here or browse our message library.
-        </p>
-      </div>
-
-      <!-- Main Interactive Player Box -->
-      <div class="sermon-player-box">
-        <div class="sermon-player-grid">
-          
-          <div class="sermon-art-box">
-            <img src="assets/images/pastor_pulpit.jpg" alt="Current Sermon" id="active-sermon-art" class="sermon-art-img">
-            <div class="sermon-art-overlay">
-              <span class="badge badge-kjv" id="active-sermon-scripture">Galatians 5:1 (KJV)</span>
-            </div>
-          </div>
-
-          <div class="sermon-details">
-            <div class="sermon-meta-row">
-              <span class="badge badge-red" id="active-sermon-series">Galatians: Grace Over Law</span>
-              <span class="badge badge-blue" id="active-sermon-date">Sunday, Aug 23, 2026</span>
-            </div>
-
-            <h3 class="sermon-title" id="active-sermon-title">Standing Fast in the Liberty of Christ</h3>
-            <div class="sermon-speaker" id="active-sermon-speaker">Preached by <span>Pastor David Miller</span></div>
-
-            <!-- Audio Controls -->
-            <div class="audio-controls-wrap">
-              <div class="audio-main-row">
-                <button id="btn-sermon-play" class="btn-play-pause" aria-label="Play or Pause Sermon">
-                  <span id="sermon-play-icon">
-                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                  </span>
-                </button>
-
-                <div class="audio-progress-container">
-                  <div class="audio-timeline-bar" id="sermon-timeline-bar">
-                    <div class="audio-timeline-fill" id="sermon-timeline-fill"></div>
-                  </div>
-                  <div class="audio-time-labels">
-                    <span id="sermon-current-time">0:00</span>
-                    <span id="sermon-total-duration">35:45</span>
-                  </div>
-                </div>
-
-                <div class="audio-extra-actions">
-                  <button id="btn-sermon-speed" class="btn-audio-action">1.0x</button>
-                  <button id="btn-sermon-notes" class="btn-audio-action">
-                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                    Notes
-                  </button>
-                </div>
+              <span class="journey-mark" aria-hidden="true">★</span>
+            </li>
+            <li class="reveal">
+              <span class="journey-number">03</span>
+              <div>
+                <p class="journey-time">After service</p>
+                <h3>Meet the family</h3>
+                <p>
+                  Stay a few minutes, introduce yourself, and let us help you
+                  find your next connection.
+                </p>
               </div>
-            </div>
-
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-              <span style="font-size: 0.85rem; color: var(--gray-400);">Click Play to listen to this sermon with our built-in audio player.</span>
-              <a href="sermons.html" class="btn btn-outline-white btn-sm">View All Sermons →</a>
-            </div>
-
-          </div>
-
+              <span class="journey-mark" aria-hidden="true">★</span>
+            </li>
+          </ol>
         </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       7. LIVE SERVICE COUNTDOWN BANNER & EVENTS
-       ========================================================================== -->
-  <section class="section bg-light" id="countdown-section">
-    <div class="container">
-      
-      <div class="countdown-banner">
-        <div class="countdown-content">
-          <span class="badge badge-kjv" style="margin-bottom: 0.75rem;">Join Us Live In Person</span>
-          <h3>Next Gathering In: <br><span id="countdown-service-name" style="color: var(--gold-light);">Sunday Morning Worship</span></h3>
-          <p>Sundays: 9:00 AM Sunday School • 10:00 AM Worship (Tots Nursery) • 6:00 PM Evening</p>
+      </section>
+      <section class="beliefs" id="beliefs" aria-labelledby="beliefs-title">
+        <div class="beliefs-cross" aria-hidden="true"></div>
+        <div class="beliefs-stars" aria-hidden="true">
+          ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★
         </div>
-
-        <div class="countdown-timer-wrap">
-          <div class="countdown-unit">
-            <span class="countdown-digit" id="countdown-days">00</span>
-            <span class="countdown-label">Days</span>
-          </div>
-          <div class="countdown-unit">
-            <span class="countdown-digit" id="countdown-hours">00</span>
-            <span class="countdown-label">Hours</span>
-          </div>
-          <div class="countdown-unit">
-            <span class="countdown-digit" id="countdown-mins">00</span>
-            <span class="countdown-label">Mins</span>
-          </div>
-          <div class="countdown-unit">
-            <span class="countdown-digit" id="countdown-secs">00</span>
-            <span class="countdown-label">Secs</span>
-          </div>
-        </div>
-
-        <div>
-          <button class="btn btn-gold btn-add-cal" data-event-title="Faith Baptist Church Worship Service">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            Add to Calendar
-          </button>
-        </div>
-      </div>
-
-      <!-- Upcoming Events Preview -->
-      <div class="events-grid">
-        
-        <!-- Event 1 -->
-        <div class="event-card">
-          <div class="event-card-header">
-            <img src="assets/images/sunday_school_class.jpg" alt="Sunday School" class="event-card-img">
-            <div class="event-date-badge">
-              <span class="event-date-day">Every</span>
-              <span class="event-date-month">Sunday</span>
-            </div>
-          </div>
-          <div class="event-card-body">
-            <h4 class="event-card-title">Sunday School (Adults & Teens)</h4>
-            <div class="event-meta">
-              <div class="event-meta-item">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                Sundays at 9:00 AM
-              </div>
-              <div class="event-meta-item">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
-                Main Church Classrooms
-              </div>
-            </div>
-            <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 1.25rem;">
-              Interactive Bible discussion and fellowship for teens and adults to deepen their knowledge of God's Word.
+        <div class="shell beliefs-grid">
+          <div class="beliefs-intro reveal">
+            <h2 id="beliefs-title">Unchanging truth for a changing world.</h2>
+            <p>
+              Our confidence is not in a trend, personality, or program. It is
+              in Jesus Christ and the truth of God's Word.
             </p>
-            <a href="events.html" class="btn btn-outline-navy btn-sm">Event Details</a>
+            <a class="text-link" href="tel:+14193482171"
+              >Ask us what we believe</a
+            >
           </div>
-        </div>
-
-        <!-- Event 2 -->
-        <div class="event-card">
-          <div class="event-card-header">
-            <img src="assets/images/church_sanctuary_cross.jpg" alt="Wednesday Prayer" class="event-card-img">
-            <div class="event-date-badge">
-              <span class="event-date-day">Every</span>
-              <span class="event-date-month">Wed</span>
-            </div>
-          </div>
-          <div class="event-card-body">
-            <h4 class="event-card-title">Wednesday Prayer & Bible Study</h4>
-            <div class="event-meta">
-              <div class="event-meta-item">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                Wednesdays at 7:00 PM
-              </div>
-              <div class="event-meta-item">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
-                Sanctuary & Fellowship Hall
-              </div>
-            </div>
-            <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 1.25rem;">
-              Our midweek spiritual oasis: lifting burdens together in prayer and digging deeper into Scripture.
-            </p>
-            <a href="events.html" class="btn btn-outline-navy btn-sm">Event Details</a>
-          </div>
-        </div>
-
-        <!-- Event 3 -->
-        <div class="event-card">
-          <div class="event-card-header">
-            <img src="assets/images/fellowship_family.jpg" alt="Monthly Fellowship" class="event-card-img">
-            <div class="event-date-badge">
-              <span class="event-date-day">1st</span>
-              <span class="event-date-month">Sunday</span>
-            </div>
-          </div>
-          <div class="event-card-body">
-            <h4 class="event-card-title">Church Family Fellowship Potluck</h4>
-            <div class="event-meta">
-              <div class="event-meta-item">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                Following 10:00 AM Service
-              </div>
-              <div class="event-meta-item">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
-                Fellowship Hall
-              </div>
-            </div>
-            <p style="font-size: 0.9rem; color: var(--gray-600); margin-bottom: 1.25rem;">
-              Warm home-cooked food, conversation, and christian fellowship for members and first-time guests.
-            </p>
-            <a href="events.html" class="btn btn-outline-navy btn-sm">Event Details</a>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       8. MINISTRIES CATALOG
-       ========================================================================== -->
-  <section class="section bg-white" id="ministries">
-    <div class="container">
-      
-      <div class="section-header text-center">
-        <span class="section-eyebrow">Serving Christ & Community</span>
-        <h2 class="section-title">Ministries for the Whole Family</h2>
-        <p class="section-subtitle">
-          At Faith Baptist Church, there is a place for everyone to connect, grow, and serve the Lord.
-        </p>
-      </div>
-
-      <div class="ministries-grid">
-        
-        <!-- Ministry 1: Tots Nursery -->
-        <div class="ministry-card">
-          <div class="ministry-media">
-            <img src="assets/images/tots_nursery.jpg" alt="Tots Nursery" class="ministry-img">
-          </div>
-          <div class="ministry-body">
-            <span class="badge badge-red ministry-badge">Infants & Toddlers</span>
-            <h3 class="ministry-title">Nursery for the Tots</h3>
-            <p class="ministry-desc">
-              A safe, loving, and clean nursery environment for infants and toddlers during our 10:00 AM Sunday service, allowing parents to worship with peace of mind.
-            </p>
-            <a href="ministries.html#tots-nursery" class="feature-card-link">Learn More →</a>
-          </div>
-        </div>
-
-        <!-- Ministry 2: Sunday School -->
-        <div class="ministry-card">
-          <div class="ministry-media">
-            <img src="assets/images/sunday_school_class.jpg" alt="Sunday School" class="ministry-img">
-          </div>
-          <div class="ministry-body">
-            <span class="badge badge-blue ministry-badge">Adults & Teens</span>
-            <h3 class="ministry-title">Sunday School Classes</h3>
-            <p class="ministry-desc">
-              Classes beginning at 9:00 AM for adults and teens, plus young children's classes at 10:00 AM to establish strong biblical foundations from the King James Bible.
-            </p>
-            <a href="ministries.html#sunday-school" class="feature-card-link">Learn More →</a>
-          </div>
-        </div>
-
-        <!-- Ministry 3: Wednesday Prayer -->
-        <div class="ministry-card">
-          <div class="ministry-media">
-            <img src="assets/images/church_sanctuary_cross.jpg" alt="Wednesday Prayer" class="ministry-img">
-          </div>
-          <div class="ministry-body">
-            <span class="badge badge-kjv ministry-badge">Midweek Study</span>
-            <h3 class="ministry-title">Prayer & Bible Study</h3>
-            <p class="ministry-desc">
-              Every Wednesday at 7:00 PM, our church gathers to bring burdens before the throne of grace and study God's Word chapter-by-chapter and verse-by-verse.
-            </p>
-            <a href="ministries.html#wednesday-study" class="feature-card-link">Learn More →</a>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       9. KJV SCRIPTURE CALLOUT (VERSE OF THE DAY ROTATOR)
-       ========================================================================== -->
-  <section class="section section-dark section-patriotic-strip">
-    <div class="container">
-      <div class="scripture-box">
-        <div class="scripture-quote-icon">
-          <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-        </div>
-        <p class="scripture-verse-text" id="daily-verse-text">
-          "For by grace are ye saved through faith; and that not of yourselves: it is the gift of God: Not of works, lest any man should boast."
-        </p>
-        <div class="scripture-reference" id="daily-verse-ref">
-          <span>📖</span> Ephesians 2:8-9 (KJV)
-        </div>
-        <div style="margin-top: 2rem;">
-          <button id="btn-next-verse" class="btn btn-outline-white btn-sm">
-            Read Another Verse
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       10. INTERACTIVE GIVING & TITHING PORTAL
-       ========================================================================== -->
-  <section class="section bg-light" id="giving">
-    <div class="container">
-      
-      <div class="giving-portal-wrap">
-        <div class="giving-grid">
-          
-          <div>
-            <span class="section-eyebrow">Support God's Work</span>
-            <h2 class="section-title">Faithful Giving to the Lord</h2>
-            <p class="section-subtitle">
-              Your faithful tithes and offerings sustain gospel preaching in Fostoria, support world missions, and maintain our church facilities.
-            </p>
-            <p style="color: var(--gray-600); font-size: 0.95rem;">
-              "Every man according as he purposeth in his heart, so let him give; not grudgingly, or of necessity: for God loveth a cheerful giver." <br>
-              <strong style="color: var(--navy-primary);">— 2 Corinthians 9:7 (KJV)</strong>
-            </p>
-
-            <div style="margin-top: 2rem; background: var(--blue-soft); border-radius: var(--radius-md); padding: 1.25rem;">
-              <h4 style="font-size: 1rem; color: var(--navy-primary); margin-bottom: 0.4rem;">Other Ways to Give:</h4>
-              <p style="font-size: 0.88rem; color: var(--gray-700); margin-bottom: 0.3rem;">
-                • <strong>In Person:</strong> Offering boxes are available during all Sunday & Wednesday services.
+          <div class="belief-statements">
+            <article class="reveal">
+              <h3>The Bible is our foundation.</h3>
+              <p>
+                We are a Bible-believing church and teach from the King James
+                Bible.
               </p>
-              <p style="font-size: 0.88rem; color: var(--gray-700); margin-bottom: 0;">
-                • <strong>By Mail:</strong> Faith Baptist Church, 11275 W. Twp. Rd. 116, Fostoria, OH 44830.
+            </article>
+            <article class="reveal">
+              <h3>The gospel is our message.</h3>
+              <p>
+                Jesus Christ is at the center of our preaching, worship, and
+                life together.
               </p>
+            </article>
+            <article class="reveal">
+              <h3>Prayer shapes our life.</h3>
+              <p>
+                We gather Wednesday evenings to pray and study the Bible
+                together.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section
+        class="ministries section"
+        id="ministries"
+        aria-labelledby="ministries-title"
+      >
+        <div class="shell">
+          <div class="section-heading section-heading--split reveal">
+            <div>
+              <h2 id="ministries-title">Faith for every generation.</h2>
+            </div>
+            <p>
+              From a child's first Bible story to an adult's next step of faith,
+              we grow best when we grow together.
+            </p>
+          </div>
+          <div class="ministry-grid">
+            <article class="ministry-panel ministry-panel--red reveal">
+              <p class="ministry-index">CHILDREN</p>
+              <div aria-hidden="true" class="ministry-icon">★</div>
+              <h3>Little hearts.<br />Big truth.</h3>
+              <p>
+                Young children's Sunday School meets during the 10:00 AM
+                service, with nursery care available for tots.
+              </p>
+              <a href="#visit">Plan a family visit</a>
+            </article>
+            <article class="ministry-panel ministry-panel--photo reveal">
+              <img
+                src="assets/images/church_sanctuary_cross.jpg"
+                width="450"
+                height="600"
+                alt="The pulpit, open Bible, and illuminated cross inside Faith Baptist Church."
+              />
+              <div>
+                <p class="ministry-index">WORSHIP</p>
+                <h3>Gather around<br />the Word.</h3>
+                <p>
+                  Sunday morning and evening services keep Christ and Scripture
+                  at the center.
+                </p>
+              </div>
+            </article>
+            <article class="ministry-panel ministry-panel--blue reveal">
+              <p class="ministry-index">ADULTS & TEENS</p>
+              <div aria-hidden="true" class="ministry-icon">★</div>
+              <h3>Ask. Learn.<br />Grow.</h3>
+              <p>
+                Adults and teens gather for Sunday School at 9:00 AM, with more
+                time for prayer and study Wednesday at 7:00 PM.
+              </p>
+              <a href="#times">See weekly times</a>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="verse" aria-label="Romans 10 verse 17">
+        <div class="verse-photo" aria-hidden="true"></div>
+        <div class="shell verse-inner reveal">
+          <p class="verse-stars" aria-hidden="true">★ ★ ★</p>
+          <blockquote>
+            “So then faith cometh by hearing, and hearing by the word of God.”
+          </blockquote>
+          <cite>Romans 10:17 · KJV</cite>
+        </div>
+      </section>
+      <section class="visit section" id="visit" aria-labelledby="visit-title">
+        <div class="shell visit-grid">
+          <div class="visit-copy reveal">
+            <h2 id="visit-title">Your place is already waiting.</h2>
+            <p>
+              Sunday mornings are a great first step. Join us at 10:00 AM, or
+              come at 9:00 AM for Sunday School for adults and teens.
+            </p>
+            <address>11275 W. Twp. Rd. 116<br />Fostoria, Ohio 44830</address>
+            <div class="visit-actions">
+              <a
+                class="button button-primary"
+                href="https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830"
+                >Open directions</a
+              ><a class="button button-dark" href="tel:+14193482171"
+                >Call the church</a
+              >
             </div>
           </div>
-
-          <!-- Giving Form -->
+          <div class="visit-faq reveal">
+            <h3>First-visit questions</h3>
+            <details>
+              <summary>What time should I arrive?<span>+</span></summary>
+              <p>
+                Arriving a few minutes before the 10:00 AM main service gives
+                you time to come in and find a seat. Sunday School begins at
+                9:00 AM.
+              </p>
+            </details>
+            <details>
+              <summary>Is there something for children?<span>+</span></summary>
+              <p>
+                Young children's Sunday School meets during Sunday programming,
+                and nursery care is available for tots.
+              </p>
+            </details>
+            <details>
+              <summary>What should I wear?<span>+</span></summary>
+              <p>
+                There is no need to overthink it. Wear what helps you come ready
+                to worship and learn.
+              </p>
+            </details>
+            <details>
+              <summary>Can I speak with someone first?<span>+</span></summary>
+              <p>
+                Yes. Call 419-348-2171 and someone from the church can help
+                answer your questions.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+      <section class="closing-cta">
+        <div class="closing-stars" aria-hidden="true">★ ★ ★ ★ ★ ★ ★ ★ ★</div>
+        <div class="shell closing-inner reveal">
+          <p>Sunday is coming.</p>
+          <h2>Come see what God is doing at Faith.</h2>
+          <a class="button button-white" href="#visit">Plan your visit</a>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="shell footer-grid">
+        <div class="footer-brand">
+          <img
+            src="assets/images/fbc_logo.png"
+            width="76"
+            height="76"
+            alt="Faith Baptist Church crest"
+          />
           <div>
-            <form id="church-giving-form" style="background: var(--white-pure); padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-md);">
-              <h3 style="font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 1.25rem; color: var(--navy-primary);">Select Gift Amount</h3>
-              
-              <div class="amount-buttons-grid">
-                <button type="button" class="btn-amount" data-amount="25">$25</button>
-                <button type="button" class="btn-amount active" data-amount="50">$50</button>
-                <button type="button" class="btn-amount" data-amount="100">$100</button>
-                <button type="button" class="btn-amount" data-amount="250">$250</button>
-              </div>
-
-              <div class="custom-amount-wrap">
-                <span class="custom-currency-symbol">$</span>
-                <input type="number" id="giving-custom-amount" class="input-custom-amount" placeholder="Or enter custom amount" min="1" step="any">
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="giving-fund-select">Designated Fund</label>
-                <select id="giving-fund-select" class="form-select">
-                  <option value="general">General Tithes & Offerings</option>
-                  <option value="missions">Faith Promise Missions</option>
-                  <option value="building">Building & Grounds Maintenance</option>
-                  <option value="nursery">Tots Nursery & Children's Ministry</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="giving-frequency-select">Giving Frequency</label>
-                <select id="giving-frequency-select" class="form-select">
-                  <option value="One-Time Gift">One-Time Gift</option>
-                  <option value="Monthly Recurring">Monthly Recurring</option>
-                  <option value="Weekly Recurring">Weekly Recurring</option>
-                </select>
-              </div>
-
-              <button type="submit" id="btn-submit-giving" class="btn btn-red btn-lg" style="width: 100%; margin-top: 0.5rem;">
-                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                Proceed with Secure Gift
-              </button>
-            </form>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       11. PHOTO GALLERY (REAL CHURCH PHOTOS & FELLOWSHIP)
-       ========================================================================== -->
-  <section class="section bg-white" id="gallery">
-    <div class="container">
-      
-      <div class="section-header text-center">
-        <span class="section-eyebrow">Church Life & Campus</span>
-        <h2 class="section-title">A Glimpse of Faith Baptist</h2>
-        <p class="section-subtitle">
-          Our church home on Township Road 116 in Fostoria, Ohio.
-        </p>
-      </div>
-
-      <div class="gallery-grid">
-        <div class="gallery-item">
-          <img src="assets/images/church_exterior_front.jpg" alt="Church Exterior Front View" class="gallery-img">
-          <div class="gallery-overlay">
-            <span class="gallery-title">Faith Baptist Church Exterior</span>
+            <strong>Faith Baptist Church</strong>
+            <p>Bible believing. Gospel driven.</p>
           </div>
         </div>
-
-        <div class="gallery-item">
-          <img src="assets/images/church_sanctuary_cross.jpg" alt="Sanctuary and Wooden Cross" class="gallery-img">
-          <div class="gallery-overlay">
-            <span class="gallery-title">Sanctuary & Cross</span>
-          </div>
-        </div>
-
-        <div class="gallery-item">
-          <img src="assets/images/church_exterior_sign.jpg" alt="Church Welcome Sign on Township Road" class="gallery-img">
-          <div class="gallery-overlay">
-            <span class="gallery-title">Church Welcome Sign</span>
-          </div>
-        </div>
-
-        <div class="gallery-item">
-          <img src="assets/images/fellowship_family.jpg" alt="Church Fellowship Gathering" class="gallery-img">
-          <div class="gallery-overlay">
-            <span class="gallery-title">Church Family Fellowship</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       12. CONFIDENTIAL PRAYER REQUEST & CONNECT CARD
-       ========================================================================== -->
-  <section class="section bg-light section-patriotic-strip" id="prayer">
-    <div class="container container-narrow">
-      
-      <div class="card" style="padding: 3rem;">
-        <div class="section-header text-center" style="margin-bottom: 2rem;">
-          <span class="section-eyebrow">How Can We Pray For You?</span>
-          <h2 class="section-title">Confidential Prayer Desk</h2>
-          <p class="section-subtitle">
-            Our Pastor and prayer team lift up requests every Wednesday at 7:00 PM.
-          </p>
-        </div>
-
-        <form id="prayer-request-form">
-          <div class="grid-2">
-            <div class="form-group">
-              <label class="form-label" for="prayer-name">Your Name (Optional)</label>
-              <input type="text" id="prayer-name" class="form-input" placeholder="e.g. John Doe or leave blank for anonymous">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="prayer-email">Email or Phone (Optional)</label>
-              <input type="text" id="prayer-email" class="form-input" placeholder="For pastor to follow up">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="prayer-text">Your Prayer Request *</label>
-            <textarea id="prayer-text" class="form-textarea" rows="4" placeholder="Share your burden or praise report with us..." required></textarea>
-          </div>
-
-          <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem;">
-            <input type="checkbox" id="prayer-confidential" style="width: 18px; height: 18px;">
-            <label for="prayer-confidential" style="font-size: 0.9rem; color: var(--gray-700);">
-              Keep this request strictly confidential (Pastor David Miller only)
-            </label>
-          </div>
-
-          <button type="submit" class="btn btn-navy btn-lg" style="width: 100%; margin-top: 1rem;">
-            Submit Prayer Request
-          </button>
-        </form>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       13. 4-COLUMN RICH FOOTER (PATRIOTIC USA TRIM)
-       ========================================================================== -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        
-        <!-- Column 1: Brand Info -->
         <div>
-          <img src="assets/images/fbc_logo.png" alt="Faith Baptist Church Logo" class="footer-logo-img">
-          <div class="footer-brand-title">Faith <span>Baptist</span> Church</div>
-          <p class="footer-text">
-            A Bible-believing, Gospel-driven local church in Fostoria, Ohio anchored in the King James Bible. Loving ministries for adults, teens, children, and nursery for tots.
-          </p>
-          <div class="footer-social-links">
-            <a href="#" class="social-icon-btn" aria-label="Facebook">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
-            <a href="#" class="social-icon-btn" aria-label="YouTube">
-              <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            </a>
-            <a href="#" class="social-icon-btn" aria-label="Audio Podcast">
-              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 100-6 3 3 0 000 6z"/></svg>
-            </a>
-          </div>
+          <h2>Gather with us</h2>
+          <p>Sunday 9:00 AM, 10:00 AM & 6:00 PM<br />Wednesday 7:00 PM</p>
         </div>
-
-        <!-- Column 2: Quick Links -->
         <div>
-          <h4 class="footer-col-title">Navigation</h4>
-          <ul class="footer-links-list">
-            <li><a href="about.html" class="footer-link">About Our Church</a></li>
-            <li><a href="ministries.html" class="footer-link">Ministries & Tots Nursery</a></li>
-            <li><a href="sermons.html" class="footer-link">Sermon Audio Library</a></li>
-            <li><a href="events.html" class="footer-link">Calendar & Events</a></li>
-            <li><a href="give.html" class="footer-link">Online Giving</a></li>
-            <li><a href="visit.html" class="footer-link">First Time Visitor Info</a></li>
-          </ul>
-        </div>
-
-        <!-- Column 3: Service Schedule -->
-        <div>
-          <h4 class="footer-col-title">Service Times</h4>
-          <div class="footer-schedule-row">
-            <span class="footer-schedule-day">Sunday School</span>
-            <span class="footer-schedule-time">9:00 AM</span>
-          </div>
-          <div class="footer-schedule-row">
-            <span class="footer-schedule-day">Morning Worship</span>
-            <span class="footer-schedule-time">10:00 AM</span>
-          </div>
-          <div class="footer-schedule-row">
-            <span class="footer-schedule-day">Sunday Evening</span>
-            <span class="footer-schedule-time">6:00 PM</span>
-          </div>
-          <div class="footer-schedule-row">
-            <span class="footer-schedule-day">Wednesday Prayer</span>
-            <span class="footer-schedule-time">7:00 PM</span>
-          </div>
-        </div>
-
-        <!-- Column 4: Contact & Directions -->
-        <div>
-          <h4 class="footer-col-title">Church Office</h4>
-          <div class="footer-contact-item">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            <span>11275 W. Twp. Rd. 116<br>Fostoria, Ohio 44830</span>
-          </div>
-          <div class="footer-contact-item">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-            <a href="tel:4193482171">(419) 348-2171</a>
-          </div>
-          <div style="margin-top: 1rem;">
-            <a href="https://maps.google.com/?q=11275+W+Twp+Rd+116+Fostoria+OH+44830" target="_blank" rel="noopener noreferrer" class="btn btn-outline-white btn-sm" style="width: 100%;">
-              Open in Google Maps
-            </a>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Bottom Bar -->
-      <div class="footer-bottom-bar">
-        <div class="footer-bottom-inner">
-          <div>
-            © <span class="current-year">2026</span> Faith Baptist Church. All Rights Reserved. Fostoria, Ohio.
-          </div>
-          <div class="usa-faith-stamp">
-            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            <span>Bible Believing • Gospel Driven • USA</span>
-          </div>
+          <h2>Find us</h2>
+          <p>11275 W. Twp. Rd. 116<br />Fostoria, OH 44830</p>
+          <a href="tel:+14193482171">419-348-2171</a>
         </div>
       </div>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="js/main.js"></script>
-  <script src="js/sermon-player.js"></script>
-  <script src="js/events-calendar.js"></script>
-  <script src="js/interactive-giving.js"></script>
-  <script src="js/visit-planner.js"></script>
-</body>
+      <div class="shell footer-bottom">
+        <p>© <span id="year"></span> Faith Baptist Church</p>
+        <a href="#top">Back to top</a>
+      </div>
+    </footer>
+  </body>
 </html>
