@@ -20,7 +20,10 @@ const files = [
   'assets/images/fbc_logo.png',
   'assets/images/793a0944-867c-4811-85da-ecd4b9fbdb78.jpg',
   'assets/images/church_exterior_front.jpg',
-  'assets/images/church_sanctuary_cross.jpg'
+  'assets/images/church_sanctuary_cross.jpg',
+  'assets/fonts/Rokkitt-Variable.ttf',
+  'assets/fonts/Rokkitt-Italic-Variable.ttf',
+  'assets/fonts/OFL-Rokkitt.txt'
 ];
 
 await rm('dist', { recursive: true, force: true });

@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-30T00:43:15Z",
+  "title": "Design System: Faith Baptist Church - Faith in the Heartland",
+  "extensions": {
+    "colorMeta": {
+      "primary-red": { "role": "primary", "displayName": "Flag Red", "tonalRamp": ["oklch(22% 0.09 25)", "oklch(31% 0.13 25)", "oklch(40% 0.17 25)", "oklch(49% 0.20 25)", "oklch(59% 0.18 25)", "oklch(70% 0.14 25)", "oklch(82% 0.08 25)", "oklch(94% 0.03 25)"] },
+      "primary-red-dark": { "role": "primary", "displayName": "Flag Red Deep", "tonalRamp": ["oklch(18% 0.08 25)", "oklch(26% 0.11 25)", "oklch(34% 0.14 25)", "oklch(42% 0.17 25)", "oklch(53% 0.16 25)", "oklch(66% 0.12 25)", "oklch(80% 0.07 25)", "oklch(94% 0.025 25)"] },
+      "procession-blue": { "role": "secondary", "displayName": "Procession Blue", "tonalRamp": ["oklch(20% 0.08 255)", "oklch(29% 0.12 255)", "oklch(39% 0.16 255)", "oklch(49% 0.19 255)", "oklch(60% 0.17 255)", "oklch(72% 0.13 255)", "oklch(84% 0.07 255)", "oklch(95% 0.025 255)"] },
+      "heartland-navy": { "role": "secondary", "displayName": "Heartland Navy", "tonalRamp": ["oklch(15% 0.035 250)", "oklch(22% 0.05 250)", "oklch(31% 0.065 250)", "oklch(41% 0.07 250)", "oklch(54% 0.065 250)", "oklch(68% 0.05 250)", "oklch(82% 0.03 250)", "oklch(95% 0.01 250)"] },
+      "heartland-navy-bright": { "role": "secondary", "displayName": "Heartland Navy Bright", "tonalRamp": ["oklch(17% 0.045 250)", "oklch(25% 0.065 250)", "oklch(34% 0.085 250)", "oklch(44% 0.095 250)", "oklch(56% 0.085 250)", "oklch(69% 0.06 250)", "oklch(83% 0.035 250)", "oklch(95% 0.012 250)"] },
+      "bright-white": { "role": "neutral", "displayName": "Bright White", "tonalRamp": ["oklch(15% 0 0)", "oklch(28% 0 0)", "oklch(41% 0 0)", "oklch(54% 0 0)", "oklch(67% 0 0)", "oklch(79% 0 0)", "oklch(90% 0 0)", "oklch(100% 0 0)"] },
+      "morning-mist": { "role": "neutral", "displayName": "Morning Mist", "tonalRamp": ["oklch(16% 0.006 250)", "oklch(29% 0.008 250)", "oklch(42% 0.01 250)", "oklch(55% 0.012 250)", "oklch(68% 0.012 250)", "oklch(80% 0.011 250)", "oklch(90% 0.009 250)", "oklch(96% 0.007 250)"] },
+      "rule-line": { "role": "neutral", "displayName": "Rule Line", "tonalRamp": ["oklch(16% 0.01 250)", "oklch(28% 0.013 250)", "oklch(40% 0.016 250)", "oklch(52% 0.018 250)", "oklch(64% 0.019 250)", "oklch(76% 0.018 250)", "oklch(85% 0.016 250)", "oklch(94% 0.01 250)"] },
+      "scripture-ink": { "role": "neutral", "displayName": "Scripture Ink", "tonalRamp": ["oklch(15% 0.025 250)", "oklch(23% 0.032 250)", "oklch(32% 0.038 250)", "oklch(43% 0.04 250)", "oklch(56% 0.036 250)", "oklch(69% 0.027 250)", "oklch(83% 0.016 250)", "oklch(95% 0.006 250)"] },
+      "neighbor-muted": { "role": "neutral", "displayName": "Neighbor Muted", "tonalRamp": ["oklch(16% 0.02 250)", "oklch(27% 0.028 250)", "oklch(39% 0.034 250)", "oklch(51% 0.036 250)", "oklch(63% 0.032 250)", "oklch(75% 0.024 250)", "oklch(86% 0.014 250)", "oklch(95% 0.006 250)"] },
+      "focus-blue": { "role": "secondary", "displayName": "Focus Blue", "tonalRamp": ["oklch(20% 0.07 255)", "oklch(30% 0.10 255)", "oklch(41% 0.13 255)", "oklch(53% 0.15 255)", "oklch(65% 0.14 255)", "oklch(76% 0.11 255)", "oklch(86% 0.07 255)", "oklch(95% 0.025 255)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Civic Display", "purpose": "Hero declarations and primary visitor calls." },
+      "headline": { "displayName": "Procession Headline", "purpose": "Major section openings and tonal handoffs." },
+      "title": { "displayName": "Slab Title", "purpose": "Schedule, belief, address, and component titles." },
+      "body": { "displayName": "Neighbor Body", "purpose": "Practical visitor guidance and supporting detail." },
+      "label": { "displayName": "Route Label", "purpose": "Times, locations, sequence numbers, and proof metadata." }
+    },
+    "shadows": [
+      { "name": "crest-lift", "value": "drop-shadow(0 8px 16px rgb(7 28 56 / 22%))", "purpose": "The sole persistent decorative lift, bridging the crest across white and navy hero fields." }
+    ],
+    "motion": [
+      { "name": "procession-arrival", "value": "rail 1s cubic-bezier(.2,.8,.2,1); crest .8s cubic-bezier(.2,.8,.2,1)", "purpose": "One coordinated hero entrance: the star rail draws across while the crest settles into place." },
+      { "name": "state-fast", "value": ".2s ease", "purpose": "Menu, authored toggle, and compact state transitions." },
+      { "name": "signal-step", "value": "1.8s steps(2, end) infinite", "purpose": "Small next-gathering status signal only." },
+      { "name": "reduced-motion", "value": ".01ms 1", "purpose": "Makes animation and transition completion effectively immediate when reduced motion is requested." }
+    ],
+    "breakpoints": [
+      { "name": "compact-desktop", "value": "1080px" },
+      { "name": "single-column", "value": "860px" },
+      { "name": "phone", "value": "560px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Visit Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The dominant hard-edged visit action with an authored directional arrow.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Plan your first visit <span class=\"ds-arrow\" aria-hidden=\"true\"></span></a>",
+      "css": ".ds-btn-primary { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 22px; padding: 0 21px; color: var(--white); background: var(--red); border: 2px solid var(--red); font: 900 13px/1 var(--sans); letter-spacing: .02em; text-decoration: none; transition: background .2s ease, border-color .2s ease; } .ds-btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); } .ds-btn-primary:focus-visible { outline: 3px solid #73a8ff; outline-offset: 4px; } .ds-arrow { position: relative; width: 18px; height: 12px; } .ds-arrow::before { content: ''; position: absolute; top: 5px; left: 0; width: 16px; height: 2px; background: currentColor; } .ds-arrow::after { content: ''; position: absolute; top: 2px; right: 0; width: 6px; height: 6px; border-top: 2px solid currentColor; border-right: 2px solid currentColor; transform: rotate(45deg); }"
+    },
+    {
+      "name": "Desktop Navigation",
+      "kind": "nav",
+      "description": "Compact practical links ending in a hard navy visit action.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Preview navigation\"><a href=\"#\">Welcome</a><a href=\"#\">Beliefs</a><a class=\"ds-nav-cta\" href=\"#\">Plan Your Visit <span aria-hidden=\"true\">→</span></a></nav>",
+      "css": ".ds-nav { min-height: 88px; display: flex; align-items: center; justify-content: flex-end; gap: 27px; padding: 0 24px; color: var(--navy); background: var(--white); border-bottom: 1px solid var(--line); font: 800 13px/1 var(--sans); } .ds-nav a { min-height: 44px; display: inline-flex; align-items: center; color: inherit; border-bottom: 2px solid transparent; text-decoration: none; } .ds-nav a:hover { border-color: var(--red); } .ds-nav a:focus-visible { outline: 3px solid #73a8ff; outline-offset: 4px; } .ds-nav .ds-nav-cta { min-height: 46px; gap: 18px; padding: 0 18px; color: var(--white); background: var(--navy); border: 0; } .ds-nav-cta span { color: #85b7ff; font-size: 20px; }"
+    },
+    {
+      "name": "Sunday Arrival Ticket",
+      "kind": "card",
+      "refersTo": "sunday-ticket",
+      "description": "The first-viewport red ticket for Sunday time and directions.",
+      "html": "<aside class=\"ds-ticket\"><p>Join us this Sunday</p><strong>10:00 <small>AM</small></strong><span>Main worship service</span><a href=\"#\">Get directions</a></aside>",
+      "css": ".ds-ticket { position: relative; width: 290px; padding: 22px 25px; color: var(--white); background: var(--red); font-family: var(--sans); } .ds-ticket::before { content: ''; position: absolute; inset: 0 auto 0 -8px; width: 8px; background: var(--white); } .ds-ticket p, .ds-ticket > span { display: block; margin: 0; font-size: 10px; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; } .ds-ticket strong { display: block; margin: 4px 0 2px; font: 700 48px/.95 var(--display); letter-spacing: -.04em; } .ds-ticket strong small { font: 900 13px/1 var(--sans); letter-spacing: .08em; } .ds-ticket a { min-height: 44px; display: inline-flex; align-items: center; margin-top: 4px; color: inherit; font-size: 12px; font-weight: 900; text-underline-offset: 4px; } .ds-ticket a:focus-visible { outline: 3px solid #73a8ff; outline-offset: 4px; }"
+    },
+    {
+      "name": "Ruled Schedule Row",
+      "kind": "custom",
+      "description": "A full-width gathering row that keeps time, service, context, and sequence on one rule.",
+      "html": "<div class=\"ds-schedule\"><div class=\"ds-schedule-day\"><strong>Sunday</strong><small>Three ways to gather</small></div><div class=\"ds-schedule-row\"><time>10:00 <small>AM</small></time><p><strong>Main Service</strong><span>Children's Sunday School and nursery</span></p><b>02</b></div></div>",
+      "css": ".ds-schedule { color: var(--white); background: var(--navy); border-top: 1px solid rgb(255 255 255 / 35%); font-family: var(--sans); } .ds-schedule-day { min-height: 62px; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; background: var(--blue); } .ds-schedule-day strong { font: 700 23px/1 var(--display); } .ds-schedule-day small { font-size: 9px; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; } .ds-schedule-row { min-height: 120px; display: grid; grid-template-columns: 180px 1fr 42px; align-items: center; gap: 24px; padding: 17px 18px; border-bottom: 1px solid rgb(255 255 255 / 28%); } .ds-schedule-row time { font: 700 46px/1 var(--display); letter-spacing: -.04em; } .ds-schedule-row time small { font: 900 11px/1 var(--sans); } .ds-schedule-row p { display: grid; gap: 7px; margin: 0; } .ds-schedule-row p strong { font-size: 18px; } .ds-schedule-row p span { color: #b7c7da; font-size: 13px; } .ds-schedule-row b { color: #6f8299; font-size: 10px; letter-spacing: .1em; }"
+    },
+    {
+      "name": "Family Band",
+      "kind": "custom",
+      "description": "A ruled, full-width family pathway rather than an isolated ministry card.",
+      "html": "<section class=\"ds-family-band\"><strong aria-hidden=\"true\">01</strong><div><p>Young children &amp; tots</p><h3>Little hearts. Big truth.</h3></div><p>Young children's Sunday School meets during Sunday programming.</p><a href=\"#\">Plan a family visit →</a></section>",
+      "css": ".ds-family-band { min-height: 220px; display: grid; grid-template-columns: 100px 1.05fr 1fr 190px; align-items: center; gap: 34px; color: var(--white); background: var(--red); border-top: 1px solid currentColor; font-family: var(--sans); } .ds-family-band > strong { align-self: stretch; display: grid; place-items: center; font: 700 70px/1 var(--display); border-inline: 1px solid currentColor; opacity: .25; } .ds-family-band div > p { margin: 0 0 12px; font-size: 10px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; } .ds-family-band h3 { margin: 0; font: 700 36px/1 var(--display); letter-spacing: -.035em; } .ds-family-band > p { max-width: 470px; margin: 0; font-size: 14px; line-height: 1.7; } .ds-family-band a { min-height: 44px; display: inline-flex; align-items: center; color: inherit; font-size: 12px; font-weight: 900; text-underline-offset: 5px; } .ds-family-band a:focus-visible { outline: 3px solid #73a8ff; outline-offset: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Faith in the Heartland",
+    "overview": "Faith moves through Fostoria like a Main Street procession. The system replaces the expected dark church hero and stacked-card template with daylight, hard civic banners, ruled information, and real local photography. It should feel immediate and neighborly: public enough to read from across the street, warm enough to make a first Sunday feel manageable.\n\nThe visual world belongs to the supplied crest and the church's actual place. Flag red, clear navy, procession blue, and bright white create American energy without political or military cues. Civic-scale Rokkitt headlines carry the public-square voice; a quiet system sans keeps practical details effortless to scan.",
+    "keyCharacteristics": [
+      "Hard-edged red, navy, blue, and white fields arranged as a continuous procession.",
+      "Monumental Rokkitt headlines paired with plain, high-clarity service information.",
+      "Real church photography, the supplied crest, ruled schedules, and numbered family bands as proof-bearing structure.",
+      "Flat, daylight presentation with one coordinated crest-and-star-rail entrance.",
+      "Clear visit actions and content that remains available before animation or scripting completes."
+    ],
+    "rules": [
+      { "name": "The Daylight Americana Rule", "body": "American character comes from clear red, white, and blue structure, never sepia, distressed flags, gold, camouflage, or political imagery.", "section": "colors" },
+      { "name": "The Red Declaration Rule", "body": "Use red for action, arrival, and conviction, not for long paragraphs.", "section": "colors" },
+      { "name": "The Civic Scale Rule", "body": "Let Rokkitt carry public declarations and numbers; keep logistics in the system sans so spectacle never slows comprehension.", "section": "typography" },
+      { "name": "The Tight Headline Rule", "body": "Display lines use compressed leading and tracking, but body copy keeps generous leading and conventional spacing.", "section": "typography" },
+      { "name": "The Procession Rule", "body": "Sections should connect through rules, bands, stripes, route marks, and tonal handoffs rather than isolated floating containers.", "section": "layout" },
+      { "name": "The Flat Street Rule", "body": "Do not solve hierarchy with card shadows. Use hard edges, tonal fields, rules, and overlap first.", "section": "elevation" },
+      { "name": "The Hard Edge Rule", "body": "Rounded cards and pill controls do not belong in this world; a circle must communicate a signal, marker, or supplied identity.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do use real exterior and sanctuary photography plus the supplied crest as the visual evidence.",
+      "Do preserve Plan Your Visit as the dominant action and keep Sunday time, directions, and phone access easy to reach.",
+      "Do build rhythm with hard tonal bands, ruled schedules, family rows, stars, stripes, and route marks.",
+      "Do keep the red, white, and blue identity welcoming, nonpartisan, and centered on faith.",
+      "Do preserve 44px targets, visible focus, reduced-motion support, semantic structure, and content visible by default."
+    ],
+    "donts": [
+      "Don't return to a dark photographic church hero or a generic stack of rounded cards.",
+      "Don't add gold, sepia, distressed flag textures, military motifs, political messaging, gradients, or decorative glass effects.",
+      "Don't introduce extra decorative shadows; only the crest receives persistent lift.",
+      "Don't hide essential visitor information behind motion, hover, carousels, or closed-only interactions.",
+      "Don't replace the ruled schedule or family bands with disconnected tiles."
+    ]
+  }
+}

@@ -1,165 +1,252 @@
 ---
 version: alpha
-name: Faith Baptist Church Americana Editorial
-description: A bold, welcoming American-inspired church website grounded in real church photography and clear visitor pathways.
+name: Faith Baptist Church - Faith in the Heartland
+description: A bright Main Street procession of local faith, clear Sunday guidance, and civic-scale welcome.
 colors:
-  primary: "#C41F2C"
-  navy-deep: "#04152B"
-  navy: "#071C38"
-  navy-bright: "#0A2D59"
-  navy-mid: "#13477F"
-  red-dark: "#9F111C"
-  red: "#C41F2C"
-  red-bright: "#E12B38"
-  blue: "#2366C6"
-  cream: "#F7F4EE"
-  white: "#FFFFFF"
-  text: "#102033"
-  muted: "#596779"
-  border: "#CCD3DB"
-  surface-muted: "#EDF0F3"
-  focus: "#73A8FF"
+  primary-red: "#c41f2c"
+  primary-red-dark: "#9f111c"
+  procession-blue: "#2366c6"
+  heartland-navy: "#071c38"
+  heartland-navy-bright: "#123f72"
+  bright-white: "#fff"
+  morning-mist: "#edf2f7"
+  rule-line: "#cbd4df"
+  scripture-ink: "#102033"
+  neighbor-muted: "#556579"
+  focus-blue: "#73a8ff"
 typography:
   display:
-    fontFamily: Georgia
-    fontSize: 72px
+    fontFamily: '"Rokkitt", Georgia, serif'
+    fontSize: "clamp(59px, 6.4vw, 102px)"
     fontWeight: 700
-    lineHeight: 0.98
-    letterSpacing: -2px
-  heading:
-    fontFamily: Georgia
-    fontSize: 48px
+    lineHeight: 0.87
+    letterSpacing: "-0.04em"
+  headline:
+    fontFamily: '"Rokkitt", Georgia, serif'
+    fontSize: "clamp(50px, 5.2vw, 78px)"
     fontWeight: 700
-    lineHeight: 1
-    letterSpacing: -1px
+    lineHeight: 0.91
+    letterSpacing: "-0.04em"
+  title:
+    fontFamily: '"Rokkitt", Georgia, serif'
+    fontSize: "23px"
+    fontWeight: 700
+    lineHeight: 1.1
+    letterSpacing: "normal"
   body:
-    fontFamily: system-ui
-    fontSize: 16px
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", Helvetica, Arial, sans-serif'
+    fontSize: "16px"
     fontWeight: 400
-    lineHeight: 1.7
-    letterSpacing: 0px
-  scale:
-    micro: 8px
-    fine: 9px
-    overline: 10px
-    label-small: 11px
-    label: 12px
-    caption: 13px
-    body-small: 14px
-    body-compact: 15px
-    body: 16px
-    body-large: 17px
-    lead-small: 18px
-    lead: 19px
-    nav: 20px
-    address: 23px
-    subheading-small: 24px
-    subheading: 25px
-    subheading-large: 26px
-    card-title-small: 28px
-    card-title: 29px
-    faq-title-small: 30px
-    faq-title: 31px
-    mobile-title: 34px
-    display-xs-fluid-min: 37px
-    time-small: 38px
-    quote-fluid-min: 39px
-    display-mobile: 40px
-    display-compact: 42px
-    cta-fluid-min: 43px
-    display-medium: 46px
-    heading: 48px
-    manifesto-fluid-min: 50px
-    mobile-hero-fluid-min: 52px
-    card-fluid-max: 53px
-    time: 58px
-    hero-fluid-min: 62px
-    cta-fluid-max: 66px
-    quote-fluid-max: 74px
-    manifesto-fluid-max: 76px
-    hero-fluid-max: 96px
-spacing:
-  xs: 4px
-  sm: 8px
-  md: 16px
-  lg: 24px
-  xl: 48px
-  section: 120px
+    lineHeight: 1.75
+    letterSpacing: "normal"
+  label:
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI Variable Text", "Segoe UI", Helvetica, Arial, sans-serif'
+    fontSize: "10px"
+    fontWeight: 900
+    lineHeight: 1
+    letterSpacing: "0.13em"
 rounded:
-  small: 4px
-  medium: 6px
-  circle: 50%
-  pill: 999px
+  square: "0px"
+  circle: "50%"
+spacing:
+  xs: "8px"
+  sm: "12px"
+  md: "18px"
+  lg: "24px"
+  gutter-mobile: "14px"
+  gutter-tablet: "20px"
+  gutter-desktop: "28px"
+  target: "44px"
+  section: "120px"
 components:
   button-primary:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.white}"
-    rounded: "{rounded.small}"
-    padding: 16px
-  button-dark:
-    backgroundColor: "{colors.navy}"
-    textColor: "{colors.white}"
-    rounded: "{rounded.small}"
-    padding: 16px
-  page:
-    backgroundColor: "{colors.white}"
-    textColor: "{colors.text}"
-    borderColor: "{colors.border}"
-  section-dark:
-    backgroundColor: "{colors.navy-deep}"
-    textColor: "{colors.white}"
-  section-light:
-    backgroundColor: "{colors.cream}"
-    textColor: "{colors.muted}"
-  routine-link:
-    textColor: "{colors.blue}"
+    backgroundColor: "{colors.primary-red}"
+    textColor: "{colors.bright-white}"
+    typography: "{typography.label}"
+    rounded: "{rounded.square}"
+    padding: "0 21px"
+    height: "52px"
+  button-primary-hover:
+    backgroundColor: "{colors.primary-red-dark}"
+    textColor: "{colors.bright-white}"
+    rounded: "{rounded.square}"
+  button-white:
+    backgroundColor: "{colors.bright-white}"
+    textColor: "{colors.heartland-navy}"
+    typography: "{typography.label}"
+    rounded: "{rounded.square}"
+    padding: "0 21px"
+    height: "52px"
+  button-outline:
+    backgroundColor: "transparent"
+    textColor: "{colors.heartland-navy}"
+    typography: "{typography.label}"
+    rounded: "{rounded.square}"
+    padding: "0 21px"
+    height: "52px"
+  sunday-ticket:
+    backgroundColor: "{colors.primary-red}"
+    textColor: "{colors.bright-white}"
+    rounded: "{rounded.square}"
+    padding: "22px 25px"
+    width: "290px"
+  schedule-day:
+    backgroundColor: "{colors.procession-blue}"
+    textColor: "{colors.bright-white}"
+    rounded: "{rounded.square}"
+    padding: "0 18px"
+    height: "62px"
 ---
+
+# Design System: Faith Baptist Church - Faith in the Heartland
 
 ## Overview
 
-Faith Baptist Church uses an Americana editorial system rather than a generic church template. The American influence comes from flag-red, deep navy, clean white bands, star fields, stripe geometry, and confident civic-poster scale. It should feel spirited and welcoming, never partisan, military, novelty-themed, or cluttered.
+**Creative North Star: "Faith in the Heartland"**
 
-Design variance is 9/10, motion intensity is 7/10, and visual density is 8/10. Motion supports energy and orientation, and all essential content remains available when motion is reduced.
+Faith moves through Fostoria like a Main Street procession. The system replaces the expected dark church hero and stacked-card template with daylight, hard civic banners, ruled information, and real local photography. It should feel immediate and neighborly: public enough to read from across the street, warm enough to make a first Sunday feel manageable.
+
+The visual world belongs to the supplied crest and the church's actual place. Flag red, clear navy, procession blue, and bright white create American energy without political or military cues. Civic-scale Rokkitt headlines carry the public-square voice; a quiet system sans keeps practical details effortless to scan.
+
+**Key Characteristics:**
+
+- Hard-edged red, navy, blue, and white fields arranged as a continuous procession.
+- Monumental Rokkitt headlines paired with plain, high-clarity service information.
+- Real church photography, the supplied crest, ruled schedules, and numbered family bands as proof-bearing structure.
+- Flat, daylight presentation with one coordinated crest-and-star-rail entrance.
+- Clear visit actions and content that remains available before animation or scripting completes.
 
 ## Colors
 
-Deep navy is the stage for hero, beliefs, and footer sections. Red is the primary identity and conversion color. Blue is a supporting stripe and interaction accent. White and cream create breathing room between high-energy sections. Do not introduce gold, tan, orange, or faded vintage colors.
+The palette is bright, civic, and literal: flag colors create orientation and momentum, while cool neutrals protect readability.
 
-All body copy must meet WCAG AA contrast. Red should not be used for long paragraphs. White text on red is reserved for large type and strong controls.
+### Primary
+
+- **Flag Red:** The conversion and declaration color for primary actions, Sunday tickets, conviction fields, and emphatic type. Its darker state is reserved for interaction feedback.
+
+### Secondary
+
+- **Procession Blue:** The public-facing blue for star rails, schedule headers, route markers, and the closing field.
+- **Heartland Navy:** The grounding color for navigation actions, schedule stages, footer fields, headings, and strong outlines. The brighter navy is available for controlled tonal variation.
+
+### Neutral
+
+- **Bright White:** The primary daylight canvas, inverse text, and hard photo frame.
+- **Morning Mist:** The cool off-white field behind quieter procession sections.
+- **Scripture Ink:** The strongest long-form text on light surfaces.
+- **Neighbor Muted:** Supporting copy that should remain calm but readable.
+- **Rule Line:** Dividers, schedule rules, arrival steps, and structural boundaries.
+- **Focus Blue:** The global keyboard focus outline.
+
+### Named Rules
+
+**The Daylight Americana Rule.** American character comes from clear red, white, and blue structure, never sepia, distressed flags, gold, camouflage, or political imagery.
+
+**The Red Declaration Rule.** Use red for action, arrival, and conviction, not for long paragraphs.
 
 ## Typography
 
-Georgia supplies the editorial, church-bulletin character for major headings and numbers. The system sans-serif stack handles navigation, body copy, labels, schedules, and controls. Hero type may use outlined white text for one short line only. Keep body copy between 15px and 19px with generous line height.
+**Display Font:** Rokkitt variable, self-hosted, with Georgia and serif fallbacks
+
+**Body Font:** System sans, beginning with Apple and Segoe UI variable faces
+
+**Italic Display:** Rokkitt Italic variable, self-hosted
+
+**Character:** Rokkitt brings the sturdy, open character of a civic handbill or Main Street marquee without becoming nostalgic costume. The system sans makes times, directions, navigation, labels, and body copy feel current and immediately usable.
+
+### Hierarchy
+
+- **Display** (700, fluid civic scale, very tight line-height): Hero statements and the largest visitor calls. Preserve short lines and deliberate breaks.
+- **Headline** (700, fluid section scale, tight line-height): Major section openings and procession transitions.
+- **Title** (700, compact slab scale): Schedule labels, belief headings, addresses, and component titles.
+- **Body** (400, 16px base, 1.75 line-height): Practical visitor guidance, with long disclosure copy capped near 65 characters.
+- **Label** (900, 10px base, wide tracking, uppercase): Locations, proof points, schedule metadata, chapter numbers, and route signals.
+
+### Named Rules
+
+**The Civic Scale Rule.** Let Rokkitt carry public declarations and numbers; keep logistics in the system sans so spectacle never slows comprehension.
+
+**The Tight Headline Rule.** Display lines use compressed leading and tracking, but body copy keeps generous leading and conventional spacing.
 
 ## Layout
 
-Use a maximum 1180px content shell with 24px desktop gutters and 14px phone gutters. Desktop sections may use asymmetric 55/45 or 40/60 compositions. Mobile is its own single-column composition, with a 2-by-2 service-time grid and full-width ministry panels.
+The primary content shell is capped at 1220px with 28px gutters on large screens. The page advances as a procession rather than a stack of cards: asymmetric hero and schedule grids, full-width tonal bands, a split photographic welcome, a scripture window, ruled family rows, and a focused visit destination. Major sections typically use a 120px vertical rhythm.
 
-The page should alternate visual pace: immersive hero, compact time ribbon, light narrative section, structured journey, dark beliefs manifesto, high-color ministries, photographic verse pause, and focused visitor conversion.
+At 1080px, the shell contracts to a 940px maximum with 20px gutters and complex grids simplify. At 860px, navigation becomes a full-screen menu and primary two-column sections become single-column. At 560px, gutters become 14px, actions stack, headlines are recalibrated, and dense schedule and family grids shed secondary columns rather than overflow.
+
+All interactive targets are at least 44px tall. Content is visible by default; responsive and script-enhanced states may reorganize it, but must not make reading dependent on animation.
+
+**The Procession Rule.** Sections should connect through rules, bands, stripes, route marks, and tonal handoffs rather than isolated floating containers.
 
 ## Elevation & Depth
 
-The design is primarily flat. Shadows are limited to the Sunday information card, overlapping photography, and other elements that visibly occupy a separate layer. Persistent navigation uses a soft shadow only after it becomes sticky.
+The system is flat and tonal. White frames, color changes, borders, overlap, and photographic scale establish depth. The crest is the only decorative element with a persistent drop shadow, giving the supplied identity a physical bridge between the white copy field and navy photo stage. A stuck header may use a faint temporary shadow only to clarify its scrolling layer; resting content surfaces stay shadowless.
+
+### Shadow Vocabulary
+
+- **Crest Lift:** A compact navy-tinted drop shadow gives the crest enough separation to bridge contrasting fields.
+
+### Named Rules
+
+**The Flat Street Rule.** Do not solve hierarchy with card shadows. Use hard edges, tonal fields, rules, and overlap first.
 
 ## Shapes
 
-Controls use a compact 4px radius. Content panels and photographs stay square. Circles are reserved for the FBC location seal, logo, and live indicator. Stripes may use slight skew or rotation as an American flag reference.
+The dominant form is square and architectural. Buttons, tickets, photographs, banners, schedules, bands, and content fields use hard corners. Hairline rules and occasional heavier top rules create the visual cadence of a posted civic schedule. Circles are exceptions reserved for small signals and the route star marker; the crest keeps its supplied silhouette.
+
+CSS-authored arrows and disclosure marks use straight two-pixel strokes. They inherit the active color and rotate when direction or state changes, preserving the same utilitarian sign-system language without external icon dependencies.
+
+**The Hard Edge Rule.** Rounded cards and pill controls do not belong in this world; a circle must communicate a signal, marker, or supplied identity.
 
 ## Components
 
-The header begins transparent over the hero and becomes a white sticky bar after scrolling. The red gathering bar always provides the calculated next service. Primary buttons use red, while secondary buttons use navy or transparent white.
+### Buttons
 
-Service times appear once as a strong schedule ribbon. Ministry panels combine red, navy, and real church photography. FAQ content uses native `details` elements. Scroll reveals move no more than 32px and must immediately resolve when reduced motion is enabled.
+- **Shape:** Hard rectangular geometry with a 52px minimum height and two-pixel structural border.
+- **Primary:** Flag red with bright white heavy sans text and a CSS-authored arrow where direction helps.
+- **Hover / Focus:** Red deepens on hover; all variants use the global three-pixel focus-blue outline with a four-pixel offset.
+- **White / Outline:** White buttons reverse on color fields; outline buttons remain transparent with a navy boundary on light fields.
+
+### Navigation
+
+- **Desktop:** A white 88px header with compact heavy sans links, a hard navy visit action, and a red underline on hover.
+- **Sticky:** The bar tightens to 76px and gains only enough shadow to remain legible over scrolling content.
+- **Mobile:** At 860px and below, a 48px CSS-authored menu toggle opens a full-screen navy menu with 62px ruled Rokkitt links and a red visit action.
+
+### Sunday Arrival Ticket
+
+The red ticket overlaps the navy hero stage and keeps the Sunday time, gathering label, and directions within the first viewport. It stays square, uses compact uppercase metadata, and gives the time a large Rokkitt numeral treatment.
+
+### Ruled Schedule
+
+Blue and red day banners introduce dark-navy schedule groups. Each gathering is a full-width ruled row with a large Rokkitt time, direct service name, supporting family detail, and an optional sequence number. Do not convert these rows into individual cards.
+
+### Family Bands
+
+The family system alternates red, white, and navy full-width bands. Each band combines a ruled sequence number, Rokkitt promise, concise explanation, and directional link, preserving a shared baseline rather than separate tiles.
+
+### Disclosure Rows
+
+Native details and summary elements keep first-visit answers visible and keyboard-operable. Each summary provides at least a 66px target and uses a CSS-authored plus that rotates on open; the first useful answer may be open by default.
+
+### Processional Entrance
+
+The hero uses one coordinated entrance: the blue star rail reveals from left to right while the crest settles into place. All other content is present at rest. Reduced-motion preference collapses animation and transition durations to effectively immediate values.
 
 ## Do's and Don'ts
 
-- Do use the real sanctuary, building, and supplied crest as the main visual proof.
-- Do keep Plan Your Visit as the dominant action.
-- Do use stars and stripes as structured graphic rhythm.
-- Do keep American styling welcoming and nonpartisan.
-- Do preserve one H1 and logical heading order.
-- Don't invent leaders, events, sermons, social accounts, donation providers, or testimonials.
-- Don't place every idea inside a rounded card.
-- Don't add gold, sepia, distressed flag textures, military motifs, or political messaging.
-- Don't hide essential content behind animation.
-- Don't duplicate the service schedule in multiple full sections.
+### Do:
+
+- **Do** use real exterior and sanctuary photography plus the supplied crest as the visual evidence.
+- **Do** preserve Plan Your Visit as the dominant action and keep Sunday time, directions, and phone access easy to reach.
+- **Do** build rhythm with hard tonal bands, ruled schedules, family rows, stars, stripes, and route marks.
+- **Do** keep the red, white, and blue identity welcoming, nonpartisan, and centered on faith.
+- **Do** preserve 44px targets, visible focus, reduced-motion support, semantic structure, and content visible by default.
+
+### Don't:
+
+- **Don't** return to a dark photographic church hero or a generic stack of rounded cards.
+- **Don't** add gold, sepia, distressed flag textures, military motifs, political messaging, gradients, or decorative glass effects.
+- **Don't** introduce extra decorative shadows; only the crest receives persistent lift.
+- **Don't** hide essential visitor information behind motion, hover, carousels, or closed-only interactions.
+- **Don't** replace the ruled schedule or family bands with disconnected tiles.
