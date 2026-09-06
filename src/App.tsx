@@ -18,6 +18,8 @@ import { ContactPage } from './pages/ContactPage';
 
 import { getChurchServiceStatus } from './utils/hours';
 
+export type PaletteType = 'americana' | 'royal-gold';
+
 export function App() {
   const [currentPath, setCurrentPath] = useState<string>(() => {
     return window.location.pathname || '/';
@@ -26,6 +28,47 @@ export function App() {
   const [inquiryOpen, setInquiryOpen] = useState(false);
   const [inquiryMode, setInquiryMode] = useState<'visit' | 'prayer' | 'question'>('visit');
   const [status] = useState(() => getChurchServiceStatus());
+
+  // Determine active color palette
+  const [colorPalette, setColorPalette] = useState<PaletteType>(() => {
+    // 1. URL Query Param: ?palette=royal-gold | americana or ?theme=royal-gold | americana
+    const urlParams = new URLSearchParams(window.location.search);
+    const pParam = (urlParams.get('palette') || urlParams.get('theme'))?.toLowerCase();
+    if (pParam === 'royal-gold' || pParam === 'royal' || pParam === 'gold') {
+      return 'royal-gold';
+    }
+    if (pParam === 'americana' || pParam === 'classic') {
+      return 'americana';
+    }
+
+    // 2. LocalStorage
+    try {
+      const stored = localStorage.getItem('fbc_palette');
+      if (stored === 'royal-gold' || stored === 'americana') {
+        return stored as PaletteType;
+      }
+    } catch {
+      // ignore
+    }
+
+    return 'americana';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', colorPalette);
+  }, [colorPalette]);
+
+  const handleSelectPalette = (p: PaletteType) => {
+    setColorPalette(p);
+    try {
+      localStorage.setItem('fbc_palette', p);
+    } catch {
+      // ignore
+    }
+    const url = new URL(window.location.href);
+    url.searchParams.set('palette', p);
+    window.history.replaceState({}, '', url.toString());
+  };
 
   // Determine active variant
   const [activeVariant, setActiveVariant] = useState<VariantType>(() => {
@@ -155,13 +198,15 @@ export function App() {
     : 'Variant C: Rooted & Rising';
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+    <div data-theme={colorPalette} className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans transition-colors duration-200">
       {/* Header */}
       <Header
         currentPath={currentPath}
         onNavigate={navigate}
         onOpenInquiry={handleOpenInquiry}
         variantTitle={variantLabel}
+        colorPalette={colorPalette}
+        onTogglePalette={handleSelectPalette}
       />
 
       {/* Main Content Area */}
@@ -173,6 +218,7 @@ export function App() {
       <Footer
         onNavigate={navigate}
         onOpenInquiry={handleOpenInquiry}
+        colorPalette={colorPalette}
       />
 
       {/* Mobile Sticky Bottom Action Dock */}
@@ -181,10 +227,12 @@ export function App() {
         onNavigate={navigate}
       />
 
-      {/* Floating Variant Switcher Preview Pill */}
+      {/* Floating Variant & Palette Switcher Preview Pill */}
       <VariantSwitcher
         activeVariant={activeVariant}
         onSelectVariant={handleSelectVariant}
+        colorPalette={colorPalette}
+        onTogglePalette={handleSelectPalette}
       />
 
       {/* Interactive Modal */}

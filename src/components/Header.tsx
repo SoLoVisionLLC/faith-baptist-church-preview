@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, MapPin, Calendar, Clock, ChevronRight } from 'lucide-react';
+import { Menu, X, Phone, MapPin, Calendar, Clock, ChevronRight, Palette } from 'lucide-react';
 import { CHURCH_DATA } from '../data/siteData';
 import { getChurchServiceStatus, StatusResult } from '../utils/hours';
+import { PaletteType } from '../App';
 
 interface HeaderProps {
   currentPath: string;
   onNavigate: (path: string) => void;
   onOpenInquiry: (mode?: 'visit' | 'prayer' | 'question') => void;
   variantTitle?: string;
+  colorPalette?: PaletteType;
+  onTogglePalette?: (palette: PaletteType) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   currentPath,
   onNavigate,
   onOpenInquiry,
-  variantTitle
+  variantTitle,
+  colorPalette = 'americana',
+  onTogglePalette
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [status, setStatus] = useState<StatusResult>(getChurchServiceStatus());
@@ -50,10 +55,14 @@ export const Header: React.FC<HeaderProps> = ({
     return currentPath.includes(path.replace('.html', '').replace('/', ''));
   };
 
+  const activeLogo = colorPalette === 'royal-gold' 
+    ? CHURCH_DATA.images.emblem 
+    : CHURCH_DATA.images.logo;
+
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm transition-all">
       {/* Top Banner: Service Status & Quick Contact */}
-      <div className="bg-brand-navy text-white text-xs py-1.5 px-4">
+      <div className="bg-brand-navy text-white text-xs py-1.5 px-4 transition-colors duration-200">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           {/* Status Indicator */}
           <div className="flex items-center gap-2">
@@ -70,11 +79,11 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </div>
 
-          {/* Quick Contact & Address */}
-          <div className="flex items-center gap-4 text-[11px] text-slate-300">
+          {/* Quick Contact, Address & Palette Toggle */}
+          <div className="flex items-center gap-3 text-[11px] text-slate-300">
             <a 
               href={`tel:${CHURCH_DATA.location.tel}`} 
-              className="flex items-center gap-1.5 hover:text-white transition-colors"
+              className="hidden sm:flex items-center gap-1.5 hover:text-white transition-colors"
             >
               <Phone className="w-3 h-3 text-brand-gold" />
               <span>{CHURCH_DATA.location.phone}</span>
@@ -83,15 +92,45 @@ export const Header: React.FC<HeaderProps> = ({
               href={CHURCH_DATA.location.mapsUrl}
               target="_blank"
               rel="noreferrer"
-              className="hidden sm:flex items-center gap-1.5 hover:text-white transition-colors"
+              className="hidden lg:flex items-center gap-1.5 hover:text-white transition-colors"
             >
               <MapPin className="w-3 h-3 text-brand-gold" />
-              <span>11275 W. Twp. Rd. 116, Fostoria, OH</span>
+              <span>11275 W. Twp. Rd. 116, Fostoria</span>
             </a>
             {variantTitle && (
               <span className="bg-white/10 px-2 py-0.5 rounded text-[10px] text-brand-gold font-mono uppercase tracking-wider">
                 {variantTitle}
               </span>
+            )}
+
+            {/* Quick Header Palette Toggle */}
+            {onTogglePalette && (
+              <div className="flex items-center gap-1 bg-black/30 rounded-full p-0.5 border border-white/10 shrink-0">
+                <button
+                  onClick={() => onTogglePalette('americana')}
+                  className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold transition-all ${
+                    colorPalette === 'americana'
+                      ? 'bg-[#B31942] text-white shadow-sm ring-1 ring-white/30'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                  title="Americana Palette: Crimson & Navy"
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#B31942] inline-block border border-white/60"></span>
+                  <span className="hidden sm:inline">Americana</span>
+                </button>
+                <button
+                  onClick={() => onTogglePalette('royal-gold')}
+                  className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold transition-all ${
+                    colorPalette === 'royal-gold'
+                      ? 'bg-gradient-to-r from-[#D4AF37] to-[#C5922C] text-[#021C5E] font-extrabold shadow-sm ring-1 ring-white/40'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                  title="Emblem Palette: Royal Blue & Imperial Gold"
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#F3BE50] inline-block border border-[#021C5E]"></span>
+                  <span className="hidden sm:inline">Royal & Gold</span>
+                </button>
+              </div>
             )}
           </div>
         </div>
@@ -107,12 +146,19 @@ export const Header: React.FC<HeaderProps> = ({
             className="flex items-center gap-3 group focus:outline-none"
           >
             <img 
-              src={CHURCH_DATA.images.logo} 
-              alt="Faith Baptist Church Logo" 
-              className="h-12 w-auto object-contain transition-transform group-hover:scale-105"
+              src={activeLogo} 
+              alt={colorPalette === 'royal-gold' ? "Faith Baptist Church Seal" : "Faith Baptist Church Logo"} 
+              className={`transition-all duration-300 object-contain group-hover:scale-105 ${
+                colorPalette === 'royal-gold'
+                  ? 'h-14 w-14 drop-shadow-sm'
+                  : 'h-12 w-auto'
+              }`}
               onError={(e) => {
-                // Fallback to stylized icon if image fails
-                e.currentTarget.style.display = 'none';
+                if (colorPalette === 'royal-gold') {
+                  e.currentTarget.src = CHURCH_DATA.images.logo;
+                } else {
+                  e.currentTarget.style.display = 'none';
+                }
               }}
             />
             <div>
@@ -125,7 +171,7 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
               </div>
               <p className="text-[10px] uppercase font-bold tracking-widest text-brand-crimson">
-                Fostoria, Ohio • KJV 1611
+                {colorPalette === 'royal-gold' ? 'Fostoria, Ohio • Romans 10:17' : 'Fostoria, Ohio • KJV 1611'}
               </p>
             </div>
           </a>
@@ -225,6 +271,46 @@ export const Header: React.FC<HeaderProps> = ({
               Plan Your Visit
             </button>
           </div>
+
+          {/* Mobile Palette Selector */}
+          {onTogglePalette && (
+            <div className="pt-3 pb-1 border-t border-slate-100 flex items-center justify-between">
+              <span className="text-xs font-semibold text-slate-600 flex items-center gap-1.5">
+                <Palette className="w-3.5 h-3.5 text-brand-navy" />
+                <span>Color Palette:</span>
+              </span>
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => {
+                    onTogglePalette('americana');
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-all ${
+                    colorPalette === 'americana'
+                      ? 'bg-[#B31942] text-white shadow-sm'
+                      : 'bg-slate-100 text-slate-600'
+                  }`}
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#B31942] inline-block border border-white/60"></span>
+                  <span>Americana</span>
+                </button>
+                <button
+                  onClick={() => {
+                    onTogglePalette('royal-gold');
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-all ${
+                    colorPalette === 'royal-gold'
+                      ? 'bg-gradient-to-r from-[#D4AF37] to-[#C5922C] text-[#021C5E] font-extrabold shadow-sm'
+                      : 'bg-slate-100 text-slate-600'
+                  }`}
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#F3BE50] inline-block border border-[#021C5E]"></span>
+                  <span>Royal & Gold</span>
+                </button>
+              </div>
+            </div>
+          )}
 
           <div className="pt-2 text-center text-xs text-slate-500">
             <p>11275 W. Twp. Rd. 116, Fostoria, OH 44830</p>

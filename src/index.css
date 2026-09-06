@@ -3,10 +3,56 @@
 @tailwind utilities;
 
 @layer base {
+  :root, [data-theme="americana"] {
+    --color-brand-crimson: 179 25 66;       /* #B31942 */
+    --color-brand-crimson-dark: 139 16 50;  /* #8B1032 */
+    --color-brand-crimson-light: 230 57 86; /* #E63956 */
+    --color-brand-navy: 10 49 97;           /* #0A3161 */
+    --color-brand-navy-dark: 5 27 56;       /* #051B38 */
+    --color-brand-navy-light: 22 72 138;    /* #16488A */
+    --color-brand-gold: 234 179 8;          /* #EAB308 */
+    --color-brand-gold-light: 253 224 71;   /* #FDE047 */
+    --color-brand-paper: 248 250 252;       /* #F8FAFC */
+    --color-brand-cream: 255 251 245;       /* #FFFBF5 */
+  }
+
+  [data-theme="royal-gold"] {
+    --color-brand-crimson: 197 146 44;      /* #C5922C rich gold */
+    --color-brand-crimson-dark: 161 115 25; /* #A17319 deep gold */
+    --color-brand-crimson-light: 228 178 72;/* #E4B248 bright gold */
+    --color-brand-navy: 2 28 94;            /* #021C5E deep royal */
+    --color-brand-navy-dark: 1 18 64;       /* #011240 midnight royal */
+    --color-brand-navy-light: 11 48 138;    /* #0B308A vibrant royal */
+    --color-brand-gold: 243 190 80;         /* #F3BE50 laurel gold */
+    --color-brand-gold-light: 254 240 180;  /* #FEF0B4 */
+    --color-brand-paper: 248 249 253;       /* #F8F9FD cool pearl */
+    --color-brand-cream: 254 251 243;       /* #FEFBF3 warm ivory */
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
   }
+}
+
+/* High contrast text overrides for active buttons in royal-gold mode */
+[data-theme="royal-gold"] button.bg-brand-crimson,
+[data-theme="royal-gold"] a.bg-brand-crimson,
+[data-theme="royal-gold"] .theme-accent-btn {
+  color: #021c5e !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="royal-gold"] button.bg-brand-crimson svg,
+[data-theme="royal-gold"] a.bg-brand-crimson svg,
+[data-theme="royal-gold"] .theme-accent-btn svg {
+  color: #021c5e !important;
+  stroke: #021c5e !important;
+}
+
+[data-theme="royal-gold"] span.bg-brand-crimson {
+  color: #021c5e !important;
+  font-weight: 700 !important;
 }
 
 @keyframes fadeIn {

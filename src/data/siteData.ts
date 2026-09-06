@@ -77,6 +77,7 @@ export const CHURCH_DATA = {
   },
   images: {
     logo: "/assets/fbc_logo.png",
+    emblem: "/assets/emblem_logo.png",
     churchMain: "/assets/church_main.png",
     steeplePortrait: "/assets/church_building_portrait.png",
     heroLandscape: "/assets/hero_landscape.png",

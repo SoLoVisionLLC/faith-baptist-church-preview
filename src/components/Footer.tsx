@@ -1,15 +1,17 @@
 import React from 'react';
 import { Phone, MapPin, Mail, Heart, Calendar, ShieldCheck, ArrowRight } from 'lucide-react';
 import { CHURCH_DATA } from '../data/siteData';
+import { PaletteType } from '../App';
 
 interface FooterProps {
   onNavigate: (path: string) => void;
   onOpenInquiry: (mode?: 'visit' | 'prayer' | 'question') => void;
+  colorPalette?: PaletteType;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenInquiry }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenInquiry, colorPalette = 'americana' }) => {
   return (
-    <footer className="bg-brand-navyDark text-slate-300 border-t border-slate-800">
+    <footer className="bg-brand-navyDark text-slate-300 border-t border-slate-800 transition-colors duration-200">
       {/* Top Banner: Callout */}
       <div className="bg-gradient-to-r from-brand-crimson to-brand-crimsonDark text-white py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
@@ -45,12 +47,18 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenInquiry }) => 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Col 1: About & Location */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <img 
-                src={CHURCH_DATA.images.logo} 
+                src={colorPalette === 'royal-gold' ? CHURCH_DATA.images.emblem : CHURCH_DATA.images.logo} 
                 alt="Faith Baptist Church Logo" 
-                className="h-10 w-auto object-contain brightness-200"
-                onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                className={colorPalette === 'royal-gold' ? "h-12 w-12 object-contain" : "h-10 w-auto object-contain brightness-200"}
+                onError={(e) => { 
+                  if (colorPalette === 'royal-gold') {
+                    e.currentTarget.src = CHURCH_DATA.images.logo;
+                  } else {
+                    e.currentTarget.style.display = 'none'; 
+                  }
+                }}
               />
               <span className="font-serif font-bold text-xl text-white">
                 Faith Baptist Church
