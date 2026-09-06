@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, MapPin, Calendar, Clock, ChevronRight, Palette } from 'lucide-react';
+import { Menu, X, Phone, MapPin, Calendar, ChevronRight, Palette } from 'lucide-react';
 import { CHURCH_DATA } from '../data/siteData';
 import { getChurchServiceStatus, StatusResult } from '../utils/hours';
 import { PaletteType } from '../App';
@@ -25,7 +25,6 @@ export const Header: React.FC<HeaderProps> = ({
   const [status, setStatus] = useState<StatusResult>(getChurchServiceStatus());
 
   useEffect(() => {
-    // Update live status every 60 seconds
     const interval = setInterval(() => {
       setStatus(getChurchServiceStatus());
     }, 60000);
@@ -34,8 +33,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Plan Your Visit', path: '/visit.html' },
-    { name: 'Beliefs & Salvation', path: '/beliefs.html' },
+    { name: 'About & Beliefs', path: '/beliefs.html' },
     { name: 'Ministries', path: '/ministries.html' },
     { name: 'Events', path: '/events.html' },
     { name: 'Sermons', path: '/sermons.html' },
@@ -49,10 +47,12 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   const isLinkActive = (path: string) => {
-    if (path === '/' && (currentPath === '/' || currentPath === '/index.html' || currentPath === '')) {
-      return true;
+    if (path === '/') {
+      return currentPath === '/' || currentPath === '/index.html' || currentPath === '';
     }
-    return currentPath.includes(path.replace('.html', '').replace('/', ''));
+    const cleanPath = path.replace('.html', '').replace('/', '');
+    if (!cleanPath) return false;
+    return currentPath.toLowerCase().includes(cleanPath);
   };
 
   const activeLogo = colorPalette === 'royal-gold' 
@@ -60,9 +60,9 @@ export const Header: React.FC<HeaderProps> = ({
     : CHURCH_DATA.images.logo;
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm transition-all">
-      {/* Top Banner: Service Status & Quick Contact */}
-      <div className="bg-brand-navy text-white text-xs py-1.5 px-4 transition-colors duration-200">
+    <header className="sticky top-0 z-40 w-full bg-slate-950/85 backdrop-blur-xl border-b border-white/10 text-white transition-all shadow-md">
+      {/* Top Banner: Service Status, Quick Contact & Palette Switcher */}
+      <div className="bg-black/40 border-b border-white/5 text-xs py-1.5 px-4">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           {/* Status Indicator */}
           <div className="flex items-center gap-2">
@@ -70,17 +70,17 @@ export const Header: React.FC<HeaderProps> = ({
               <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${status.isServiceActive ? 'bg-emerald-400' : 'bg-brand-gold'}`}></span>
               <span className={`relative inline-flex rounded-full h-2 w-2 ${status.isServiceActive ? 'bg-emerald-500' : 'bg-brand-gold'}`}></span>
             </span>
-            <span className="font-medium tracking-wide">
+            <span className="font-semibold tracking-wide text-slate-200 text-[11px] sm:text-xs">
               {status.badgeText}
             </span>
-            <span className="hidden md:inline text-slate-400">•</span>
-            <span className="hidden md:inline text-slate-300 text-[11px]">
+            <span className="hidden md:inline text-slate-500">•</span>
+            <span className="hidden md:inline text-slate-400 text-[11px]">
               {status.subText}
             </span>
           </div>
 
-          {/* Quick Contact, Address & Palette Toggle */}
-          <div className="flex items-center gap-3 text-[11px] text-slate-300">
+          {/* Contact, Address & Palette Toggle */}
+          <div className="flex items-center gap-3.5 text-[11px] text-slate-300">
             <a 
               href={`tel:${CHURCH_DATA.location.tel}`} 
               className="hidden sm:flex items-center gap-1.5 hover:text-white transition-colors"
@@ -105,13 +105,13 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Quick Header Palette Toggle */}
             {onTogglePalette && (
-              <div className="flex items-center gap-1 bg-black/30 rounded-full p-0.5 border border-white/10 shrink-0">
+              <div className="flex items-center gap-1 bg-black/40 rounded-full p-0.5 border border-white/15 shrink-0">
                 <button
                   onClick={() => onTogglePalette('americana')}
                   className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold transition-all ${
                     colorPalette === 'americana'
                       ? 'bg-[#B31942] text-white shadow-sm ring-1 ring-white/30'
-                      : 'text-slate-300 hover:text-white'
+                      : 'text-slate-400 hover:text-white'
                   }`}
                   title="Americana Palette: Crimson & Navy"
                 >
@@ -123,7 +123,7 @@ export const Header: React.FC<HeaderProps> = ({
                   className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold transition-all ${
                     colorPalette === 'royal-gold'
                       ? 'bg-gradient-to-r from-[#D4AF37] to-[#C5922C] text-[#021C5E] font-extrabold shadow-sm ring-1 ring-white/40'
-                      : 'text-slate-300 hover:text-white'
+                      : 'text-slate-400 hover:text-white'
                   }`}
                   title="Emblem Palette: Royal Blue & Imperial Gold"
                 >
@@ -139,20 +139,17 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Church Brand Logo */}
+          {/* Church Brand Logo - Unified Title Lockup */}
           <a
             href="/"
             onClick={(e) => handleLinkClick('/', e)}
-            className="flex items-center gap-3 group focus:outline-none"
+            className="flex items-center gap-3 group focus:outline-none shrink-0"
           >
             <img 
               src={activeLogo} 
-              alt={colorPalette === 'royal-gold' ? "Faith Baptist Church Seal" : "Faith Baptist Church Logo"} 
-              className={`transition-all duration-300 object-contain group-hover:scale-105 ${
-                colorPalette === 'royal-gold'
-                  ? 'h-14 w-14 drop-shadow-sm'
-                  : 'h-12 w-auto'
-              }`}
+              alt="Faith Baptist Church" 
+              style={{ width: 48, height: 48 }}
+              className="w-12 h-12 object-contain group-hover:scale-105 shrink-0 rounded-full drop-shadow-sm transition-transform"
               onError={(e) => {
                 if (colorPalette === 'royal-gold') {
                   e.currentTarget.src = CHURCH_DATA.images.logo;
@@ -161,67 +158,72 @@ export const Header: React.FC<HeaderProps> = ({
                 }
               }}
             />
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-serif font-extrabold text-xl md:text-2xl text-brand-navy tracking-tight group-hover:text-brand-crimson transition-colors">
-                  Faith Baptist
-                </span>
-                <span className="font-serif font-light text-xl md:text-2xl text-slate-600">
-                  Church
-                </span>
-              </div>
-              <p className="text-[10px] uppercase font-bold tracking-widest text-brand-crimson">
+            <div className="flex flex-col justify-center">
+              <span className="font-serif font-bold text-lg sm:text-xl xl:text-2xl text-white tracking-tight group-hover:text-brand-gold transition-colors whitespace-nowrap leading-snug">
+                Faith Baptist Church
+              </span>
+              <span className="text-[10px] uppercase font-bold tracking-widest text-brand-gold/90 mt-0.5 whitespace-nowrap">
                 {colorPalette === 'royal-gold' ? 'Fostoria, Ohio • Romans 10:17' : 'Fostoria, Ohio • KJV 1611'}
-              </p>
+              </span>
             </div>
           </a>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center space-x-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.path}
-                onClick={(e) => handleLinkClick(link.path, e)}
-                className={`px-3 py-2 rounded-lg text-sm font-semibold transition-all ${
-                  isLinkActive(link.path)
-                    ? 'text-brand-crimson bg-brand-crimson/10 shadow-sm'
-                    : 'text-slate-700 hover:text-brand-navy hover:bg-slate-100'
-                }`}
-              >
-                {link.name}
-              </a>
-            ))}
+          {/* Desktop Nav Links - Curated & Clean */}
+          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
+            {navLinks.map((link) => {
+              const active = isLinkActive(link.path);
+              return (
+                <a
+                  key={link.name}
+                  href={link.path}
+                  onClick={(e) => handleLinkClick(link.path, e)}
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap relative ${
+                    active
+                      ? 'text-white font-semibold bg-white/10'
+                      : 'text-slate-300 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  {link.name}
+                  {active && (
+                    <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-brand-crimson rounded-full" />
+                  )}
+                </a>
+              );
+            })}
           </nav>
 
-          {/* Actions & Plan Visit Button */}
-          <div className="hidden lg:flex items-center gap-3">
+          {/* Actions & Singular Plan Your Visit CTA */}
+          <div className="hidden lg:flex items-center gap-2.5 shrink-0">
             <button
               onClick={() => onOpenInquiry('prayer')}
-              className="px-3 py-2 text-xs font-semibold text-brand-navy hover:text-brand-crimson hover:bg-slate-100 rounded-lg transition-colors"
+              className="px-3 py-2 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors whitespace-nowrap"
             >
               Prayer Request
             </button>
-            <button
-              onClick={() => onOpenInquiry('visit')}
-              className="px-5 py-2.5 bg-brand-crimson hover:bg-brand-crimsonDark text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-glow-crimson transition-all flex items-center gap-1.5"
+            <a
+              href="/visit.html"
+              onClick={(e) => handleLinkClick('/visit.html', e)}
+              className={`px-4 py-2 bg-brand-crimson hover:bg-brand-crimsonDark text-white text-xs sm:text-sm font-semibold rounded-xl shadow-lg hover:shadow-glow-crimson transition-all flex items-center gap-1.5 theme-accent-btn whitespace-nowrap ${
+                currentPath.toLowerCase().includes('visit') ? 'ring-2 ring-white/60 shadow-glow-crimson' : ''
+              }`}
             >
               <Calendar className="w-4 h-4" />
               <span>Plan Your Visit</span>
-            </button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center gap-2">
-            <button
-              onClick={() => onOpenInquiry('visit')}
-              className="px-3 py-1.5 bg-brand-crimson text-white text-xs font-semibold rounded-md shadow-sm"
+            <a
+              href="/visit.html"
+              onClick={(e) => handleLinkClick('/visit.html', e)}
+              className="px-3 py-1.5 bg-brand-crimson text-white text-xs font-semibold rounded-lg shadow-sm theme-accent-btn"
             >
               Plan Visit
-            </button>
+            </a>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-700 hover:text-brand-navy hover:bg-slate-100 rounded-lg focus:outline-none"
+              className="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg focus:outline-none"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -232,51 +234,53 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Nav Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 shadow-xl px-4 pt-2 pb-6 space-y-2 animate-fadeIn">
+        <div className="lg:hidden bg-slate-950/95 backdrop-blur-2xl border-b border-white/10 shadow-2xl px-4 pt-2 pb-6 space-y-3 animate-fadeIn text-white">
           <div className="space-y-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.path}
-                onClick={(e) => handleLinkClick(link.path, e)}
-                className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium ${
-                  isLinkActive(link.path)
-                    ? 'bg-brand-crimson/10 text-brand-crimson font-semibold'
-                    : 'text-slate-700 hover:bg-slate-50'
-                }`}
-              >
-                <span>{link.name}</span>
-                <ChevronRight className="w-4 h-4 text-slate-400" />
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const active = isLinkActive(link.path);
+              return (
+                <a
+                  key={link.name}
+                  href={link.path}
+                  onClick={(e) => handleLinkClick(link.path, e)}
+                  className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium ${
+                    active
+                      ? 'bg-brand-crimson/20 text-white font-bold border-l-2 border-brand-crimson'
+                      : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  <ChevronRight className="w-4 h-4 text-slate-500" />
+                </a>
+              );
+            })}
           </div>
 
-          <div className="pt-4 border-t border-slate-100 grid grid-cols-2 gap-2">
+          <div className="pt-3 border-t border-white/10 grid grid-cols-2 gap-2">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenInquiry('prayer');
               }}
-              className="w-full py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-semibold text-center transition-colors"
+              className="w-full py-2.5 px-3 bg-white/10 hover:bg-white/15 text-white rounded-lg text-xs font-semibold text-center transition-colors"
             >
               Prayer Request
             </button>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenInquiry('visit');
-              }}
-              className="w-full py-2.5 px-3 bg-brand-crimson hover:bg-brand-crimsonDark text-white rounded-lg text-xs font-semibold text-center transition-colors shadow"
+            <a
+              href="/visit.html"
+              onClick={(e) => handleLinkClick('/visit.html', e)}
+              className="w-full py-2.5 px-3 bg-brand-crimson hover:bg-brand-crimsonDark text-white rounded-lg text-xs font-semibold text-center transition-colors shadow theme-accent-btn flex items-center justify-center gap-1.5"
             >
-              Plan Your Visit
-            </button>
+              <Calendar className="w-3.5 h-3.5" />
+              <span>Plan Visit</span>
+            </a>
           </div>
 
           {/* Mobile Palette Selector */}
           {onTogglePalette && (
-            <div className="pt-3 pb-1 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-xs font-semibold text-slate-600 flex items-center gap-1.5">
-                <Palette className="w-3.5 h-3.5 text-brand-navy" />
+            <div className="pt-3 pb-1 border-t border-white/10 flex items-center justify-between">
+              <span className="text-xs font-semibold text-slate-400 flex items-center gap-1.5">
+                <Palette className="w-3.5 h-3.5 text-brand-gold" />
                 <span>Color Palette:</span>
               </span>
               <div className="flex items-center gap-1.5">
@@ -287,8 +291,8 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-all ${
                     colorPalette === 'americana'
-                      ? 'bg-[#B31942] text-white shadow-sm'
-                      : 'bg-slate-100 text-slate-600'
+                      ? 'bg-[#B31942] text-white shadow-sm ring-1 ring-white/30'
+                      : 'bg-white/10 text-slate-300 hover:bg-white/15'
                   }`}
                 >
                   <span className="w-2 h-2 rounded-full bg-[#B31942] inline-block border border-white/60"></span>
@@ -301,8 +305,8 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-all ${
                     colorPalette === 'royal-gold'
-                      ? 'bg-gradient-to-r from-[#D4AF37] to-[#C5922C] text-[#021C5E] font-extrabold shadow-sm'
-                      : 'bg-slate-100 text-slate-600'
+                      ? 'bg-gradient-to-r from-[#D4AF37] to-[#C5922C] text-[#021C5E] font-extrabold shadow-sm ring-1 ring-white/40'
+                      : 'bg-white/10 text-slate-300 hover:bg-white/15'
                   }`}
                 >
                   <span className="w-2 h-2 rounded-full bg-[#F3BE50] inline-block border border-[#021C5E]"></span>
@@ -312,9 +316,9 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           )}
 
-          <div className="pt-2 text-center text-xs text-slate-500">
+          <div className="pt-2 text-center text-xs text-slate-400">
             <p>11275 W. Twp. Rd. 116, Fostoria, OH 44830</p>
-            <a href={`tel:${CHURCH_DATA.location.tel}`} className="font-semibold text-brand-navy">
+            <a href={`tel:${CHURCH_DATA.location.tel}`} className="font-semibold text-brand-gold">
               Call: {CHURCH_DATA.location.phone}
             </a>
           </div>
