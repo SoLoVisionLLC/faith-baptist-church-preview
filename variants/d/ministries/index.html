@@ -10,6 +10,7 @@
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-d p-ministries">
+<button class="palette-toggle" type="button" aria-pressed="false" aria-label="Use Faith Baptist logo colors">Use logo colors</button>
 
 <header class="site-header d-site-header">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -54,6 +55,17 @@
     </div>
     <nav aria-label="Footer navigation"><a href="/">Home</a><a href="/visit/">Plan Your Visit</a><a href="/beliefs/">What We Believe</a><a href="/ministries/">Ministries</a><a href="/events/">Events</a><a href="/contact/">Contact</a></nav>
   </div>
-</footer>
+</footer><script>
+(() => {
+  const button = document.querySelector('.palette-toggle');
+  if (!button) return;
+  button.addEventListener('click', () => {
+    const enabled = document.body.toggleAttribute('data-logo-palette');
+    button.setAttribute('aria-pressed', String(enabled));
+    button.textContent = enabled ? 'Use original colors' : 'Use logo colors';
+    button.setAttribute('aria-label', enabled ? 'Use this variant’s original colors' : 'Use Faith Baptist logo colors');
+  });
+})();
+</script>
 </body>
 </html>

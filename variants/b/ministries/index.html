@@ -10,6 +10,7 @@
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-b p-ministries">
+<button class="palette-toggle" type="button" aria-pressed="false" aria-label="Use Faith Baptist logo colors">Use logo colors</button>
 
 <header class="site-header">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -33,6 +34,17 @@
   </nav>
 </footer>
 <a class="callbar" href="tel:+14193482171">Call the Church</a>
-
+<script>
+(() => {
+  const button = document.querySelector('.palette-toggle');
+  if (!button) return;
+  button.addEventListener('click', () => {
+    const enabled = document.body.toggleAttribute('data-logo-palette');
+    button.setAttribute('aria-pressed', String(enabled));
+    button.textContent = enabled ? 'Use original colors' : 'Use logo colors';
+    button.setAttribute('aria-label', enabled ? 'Use this variant’s original colors' : 'Use Faith Baptist logo colors');
+  });
+})();
+</script>
 </body>
 </html>

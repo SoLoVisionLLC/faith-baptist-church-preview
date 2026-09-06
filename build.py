@@ -39,6 +39,20 @@ D_MAPS_DIR = 'https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+R
 TAGLINE = "Bible believing. Gospel driven. Growing together in God&rsquo;s Word."
 POSITIONING = 'Rooted in the Word. Centered on the Gospel. A church family for Fostoria.'
 
+PALETTE_TOGGLE = '''<button class="palette-toggle" type="button" aria-pressed="false" aria-label="Use Faith Baptist logo colors">Use logo colors</button>'''
+PALETTE_SCRIPT = '''<script>
+(() => {
+  const button = document.querySelector('.palette-toggle');
+  if (!button) return;
+  button.addEventListener('click', () => {
+    const enabled = document.body.toggleAttribute('data-logo-palette');
+    button.setAttribute('aria-pressed', String(enabled));
+    button.textContent = enabled ? 'Use original colors' : 'Use logo colors';
+    button.setAttribute('aria-label', enabled ? 'Use this variant’s original colors' : 'Use Faith Baptist logo colors');
+  });
+})();
+</script>'''
+
 A_ADDRESS = '11275 W. Twp. Rd. 116, Fostoria, OH 44830'
 A_PHONE_DISPLAY = '419-348-2171'
 A_MAPS_DIR = 'https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830'
@@ -308,6 +322,7 @@ HEAD = '''<!DOCTYPE html>
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-{variant} p-{slug}">
+{PALETTE_TOGGLE}
 {nav}
 <main id="main">
 '''
@@ -324,6 +339,7 @@ HEAD_A = '''<!DOCTYPE html>
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-a p-{slug}">
+{PALETTE_TOGGLE}
 {nav}
 <main id="main" tabindex="-1">
 '''
@@ -340,6 +356,7 @@ HEAD_C = '''<!DOCTYPE html>
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-c p-{slug}">
+{PALETTE_TOGGLE}
 <div class="ambient-layer" aria-hidden="true"><span class="ambient-shape ambient-one"></span><span class="ambient-shape ambient-two"></span></div>
 {nav}
 <main id="main" tabindex="-1">
@@ -348,20 +365,20 @@ HEAD_C = '''<!DOCTYPE html>
 def page(variant, slug, title, desc, body):
     if variant == 'a':
         active = '/' + slug if slug else '/'
-        html = HEAD_A.format(title=title, desc=desc, slug=slug or 'home', nav=nav_a(active))
-        return html + body + '\n</main>\n' + footer_a() + '\n</body>\n</html>\n'
+        html = HEAD_A.format(title=title, desc=desc, slug=slug or 'home', nav=nav_a(active), PALETTE_TOGGLE=PALETTE_TOGGLE)
+        return html + body + '\n</main>\n' + footer_a() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     if variant == 'c':
         active = '/' if not slug else f'/{slug}/'
-        html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active))
-        return html + body + '\n</main>\n' + footer_c() + '\n</body>\n</html>\n'
+        html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active), PALETTE_TOGGLE=PALETTE_TOGGLE)
+        return html + body + '\n</main>\n' + footer_c() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     if variant == 'd':
         active = '/' + slug if slug else '/'
         html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
-                           nav=nav_d(active))
-        return html + body + '\n</main>\n' + footer_d() + '\n</body>\n</html>\n'
+                           nav=nav_d(active), PALETTE_TOGGLE=PALETTE_TOGGLE)
+        return html + body + '\n</main>\n' + footer_d() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
-                       nav=nav('/' + slug if slug else '/', variant))
-    return html + body + '\n</main>\n' + footer(variant) + '\n</body>\n</html>\n'
+                       nav=nav('/' + slug if slug else '/', variant), PALETTE_TOGGLE=PALETTE_TOGGLE)
+    return html + body + '\n</main>\n' + footer(variant) + PALETTE_SCRIPT + '\n</body>\n</html>\n'
 
 
 # ---------------- shared sections ----------------

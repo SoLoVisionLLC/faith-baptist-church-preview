@@ -18,6 +18,7 @@ FIRST VIEWPORT: church1.jpg occupies the left 58 percent. The right 42 percent i
 FORM: Pinned Impeccable Persuade control. Build the brief's committed world, not a softened generic church layout.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
 -->
+<button class="palette-toggle" type="button" aria-pressed="false" aria-label="Use Faith Baptist logo colors">Use logo colors</button>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <a class="wordmark" href="/">Faith Baptist Church</a>
@@ -35,5 +36,16 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   </ol>
 </section></main>
 <footer class="site-footer"><p><strong>Faith Baptist Church</strong></p><address>11275 W. Twp. Rd. 116, Fostoria, OH 44830</address><a href="tel:+14193482171">419-348-2171</a><a href="https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830" rel="noopener">Get Directions</a><nav aria-label="Footer"><a href="/">Home</a><a href="/visit/">Plan Your Visit</a><a href="/beliefs/">What We Believe</a><a href="/ministries/">Ministries</a><a href="/events/">Events & Announcements</a><a href="/contact/">Contact</a></nav></footer>
+<script>
+(() => {
+  const button = document.querySelector('.palette-toggle');
+  button.addEventListener('click', () => {
+    const enabled = document.body.toggleAttribute('data-logo-palette');
+    button.setAttribute('aria-pressed', String(enabled));
+    button.textContent = enabled ? 'Use original colors' : 'Use logo colors';
+    button.setAttribute('aria-label', enabled ? 'Use this variant’s original colors' : 'Use Faith Baptist logo colors');
+  });
+})();
+</script>
 </body>
 </html>

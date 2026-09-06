@@ -6,6 +6,13 @@
   --paper: #FFFFFF;
 }
 
+body[data-logo-palette] {
+  --brick: #E7A928; --navy: #082B73; --white: #F7F8F5; --paper: #F7F8F5;
+}
+.palette-toggle { position: fixed; top: 1rem; right: 1rem; z-index: 101; min-height: 44px; padding: .65rem .9rem; border: 2px solid #082B73; border-radius: 4px; background: #E7A928; color: #14222D; font: inherit; font-weight: 700; cursor: pointer; }
+.palette-toggle:hover { background: #F7F8F5; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+
 * {
   box-sizing: border-box;
 }
