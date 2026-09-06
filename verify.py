@@ -1558,7 +1558,7 @@ def verify_e_pages(
         ".hero-rail{display:grid;grid-template-columns:1fr",
         ".hero-rail{grid-template-columns:repeat(2,minmax(0,1fr))",
         ".hero-rail span{font-size:1rem",
-        "::selection{background:var(--brick);color:var(--white)}",
+        "::selection{background:var(--brick);color:var(--on-accent)}",
         "scrollbar-color:var(--navy) var(--mist)",
         "::-webkit-scrollbar-thumb{background:var(--navy)",
         "@keyframes draw-line",
@@ -1708,6 +1708,151 @@ def verify_logo_palette_toggle(errors: list[str]) -> None:
                 errors.append(f"{variant} {route} palette toggle has no token switch handler")
     if toggle_count != expected_routes:
         errors.append(f"expected {expected_routes} palette toggles, found {toggle_count}")
+
+
+def palette_css_rules(css: str) -> dict[str, dict[str, str]]:
+    """Read the explicit selector paths used by the palette contrast checks.
+
+    This is a bounded declaration reader, not a browser CSS engine. Responsive
+    rules for these surfaces only change layout. The reduced-transparency
+    header override is checked separately so it cannot mask the normal header.
+    """
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.DOTALL)
+    css = re.sub(
+        r"@media\s*\(prefers-reduced-transparency:\s*reduce\)\s*"
+        r"\{\s*\.site-header\s*\{[^{}]*\}\s*\}", "", css
+    )
+    rules: dict[str, dict[str, str]] = {}
+    for selector_list, block in re.findall(r"([^{}]+)\{([^{}]*)\}", css):
+        declarations = dict(
+            (name.strip(), value.strip())
+            for name, value in re.findall(r"([\w-]+)\s*:\s*([^;]+)", block)
+        )
+        for selector in selector_list.split(","):
+            rules.setdefault(selector.strip(), {}).update(declarations)
+    return rules
+
+
+def palette_color(value: str, tokens: dict[str, str], canvas: tuple[float, ...]) -> tuple[float, ...]:
+    """Resolve palette tokens and composite sRGB alpha over the actual surface."""
+    seen = set()
+    while value.startswith("var("):
+        token = value[4:-1].strip()
+        if token in seen or token not in tokens:
+            raise ValueError(f"unresolved or cyclic palette token: {value}")
+        seen.add(token)
+        value = tokens[token]
+    if re.fullmatch(r"#[\da-fA-F]{6}", value):
+        return tuple(int(value[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    match = re.fullmatch(r"rgba?\(([^)]+)\)", value)
+    if match:
+        channels = [float(part.strip()) for part in match[1].split(",")]
+        if len(channels) in (3, 4):
+            alpha = channels[3] if len(channels) == 4 else 1
+            return tuple(alpha * channel / 255 + (1 - alpha) * base
+                         for channel, base in zip(channels[:3], canvas))
+    raise ValueError(f"unsupported palette color: {value}")
+
+
+def relative_luminance(rgb: tuple[float, ...]) -> float:
+    linear = [channel / 12.92 if channel <= 0.04045
+              else ((channel + 0.055) / 1.055) ** 2.4 for channel in rgb]
+    return sum(channel * weight for channel, weight in zip(linear, (0.2126, 0.7152, 0.0722)))
+
+
+def contrast_ratio(foreground: tuple[float, ...], background: tuple[float, ...]) -> float:
+    light, dark = sorted((relative_luminance(foreground), relative_luminance(background)), reverse=True)
+    return (light + 0.05) / (dark + 0.05)
+
+
+def verify_palette_contrast(errors: list[str]) -> None:
+    """Calculate WCAG AA normal-text contrast from authored foreground/backgrounds."""
+    # Paths run from the containing surface through increasingly specific rules.
+    # Keep base and hover paths separate to catch white resets and gold-on-gold.
+    surfaces = {
+        "a": (
+            ("a",), ("a", "a:hover"),
+            (".desktop-navigation a", '.desktop-navigation a[aria-current="page"]'),
+            ("a", '.mobile-navigation a[aria-current="page"]'),
+            *(("a", selector) for selector in (".header-cta", ".mobile-cta", ".button.primary")),
+            *(("a", "a:hover", selector, selector + ":hover")
+              for selector in (".header-cta", ".mobile-cta", ".button.primary")),
+        ),
+        "c": (
+            (".c-button-primary",), (".c-button-primary", ".c-button-primary:hover"),
+            (".c-kicker",), (".schedule-row>strong",),
+            (".inner-intro>p:last-child",),  # C's actual events announcement notice.
+        ),
+        "e": (
+            (".button",), (".button", ".button:hover"),
+            (".button", ".button-light"),
+            (".button", ".button-light", ".button:hover", ".button-light:hover"),
+            (".site-header", '.desktop-nav a[aria-current="page"]'),
+            (".visit-close",), (".visit-close", "h2", ".visit-close h2"),
+            (".visit-close", "a", ".visit-close a"),
+            (".announcement",), (".announcement", "h2", ".announcement h2"),
+            ("::selection",), (".contact-phone",), (".beliefs-equal span",),
+            (".site-header",),
+        ),
+    }
+    explicit_hovers = {
+        "a": (".header-cta:hover", ".mobile-cta:hover", ".button.primary:hover"),
+        "c": (".c-button-primary:hover",),
+        "e": (".button:hover", ".button-light:hover"),
+    }
+    for variant, paths in surfaces.items():
+        css = (ROOT / f"styles-{variant}.css").read_text(encoding="utf-8")
+        rules = palette_css_rules(css)
+        for logo in (False, True):
+            label = f"styles-{variant}.css {'logo' if logo else 'original'} palette"
+            tokens = dict(rules.get(":root", {}))
+            if logo:
+                tokens.update(rules.get("body[data-logo-palette]", {}))
+
+            def declarations(selector: str) -> dict[str, str]:
+                values = dict(rules.get(selector, {}))
+                if logo:
+                    values.update(rules.get("body[data-logo-palette] " + selector, {}))
+                return values
+
+            for selector in explicit_hovers[variant]:
+                values = declarations(selector)
+                if not {"color", "background"}.issubset(values):
+                    errors.append(f"{label} {selector} needs explicit foreground and background")
+            for path in (*paths, (".palette-toggle",), (".palette-toggle", ".palette-toggle:hover")):
+                try:
+                    values = dict(rules["body"])
+                    for selector in path:
+                        selected = declarations(selector)
+                        if not selected:
+                            raise ValueError(f"missing selector {selector}")
+                        values.update({key: value for key, value in selected.items() if value != "inherit"})
+                    canvas = palette_color(rules["body"]["background"], tokens, (1, 1, 1))
+                    background = palette_color(values["background"], tokens, canvas)
+                    foreground = palette_color(values["color"], tokens, background)
+                    ratio = contrast_ratio(foreground, background)
+                    if ratio < 4.5:
+                        errors.append(f"{label} {' -> '.join(path)} contrast {ratio:.2f}:1 < 4.5:1")
+                    gold = palette_color("#E7A928", tokens, canvas)
+                    if logo and background == gold and relative_luminance(foreground) >= relative_luminance(background):
+                        errors.append(f"{label} {path[-1]} must use a dark foreground on gold")
+                except (KeyError, ValueError) as exc:
+                    errors.append(f"{label} {path[-1]} contrast check: {exc}")
+
+            if variant == "e":
+                match = re.search(
+                    r"@media\s*\(prefers-reduced-transparency:\s*reduce\)\s*"
+                    r"\{\s*\.site-header\s*\{([^{}]*)\}\s*\}", css
+                )
+                fallback = palette_css_rules(".site-header{" + match[1] + "}") if match else {}
+                background = fallback.get(".site-header", {}).get("background", "")
+                try:
+                    if not re.fullmatch(r"var\(--[\w-]+\)", background):
+                        raise ValueError("header background must be variable-driven")
+                    if palette_color(background, tokens, (1, 1, 1)) != palette_color("var(--navy)", tokens, (1, 1, 1)):
+                        raise ValueError("header background must follow the active navy palette")
+                except ValueError as exc:
+                    errors.append(f"{label} reduced transparency: {exc}")
 
 
 def main() -> int:
@@ -2008,6 +2153,7 @@ def main() -> int:
     verify_preserved_main_bytes(errors)
 
     verify_logo_palette_toggle(errors)
+    verify_palette_contrast(errors)
 
     if errors:
         print("Verification failed:")

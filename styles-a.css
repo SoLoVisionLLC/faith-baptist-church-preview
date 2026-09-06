@@ -4,10 +4,13 @@
   --navy: #0A3161;
   --white: #FFFFFF;
   --paper: #FFFFFF;
+  --on-accent: #FFFFFF;
+  --accent-text: #B31942;
 }
 
 body[data-logo-palette] {
   --brick: #E7A928; --navy: #082B73; --white: #F7F8F5; --paper: #F7F8F5;
+  --on-accent: #14222D; --accent-text: #082B73;
 }
 .palette-toggle { position: fixed; top: 1rem; right: 1rem; z-index: 101; min-height: 44px; padding: .65rem .9rem; border: 2px solid #082B73; border-radius: 4px; background: #E7A928; color: #14222D; font: inherit; font-weight: 700; cursor: pointer; }
 .palette-toggle:hover { background: #F7F8F5; }
@@ -77,12 +80,12 @@ img {
 }
 
 a {
-  color: var(--brick);
+  color: var(--accent-text);
   text-underline-offset: 0.2em;
 }
 
 a:hover {
-  color: var(--brick);
+  color: var(--accent-text);
 }
 
 a:focus-visible,
@@ -161,7 +164,7 @@ main:focus {
 }
 
 .desktop-navigation a[aria-current="page"] {
-  color: var(--brick);
+  color: var(--accent-text);
   text-decoration: underline;
   text-decoration-thickness: 2px;
 }
@@ -185,14 +188,14 @@ main:focus {
 .header-cta,
 .mobile-cta,
 .button.primary {
-  color: var(--white);
+  color: var(--on-accent);
   background: var(--brick);
 }
 
 .header-cta:hover,
 .mobile-cta:hover,
 .button.primary:hover {
-  color: var(--white);
+  color: var(--on-accent);
   background: var(--brick);
   border-color: var(--brick);
 }
@@ -602,7 +605,7 @@ main:focus {
   }
 
   .mobile-navigation a[aria-current="page"] {
-    color: var(--brick);
+    color: var(--accent-text);
     font-weight: 700;
   }
 
