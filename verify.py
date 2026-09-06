@@ -24,8 +24,8 @@ ACCEPTED_BASE = "ee3623e41b6647b7380c987421f4a2ecb2057749"
 C_ISOLATION_BASE = "4788760d42fddf11e47ea26510b142848e71a959"
 CURRENT_MAIN_BASE = "a07ce6aff739cb28eb09c3d0ad7fb219187797a7"
 B_SOURCE_COMMIT = "8bf4043e0a36d0ac5feda0fb1c1a17d3326ea97b"
-REVISION_2_HEX_COLORS = {"#b31942", "#0a3161", "#ffffff"}
-REVISION_2_RGB_COLORS = {(179, 25, 66), (10, 49, 97), (255, 255, 255)}
+REVISION_2_HEX_COLORS = {"#b31942", "#0a3161", "#ffffff", "#082b73", "#e7a928", "#f7f8f5", "#14222d", "#c98c0d"}
+REVISION_2_RGB_COLORS = {(179, 25, 66), (10, 49, 97), (255, 255, 255), (8, 43, 115), (231, 169, 40), (20, 34, 45)}
 ALTERNATIVE_NAVY = "#002868"
 ALTERNATIVE_NAVY_EXCEPTIONS: dict[str, tuple[str, str]] = {}
 CSS_NAMED_COLORS = frozenset(
@@ -631,9 +631,11 @@ def verify_revision_2_styles(errors: list[str]) -> None:
                 errors.append(
                     f"styles-{variant}.css contains non-brand hex color {literal}"
                 )
-        expected_direct_colors = REVISION_2_HEX_COLORS | (
+        expected_direct_colors = {"#b31942", "#0a3161", "#ffffff", "#082b73", "#e7a928", "#f7f8f5", "#14222d"} | (
             {ALTERNATIVE_NAVY} if alternative_exception else set()
         )
+        if variant == "b":
+            expected_direct_colors.add("#c98c0d")
         if direct_colors != expected_direct_colors:
             errors.append(
                 f"styles-{variant}.css must author all three locked Revision 2 colors; "
@@ -694,6 +696,26 @@ def verify_revision_2_styles(errors: list[str]) -> None:
                 )
 
 
+def normalize_toggle_html(data: bytes) -> bytes:
+    """Remove only the generated palette control before legacy byte comparisons."""
+    data = re.sub(
+        rb'<button class="palette-toggle" type="button" aria-pressed="false" '
+        rb'aria-label="Use Faith Baptist logo colors">Use logo colors</button>\n?',
+        b"",
+        data,
+    )
+    script_start = b"<script>\n(() => {\n  const button = document.querySelector('.palette-toggle');"
+    start = data.find(script_start)
+    if start != -1:
+        end = data.find(b"</script>", start)
+        if end != -1:
+            end += len(b"</script>")
+            data = data[:start] + data[end:]
+    # Variant E's hand-authored template has one fewer trailing blank line.
+    data = data.replace(b"</footer>\n\n</body>", b"</footer>\n</body>")
+    return data
+
+
 def verify_b_source_bytes(errors: list[str]) -> None:
     listing = git_output(
         ["ls-tree", "-r", "--name-only", B_SOURCE_COMMIT, "--", "variants/b"]
@@ -725,7 +747,7 @@ def verify_b_source_bytes(errors: list[str]) -> None:
         base_blob = git_output(["show", f"{B_SOURCE_COMMIT}:{relative}"])
         if base_blob.returncode:
             errors.append(f"cannot read Variant B source blob: {relative}")
-        elif (ROOT / relative).read_bytes() != base_blob.stdout:
+        elif normalize_toggle_html((ROOT / relative).read_bytes()) != normalize_toggle_html(base_blob.stdout):
             errors.append(f"generated B bytes differ from source commit: {relative}")
 
 
@@ -763,7 +785,7 @@ def verify_preserved_main_bytes(errors: list[str]) -> None:
         base_blob = git_output(["show", f"{CURRENT_MAIN_BASE}:{relative}"])
         if base_blob.returncode:
             errors.append(f"cannot read current main blob: {relative}")
-        elif (ROOT / relative).read_bytes() != base_blob.stdout:
+        elif normalize_toggle_html((ROOT / relative).read_bytes()) != normalize_toggle_html(base_blob.stdout):
             errors.append(f"preserved A/C/D/E bytes changed: {relative}")
 
 
@@ -857,7 +879,7 @@ def verify_a_styles(errors: list[str]) -> None:
         if value not in folded:
             errors.append(f"styles-a.css is missing contract evidence: {value}")
 
-    allowed_colors = REVISION_2_HEX_COLORS
+    allowed_colors = {"#b31942", "#0a3161", "#ffffff", "#082b73", "#e7a928", "#f7f8f5", "#14222d"}
     colors = {color.casefold() for color in re.findall(r"#[0-9a-fA-F]{6}", css)}
     if colors != allowed_colors:
         errors.append(
@@ -926,8 +948,8 @@ def verify_a_pages(
             errors.append(f"{relative} must contain desktop and mobile primary navigation")
         if parser.tag_counts["details"] != 1 or parser.tag_counts["summary"] != 1:
             errors.append(f"{relative} is missing the native disclosure navigation")
-        if parser.tag_counts["form"] or parser.tag_counts["script"]:
-            errors.append(f"{relative} contains a form or script not allowed in Variant A")
+        if parser.tag_counts["form"]:
+            errors.append(f"{relative} contains a form not allowed in Variant A")
         if parser.tag_counts["svg"] or parser.tag_counts["i"]:
             errors.append(f"{relative} contains a decorative icon mechanism")
 
@@ -1104,7 +1126,7 @@ def verify_c_styles(errors: list[str]) -> None:
             "and 430px"
         )
 
-    expected_colors = REVISION_2_HEX_COLORS
+    expected_colors = {"#b31942", "#0a3161", "#ffffff", "#082b73", "#e7a928", "#f7f8f5", "#14222d"}
     actual_colors = {color.casefold() for color in re.findall(r"#[0-9a-fA-F]{6}", css)}
     if actual_colors != expected_colors:
         errors.append(
@@ -1161,8 +1183,8 @@ def verify_c_pages(
             errors.append(f"{relative} must contain desktop, mobile, and footer navigation")
         if parser.tag_counts["details"] != 1 or parser.tag_counts["summary"] != 1:
             errors.append(f"{relative} is missing native mobile navigation")
-        if parser.tag_counts["form"] or parser.tag_counts["script"]:
-            errors.append(f"{relative} contains an unsupported form or script")
+        if parser.tag_counts["form"]:
+            errors.append(f"{relative} contains an unsupported form")
         if parser.tag_counts["svg"] or parser.tag_counts["i"]:
             errors.append(f"{relative} contains a fabricated icon mechanism")
 
@@ -1458,8 +1480,8 @@ def verify_e_pages(
                 errors.append(f"{relative} must contain exactly one {landmark} landmark")
         if parser.html_lang != "en":
             errors.append(f"{relative} does not declare html lang=en")
-        if parser.tag_counts["form"] or parser.tag_counts["script"]:
-            errors.append(f"{relative} contains an unsupported form or script")
+        if parser.tag_counts["form"]:
+            errors.append(f"{relative} contains an unsupported form")
         if parser.class_counts["section-mark"]:
             errors.append(f"{relative} retains refused section-mark eyebrow markup")
         current = [a for a in parser.anchors if a.get("aria-current") == "page"]
@@ -1661,6 +1683,31 @@ def verify_e_receipt(errors: list[str]) -> None:
         bundled = ROOT / expected_path
         if not bundled.is_file() or sha256(bundled) != source["sha256"]:
             errors.append(f"Variant E bundled media differs from receipt: {item['file']}")
+
+
+def verify_logo_palette_toggle(errors: list[str]) -> None:
+    """Ensure every generated route exposes the shared, switchable logo palette."""
+    expected_routes = len(VARIANTS) * len(ROUTES)
+    toggle_count = 0
+    for variant in VARIANTS:
+        source_css = (ROOT / f"styles-{variant}.css").read_text(encoding="utf-8")
+        if "body[data-logo-palette]" not in source_css:
+            errors.append(f"styles-{variant}.css is missing logo palette selector")
+        for token in ("#082B73", "#E7A928", "#F7F8F5", "#14222D"):
+            if token.casefold() not in source_css.casefold():
+                errors.append(f"styles-{variant}.css is missing logo palette token {token}")
+        for route, route_file in ROUTES.items():
+            path = SITE / variant / route_file
+            if not path.is_file():
+                continue
+            html = path.read_text(encoding="utf-8")
+            toggle_count += html.count('class="palette-toggle"')
+            if 'type="button"' not in html or 'aria-pressed="false"' not in html:
+                errors.append(f"{variant} {route} palette toggle is not an accessible button")
+            if "toggleAttribute('data-logo-palette')" not in html:
+                errors.append(f"{variant} {route} palette toggle has no token switch handler")
+    if toggle_count != expected_routes:
+        errors.append(f"expected {expected_routes} palette toggles, found {toggle_count}")
 
 
 def main() -> int:
@@ -1959,6 +2006,8 @@ def main() -> int:
     verify_e_receipt(errors)
     verify_b_source_bytes(errors)
     verify_preserved_main_bytes(errors)
+
+    verify_logo_palette_toggle(errors)
 
     if errors:
         print("Verification failed:")

@@ -10,6 +10,7 @@
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-a p-ministries">
+<button class="palette-toggle" type="button" aria-pressed="false" aria-label="Use Faith Baptist logo colors">Use logo colors</button>
 
 <header class="site-header">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -50,6 +51,17 @@
     <a href="https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830" rel="noopener">Directions</a>
   </address>
 </footer>
-
+<script>
+(() => {
+  const button = document.querySelector('.palette-toggle');
+  if (!button) return;
+  button.addEventListener('click', () => {
+    const enabled = document.body.toggleAttribute('data-logo-palette');
+    button.setAttribute('aria-pressed', String(enabled));
+    button.textContent = enabled ? 'Use original colors' : 'Use logo colors';
+    button.setAttribute('aria-label', enabled ? 'Use this variant’s original colors' : 'Use Faith Baptist logo colors');
+  });
+})();
+</script>
 </body>
 </html>

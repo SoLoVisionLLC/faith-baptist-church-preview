@@ -15,6 +15,10 @@
   --on-accent: #FFFFFF;
   --shadow: 0 18px 44px rgba(10, 49, 97, .12);
 }
+body[data-logo-palette] { --navy:#082B73; --white:#F7F8F5; --bg:#F7F8F5; --surface:#F7F8F5; --surface-soft:rgba(8,43,115,.10); --surface-strong:rgba(8,43,115,.16); --text:#14222D; --muted:rgba(20,34,45,.72); --border:rgba(8,43,115,.28); --accent:#E7A928; --accent-hover:#C98C0D; --on-accent:#14222D; --shadow:0 18px 44px rgba(8,43,115,.16); }
+.palette-toggle { position:fixed; top:1rem; right:1rem; z-index:101; min-height:44px; padding:.65rem .9rem; border:2px solid #082B73; border-radius:8px; background:#E7A928; color:#14222D; font:inherit; font-weight:800; cursor:pointer; }
+.palette-toggle:hover { background:#F7F8F5; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; } }
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #0A3161;

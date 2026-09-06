@@ -24,6 +24,10 @@
   --transition: 180ms ease-out;
   color-scheme: light;
 }
+body[data-logo-palette] { --color-primary:#082B73; --color-on-primary:#F7F8F5; --color-secondary:rgba(8,43,115,.16); --color-on-secondary:#14222D; --color-accent:#E7A928; --color-on-accent:#14222D; --color-background:#F7F8F5; --color-foreground:#14222D; --color-card:#F7F8F5; --color-card-foreground:#14222D; --color-muted:rgba(8,43,115,.10); --color-muted-foreground:rgba(20,34,45,.72); --color-border:rgba(8,43,115,.28); --color-destructive:#082B73; --color-ring:#E7A928; }
+.palette-toggle { position:fixed; top:1rem; right:1rem; z-index:101; min-height:44px; padding:.65rem .9rem; border:2px solid #082B73; border-radius:4px; background:#E7A928; color:#14222D; font:inherit; font-weight:700; cursor:pointer; }
+.palette-toggle:hover { background:#F7F8F5; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; } }
 
 *,
 *::before,
