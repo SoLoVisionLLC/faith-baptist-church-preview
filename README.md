@@ -15,6 +15,12 @@ Verify locally: `python3 verify.py` (checks all 30 pages, confirmed identity/con
 Deploy: serve each `variants/<x>` directory as a static site root (Dockerfile at repo root uses nginx:alpine; Coolify apps bind `base_directory=/variants/<x>`).
 All pages carry `<meta name="robots" content="noindex, nofollow">`.
 
+## Preview dock and palette contract
+
+Every generated page includes the shared comparison dock from `preview_dock.py`. Design links use the current route (`/`, `/visit/`, `/beliefs/`, `/ministries/`, `/events/`, or `/contact/`) on each deployed sibling domain; the active design link has `aria-current="location"` and an `is-active` class.
+
+The palette toggle is deterministic and shared across all variants. It stores either `logo` or `original` in `localStorage` under the key `faith-baptist-palette`. On initial load, only the exact value `logo` enables the Faith Baptist logo palette; every other value (including missing or invalid data) keeps the variant's original palette. The toggle uses `aria-pressed="true|false"`, changes its visible action text between `Use original colors` and `Use logo colors`, and updates its accessible label to describe the resulting action.
+
 ## QA status after the identity correction
 
 The files in `qa/screenshots/`, the live resource URLs in `qa/capture-metadata.json`, and the historical checks in `qa-live.json` predate this local identity correction. They are preserved as historical artifacts and are not evidence of a corrected live deployment. DEV must deploy and capture fresh evidence after inspecting this isolated diff. No live resources were renamed or contacted during this correction.
