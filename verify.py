@@ -705,9 +705,42 @@ def normalize_toggle_html(data: bytes) -> bytes:
         b'<link rel="stylesheet" href="/styles.css">',
     )
     data = re.sub(rb'<aside class="preview-dock".*?</aside>\n?', b"", data, flags=re.DOTALL)
-    data = re.sub(rb'<script>\n\(\(\) => \{\n  const dock = document\.querySelector\(\'.preview-dock\'\);.*?</script>\n?', b"", data, flags=re.DOTALL)
+    data = re.sub(rb'<script>\n\(\(\) => \{.*?</script>\n?', b"", data, flags=re.DOTALL)
     data = re.sub(rb"\n+</body>", b"</body>", data)
     return data
+
+
+def verify_preview_dock_contract(errors: list[str]) -> None:
+    """Check the persistent single-row strip on every generated route."""
+    expected = len(VARIANTS) * len(ROUTES)
+    pages_checked = 0
+    for variant in VARIANTS:
+        for route_file in ROUTES.values():
+            page = SITE / variant / route_file
+            if not page.is_file():
+                continue
+            pages_checked += 1
+            html = page.read_text(encoding="utf-8")
+            dock = re.search(r'<aside class="preview-dock".*?</aside>', html, flags=re.DOTALL)
+            if not dock:
+                errors.append(f"{page.relative_to(ROOT)} is missing the persistent preview dock")
+                continue
+            markup = dock.group(0)
+            for required in (
+                'class="preview-designs"', 'class="preview-dock-divider"',
+                'data-palette="original"', 'data-palette="logo"',
+                'aria-pressed="true"', 'aria-pressed="false"',
+            ):
+                if required not in markup:
+                    errors.append(f"{page.relative_to(ROOT)} dock is missing {required}")
+            if "preview-dock-panel" in markup or "preview-dock-toggle" in markup:
+                errors.append(f"{page.relative_to(ROOT)} contains the removed hidden comparison panel")
+            if len(re.findall(r'class="preview-design(?:\s|\")', markup)) != 5:
+                errors.append(f"{page.relative_to(ROOT)} must contain five design links")
+            if markup.count('aria-current="page"') != 1:
+                errors.append(f"{page.relative_to(ROOT)} must mark one active design")
+    if pages_checked != expected:
+        errors.append(f"preview dock coverage is {pages_checked} pages; expected {expected}")
 
 
 def verify_b_source_bytes(errors: list[str]) -> None:
@@ -1863,6 +1896,9 @@ def main() -> int:
     }
     actual_pages = {path.resolve() for path in SITE.glob("*/**/*.html")}
 
+    if len(actual_pages) != 30:
+        errors.append(f"expected 30 generated pages, found {len(actual_pages)}")
+
     if actual_pages != expected_pages:
         missing = sorted(str(path.relative_to(ROOT)) for path in expected_pages - actual_pages)
         extra = sorted(str(path.relative_to(ROOT)) for path in actual_pages - expected_pages)
@@ -2141,6 +2177,7 @@ def main() -> int:
             errors.append(f"{qa_path.relative_to(ROOT)} contains the superseded display name")
 
     verify_revision_2_styles(errors)
+    verify_preview_dock_contract(errors)
     verify_receipt(errors)
     verify_a_styles(errors)
     verify_a_pages(parsed_documents, errors)
