@@ -697,22 +697,10 @@ def verify_revision_2_styles(errors: list[str]) -> None:
 
 
 def normalize_toggle_html(data: bytes) -> bytes:
-    """Remove only the generated palette control before legacy byte comparisons."""
-    data = re.sub(
-        rb'<button class="palette-toggle" type="button" aria-pressed="false" '
-        rb'aria-label="Use Faith Baptist logo colors">Use logo colors</button>\n?',
-        b"",
-        data,
-    )
-    script_start = b"<script>\n(() => {\n  const button = document.querySelector('.palette-toggle');"
-    start = data.find(script_start)
-    if start != -1:
-        end = data.find(b"</script>", start)
-        if end != -1:
-            end += len(b"</script>")
-            data = data[:start] + data[end:]
-    # Variant E's hand-authored template has one fewer trailing blank line.
-    data = data.replace(b"</footer>\n\n</body>", b"</footer>\n</body>")
+    """Remove generated dock markup/script before legacy byte comparisons."""
+    data = re.sub(rb'<aside class="preview-dock".*?</aside>\n?', b"", data, flags=re.DOTALL)
+    data = re.sub(rb'<script>\n\(\(\) => \{\n  const dock = document\.querySelector\(\'.preview-dock\'\);.*?</script>\n?', b"", data, flags=re.DOTALL)
+    data = re.sub(rb"\n+</body>", b"</body>", data)
     return data
 
 
@@ -2152,6 +2140,8 @@ def main() -> int:
     verify_c_receipt(errors)
     verify_e_pages(parsed_documents, errors)
     verify_e_receipt(errors)
+    verify_b_source_bytes(errors)
+    verify_preserved_main_bytes(errors)
     verify_logo_palette_toggle(errors)
     verify_palette_contrast(errors)
 

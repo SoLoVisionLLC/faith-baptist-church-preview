@@ -29,33 +29,34 @@ def preview_dock(variant, slug):
             f'aria-label="Design {code}: {name}"><span>{code}</span><strong>{name}</strong></a>'
         )
     designs = "".join(design_items)
-    return f'''<aside class="preview-dock" aria-label="Faith Baptist preview comparison">
-  <div class="preview-dock-heading"><span class="preview-dock-kicker">Compare designs</span><span class="preview-dock-route">{route}</span></div>
-  <div class="preview-designs" role="navigation" aria-label="Preview designs">{designs}</div>
-  <div class="preview-palette" role="group" aria-label="Color palette">
-    <span>Palette</span>
-    <button class="palette-toggle" type="button" aria-pressed="false" aria-label="Use Faith Baptist logo colors">Use logo colors</button>
-  </div>
+    return f'''<aside class="preview-dock" aria-label="Faith Baptist design comparison">
+  <div class="preview-dock-bar"><span class="preview-dock-kicker">Compare</span><span class="preview-dock-context">Current page</span><button class="preview-dock-toggle" type="button" aria-expanded="false" aria-controls="preview-dock-panel">Open design comparison</button></div>
+  <div class="preview-dock-panel" id="preview-dock-panel"><nav class="preview-designs" aria-label="Designs">{designs}</nav><div class="preview-palette" role="group" aria-label="Palette"><span class="preview-palette-label">Palette</span><button class="palette-option palette-original" type="button" aria-pressed="true" data-palette="original">Original</button><button class="palette-option palette-logo" type="button" aria-pressed="false" data-palette="logo">Logo</button></div></div>
 </aside>'''
 
 
 PALETTE_SCRIPT = '''<script>
 (() => {
-  const button = document.querySelector('.palette-toggle');
-  if (!button) return;
-  const setPalette = (enabled) => {
-    // toggleAttribute('data-logo-palette') is the palette token contract.
+  const dock = document.querySelector('.preview-dock');
+  const toggle = document.querySelector('.preview-dock-toggle');
+  const options = document.querySelectorAll('[data-palette]');
+  if (!dock || !toggle || !options.length) return;
+  toggle.addEventListener('click', () => {
+    const open = dock.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? 'Close design comparison' : 'Open design comparison';
+  });
+  const setPalette = (palette) => {
+    const enabled = palette === 'logo';
     if (enabled) document.body.setAttribute('data-logo-palette', '');
     else document.body.removeAttribute('data-logo-palette');
-    button.setAttribute('aria-pressed', String(enabled));
-    button.textContent = enabled ? 'Use original colors' : 'Use logo colors';
-    button.setAttribute('aria-label', enabled ? 'Use this variant’s original colors' : 'Use Faith Baptist logo colors');
+    options.forEach((option) => option.setAttribute('aria-pressed', String(option.dataset.palette === palette)));
   };
-  setPalette(window.localStorage.getItem('faith-baptist-palette') === 'logo');
-  button.addEventListener('click', () => {
-    const enabled = !document.body.hasAttribute('data-logo-palette');
-    window.localStorage.setItem('faith-baptist-palette', enabled ? 'logo' : 'original');
-    setPalette(enabled);
-  });
+  setPalette(window.localStorage.getItem('faith-baptist-palette') === 'logo' ? 'logo' : 'original');
+  options.forEach((option) => option.addEventListener('click', () => {
+    const palette = option.dataset.palette === 'logo' ? 'logo' : 'original';
+    window.localStorage.setItem('faith-baptist-palette', palette);
+    setPalette(palette);
+  }));
 })();
 </script>'''
