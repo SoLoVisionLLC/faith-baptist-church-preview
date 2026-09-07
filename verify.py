@@ -20,6 +20,7 @@ from preview_dock import ASSET_VERSION
 
 
 ROOT = Path(__file__).resolve().parent
+EXPECTED_ASSET_VERSION = "20260907-dock-v6-pill-red"
 SITE = ROOT / "variants"
 VARIANTS = ("a", "b", "c", "d", "e")
 ACCEPTED_BASE = "ee3623e41b6647b7380c987421f4a2ecb2057749"
@@ -27,7 +28,7 @@ C_ISOLATION_BASE = "4788760d42fddf11e47ea26510b142848e71a959"
 CURRENT_MAIN_BASE = "a07ce6aff739cb28eb09c3d0ad7fb219187797a7"
 B_SOURCE_COMMIT = "8bf4043e0a36d0ac5feda0fb1c1a17d3326ea97b"
 REVISION_2_HEX_COLORS = {"#b31942", "#0a3161", "#ffffff", "#082b73", "#e7a928", "#f7f8f5", "#14222d", "#c98c0d"}
-DOCK_HEX_COLORS = {"#252525", "#bdbdbd"}
+DOCK_HEX_COLORS = {"#252525", "#bdbdbd", "#bc2026", "#d7092e"}
 DOCK_CSS_MARKER = "/* Floating comparison pill */"
 REVISION_2_RGB_COLORS = {(179, 25, 66), (10, 49, 97), (255, 255, 255), (8, 43, 115), (231, 169, 40), (20, 34, 45)}
 ALTERNATIVE_NAVY = "#002868"
@@ -783,6 +784,8 @@ def without_preview_styles(css: str) -> str:
 
 def verify_preview_dock_contract(errors: list[str]) -> None:
     """Check floating pill anatomy and route-preserving controls on all 30 pages."""
+    if ASSET_VERSION != EXPECTED_ASSET_VERSION:
+        errors.append(f"preview dock asset version must be {EXPECTED_ASSET_VERSION}; got {ASSET_VERSION}")
     designs = {
         "a": ("Plain Welcome", "https://faithbaptistchurch-a.sololink.cloud"),
         "b": ("Sunday Starts Here", "https://faithbaptistchurch-b.sololink.cloud"),
@@ -808,7 +811,7 @@ def verify_preview_dock_contract(errors: list[str]) -> None:
         required_styles = {
             "body": {"padding-bottom": "calc(84px + env(safe-area-inset-bottom)) !important"},
             ".preview-dock": {
-                "position": "fixed", "width": "max-content", "height": "52px",
+                "position": "fixed", "width": "max-content", "height": "44px",
                 "inset": "auto auto calc(16px + env(safe-area-inset-bottom)) 50%",
                 "max-width": "calc(100% - 2 * max(16px, env(safe-area-inset-left), env(safe-area-inset-right)))",
                 "transform": "translateX(-50%)", "border-radius": "999px",
@@ -826,9 +829,9 @@ def verify_preview_dock_contract(errors: list[str]) -> None:
         for selector in (".preview-design:hover", ".palette-option:hover"):
             required_styles[selector] = {"background": "rgba(255,255,255,.12)", "color": "#FFFFFF"}
         for selector in (".preview-design.is-active", '.palette-option[aria-pressed="true"]'):
-            required_styles[selector] = {"background": "#E7A928", "color": "#252525"}
+            required_styles[selector] = {"background": "#BC2026", "color": "#FFFFFF"}
         for selector in (".preview-dock a:focus-visible", ".preview-dock button:focus-visible"):
-            required_styles[selector] = {"outline": "2px solid #FFFFFF", "outline-offset": "-3px"}
+            required_styles[selector] = {"outline": "2px solid #BC2026", "outline-offset": "-3px"}
         for selector, declarations in required_styles.items():
             for name, value in declarations.items():
                 if rules.get(selector, {}).get(name) != value:

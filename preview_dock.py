@@ -16,7 +16,7 @@ VARIANT_NAMES = {
     "d": ("D", "Accessible & Ethical"),
     "e": ("E", "Service-Time Compass"),
 }
-ASSET_VERSION = "20260907-dock-v5"
+ASSET_VERSION = "20260907-dock-v6-pill-red"
 
 
 def preview_dock(variant, slug):
