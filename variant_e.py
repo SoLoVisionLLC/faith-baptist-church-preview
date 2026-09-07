@@ -1,5 +1,7 @@
 """Variant E: Impeccable 4.1.1 Persuade, Service-Time Compass."""
 
+from preview_dock import PALETTE_SCRIPT, preview_dock
+
 NAME = "Faith Baptist Church"
 ADDRESS = "11275 W. Twp. Rd. 116, Fostoria, OH 44830"
 PHONE = "419-348-2171"
@@ -24,20 +26,6 @@ MEDIA = {
 }
 
 ROUTES = (("/", "Home"), ("/visit/", "Plan Your Visit"), ("/beliefs/", "What We Believe"), ("/ministries/", "Ministries"), ("/events/", "Events & Announcements"), ("/contact/", "Contact"))
-DOCK_DOMAINS = (("A", "Plain Welcome", "https://faithbaptistchurch-a.sololink.cloud"), ("B", "Sunday Starts Here", "https://faithbaptistchurch-b.sololink.cloud"), ("C", "Rooted & Rising", "https://faithbaptistchurch-c.sololink.cloud"), ("D", "Accessible & Ethical", "https://faithbaptist-d.sololink.cloud"), ("E", "Service-Time Compass", "https://faithbaptist-e.sololink.cloud"))
-
-
-def preview_dock(route):
-    items = []
-    for code, name, domain in DOCK_DOMAINS:
-        active = ' is-active' if code == 'E' else ''
-        current = ' aria-current="page"' if code == 'E' else ''
-        items.append(f'<a class="preview-design{active}" href="{domain}{route}"{current} aria-label="Design {code}: {name}"><span>{code}</span><strong>{name}</strong></a>')
-    return f'''<aside class="preview-dock" aria-label="Faith Baptist design comparison">
-  <div class="preview-dock-bar"><span class="preview-dock-kicker">Compare</span><span class="preview-dock-context">Current page</span><button class="preview-dock-toggle" type="button" aria-expanded="false" aria-controls="preview-dock-panel">Open design comparison</button></div>
-  <div class="preview-dock-panel" id="preview-dock-panel"><nav class="preview-designs" aria-label="Designs">{''.join(items)}</nav><div class="preview-palette" role="group" aria-label="Palette"><span class="preview-palette-label">Palette</span><button class="palette-option palette-original" type="button" aria-pressed="true" data-palette="original">Original</button><button class="palette-option palette-logo" type="button" aria-pressed="false" data-palette="logo">Logo</button></div></div>
-</aside>'''
-
 
 def image(key, class_name=""):
     src, alt, width, height = MEDIA[key]
@@ -135,30 +123,12 @@ def page(slug, title, description, body):
 </head>
 <body class="v-e p-{slug or 'home'}">
 {DIRECTION_CONTRACT}
-{preview_dock(route)}
+{preview_dock("e", slug)}
 <a class="skip-link" href="#main">Skip to content</a>
 {nav(route)}
 <main id="main" tabindex="-1">{body}</main>
 <footer class="site-footer"><p><strong>{NAME}</strong></p><address>{ADDRESS}</address><a href="tel:{PHONE_TEL}">{PHONE}</a><a href="{DIRECTIONS}" rel="noopener">Get Directions</a><nav aria-label="Footer">{''.join(f'<a href="{href}">{label}</a>' for href, label in ROUTES)}</nav></footer>
-<script>
-(() => {{
-  const dock = document.querySelector('.preview-dock');
-  const toggle = document.querySelector('.preview-dock-toggle');
-  const options = document.querySelectorAll('[data-palette]');
-  toggle.addEventListener('click', () => {{
-    const open = dock.classList.toggle('is-open');
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.textContent = open ? 'Close design comparison' : 'Open design comparison';
-  }});
-  const setPalette = (palette) => {{
-    const logo = palette === 'logo';
-    if (logo) document.body.setAttribute('data-logo-palette', '');
-    else document.body.removeAttribute('data-logo-palette');
-    options.forEach((option) => option.setAttribute('aria-pressed', String(option.dataset.palette === palette)));
-  }};
-  options.forEach((option) => option.addEventListener('click', () => setPalette(option.dataset.palette)));
-}})();
-</script>
+{PALETTE_SCRIPT}
 </body>
 </html>
 '''

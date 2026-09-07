@@ -12,7 +12,7 @@
 <body class="v-b p-visit">
 <aside class="preview-dock" aria-label="Faith Baptist design comparison">
   <div class="preview-dock-bar"><span class="preview-dock-kicker">Compare</span><span class="preview-dock-context">Current page</span><button class="preview-dock-toggle" type="button" aria-expanded="false" aria-controls="preview-dock-panel">Open design comparison</button></div>
-  <div class="preview-dock-panel" id="preview-dock-panel"><nav class="preview-designs" aria-label="Designs"><a class="preview-design" href="https://faithbaptistchurch-a.sololink.cloud/visit/" aria-label="Design A: Plain Welcome"><span>A</span><strong>Plain Welcome</strong></a><a class="preview-design is-active" href="https://faithbaptistchurch-b.sololink.cloud/visit/" aria-current="page" aria-label="Design B: Sunday Starts Here"><span>B</span><strong>Sunday Starts Here</strong></a><a class="preview-design" href="https://faithbaptistchurch-c.sololink.cloud/visit/" aria-label="Design C: Rooted & Rising"><span>C</span><strong>Rooted & Rising</strong></a><a class="preview-design" href="https://faithbaptist-d.sololink.cloud/visit/" aria-label="Design D: Accessible & Ethical"><span>D</span><strong>Accessible & Ethical</strong></a><a class="preview-design" href="https://faithbaptist-e.sololink.cloud/visit/" aria-label="Design E: Service-Time Compass"><span>E</span><strong>Service-Time Compass</strong></a></nav><div class="preview-palette" role="group" aria-label="Palette"><span class="preview-palette-label">Palette</span><button class="palette-option palette-original" type="button" aria-pressed="true" data-palette="original">Original</button><button class="palette-option palette-logo" type="button" aria-pressed="false" data-palette="logo">Logo</button></div></div>
+  <div class="preview-dock-panel" id="preview-dock-panel"><nav class="preview-designs" aria-label="Designs"><a class="preview-design" href="https://faithbaptistchurch-a.sololink.cloud/visit/" aria-label="Design A: Plain Welcome"><span>A</span><strong>Plain Welcome</strong></a><a class="preview-design is-active" href="https://faithbaptistchurch-b.sololink.cloud/visit/" aria-current="location" aria-label="Design B: Sunday Starts Here"><span>B</span><strong>Sunday Starts Here</strong></a><a class="preview-design" href="https://faithbaptistchurch-c.sololink.cloud/visit/" aria-label="Design C: Rooted & Rising"><span>C</span><strong>Rooted & Rising</strong></a><a class="preview-design" href="https://faithbaptist-d.sololink.cloud/visit/" aria-label="Design D: Accessible & Ethical"><span>D</span><strong>Accessible & Ethical</strong></a><a class="preview-design" href="https://faithbaptist-e.sololink.cloud/visit/" aria-label="Design E: Service-Time Compass"><span>E</span><strong>Service-Time Compass</strong></a></nav><div class="preview-palette" role="group" aria-label="Palette"><span class="preview-palette-label">Palette</span><button class="palette-option palette-original" type="button" aria-pressed="true" data-palette="original">Original</button><button class="palette-option palette-logo" type="button" aria-pressed="false" data-palette="logo">Logo</button></div></div>
 </aside>
 
 <header class="site-header">
@@ -42,19 +42,24 @@
   const dock = document.querySelector('.preview-dock');
   const toggle = document.querySelector('.preview-dock-toggle');
   const options = document.querySelectorAll('[data-palette]');
-  if (!dock || !toggle) return;
+  if (!dock || !toggle || !options.length) return;
   toggle.addEventListener('click', () => {
     const open = dock.classList.toggle('is-open');
     toggle.setAttribute('aria-expanded', String(open));
     toggle.textContent = open ? 'Close design comparison' : 'Open design comparison';
   });
   const setPalette = (palette) => {
-    const logo = palette === 'logo';
-    if (logo) document.body.setAttribute('data-logo-palette', '');
+    const enabled = palette === 'logo';
+    if (enabled) document.body.setAttribute('data-logo-palette', '');
     else document.body.removeAttribute('data-logo-palette');
     options.forEach((option) => option.setAttribute('aria-pressed', String(option.dataset.palette === palette)));
   };
-  options.forEach((option) => option.addEventListener('click', () => setPalette(option.dataset.palette)));
+  setPalette(window.localStorage.getItem('faith-baptist-palette') === 'logo' ? 'logo' : 'original');
+  options.forEach((option) => option.addEventListener('click', () => {
+    const palette = option.dataset.palette === 'logo' ? 'logo' : 'original';
+    window.localStorage.setItem('faith-baptist-palette', palette);
+    setPalette(palette);
+  }));
 })();
 </script>
 </body>
