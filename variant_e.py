@@ -1,6 +1,6 @@
 """Variant E: Impeccable 4.1.1 Persuade, Service-Time Compass."""
 
-from preview_dock import preview_dock
+from preview_dock import PALETTE_SCRIPT, preview_dock
 
 NAME = "Faith Baptist Church"
 ADDRESS = "11275 W. Twp. Rd. 116, Fostoria, OH 44830"
@@ -127,25 +127,7 @@ def page(slug, title, description, body):
 {nav(route)}
 <main id="main" tabindex="-1">{body}</main>
 <footer class="site-footer"><p><strong>{NAME}</strong></p><address>{ADDRESS}</address><a href="tel:{PHONE_TEL}">{PHONE}</a><a href="{DIRECTIONS}" rel="noopener">Get Directions</a><nav aria-label="Footer">{''.join(f'<a href="{href}">{label}</a>' for href, label in ROUTES)}</nav></footer>
-<script>
-(() => {{
-  const button = document.querySelector('.palette-toggle');
-  const setPalette = (enabled) => {{
-    // toggleAttribute('data-logo-palette') is the palette token contract.
-    if (enabled) document.body.setAttribute('data-logo-palette', '');
-    else document.body.removeAttribute('data-logo-palette');
-    button.setAttribute('aria-pressed', String(enabled));
-    button.textContent = enabled ? 'Use original colors' : 'Use logo colors';
-    button.setAttribute('aria-label', enabled ? 'Use this variant’s original colors' : 'Use Faith Baptist logo colors');
-  }};
-  setPalette(window.localStorage.getItem('faith-baptist-palette') === 'logo');
-  button.addEventListener('click', () => {{
-    const enabled = !document.body.hasAttribute('data-logo-palette');
-    window.localStorage.setItem('faith-baptist-palette', enabled ? 'logo' : 'original');
-    setPalette(enabled);
-  }});
-}})();
-</script>
+{PALETTE_SCRIPT}
 </body>
 </html>
 '''

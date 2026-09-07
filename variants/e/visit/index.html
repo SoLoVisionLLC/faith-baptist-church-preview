@@ -47,6 +47,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 <script>
 (() => {
   const button = document.querySelector('.palette-toggle');
+  if (!button) return;
   const setPalette = (enabled) => {
     // toggleAttribute('data-logo-palette') is the palette token contract.
     if (enabled) document.body.setAttribute('data-logo-palette', '');
