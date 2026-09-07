@@ -3,7 +3,7 @@
 import os, shutil
 
 import variant_e
-from preview_dock import PALETTE_SCRIPT, preview_dock
+from preview_dock import ASSET_VERSION, PALETTE_SCRIPT, preview_dock
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(ROOT, 'variants')
@@ -54,7 +54,6 @@ VARIANT_NAMES = {
     'd': ('D', 'Accessible & Ethical'),
     'e': ('E', 'Service-Time Compass'),
 }
-
 
 
 A_ADDRESS = '11275 W. Twp. Rd. 116, Fostoria, OH 44830'
@@ -322,7 +321,7 @@ HEAD = '''<!DOCTYPE html>
 <meta name="robots" content="noindex, nofollow">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}">
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-{variant} p-{slug}">
@@ -339,7 +338,7 @@ HEAD_A = '''<!DOCTYPE html>
 <meta name="robots" content="noindex, nofollow">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}">
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-a p-{slug}">
@@ -356,7 +355,7 @@ HEAD_C = '''<!DOCTYPE html>
 <meta name="robots" content="noindex, nofollow">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}">
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-c p-{slug}">
@@ -369,19 +368,19 @@ HEAD_C = '''<!DOCTYPE html>
 def page(variant, slug, title, desc, body):
     if variant == 'a':
         active = '/' + slug if slug else '/'
-        html = HEAD_A.format(title=title, desc=desc, slug=slug or 'home', nav=nav_a(active), dock=preview_dock(variant, slug))
+        html = HEAD_A.format(title=title, desc=desc, slug=slug or 'home', nav=nav_a(active), dock=preview_dock(variant, slug), ASSET_VERSION=ASSET_VERSION)
         return html + body + '\n</main>\n' + footer_a() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     if variant == 'c':
         active = '/' if not slug else f'/{slug}/'
-        html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active), dock=preview_dock(variant, slug))
+        html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active), dock=preview_dock(variant, slug), ASSET_VERSION=ASSET_VERSION)
         return html + body + '\n</main>\n' + footer_c() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     if variant == 'd':
         active = '/' + slug if slug else '/'
         html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
-                           nav=nav_d(active), dock=preview_dock(variant, slug))
+                           nav=nav_d(active), dock=preview_dock(variant, slug), ASSET_VERSION=ASSET_VERSION)
         return html + body + '\n</main>\n' + footer_d() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
-                       nav=nav('/' + slug if slug else '/', variant), dock=preview_dock(variant, slug))
+                       nav=nav('/' + slug if slug else '/', variant), dock=preview_dock(variant, slug), ASSET_VERSION=ASSET_VERSION)
     return html + body + '\n</main>\n' + footer(variant) + PALETTE_SCRIPT + '\n</body>\n</html>\n'
 
 

@@ -16,6 +16,8 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
+from preview_dock import ASSET_VERSION
+
 
 ROOT = Path(__file__).resolve().parent
 SITE = ROOT / "variants"
@@ -697,7 +699,11 @@ def verify_revision_2_styles(errors: list[str]) -> None:
 
 
 def normalize_toggle_html(data: bytes) -> bytes:
-    """Remove generated dock markup/script before legacy byte comparisons."""
+    """Remove generated dock controls and the exact stylesheet cache version."""
+    data = data.replace(
+        f'<link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}">'.encode(),
+        b'<link rel="stylesheet" href="/styles.css">',
+    )
     data = re.sub(rb'<aside class="preview-dock".*?</aside>\n?', b"", data, flags=re.DOTALL)
     data = re.sub(rb'<script>\n\(\(\) => \{\n  const dock = document\.querySelector\(\'.preview-dock\'\);.*?</script>\n?', b"", data, flags=re.DOTALL)
     data = re.sub(rb"\n+</body>", b"</body>", data)
@@ -1677,6 +1683,9 @@ def verify_logo_palette_toggle(errors: list[str]) -> None:
     dock_count = 0
     for variant in VARIANTS:
         source_css = (ROOT / f"styles-{variant}.css").read_text(encoding="utf-8")
+        for css_path in (ROOT / f"styles-{variant}.css", SITE / variant / "styles.css"):
+            if css_path.is_file() and "/* Shared comparison dock */" in css_path.read_text(encoding="utf-8"):
+                errors.append(f"{css_path.relative_to(ROOT)} contains the obsolete comparison dock")
         if "body[data-logo-palette]" not in source_css:
             errors.append(f"styles-{variant}.css is missing logo palette selector")
         for token in ("#082B73", "#E7A928", "#F7F8F5", "#14222D"):
