@@ -20,7 +20,7 @@ from preview_dock import ASSET_VERSION
 
 
 ROOT = Path(__file__).resolve().parent
-EXPECTED_ASSET_VERSION = "20260907-dock-v7-pill-slim"
+EXPECTED_ASSET_VERSION = "20260907-dock-v8-typography"
 SITE = ROOT / "variants"
 VARIANTS = ("a", "b", "c", "d", "e")
 ACCEPTED_BASE = "ee3623e41b6647b7380c987421f4a2ecb2057749"
@@ -819,6 +819,9 @@ def verify_preview_dock_contract(errors: list[str]) -> None:
                 "box-sizing": "border-box", "padding": "0 8px",
                 "border": "1px solid rgba(255,255,255,.2)",
                 "font": "500 11px/1.2 system-ui, sans-serif",
+            },
+            ".preview-dock *": {
+                "font": "inherit", "letter-spacing": "normal", "text-transform": "none",
             },
             ".preview-dock-scroll": {
                 "display": "flex", "flex-wrap": "nowrap", "align-items": "center",

@@ -174,10 +174,14 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom)) !important; }
   color: #FFFFFF;
   box-shadow: 0 8px 24px rgba(20,34,45,.24);
   font: 500 11px/1.2 system-ui, sans-serif;
-  text-transform: none;
-  letter-spacing: normal;
   transform: translateX(-50%);
 }
+.preview-dock, .preview-dock * {
+  font: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.preview-dock { font: 500 11px/1.2 system-ui, sans-serif; }
 .preview-dock-scroll {
   display: flex;
   flex-wrap: nowrap;
@@ -212,7 +216,7 @@ body { padding-bottom: calc(64px + env(safe-area-inset-bottom)) !important; }
   color: #BDBDBD;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: .06em;
+  letter-spacing: normal;
 }
 .preview-dock-icon { display: block; flex: 0 0 12px; width: 12px; height: 12px; }
 .preview-design, .palette-option {
