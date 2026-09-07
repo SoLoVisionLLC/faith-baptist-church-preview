@@ -10,14 +10,7 @@
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-c p-events">
-<aside class="preview-dock" aria-label="Faith Baptist preview comparison">
-  <div class="preview-dock-heading"><span class="preview-dock-kicker">Compare designs</span><span class="preview-dock-route">/events/</span></div>
-  <div class="preview-designs" role="navigation" aria-label="Preview designs"><a class="preview-design" href="https://faithbaptistchurch-a.sololink.cloud/events/" aria-label="Design A: Plain Welcome"><span>A</span><strong>Plain Welcome</strong></a><a class="preview-design" href="https://faithbaptistchurch-b.sololink.cloud/events/" aria-label="Design B: Sunday Starts Here"><span>B</span><strong>Sunday Starts Here</strong></a><a class="preview-design is-active" href="https://faithbaptistchurch-c.sololink.cloud/events/" aria-current="location" aria-label="Design C: Rooted & Rising"><span>C</span><strong>Rooted & Rising</strong></a><a class="preview-design" href="https://faithbaptist-d.sololink.cloud/events/" aria-label="Design D: Accessible & Ethical"><span>D</span><strong>Accessible & Ethical</strong></a><a class="preview-design" href="https://faithbaptist-e.sololink.cloud/events/" aria-label="Design E: Service-Time Compass"><span>E</span><strong>Service-Time Compass</strong></a></div>
-  <div class="preview-palette" role="group" aria-label="Color palette">
-    <span>Palette</span>
-    <button class="palette-toggle" type="button" aria-pressed="false" aria-label="Use Faith Baptist logo colors">Use logo colors</button>
-  </div>
-</aside>
+<button class="palette-toggle" type="button" aria-pressed="false" aria-label="Use Faith Baptist logo colors">Use logo colors</button>
 <div class="ambient-layer" aria-hidden="true"><span class="ambient-shape ambient-one"></span><span class="ambient-shape ambient-two"></span></div>
 
 <header class="c-site-header">
@@ -42,7 +35,7 @@
     <li class="rhythm-stop"><p>Prayer and Bible study Wednesday at <time datetime="19:00">7:00 PM.</time></p></li>
   </ol>
 </section>
-
+<section class="announcement c-page-shell" aria-labelledby="events-announcement-title"><h2 id="events-announcement-title">Announcements</h2><p>Current announcements will appear here when supplied.</p></section>
 </main>
 
 <footer class="c-site-footer">
@@ -57,19 +50,11 @@
 (() => {
   const button = document.querySelector('.palette-toggle');
   if (!button) return;
-  const setPalette = (enabled) => {
-    // toggleAttribute('data-logo-palette') is the palette token contract.
-    if (enabled) document.body.setAttribute('data-logo-palette', '');
-    else document.body.removeAttribute('data-logo-palette');
+  button.addEventListener('click', () => {
+    const enabled = document.body.toggleAttribute('data-logo-palette');
     button.setAttribute('aria-pressed', String(enabled));
     button.textContent = enabled ? 'Use original colors' : 'Use logo colors';
     button.setAttribute('aria-label', enabled ? 'Use this variant’s original colors' : 'Use Faith Baptist logo colors');
-  };
-  setPalette(window.localStorage.getItem('faith-baptist-palette') === 'logo');
-  button.addEventListener('click', () => {
-    const enabled = !document.body.hasAttribute('data-logo-palette');
-    window.localStorage.setItem('faith-baptist-palette', enabled ? 'logo' : 'original');
-    setPalette(enabled);
   });
 })();
 </script>

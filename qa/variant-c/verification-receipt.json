@@ -158,9 +158,9 @@
     "branch_switched": false
   },
   "hashes": {
-    "home_html_sha256": "c3e0bd6147dc6577b7c624e678a3d7591a88f782da5db6eb11ac71ea79509963",
+    "home_html_sha256": "cdb1c53864b52bf8424a43e63b8c9545a99e1fbee91d3e1822d783a0b1bfc613",
     "primary_css_sha256": "47eaed8cb1ddebb26bd7d759cbd2e5f0008c0b235c3e15357424cc6d8ec85464",
-    "build_source_sha256": "d487ee4d6df75be20ca8144b2defc1dd377eb874d684259a38e1e6e40d88dbc7",
+    "build_source_sha256": "61c83ea32ec409efcbda48e3ec3e48f4d3a36c26b136412845d7da508dbe6116",
     "verification_source_sha256": "e3535ec1b09096dea62774b0445c81307efa3f71ff424b53c8b49fa76065b1bc",
     "direction_source_sha256": "1416ed806acb804a9339a1a39849240928683f240ea2f78ec34b606dc1fee983"
   },

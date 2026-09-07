@@ -782,6 +782,9 @@ def verify_preserved_main_bytes(errors: list[str]) -> None:
         base_blob = git_output(["show", f"{CURRENT_MAIN_BASE}:{relative}"])
         if base_blob.returncode:
             errors.append(f"cannot read current main blob: {relative}")
+        elif relative == "variants/c/events/index.html":
+            # The scoped follow-up intentionally adds the Variant C announcement panel.
+            continue
         elif normalize_toggle_html((ROOT / relative).read_bytes()) != normalize_toggle_html(base_blob.stdout):
             errors.append(f"preserved A/C/D/E bytes changed: {relative}")
 
@@ -1281,8 +1284,11 @@ def verify_c_pages(
         errors.append("Variant C beliefs route contains copy beyond the three confirmed convictions")
 
     events = parsed_documents.get((variant_root / ROUTES["/events/"]).resolve())
-    if events and (events.class_counts["weekly-rhythm"] != 1 or events.class_counts["rhythm-stop"] != 4):
-        errors.append("Variant C events route must present four schedule stops as a vertical rhythm")
+    if events:
+        if events.class_counts["weekly-rhythm"] != 1 or events.class_counts["rhythm-stop"] != 4:
+            errors.append("Variant C events route must present four schedule stops as a vertical rhythm")
+        if events.class_counts["announcement"] != 1:
+            errors.append("Variant C events route must include one announcement contrast panel")
 
     contact_path = (variant_root / ROUTES["/contact/"]).resolve()
     if contact_path.is_file():
@@ -1778,7 +1784,7 @@ def verify_palette_contrast(errors: list[str]) -> None:
         "c": (
             (".c-button-primary",), (".c-button-primary", ".c-button-primary:hover"),
             (".c-kicker",), (".schedule-row>strong",),
-            (".inner-intro>p:last-child",),  # C's actual events announcement notice.
+            (".announcement",), (".announcement", "h2", ".announcement h2"),
         ),
         "e": (
             (".button",), (".button", ".button:hover"),

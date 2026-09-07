@@ -3,7 +3,6 @@
 import os, shutil
 
 import variant_e
-from preview_dock import PALETTE_SCRIPT, VARIANT_DOMAINS, VARIANT_NAMES, preview_dock
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(ROOT, 'variants')
@@ -39,6 +38,20 @@ D_ADDRESS = '11275 W. Twp. Rd. 116, Fostoria, OH 44830'
 D_MAPS_DIR = 'https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830'
 TAGLINE = "Bible believing. Gospel driven. Growing together in God&rsquo;s Word."
 POSITIONING = 'Rooted in the Word. Centered on the Gospel. A church family for Fostoria.'
+
+PALETTE_TOGGLE = '''<button class="palette-toggle" type="button" aria-pressed="false" aria-label="Use Faith Baptist logo colors">Use logo colors</button>'''
+PALETTE_SCRIPT = '''<script>
+(() => {
+  const button = document.querySelector('.palette-toggle');
+  if (!button) return;
+  button.addEventListener('click', () => {
+    const enabled = document.body.toggleAttribute('data-logo-palette');
+    button.setAttribute('aria-pressed', String(enabled));
+    button.textContent = enabled ? 'Use original colors' : 'Use logo colors';
+    button.setAttribute('aria-label', enabled ? 'Use this variant’s original colors' : 'Use Faith Baptist logo colors');
+  });
+})();
+</script>'''
 
 A_ADDRESS = '11275 W. Twp. Rd. 116, Fostoria, OH 44830'
 A_PHONE_DISPLAY = '419-348-2171'
@@ -309,7 +322,7 @@ HEAD = '''<!DOCTYPE html>
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-{variant} p-{slug}">
-{dock}
+{PALETTE_TOGGLE}
 {nav}
 <main id="main">
 '''
@@ -326,7 +339,7 @@ HEAD_A = '''<!DOCTYPE html>
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-a p-{slug}">
-{dock}
+{PALETTE_TOGGLE}
 {nav}
 <main id="main" tabindex="-1">
 '''
@@ -343,7 +356,7 @@ HEAD_C = '''<!DOCTYPE html>
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-c p-{slug}">
-{dock}
+{PALETTE_TOGGLE}
 <div class="ambient-layer" aria-hidden="true"><span class="ambient-shape ambient-one"></span><span class="ambient-shape ambient-two"></span></div>
 {nav}
 <main id="main" tabindex="-1">
@@ -352,19 +365,19 @@ HEAD_C = '''<!DOCTYPE html>
 def page(variant, slug, title, desc, body):
     if variant == 'a':
         active = '/' + slug if slug else '/'
-        html = HEAD_A.format(title=title, desc=desc, slug=slug or 'home', nav=nav_a(active), dock=preview_dock(variant, slug))
+        html = HEAD_A.format(title=title, desc=desc, slug=slug or 'home', nav=nav_a(active), PALETTE_TOGGLE=PALETTE_TOGGLE)
         return html + body + '\n</main>\n' + footer_a() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     if variant == 'c':
         active = '/' if not slug else f'/{slug}/'
-        html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active), dock=preview_dock(variant, slug))
+        html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active), PALETTE_TOGGLE=PALETTE_TOGGLE)
         return html + body + '\n</main>\n' + footer_c() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     if variant == 'd':
         active = '/' + slug if slug else '/'
         html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
-                           nav=nav_d(active), dock=preview_dock(variant, slug))
+                           nav=nav_d(active), PALETTE_TOGGLE=PALETTE_TOGGLE)
         return html + body + '\n</main>\n' + footer_d() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
-                       nav=nav('/' + slug if slug else '/', variant), dock=preview_dock(variant, slug))
+                       nav=nav('/' + slug if slug else '/', variant), PALETTE_TOGGLE=PALETTE_TOGGLE)
     return html + body + '\n</main>\n' + footer(variant) + PALETTE_SCRIPT + '\n</body>\n</html>\n'
 
 
@@ -616,7 +629,7 @@ C_EVENTS = '''
     <li class="rhythm-stop"><p>Prayer and Bible study Wednesday at <time datetime="19:00">7:00 PM.</time></p></li>
   </ol>
 </section>
-'''
+<section class="announcement c-page-shell" aria-labelledby="events-announcement-title"><h2 id="events-announcement-title">Announcements</h2><p>Current announcements will appear here when supplied.</p></section>'''
 
 C_CONTACT = f'''
 <section class="inner-intro c-page-shell"><p class="c-kicker">Phone and directions</p><h1>Contact Faith Baptist Church</h1><p>Call the church or open directions to the exact address.</p></section>
