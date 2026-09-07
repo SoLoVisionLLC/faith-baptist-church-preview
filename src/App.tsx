@@ -226,7 +226,7 @@ export function App() {
     : activeVariant === 'c'
     ? 'Variant C: Rooted & Rising'
     : activeVariant === 'd'
-    ? 'Variant D: Bento Command Center'
+    ? 'Variant D: Family & Ministry Compass'
     : 'Variant E: Community Journal';
 
   return (

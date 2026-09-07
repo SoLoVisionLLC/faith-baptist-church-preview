@@ -69,9 +69,9 @@ export const VariantSwitcher: React.FC<VariantSwitcherProps> = ({
               ? 'bg-brand-crimson text-white shadow-md'
               : 'text-slate-300 hover:text-white hover:bg-slate-800'
           }`}
-          title="Variant D: Modular Bento Grid & Live Campus Command Center"
+          title="Variant D: The Welcoming Family & Ministry Compass"
         >
-          D <span className="hidden xl:inline font-normal opacity-80">(Bento)</span>
+          D <span className="hidden xl:inline font-normal opacity-80">(Family)</span>
         </button>
 
         <button
