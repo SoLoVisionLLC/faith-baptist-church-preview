@@ -27,6 +27,8 @@ C_ISOLATION_BASE = "4788760d42fddf11e47ea26510b142848e71a959"
 CURRENT_MAIN_BASE = "a07ce6aff739cb28eb09c3d0ad7fb219187797a7"
 B_SOURCE_COMMIT = "8bf4043e0a36d0ac5feda0fb1c1a17d3326ea97b"
 REVISION_2_HEX_COLORS = {"#b31942", "#0a3161", "#ffffff", "#082b73", "#e7a928", "#f7f8f5", "#14222d", "#c98c0d"}
+DOCK_HEX_COLORS = {"#252525", "#bdbdbd"}
+DOCK_CSS_MARKER = "/* Floating comparison pill */"
 REVISION_2_RGB_COLORS = {(179, 25, 66), (10, 49, 97), (255, 255, 255), (8, 43, 115), (231, 169, 40), (20, 34, 45)}
 ALTERNATIVE_NAVY = "#002868"
 ALTERNATIVE_NAVY_EXCEPTIONS: dict[str, tuple[str, str]] = {}
@@ -618,10 +620,18 @@ def verify_revision_2_styles(errors: list[str]) -> None:
                     f"styles-{variant}.css is missing Revision 2 evidence: {evidence}"
                 )
 
+        dock_blocks = preview_css_blocks(css)
+
+        def is_dock_color(position: int) -> bool:
+            return any(block.start(2) <= position < block.end(2) for block in dock_blocks)
+
         direct_colors: set[str] = set()
         alternative_exception = ALTERNATIVE_NAVY_EXCEPTIONS.get(variant)
-        for literal in hex_pattern.findall(css):
+        for match in hex_pattern.finditer(css):
+            literal = match.group(0)
             normalized = normalize_hex_color(literal)
+            if normalized in DOCK_HEX_COLORS and is_dock_color(match.start()):
+                continue
             direct_colors.add(normalized)
             if normalized == ALTERNATIVE_NAVY:
                 if not alternative_exception or not all(alternative_exception):
@@ -669,7 +679,8 @@ def verify_revision_2_styles(errors: list[str]) -> None:
                     f"styles-{variant}.css contains an unsupported color literal {literal}"
                 )
                 continue
-            if len(parts) != expected_parts or channels not in REVISION_2_RGB_COLORS:
+            allowed_channels = REVISION_2_RGB_COLORS | ({(37, 37, 37), (189, 189, 189)} if is_dock_color(match.start()) else set())
+            if len(parts) != expected_parts or channels not in allowed_channels:
                 errors.append(
                     f"styles-{variant}.css contains non-brand RGB channels in {literal}"
                 )
@@ -710,37 +721,205 @@ def normalize_toggle_html(data: bytes) -> bytes:
     return data
 
 
+class DockElement:
+    def __init__(self, tag: str, attrs: dict[str, str | None]) -> None:
+        self.tag = tag
+        self.attrs = attrs
+        self.classes = set((attrs.get("class") or "").split())
+        self.children: list[DockElement] = []
+        self.text_parts: list[str] = []
+
+    @property
+    def text(self) -> str:
+        return " ".join(" ".join(self.text_parts).split())
+
+
+class PreviewDockParser(HTMLParser):
+    """Parse only comparison asides, preserving their element hierarchy and copy."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.docks: list[DockElement] = []
+        self.stack: list[DockElement] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        element = DockElement(tag, dict(attrs))
+        if not self.stack:
+            if tag != "aside" or "preview-dock" not in element.classes:
+                return
+            self.docks.append(element)
+        else:
+            self.stack[-1].children.append(element)
+        self.stack.append(element)
+
+    def handle_endtag(self, tag: str) -> None:
+        if self.stack and self.stack[-1].tag == tag:
+            self.stack.pop()
+
+    def handle_data(self, data: str) -> None:
+        for element in self.stack:
+            element.text_parts.append(data)
+
+
+def preview_css_blocks(css: str) -> list[re.Match[str]]:
+    """Only exempt selectors scoped to dock controls from variant visual rules."""
+    marker = css.find(DOCK_CSS_MARKER)
+    if marker < 0:
+        return []
+    scope = re.compile(r"\.(?:preview-[\w-]+|palette-(?:option|original|logo))(?=[\s.:[#>+~]|$)")
+    return [
+        block for block in re.finditer(r"([^{}]+)\{([^{}]*)\}", css)
+        if block.start() >= marker and all(
+            scope.match(selector.strip()) for selector in block[1].split(",")
+        )
+    ]
+
+
+def without_preview_styles(css: str) -> str:
+    for block in reversed(preview_css_blocks(css)):
+        css = css[:block.start()] + css[block.end():]
+    return css
+
+
 def verify_preview_dock_contract(errors: list[str]) -> None:
-    """Check the persistent single-row strip on every generated route."""
-    expected = len(VARIANTS) * len(ROUTES)
+    """Check floating pill anatomy and route-preserving controls on all 30 pages."""
+    designs = {
+        "a": ("Plain Welcome", "https://faithbaptistchurch-a.sololink.cloud"),
+        "b": ("Sunday Starts Here", "https://faithbaptistchurch-b.sololink.cloud"),
+        "c": ("Rooted & Rising", "https://faithbaptistchurch-c.sololink.cloud"),
+        "d": ("Accessible & Ethical", "https://faithbaptist-d.sololink.cloud"),
+        "e": ("Service-Time Compass", "https://faithbaptist-e.sololink.cloud"),
+    }
     pages_checked = 0
+    shared_css = None
     for variant in VARIANTS:
-        for route_file in ROUTES.values():
+        css_path = ROOT / f"styles-{variant}.css"
+        css = css_path.read_text(encoding="utf-8")
+        if css.count(DOCK_CSS_MARKER) != 1:
+            errors.append(f"{css_path.name} must contain one floating pill style block")
+        dock_css = css.partition(DOCK_CSS_MARKER)[2]
+        if shared_css is None:
+            shared_css = dock_css
+        elif dock_css != shared_css:
+            errors.append(f"{css_path.name} floating pill styles differ from the shared contract")
+        if any(marker in css for marker in ("Minimal comparison dock overrides", "Persistent single-row comparison strip", ".preview-dock-panel", ".preview-dock-toggle")):
+            errors.append(f"{css_path.name} retains obsolete comparison styles")
+        rules = palette_css_rules(dock_css)
+        required_styles = {
+            "body": {"padding-bottom": "calc(84px + env(safe-area-inset-bottom)) !important"},
+            ".preview-dock": {
+                "position": "fixed", "width": "max-content", "height": "52px",
+                "inset": "auto auto calc(16px + env(safe-area-inset-bottom)) 50%",
+                "max-width": "calc(100% - 2 * max(16px, env(safe-area-inset-left), env(safe-area-inset-right)))",
+                "transform": "translateX(-50%)", "border-radius": "999px",
+                "background": "#252525", "color": "#FFFFFF",
+            },
+            ".preview-dock-scroll": {"display": "flex", "flex-wrap": "nowrap", "overflow-x": "auto", "white-space": "nowrap"},
+            ".preview-designs": {"display": "flex", "flex": "0 0 auto", "flex-wrap": "nowrap"},
+            ".preview-palette": {"display": "flex", "flex": "0 0 auto", "flex-wrap": "nowrap"},
+            ".preview-group-label": {"color": "#BDBDBD"},
+            ".palette-original .preview-palette-dot": {"background": "#B31942"},
+            ".palette-logo .preview-palette-dot": {"background": "#082B73"},
+        }
+        for selector in (".preview-design", ".palette-option"):
+            required_styles[selector] = {"min-width": "44px", "min-height": "44px", "background": "transparent", "border": "0", "border-radius": "999px", "color": "#FFFFFF"}
+        for selector in (".preview-design:hover", ".palette-option:hover"):
+            required_styles[selector] = {"background": "rgba(255,255,255,.12)", "color": "#FFFFFF"}
+        for selector in (".preview-design.is-active", '.palette-option[aria-pressed="true"]'):
+            required_styles[selector] = {"background": "#E7A928", "color": "#252525"}
+        for selector in (".preview-dock a:focus-visible", ".preview-dock button:focus-visible"):
+            required_styles[selector] = {"outline": "2px solid #FFFFFF", "outline-offset": "-3px"}
+        for selector, declarations in required_styles.items():
+            for name, value in declarations.items():
+                if rules.get(selector, {}).get(name) != value:
+                    errors.append(f"{css_path.name} pill {selector} must set {name}: {value}")
+        reduced = re.search(r"@media\s*\(prefers-reduced-motion:\s*reduce\)\s*\{(.*)\}\s*$", dock_css, flags=re.DOTALL)
+        reduced_rules = palette_css_rules(reduced[1]) if reduced else {}
+        for selector, property_name, value in (
+            (".preview-dock-scroll", "scroll-behavior", "auto !important"),
+            (".preview-design", "transition", "none !important"),
+            (".palette-option", "transition", "none !important"),
+        ):
+            if reduced_rules.get(selector, {}).get(property_name) != value:
+                errors.append(f"{css_path.name} pill must honor reduced motion for {selector}")
+        for route, route_file in ROUTES.items():
             page = SITE / variant / route_file
             if not page.is_file():
                 continue
-            pages_checked += 1
+            label = str(page.relative_to(ROOT))
             html = page.read_text(encoding="utf-8")
-            dock = re.search(r'<aside class="preview-dock".*?</aside>', html, flags=re.DOTALL)
-            if not dock:
-                errors.append(f"{page.relative_to(ROOT)} is missing the persistent preview dock")
+            parser = PreviewDockParser()
+            parser.feed(html)
+            if len(parser.docks) != 1:
+                errors.append(f"{label} must contain exactly one floating comparison pill")
                 continue
-            markup = dock.group(0)
-            for required in (
-                'class="preview-designs"', 'class="preview-dock-divider"',
-                'data-palette="original"', 'data-palette="logo"',
-                'aria-pressed="true"', 'aria-pressed="false"',
+            dock = parser.docks[0]
+            pages_checked += 1
+            if dock.attrs.get("aria-label") != "Faith Baptist preview comparison":
+                errors.append(f"{label} pill is missing its accessible label")
+            if len(dock.children) != 1 or "preview-dock-scroll" not in dock.children[0].classes:
+                errors.append(f"{label} pill must have one shared horizontal scroll wrapper")
+                continue
+            scroll = dock.children[0]
+            if scroll.tag != "div" or len(scroll.children) != 3:
+                errors.append(f"{label} pill must contain variant navigation, divider, and palette group")
+                continue
+            nav, divider, palette = scroll.children
+            if nav.tag != "nav" or "preview-designs" not in nav.classes or nav.attrs.get("aria-label") != "Preview designs":
+                errors.append(f"{label} pill is missing accessible design navigation")
+            if divider.tag != "span" or "preview-dock-divider" not in divider.classes or divider.attrs.get("aria-hidden") != "true":
+                errors.append(f"{label} pill is missing its decorative divider")
+            if palette.tag != "div" or "preview-palette" not in palette.classes or palette.attrs.get("role") != "group" or palette.attrs.get("aria-label") != "Color palette":
+                errors.append(f"{label} pill is missing its accessible palette group")
+            for group, text, icon_class in ((nav, "VARIANT:", "preview-layers-icon"), (palette, "PALETTE:", "preview-palette-icon")):
+                if not group.children:
+                    errors.append(f"{label} pill is missing {text} label")
+                    continue
+                heading = group.children[0]
+                if heading.tag != "span" or "preview-group-label" not in heading.classes or heading.text != text:
+                    errors.append(f"{label} pill must label its group {text}")
+                icons = [child for child in heading.children if child.tag == "svg"]
+                if len(icons) != 1 or not {"preview-dock-icon", icon_class}.issubset(icons[0].classes) or icons[0].attrs.get("aria-hidden") != "true" or icons[0].attrs.get("focusable") != "false":
+                    errors.append(f"{label} {text} must have one decorative {icon_class}")
+            links = nav.children[1:]
+            if len(links) != 5:
+                errors.append(f"{label} pill must contain five design links")
+            for link, (key, (name, domain)) in zip(links, designs.items()):
+                code = key.upper()
+                if link.tag != "a" or "preview-design" not in link.classes or link.attrs.get("href") != domain + route:
+                    errors.append(f"{label} Design {code} must preserve route {route} on its exact preview domain")
+                if link.attrs.get("aria-label") != f"Design {code}: {name}" or link.text != f"{code} ({name})":
+                    errors.append(f"{label} Design {code} must expose its code and parenthesized client-safe name")
+                if len(link.children) != 2 or link.children[0].tag != "span" or "preview-design-code" not in link.children[0].classes or link.children[0].text != code or link.children[1].tag != "strong" or link.children[1].text != f"({name})":
+                    errors.append(f"{label} Design {code} has incorrect chip anatomy")
+                if (link.attrs.get("aria-current") == "page") != (key == variant) or ("is-active" in link.classes) != (key == variant) or (key != variant and "aria-current" in link.attrs):
+                    errors.append(f"{label} must mark only Design {variant.upper()} active with aria-current=page")
+            buttons = palette.children[1:]
+            if len(buttons) != 2:
+                errors.append(f"{label} pill must contain two palette buttons")
+            for button, value in zip(buttons, ("original", "logo")):
+                expected_pressed = "true" if value == "original" else "false"
+                if button.tag != "button" or not {"palette-option", f"palette-{value}"}.issubset(button.classes) or button.attrs.get("type") != "button" or button.attrs.get("data-palette") != value or button.attrs.get("aria-pressed") != expected_pressed or button.text != value.title():
+                    errors.append(f"{label} {value} palette button has incorrect label or initial toggle state")
+                if len(button.children) != 1 or button.children[0].tag != "span" or "preview-palette-dot" not in button.children[0].classes or button.children[0].attrs.get("aria-hidden") != "true":
+                    errors.append(f"{label} {value} palette button is missing its decorative color dot")
+            for obsolete in ("preview-dock-panel", "preview-dock-toggle"):
+                if obsolete in html:
+                    errors.append(f"{label} contains the removed {obsolete}")
+            if f'href="/styles.css?v={ASSET_VERSION}"' not in html:
+                errors.append(f"{label} must use current dock stylesheet version {ASSET_VERSION}")
+            for script_contract in (
+                "window.localStorage.getItem('faith-baptist-palette')",
+                "window.localStorage.setItem('faith-baptist-palette', palette)",
+                "setPalette(stored === 'logo' ? 'logo' : 'original')",
+                "setAttribute('aria-pressed', String(option.dataset.palette === palette))",
+                "document.body.setAttribute('data-logo-palette', '')",
+                "document.body.removeAttribute('data-logo-palette')",
             ):
-                if required not in markup:
-                    errors.append(f"{page.relative_to(ROOT)} dock is missing {required}")
-            if "preview-dock-panel" in markup or "preview-dock-toggle" in markup:
-                errors.append(f"{page.relative_to(ROOT)} contains the removed hidden comparison panel")
-            if len(re.findall(r'class="preview-design(?:\s|\")', markup)) != 5:
-                errors.append(f"{page.relative_to(ROOT)} must contain five design links")
-            if markup.count('aria-current="page"') != 1:
-                errors.append(f"{page.relative_to(ROOT)} must mark one active design")
-    if pages_checked != expected:
-        errors.append(f"preview dock coverage is {pages_checked} pages; expected {expected}")
+                if script_contract not in html:
+                    errors.append(f"{label} palette script is missing {script_contract}")
+    if pages_checked != 30:
+        errors.append(f"floating comparison pill coverage is {pages_checked} pages; expected 30 (A–E × six routes)")
 
 
 def verify_b_source_bytes(errors: list[str]) -> None:
@@ -885,7 +1064,7 @@ def verify_receipt(errors: list[str]) -> None:
 
 
 def verify_a_styles(errors: list[str]) -> None:
-    css = (ROOT / "styles-a.css").read_text(encoding="utf-8")
+    css = without_preview_styles((ROOT / "styles-a.css").read_text(encoding="utf-8"))
     folded = css.casefold()
     required = (
         "--brick: #b31942;",
@@ -980,7 +1159,9 @@ def verify_a_pages(
             errors.append(f"{relative} is missing the native disclosure navigation")
         if parser.tag_counts["form"]:
             errors.append(f"{relative} contains a form not allowed in Variant A")
-        if parser.tag_counts["svg"] or parser.tag_counts["i"]:
+        public_parser = DocumentParser()
+        public_parser.feed(normalize_toggle_html(html.encode()).decode())
+        if public_parser.tag_counts["svg"] or public_parser.tag_counts["i"]:
             errors.append(f"{relative} contains a decorative icon mechanism")
 
         main_attrs = parser.element_attrs["main"]
@@ -1110,6 +1291,7 @@ def verify_c_styles(errors: list[str]) -> None:
     except OSError as exc:
         errors.append(f"cannot read styles-c.css: {exc}")
         return
+    css = without_preview_styles(css)
     folded = css.casefold()
 
     required = (
@@ -1215,7 +1397,9 @@ def verify_c_pages(
             errors.append(f"{relative} is missing native mobile navigation")
         if parser.tag_counts["form"]:
             errors.append(f"{relative} contains an unsupported form")
-        if parser.tag_counts["svg"] or parser.tag_counts["i"]:
+        public_parser = DocumentParser()
+        public_parser.feed(normalize_toggle_html(html.encode()).decode())
+        if public_parser.tag_counts["svg"] or public_parser.tag_counts["i"]:
             errors.append(f"{relative} contains a fabricated icon mechanism")
 
         main_attrs = parser.element_attrs["main"]
@@ -2200,7 +2384,8 @@ def main() -> int:
     print(
         "Verified 30 pages. Variants A, B, C, D, and E pass route/copy/alts/noindex, "
         "media integrity, accessibility/mobile and regime receipts; all authored and "
-        "generated CSS passes Revision 2 brand-color enforcement, non-style B output "
+        "generated CSS passes Revision 2 brand-color enforcement with scoped dock chrome; "
+        "floating pill anatomy, labels, route links and palette state pass on all 30 pages; non-style B output "
         f"matches {B_SOURCE_COMMIT}, and non-style A/C/D/E output matches current main "
         f"{CURRENT_MAIN_BASE}; Variant D contracts and assets are verified."
     )
