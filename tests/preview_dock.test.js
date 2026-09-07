@@ -33,14 +33,33 @@ function run(initialValue) {
     addEventListener(name, callback) { listeners.logo = callback; },
   };
   const toggle = {
+    'aria-expanded': 'false',
+    focusCalls: 0,
     setAttribute(name, value) { this[name] = String(value); },
-    addEventListener(name, callback) { listeners.toggle = callback; },
-    textContent: 'Open design comparison',
+    addEventListener(name, callback) {
+      assert.equal(name, 'click');
+      listeners.toggle = callback;
+    },
+    focus() { this.focusCalls += 1; },
+    textContent: 'Compare',
   };
+  const panel = {
+    hidden: true,
+    addEventListener(name, callback) {
+      assert.equal(name, 'keydown');
+      listeners.panelKeydown = callback;
+    },
+  };
+  const classes = new Set();
   const dock = {
     classList: {
-      open: false,
-      toggle() { this.open = !this.open; return this.open; },
+      contains(name) { return classes.has(name); },
+      toggle(name, force) {
+        const open = force === undefined ? !classes.has(name) : force;
+        if (open) classes.add(name);
+        else classes.delete(name);
+        return open;
+      },
     },
   };
   const storage = {
@@ -51,17 +70,25 @@ function run(initialValue) {
   const context = vm.createContext({
     document: {
       body,
-      querySelector(selector) { return selector === '.preview-dock' ? dock : toggle; },
+      querySelector(selector) {
+        return {
+          '.preview-dock': dock,
+          '.preview-dock-toggle': toggle,
+          '.preview-dock-panel': panel,
+        }[selector] || null;
+      },
       querySelectorAll() { return [button, logo]; },
     },
     window: { localStorage: storage },
   });
   vm.runInContext(scriptBody(), context);
-  return { attributes, button, logo, storage, listeners };
+  return { attributes, button, logo, storage, listeners, dock, toggle, panel };
 }
 
 assert.match(markup, /aria-current="location"/);
 assert.doesNotMatch(markup, /aria-current="page"/);
+assert.match(markup, /<button class="preview-dock-toggle"[^>]*aria-expanded="false"[^>]*aria-controls="preview-dock-panel">Compare<\/button>/);
+assert.match(markup, /<div class="preview-dock-panel" id="preview-dock-panel" hidden>/);
 assert.equal(run(undefined).attributes['data-logo-palette'], undefined);
 assert.equal(run('invalid').logo['aria-pressed'], 'false');
 const state = run('logo');
@@ -73,4 +100,32 @@ assert.equal(state.attributes['data-logo-palette'], undefined);
 state.listeners.logo();
 assert.equal(state.storage.value, 'logo');
 assert.equal(state.attributes['data-logo-palette'], '');
-console.log('preview dock palette persistence checks passed');
+
+const popover = run(undefined);
+assert.equal(popover.panel.hidden, true);
+assert.equal(popover.toggle['aria-expanded'], 'false');
+assert.equal(popover.dock.classList.contains('is-open'), false);
+assert.equal(popover.toggle.focusCalls, 0);
+popover.listeners.toggle();
+assert.equal(popover.panel.hidden, false);
+assert.equal(popover.toggle['aria-expanded'], 'true');
+assert.equal(popover.dock.classList.contains('is-open'), true);
+assert.equal(popover.toggle.focusCalls, 0);
+popover.listeners.toggle();
+assert.equal(popover.panel.hidden, true);
+assert.equal(popover.toggle['aria-expanded'], 'false');
+assert.equal(popover.dock.classList.contains('is-open'), false);
+assert.equal(popover.toggle.focusCalls, 1);
+popover.listeners.toggle();
+popover.listeners.panelKeydown({ key: 'Enter' });
+assert.equal(popover.panel.hidden, false);
+assert.equal(popover.toggle['aria-expanded'], 'true');
+assert.equal(popover.dock.classList.contains('is-open'), true);
+assert.equal(popover.toggle.focusCalls, 1);
+popover.listeners.panelKeydown({ key: 'Escape' });
+assert.equal(popover.panel.hidden, true);
+assert.equal(popover.toggle['aria-expanded'], 'false');
+assert.equal(popover.dock.classList.contains('is-open'), false);
+assert.equal(popover.toggle.focusCalls, 2);
+assert.equal(popover.toggle.textContent, 'Compare');
+console.log('preview dock palette persistence and popover checks passed');
