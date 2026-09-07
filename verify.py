@@ -23,7 +23,7 @@ VARIANTS = ("a", "b", "c", "d", "e")
 ACCEPTED_BASE = "ee3623e41b6647b7380c987421f4a2ecb2057749"
 C_ISOLATION_BASE = "4788760d42fddf11e47ea26510b142848e71a959"
 CURRENT_MAIN_BASE = "a07ce6aff739cb28eb09c3d0ad7fb219187797a7"
-B_SOURCE_COMMIT = "8bf4043e0a36d0ac5feda0fb1c1a17d3326ea97b"
+B_SOURCE_COMMIT = "6f93f0db52d72483f94c943b959e18905ee30761"
 REVISION_2_HEX_COLORS = {"#b31942", "#0a3161", "#ffffff", "#082b73", "#e7a928", "#f7f8f5", "#14222d", "#c98c0d"}
 REVISION_2_RGB_COLORS = {(179, 25, 66), (10, 49, 97), (255, 255, 255), (8, 43, 115), (231, 169, 40), (20, 34, 45)}
 ALTERNATIVE_NAVY = "#002868"
@@ -698,6 +698,7 @@ def verify_revision_2_styles(errors: list[str]) -> None:
 
 def normalize_toggle_html(data: bytes) -> bytes:
     """Remove only the generated palette control before legacy byte comparisons."""
+    data = re.sub(rb'<aside class="preview-dock".*?</aside>\n?', b"", data, flags=re.DOTALL)
     data = re.sub(
         rb'<button class="palette-toggle" type="button" aria-pressed="false" '
         rb'aria-label="Use Faith Baptist logo colors">Use logo colors</button>\n?',
@@ -785,9 +786,6 @@ def verify_preserved_main_bytes(errors: list[str]) -> None:
         base_blob = git_output(["show", f"{CURRENT_MAIN_BASE}:{relative}"])
         if base_blob.returncode:
             errors.append(f"cannot read current main blob: {relative}")
-        elif relative == "variants/c/events/index.html":
-            # The scoped follow-up intentionally adds the Variant C announcement panel.
-            continue
         elif normalize_toggle_html((ROOT / relative).read_bytes()) != normalize_toggle_html(base_blob.stdout):
             errors.append(f"preserved A/C/D/E bytes changed: {relative}")
 
@@ -1287,11 +1285,8 @@ def verify_c_pages(
         errors.append("Variant C beliefs route contains copy beyond the three confirmed convictions")
 
     events = parsed_documents.get((variant_root / ROUTES["/events/"]).resolve())
-    if events:
-        if events.class_counts["weekly-rhythm"] != 1 or events.class_counts["rhythm-stop"] != 4:
-            errors.append("Variant C events route must present four schedule stops as a vertical rhythm")
-        if events.class_counts["announcement"] != 1:
-            errors.append("Variant C events route must include one announcement contrast panel")
+    if events and (events.class_counts["weekly-rhythm"] != 1 or events.class_counts["rhythm-stop"] != 4):
+        errors.append("Variant C events route must present four schedule stops as a vertical rhythm")
 
     contact_path = (variant_root / ROUTES["/contact/"]).resolve()
     if contact_path.is_file():
@@ -1787,7 +1782,6 @@ def verify_palette_contrast(errors: list[str]) -> None:
         "c": (
             (".c-button-primary",), (".c-button-primary", ".c-button-primary:hover"),
             (".c-kicker",), (".schedule-row>strong",),
-            (".announcement",), (".announcement", "h2", ".announcement h2"),
             (".inner-intro>p:last-child",),  # C's actual events announcement notice.
         ),
         "e": (
@@ -1902,6 +1896,7 @@ def main() -> int:
     for page_path in sorted(expected_pages & actual_pages):
         relative_path = page_path.relative_to(ROOT)
         html = page_path.read_text(encoding="utf-8")
+        public_html = re.sub(r'<aside class="preview-dock".*?</aside>', '', html, flags=re.DOTALL)
         parser = parse_document(page_path)
         parsed_documents[page_path] = parser
         variant = relative_path.parts[1]
@@ -1937,12 +1932,12 @@ def main() -> int:
                 "skill",
                 "regime",
             ):
-                if forbidden.casefold() in html.casefold():
+                if forbidden.casefold() in public_html.casefold():
                     errors.append(
                         f"{relative_path} contains banned Variant B public copy: {forbidden}"
                     )
         for forbidden in FORBIDDEN_TEXT:
-            if forbidden.casefold() in html.casefold():
+            if forbidden.casefold() in public_html.casefold():
                 errors.append(f"{relative_path} contains forbidden text: {forbidden}")
 
         robots_tokens = {
@@ -2034,7 +2029,7 @@ def main() -> int:
     d_pages = [d_root / route_file for route_file in ROUTES.values()]
     for d_page in d_pages:
         html = d_page.read_text(encoding="utf-8")
-        folded_html = html.casefold()
+        folded_html = re.sub(r'<aside class="preview-dock".*?</aside>', '', html, flags=re.DOTALL).casefold()
         for banned in D_PUBLIC_COPY_BANNED:
             if banned.casefold() in folded_html:
                 errors.append(

@@ -1,5 +1,7 @@
 """Variant E: Impeccable 4.1.1 Persuade, Service-Time Compass."""
 
+from preview_dock import PALETTE_SCRIPT, preview_dock
+
 NAME = "Faith Baptist Church"
 ADDRESS = "11275 W. Twp. Rd. 116, Fostoria, OH 44830"
 PHONE = "419-348-2171"
@@ -24,8 +26,6 @@ MEDIA = {
 }
 
 ROUTES = (("/", "Home"), ("/visit/", "Plan Your Visit"), ("/beliefs/", "What We Believe"), ("/ministries/", "Ministries"), ("/events/", "Events & Announcements"), ("/contact/", "Contact"))
-
-
 def image(key, class_name=""):
     src, alt, width, height = MEDIA[key]
     cls = f' class="{class_name}"' if class_name else ""
@@ -122,22 +122,12 @@ def page(slug, title, description, body):
 </head>
 <body class="v-e p-{slug or 'home'}">
 {DIRECTION_CONTRACT}
-<button class="palette-toggle" type="button" aria-pressed="false" aria-label="Use Faith Baptist logo colors">Use logo colors</button>
+{preview_dock("e", slug)}
 <a class="skip-link" href="#main">Skip to content</a>
 {nav(route)}
 <main id="main" tabindex="-1">{body}</main>
 <footer class="site-footer"><p><strong>{NAME}</strong></p><address>{ADDRESS}</address><a href="tel:{PHONE_TEL}">{PHONE}</a><a href="{DIRECTIONS}" rel="noopener">Get Directions</a><nav aria-label="Footer">{''.join(f'<a href="{href}">{label}</a>' for href, label in ROUTES)}</nav></footer>
-<script>
-(() => {{
-  const button = document.querySelector('.palette-toggle');
-  button.addEventListener('click', () => {{
-    const enabled = document.body.toggleAttribute('data-logo-palette');
-    button.setAttribute('aria-pressed', String(enabled));
-    button.textContent = enabled ? 'Use original colors' : 'Use logo colors';
-    button.setAttribute('aria-label', enabled ? 'Use this variant’s original colors' : 'Use Faith Baptist logo colors');
-  }});
-}})();
-</script>
+{PALETTE_SCRIPT}
 </body>
 </html>
 '''
