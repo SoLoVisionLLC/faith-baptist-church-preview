@@ -1788,6 +1788,7 @@ def verify_palette_contrast(errors: list[str]) -> None:
             (".c-button-primary",), (".c-button-primary", ".c-button-primary:hover"),
             (".c-kicker",), (".schedule-row>strong",),
             (".announcement",), (".announcement", "h2", ".announcement h2"),
+            (".inner-intro>p:last-child",),  # C's actual events announcement notice.
         ),
         "e": (
             (".button",), (".button", ".button:hover"),
