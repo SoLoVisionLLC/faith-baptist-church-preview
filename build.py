@@ -3,7 +3,6 @@
 import os, shutil
 
 import variant_e
-from preview_dock import PALETTE_SCRIPT, VARIANT_DOMAINS, VARIANT_NAMES, preview_dock
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(ROOT, 'variants')
@@ -39,6 +38,57 @@ D_ADDRESS = '11275 W. Twp. Rd. 116, Fostoria, OH 44830'
 D_MAPS_DIR = 'https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830'
 TAGLINE = "Bible believing. Gospel driven. Growing together in God&rsquo;s Word."
 POSITIONING = 'Rooted in the Word. Centered on the Gospel. A church family for Fostoria.'
+
+VARIANT_DOMAINS = {
+    'a': 'https://faithbaptistchurch-a.sololink.cloud',
+    'b': 'https://faithbaptistchurch-b.sololink.cloud',
+    'c': 'https://faithbaptistchurch-c.sololink.cloud',
+    'd': 'https://faithbaptist-d.sololink.cloud',
+    'e': 'https://faithbaptist-e.sololink.cloud',
+}
+VARIANT_NAMES = {
+    'a': ('A', 'Plain Welcome'),
+    'b': ('B', 'Sunday Starts Here'),
+    'c': ('C', 'Rooted & Rising'),
+    'd': ('D', 'Accessible & Ethical'),
+    'e': ('E', 'Service-Time Compass'),
+}
+
+
+def preview_dock(variant, slug):
+    route = '/' if not slug else f'/{slug}/'
+    items = []
+    for key, domain in VARIANT_DOMAINS.items():
+        code, name = VARIANT_NAMES[key]
+        active = ' is-active' if key == variant else ''
+        current = ' aria-current="page"' if key == variant else ''
+        items.append(f'<a class="preview-design{active}" href="{domain}{route}"{current} aria-label="Design {code}: {name}"><span>{code}</span><strong>{name}</strong></a>')
+    return f'''<aside class="preview-dock" aria-label="Faith Baptist design comparison">
+  <div class="preview-dock-bar"><span class="preview-dock-kicker">Compare</span><span class="preview-dock-context">Current page</span><button class="preview-dock-toggle" type="button" aria-expanded="false" aria-controls="preview-dock-panel">Open design comparison</button></div>
+  <div class="preview-dock-panel" id="preview-dock-panel"><nav class="preview-designs" aria-label="Designs">{''.join(items)}</nav><div class="preview-palette" role="group" aria-label="Palette"><span class="preview-palette-label">Palette</span><button class="palette-option palette-original" type="button" aria-pressed="true" data-palette="original">Original</button><button class="palette-option palette-logo" type="button" aria-pressed="false" data-palette="logo">Logo</button></div></div>
+</aside>'''
+
+
+PALETTE_SCRIPT = '''<script>
+(() => {
+  const dock = document.querySelector('.preview-dock');
+  const toggle = document.querySelector('.preview-dock-toggle');
+  const options = document.querySelectorAll('[data-palette]');
+  if (!dock || !toggle) return;
+  toggle.addEventListener('click', () => {
+    const open = dock.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? 'Close design comparison' : 'Open design comparison';
+  });
+  const setPalette = (palette) => {
+    const logo = palette === 'logo';
+    if (logo) document.body.setAttribute('data-logo-palette', '');
+    else document.body.removeAttribute('data-logo-palette');
+    options.forEach((option) => option.setAttribute('aria-pressed', String(option.dataset.palette === palette)));
+  };
+  options.forEach((option) => option.addEventListener('click', () => setPalette(option.dataset.palette)));
+})();
+</script>'''
 
 A_ADDRESS = '11275 W. Twp. Rd. 116, Fostoria, OH 44830'
 A_PHONE_DISPLAY = '419-348-2171'
@@ -616,7 +666,7 @@ C_EVENTS = '''
     <li class="rhythm-stop"><p>Prayer and Bible study Wednesday at <time datetime="19:00">7:00 PM.</time></p></li>
   </ol>
 </section>
-'''
+<section class="announcement c-page-shell" aria-labelledby="events-announcement-title"><h2 id="events-announcement-title">Announcements</h2><p>Current announcements will appear here when supplied.</p></section>'''
 
 C_CONTACT = f'''
 <section class="inner-intro c-page-shell"><p class="c-kicker">Phone and directions</p><h1>Contact Faith Baptist Church</h1><p>Call the church or open directions to the exact address.</p></section>
