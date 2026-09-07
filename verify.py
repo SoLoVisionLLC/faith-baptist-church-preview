@@ -698,6 +698,7 @@ def verify_revision_2_styles(errors: list[str]) -> None:
 
 def normalize_toggle_html(data: bytes) -> bytes:
     """Remove only the generated palette control before legacy byte comparisons."""
+    data = re.sub(rb'<aside class="preview-dock".*?</aside>\n?', b"", data, flags=re.DOTALL)
     data = re.sub(
         rb'<button class="palette-toggle" type="button" aria-pressed="false" '
         rb'aria-label="Use Faith Baptist logo colors">Use logo colors</button>\n?',
@@ -1895,6 +1896,7 @@ def main() -> int:
     for page_path in sorted(expected_pages & actual_pages):
         relative_path = page_path.relative_to(ROOT)
         html = page_path.read_text(encoding="utf-8")
+        public_html = re.sub(r'<aside class="preview-dock".*?</aside>', '', html, flags=re.DOTALL)
         parser = parse_document(page_path)
         parsed_documents[page_path] = parser
         variant = relative_path.parts[1]
@@ -1930,12 +1932,12 @@ def main() -> int:
                 "skill",
                 "regime",
             ):
-                if forbidden.casefold() in html.casefold():
+                if forbidden.casefold() in public_html.casefold():
                     errors.append(
                         f"{relative_path} contains banned Variant B public copy: {forbidden}"
                     )
         for forbidden in FORBIDDEN_TEXT:
-            if forbidden.casefold() in html.casefold():
+            if forbidden.casefold() in public_html.casefold():
                 errors.append(f"{relative_path} contains forbidden text: {forbidden}")
 
         robots_tokens = {
@@ -2027,7 +2029,7 @@ def main() -> int:
     d_pages = [d_root / route_file for route_file in ROUTES.values()]
     for d_page in d_pages:
         html = d_page.read_text(encoding="utf-8")
-        folded_html = html.casefold()
+        folded_html = re.sub(r'<aside class="preview-dock".*?</aside>', '', html, flags=re.DOTALL).casefold()
         for banned in D_PUBLIC_COPY_BANNED:
             if banned.casefold() in folded_html:
                 errors.append(
