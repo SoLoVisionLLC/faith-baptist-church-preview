@@ -1,6 +1,6 @@
 """Variant E: Impeccable 4.1.1 Persuade, Service-Time Compass."""
 
-from preview_dock import PALETTE_SCRIPT, preview_dock
+from preview_dock import ASSET_VERSION, PALETTE_SCRIPT, preview_dock
 
 NAME = "Faith Baptist Church"
 ADDRESS = "11275 W. Twp. Rd. 116, Fostoria, OH 44830"
@@ -118,7 +118,7 @@ def page(slug, title, description, body):
 <meta name="robots" content="noindex, nofollow">
 <title>{title}</title>
 <meta name="description" content="{description}">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}">
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-e p-{slug or 'home'}">
