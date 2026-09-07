@@ -1,5 +1,7 @@
 """Variant E: Impeccable 4.1.1 Persuade, Service-Time Compass."""
 
+from preview_dock import preview_dock
+
 NAME = "Faith Baptist Church"
 ADDRESS = "11275 W. Twp. Rd. 116, Fostoria, OH 44830"
 PHONE = "419-348-2171"
@@ -24,23 +26,6 @@ MEDIA = {
 }
 
 ROUTES = (("/", "Home"), ("/visit/", "Plan Your Visit"), ("/beliefs/", "What We Believe"), ("/ministries/", "Ministries"), ("/events/", "Events & Announcements"), ("/contact/", "Contact"))
-DOCK_DOMAINS = (('A', 'Plain Welcome', 'https://faithbaptistchurch-a.sololink.cloud'), ('B', 'Sunday Starts Here', 'https://faithbaptistchurch-b.sololink.cloud'), ('C', 'Rooted & Rising', 'https://faithbaptistchurch-c.sololink.cloud'), ('D', 'Accessible & Ethical', 'https://faithbaptist-d.sololink.cloud'), ('E', 'Service-Time Compass', 'https://faithbaptist-e.sololink.cloud'))
-
-
-def preview_dock(route):
-    items = []
-    for code, name, domain in DOCK_DOMAINS:
-        active = ' is-active' if code == 'E' else ''
-        current = ' aria-current="location"' if code == 'E' else ''
-        items.append(f'<a class="preview-design{active}" href="{domain}{route}"{current} aria-label="Design {code}: {name}"><span>{code}</span><strong>{name}</strong></a>')
-    items = ''.join(items)
-    return f'''<aside class="preview-dock" aria-label="Faith Baptist preview comparison">
-  <div class="preview-dock-heading"><span class="preview-dock-kicker">Compare designs</span><span class="preview-dock-route">{route}</span></div>
-  <div class="preview-designs" role="navigation" aria-label="Preview designs">{items}</div>
-  <div class="preview-palette" role="group" aria-label="Color palette"><span>Palette</span><button class="palette-toggle" type="button" aria-pressed="false" aria-label="Use Faith Baptist logo colors">Use logo colors</button></div>
-</aside>'''
-
-
 def image(key, class_name=""):
     src, alt, width, height = MEDIA[key]
     cls = f' class="{class_name}"' if class_name else ""
@@ -137,7 +122,7 @@ def page(slug, title, description, body):
 </head>
 <body class="v-e p-{slug or 'home'}">
 {DIRECTION_CONTRACT}
-{preview_dock(route)}
+{preview_dock("e", slug)}
 <a class="skip-link" href="#main">Skip to content</a>
 {nav(route)}
 <main id="main" tabindex="-1">{body}</main>
