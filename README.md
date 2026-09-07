@@ -17,9 +17,11 @@ All pages carry `<meta name="robots" content="noindex, nofollow">`.
 
 ## Preview dock and palette contract
 
-Every generated page includes the shared comparison dock from `preview_dock.py`. Design links use the current route (`/`, `/visit/`, `/beliefs/`, `/ministries/`, `/events/`, or `/contact/`) on each deployed sibling domain; the active design link has `aria-current="location"` and an `is-active` class.
+Every generated page includes the shared comparison dock from `preview_dock.py`. Design links use the current route (`/`, `/visit/`, `/beliefs/`, `/ministries/`, `/events/`, or `/contact/`) on each deployed sibling domain; the active design link has `aria-current="page"` and an `is-active` class.
 
-The palette toggle is deterministic and shared across all variants. It stores either `logo` or `original` in `localStorage` under the key `faith-baptist-palette`. On initial load, only the exact value `logo` enables the Faith Baptist logo palette; every other value (including missing or invalid data) keeps the variant's original palette. The toggle uses `aria-pressed="true|false"`, changes its visible action text between `Use original colors` and `Use logo colors`, and updates its accessible label to describe the resulting action.
+The v7 internal preview pill is 34px high with 28px controls, 12px icons, an 8px group gap, a 16px divider, dark charcoal (`#252525`) chrome, and brand red (`#BC2026`) active chips. This compact sizing applies only to the comparison tool; client-facing 44px touch targets remain unchanged. The pill stays centered above the bottom safe area, scrolls horizontally on narrow screens, retains visible keyboard focus, and honors reduced motion. Page clearance is 64px plus the bottom safe area. All generated stylesheets use `ASSET_VERSION = "20260907-dock-v7-pill-slim"`; `verify.py` checks the geometry and behavior contracts across all 30 pages.
+
+The two palette buttons, `Original` and `Logo`, use `aria-pressed="true|false"` to expose the selected palette. They store either `logo` or `original` in `localStorage` under the key `faith-baptist-palette` on the current preview origin. On initial load, only the exact value `logo` enables the Faith Baptist logo palette; every other value (including missing or invalid data) keeps the variant's original palette. Run `node tests/preview_dock.test.js` to check palette persistence and toggling.
 
 ## QA status after the identity correction
 
