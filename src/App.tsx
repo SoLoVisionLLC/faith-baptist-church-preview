@@ -8,6 +8,8 @@ import { VariantSwitcher, VariantType } from './components/VariantSwitcher';
 import { VariantAHome } from './variants/VariantAHome';
 import { VariantBHome } from './variants/VariantBHome';
 import { VariantCHome } from './variants/VariantCHome';
+import { VariantDHome } from './variants/VariantDHome';
+import { VariantEHome } from './variants/VariantEHome';
 
 import { VisitPage } from './pages/VisitPage';
 import { BeliefsPage } from './pages/BeliefsPage';
@@ -72,15 +74,21 @@ export function App() {
 
   // Determine active variant
   const [activeVariant, setActiveVariant] = useState<VariantType>(() => {
-    // 1. URL Query Param: ?variant=a | b | c
+    // 1. URL Query Param: ?variant=a | b | c | d | e
     const urlParams = new URLSearchParams(window.location.search);
     const vParam = urlParams.get('variant')?.toLowerCase();
-    if (vParam === 'a' || vParam === 'b' || vParam === 'c') {
+    if (vParam === 'a' || vParam === 'b' || vParam === 'c' || vParam === 'd' || vParam === 'e') {
       return vParam as VariantType;
     }
 
     // 2. Domain / Hostname detection
     const hostname = window.location.hostname.toLowerCase();
+    if (hostname.includes('antigravity-e') || hostname.includes('variant-e')) {
+      return 'e';
+    }
+    if (hostname.includes('antigravity-d') || hostname.includes('variant-d')) {
+      return 'd';
+    }
     if (hostname.includes('antigravity-b') || hostname.includes('variant-b')) {
       return 'b';
     }
@@ -94,7 +102,7 @@ export function App() {
     // 3. LocalStorage
     try {
       const stored = localStorage.getItem('fbc_variant');
-      if (stored === 'a' || stored === 'b' || stored === 'c') {
+      if (stored === 'a' || stored === 'b' || stored === 'c' || stored === 'd' || stored === 'e') {
         return stored as VariantType;
       }
     } catch {
@@ -182,6 +190,26 @@ export function App() {
       );
     }
 
+    if (activeVariant === 'd') {
+      return (
+        <VariantDHome
+          status={status}
+          onNavigate={navigate}
+          onOpenInquiry={handleOpenInquiry}
+        />
+      );
+    }
+
+    if (activeVariant === 'e') {
+      return (
+        <VariantEHome
+          status={status}
+          onNavigate={navigate}
+          onOpenInquiry={handleOpenInquiry}
+        />
+      );
+    }
+
     return (
       <VariantAHome
         status={status}
@@ -195,7 +223,11 @@ export function App() {
     ? 'Variant A: Heritage' 
     : activeVariant === 'b' 
     ? 'Variant B: Visitor Guide' 
-    : 'Variant C: Rooted & Rising';
+    : activeVariant === 'c'
+    ? 'Variant C: Rooted & Rising'
+    : activeVariant === 'd'
+    ? 'Variant D: Bento Command Center'
+    : 'Variant E: Community Journal';
 
   return (
     <div data-theme={colorPalette} className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans transition-colors duration-200">

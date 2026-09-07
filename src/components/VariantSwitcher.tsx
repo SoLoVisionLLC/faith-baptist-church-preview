@@ -2,7 +2,7 @@ import React from 'react';
 import { Layers, Palette } from 'lucide-react';
 import { PaletteType } from '../App';
 
-export type VariantType = 'a' | 'b' | 'c';
+export type VariantType = 'a' | 'b' | 'c' | 'd' | 'e';
 
 interface VariantSwitcherProps {
   activeVariant: VariantType;
@@ -28,38 +28,62 @@ export const VariantSwitcher: React.FC<VariantSwitcherProps> = ({
 
         <button
           onClick={() => onSelectVariant('a')}
-          className={`px-2.5 py-1 text-xs font-bold rounded-full transition-all ${
+          className={`px-2 py-1 text-xs font-bold rounded-full transition-all ${
             activeVariant === 'a'
               ? 'bg-brand-crimson text-white shadow-md'
               : 'text-slate-300 hover:text-white hover:bg-slate-800'
           }`}
           title="Variant A: Classic Authority / Heritage & Warmth"
         >
-          A <span className="hidden lg:inline font-normal opacity-80">(Heritage)</span>
+          A <span className="hidden xl:inline font-normal opacity-80">(Heritage)</span>
         </button>
 
         <button
           onClick={() => onSelectVariant('b')}
-          className={`px-2.5 py-1 text-xs font-bold rounded-full transition-all ${
+          className={`px-2 py-1 text-xs font-bold rounded-full transition-all ${
             activeVariant === 'b'
               ? 'bg-brand-crimson text-white shadow-md'
               : 'text-slate-300 hover:text-white hover:bg-slate-800'
           }`}
           title="Variant B: Modern Conversion-First / Interactive Visitor Guide"
         >
-          B <span className="hidden lg:inline font-normal opacity-80">(Visitor Guide)</span>
+          B <span className="hidden xl:inline font-normal opacity-80">(Guide)</span>
         </button>
 
         <button
           onClick={() => onSelectVariant('c')}
-          className={`px-2.5 py-1 text-xs font-bold rounded-full transition-all ${
+          className={`px-2 py-1 text-xs font-bold rounded-full transition-all ${
             activeVariant === 'c'
               ? 'bg-brand-crimson text-white shadow-md'
               : 'text-slate-300 hover:text-white hover:bg-slate-800'
           }`}
           title="Variant C: Rooted & Rising (Bold Editorial & High-Craft)"
         >
-          C <span className="hidden lg:inline font-normal opacity-80">(Editorial)</span>
+          C <span className="hidden xl:inline font-normal opacity-80">(Editorial)</span>
+        </button>
+
+        <button
+          onClick={() => onSelectVariant('d')}
+          className={`px-2 py-1 text-xs font-bold rounded-full transition-all ${
+            activeVariant === 'd'
+              ? 'bg-brand-crimson text-white shadow-md'
+              : 'text-slate-300 hover:text-white hover:bg-slate-800'
+          }`}
+          title="Variant D: Modular Bento Grid & Live Campus Command Center"
+        >
+          D <span className="hidden xl:inline font-normal opacity-80">(Bento)</span>
+        </button>
+
+        <button
+          onClick={() => onSelectVariant('e')}
+          className={`px-2 py-1 text-xs font-bold rounded-full transition-all ${
+            activeVariant === 'e'
+              ? 'bg-brand-crimson text-white shadow-md'
+              : 'text-slate-300 hover:text-white hover:bg-slate-800'
+          }`}
+          title="Variant E: Warm Community Journal & Photojournalistic Scrapbook"
+        >
+          E <span className="hidden xl:inline font-normal opacity-80">(Journal)</span>
         </button>
 
         {/* Subtle Divider */}
