@@ -628,7 +628,8 @@ C_EVENTS = '''
     <li class="rhythm-stop"><p><strong>Sunday evening service</strong> <time datetime="18:00">6:00 PM</time></p></li>
     <li class="rhythm-stop"><p>Prayer and Bible study Wednesday at <time datetime="19:00">7:00 PM.</time></p></li>
   </ol>
-</section>'''
+</section>
+<section class="announcement c-page-shell" aria-labelledby="events-announcement-title"><h2 id="events-announcement-title">Announcements</h2><p>Current announcements will appear here when supplied.</p></section>'''
 
 C_CONTACT = f'''
 <section class="inner-intro c-page-shell"><p class="c-kicker">Phone and directions</p><h1>Contact Faith Baptist Church</h1><p>Call the church or open directions to the exact address.</p></section>
