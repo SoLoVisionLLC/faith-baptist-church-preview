@@ -54,6 +54,7 @@ p{margin-bottom:1rem}
 .c-button-secondary{border-color:var(--text);background:rgba(255,255,255,.62);color:var(--text)}
 .c-button-secondary:hover{background:var(--cream)}
 .c-button-dark{background:var(--text);color:var(--cream)}
+.announcement{padding:clamp(2rem,5vw,4rem);background:var(--terracotta);color:var(--on-accent)}.announcement h2{color:var(--on-accent)}
 .hero-image-plate{position:relative;margin:0;padding:clamp(.8rem,2vw,1.5rem);border-radius:60% 40% 50% 50% / 50% 50% 40% 60%;background:var(--cream);box-shadow:0 20px 60px rgba(10,49,97,.10)}
 .hero-image-plate::before{position:absolute;right:-7%;bottom:-6%;z-index:-1;width:38%;aspect-ratio:1;border-radius:42% 58% 37% 63% / 59% 42% 58% 41%;background:var(--terracotta-light);content:""}
 .hero-image-mask{aspect-ratio:4/3;overflow:hidden;border-radius:60% 40% 50% 50% / 50% 50% 40% 60%;animation:organic-morph 26s ease-in-out infinite}
