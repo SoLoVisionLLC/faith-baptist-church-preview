@@ -758,3 +758,20 @@ body { padding-bottom: 1rem !important; }
 .palette-option[aria-pressed="true"] { background: var(--brick) !important; color: var(--white) !important; }
 @media (max-width: 560px) { .preview-dock { right: .75rem !important; bottom: .75rem !important; } .preview-dock-panel { right: 0 !important; } }
 .preview-dock a:focus-visible, .preview-dock button:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+/* Persistent single-row comparison strip */
+body { padding-bottom: 56px !important; }
+.preview-dock { position: fixed !important; inset: auto 0 0 !important; z-index: 100 !important; display: flex !important; align-items: center !important; gap: .7rem !important; width: 100% !important; height: 52px !important; margin: 0 !important; padding: 4px max(10px, env(safe-area-inset-left)) 4px max(10px, env(safe-area-inset-right)) !important; overflow: hidden !important; border-top: 1px solid rgba(255,255,255,.28) !important; background: color-mix(in srgb, var(--navy) 94%, transparent) !important; color: var(--white) !important; }
+.preview-designs { display: flex !important; flex: 1 1 auto !important; align-items: center !important; gap: .25rem !important; min-width: 0 !important; overflow-x: auto !important; overscroll-behavior-x: contain !important; scrollbar-width: none !important; }
+.preview-designs::-webkit-scrollbar { display: none !important; }
+.preview-design { display: inline-flex !important; flex: 0 0 auto !important; align-items: center !important; gap: .35rem !important; min-height: 44px !important; padding: .25rem .55rem !important; border: 1px solid rgba(255,255,255,.38) !important; border-radius: 4px; color: var(--white) !important; text-decoration: none !important; }
+.preview-design span { display: grid !important; place-items: center !important; width: 1.45rem !important; height: 1.45rem !important; border-radius: 4px; background: rgba(255,255,255,.16) !important; color: var(--white) !important; font-size: .75rem !important; font-weight: 900 !important; }
+.preview-design strong { max-width: 10rem !important; overflow: hidden !important; font-size: .7rem !important; text-overflow: ellipsis !important; white-space: nowrap !important; }
+.preview-design:hover, .preview-design:focus-visible, .preview-design.is-active { background: var(--brick) !important; color: var(--white) !important; }
+.preview-design.is-active span { background: var(--white) !important; color: var(--brick) !important; }
+.preview-dock-divider { flex: 0 0 1px !important; width: 1px !important; height: 28px !important; background: rgba(255,255,255,.35) !important; }
+.preview-palette { display: flex !important; flex: 0 0 auto !important; align-items: center !important; gap: .25rem !important; }
+.palette-option { min-height: 44px !important; padding: .3rem .55rem !important; border: 1px solid rgba(255,255,255,.42) !important; border-radius: 4px; background: transparent !important; color: var(--white) !important; font: inherit !important; font-size: .7rem !important; font-weight: 800 !important; cursor: pointer !important; }
+.palette-option[aria-pressed="true"] { border-color: var(--brick) !important; background: var(--brick) !important; color: var(--white) !important; }
+.preview-dock a:focus-visible, .preview-dock button:focus-visible { outline: 2px solid var(--white) !important; outline-offset: 2px !important; }
+@media (max-width: 560px) { .preview-dock { gap: .4rem !important; padding-inline: 6px !important; } .preview-design strong { max-width: 7rem !important; } .palette-option { padding-inline: .45rem !important; } }
+@media (prefers-reduced-motion: reduce) { .preview-designs { scroll-behavior: auto !important; } }
