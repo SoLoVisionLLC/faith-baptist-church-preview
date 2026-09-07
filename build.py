@@ -39,17 +39,54 @@ D_MAPS_DIR = 'https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+R
 TAGLINE = "Bible believing. Gospel driven. Growing together in God&rsquo;s Word."
 POSITIONING = 'Rooted in the Word. Centered on the Gospel. A church family for Fostoria.'
 
-PALETTE_TOGGLE = '''<button class="palette-toggle" type="button" aria-pressed="false" aria-label="Use Faith Baptist logo colors">Use logo colors</button>'''
+VARIANT_DOMAINS = {
+    'a': 'https://faithbaptistchurch-a.sololink.cloud',
+    'b': 'https://faithbaptistchurch-b.sololink.cloud',
+    'c': 'https://faithbaptistchurch-c.sololink.cloud',
+    'd': 'https://faithbaptist-d.sololink.cloud',
+    'e': 'https://faithbaptist-e.sololink.cloud',
+}
+VARIANT_NAMES = {
+    'a': ('A', 'Plain Welcome'),
+    'b': ('B', 'Sunday Starts Here'),
+    'c': ('C', 'Rooted & Rising'),
+    'd': ('D', 'Accessible & Ethical'),
+    'e': ('E', 'Service-Time Compass'),
+}
+
+
+def preview_dock(variant, slug):
+    route = '/' if not slug else f'/{slug}/'
+    items = []
+    for key, domain in VARIANT_DOMAINS.items():
+        code, name = VARIANT_NAMES[key]
+        active = ' is-active' if key == variant else ''
+        current = ' aria-current="page"' if key == variant else ''
+        items.append(f'<a class="preview-design{active}" href="{domain}{route}"{current} aria-label="Design {code}: {name}"><span>{code}</span><strong>{name}</strong></a>')
+    return f'''<aside class="preview-dock" aria-label="Faith Baptist design comparison">
+  <div class="preview-dock-bar"><span class="preview-dock-kicker">Compare</span><span class="preview-dock-context">Current page</span><button class="preview-dock-toggle" type="button" aria-expanded="false" aria-controls="preview-dock-panel">Open design comparison</button></div>
+  <div class="preview-dock-panel" id="preview-dock-panel"><nav class="preview-designs" aria-label="Designs">{''.join(items)}</nav><div class="preview-palette" role="group" aria-label="Palette"><span class="preview-palette-label">Palette</span><button class="palette-option palette-original" type="button" aria-pressed="true" data-palette="original">Original</button><button class="palette-option palette-logo" type="button" aria-pressed="false" data-palette="logo">Logo</button></div></div>
+</aside>'''
+
+
 PALETTE_SCRIPT = '''<script>
 (() => {
-  const button = document.querySelector('.palette-toggle');
-  if (!button) return;
-  button.addEventListener('click', () => {
-    const enabled = document.body.toggleAttribute('data-logo-palette');
-    button.setAttribute('aria-pressed', String(enabled));
-    button.textContent = enabled ? 'Use original colors' : 'Use logo colors';
-    button.setAttribute('aria-label', enabled ? 'Use this variant’s original colors' : 'Use Faith Baptist logo colors');
+  const dock = document.querySelector('.preview-dock');
+  const toggle = document.querySelector('.preview-dock-toggle');
+  const options = document.querySelectorAll('[data-palette]');
+  if (!dock || !toggle) return;
+  toggle.addEventListener('click', () => {
+    const open = dock.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? 'Close design comparison' : 'Open design comparison';
   });
+  const setPalette = (palette) => {
+    const logo = palette === 'logo';
+    if (logo) document.body.setAttribute('data-logo-palette', '');
+    else document.body.removeAttribute('data-logo-palette');
+    options.forEach((option) => option.setAttribute('aria-pressed', String(option.dataset.palette === palette)));
+  };
+  options.forEach((option) => option.addEventListener('click', () => setPalette(option.dataset.palette)));
 })();
 </script>'''
 
@@ -322,7 +359,7 @@ HEAD = '''<!DOCTYPE html>
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-{variant} p-{slug}">
-{PALETTE_TOGGLE}
+{dock}
 {nav}
 <main id="main">
 '''
@@ -339,7 +376,7 @@ HEAD_A = '''<!DOCTYPE html>
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-a p-{slug}">
-{PALETTE_TOGGLE}
+{dock}
 {nav}
 <main id="main" tabindex="-1">
 '''
@@ -356,7 +393,7 @@ HEAD_C = '''<!DOCTYPE html>
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-c p-{slug}">
-{PALETTE_TOGGLE}
+{dock}
 <div class="ambient-layer" aria-hidden="true"><span class="ambient-shape ambient-one"></span><span class="ambient-shape ambient-two"></span></div>
 {nav}
 <main id="main" tabindex="-1">
@@ -365,19 +402,19 @@ HEAD_C = '''<!DOCTYPE html>
 def page(variant, slug, title, desc, body):
     if variant == 'a':
         active = '/' + slug if slug else '/'
-        html = HEAD_A.format(title=title, desc=desc, slug=slug or 'home', nav=nav_a(active), PALETTE_TOGGLE=PALETTE_TOGGLE)
+        html = HEAD_A.format(title=title, desc=desc, slug=slug or 'home', nav=nav_a(active), dock=preview_dock(variant, slug))
         return html + body + '\n</main>\n' + footer_a() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     if variant == 'c':
         active = '/' if not slug else f'/{slug}/'
-        html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active), PALETTE_TOGGLE=PALETTE_TOGGLE)
+        html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active), dock=preview_dock(variant, slug))
         return html + body + '\n</main>\n' + footer_c() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     if variant == 'd':
         active = '/' + slug if slug else '/'
         html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
-                           nav=nav_d(active), PALETTE_TOGGLE=PALETTE_TOGGLE)
+                           nav=nav_d(active), dock=preview_dock(variant, slug))
         return html + body + '\n</main>\n' + footer_d() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
-                       nav=nav('/' + slug if slug else '/', variant), PALETTE_TOGGLE=PALETTE_TOGGLE)
+                       nav=nav('/' + slug if slug else '/', variant), dock=preview_dock(variant, slug))
     return html + body + '\n</main>\n' + footer(variant) + PALETTE_SCRIPT + '\n</body>\n</html>\n'
 
 
