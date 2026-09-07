@@ -20,7 +20,7 @@ from preview_dock import ASSET_VERSION
 
 
 ROOT = Path(__file__).resolve().parent
-EXPECTED_ASSET_VERSION = "20260907-dock-v6-pill-red"
+EXPECTED_ASSET_VERSION = "20260907-dock-v7-pill-slim"
 SITE = ROOT / "variants"
 VARIANTS = ("a", "b", "c", "d", "e")
 ACCEPTED_BASE = "ee3623e41b6647b7380c987421f4a2ecb2057749"
@@ -783,7 +783,7 @@ def without_preview_styles(css: str) -> str:
 
 
 def verify_preview_dock_contract(errors: list[str]) -> None:
-    """Check floating pill anatomy and route-preserving controls on all 30 pages."""
+    """Check slim pill geometry and route-preserving controls on all 30 pages."""
     if ASSET_VERSION != EXPECTED_ASSET_VERSION:
         errors.append(f"preview dock asset version must be {EXPECTED_ASSET_VERSION}; got {ASSET_VERSION}")
     designs = {
@@ -809,23 +809,40 @@ def verify_preview_dock_contract(errors: list[str]) -> None:
             errors.append(f"{css_path.name} retains obsolete comparison styles")
         rules = palette_css_rules(dock_css)
         required_styles = {
-            "body": {"padding-bottom": "calc(84px + env(safe-area-inset-bottom)) !important"},
+            "body": {"padding-bottom": "calc(64px + env(safe-area-inset-bottom)) !important"},
             ".preview-dock": {
-                "position": "fixed", "width": "max-content", "height": "44px",
+                "position": "fixed", "width": "max-content", "height": "34px",
                 "inset": "auto auto calc(16px + env(safe-area-inset-bottom)) 50%",
                 "max-width": "calc(100% - 2 * max(16px, env(safe-area-inset-left), env(safe-area-inset-right)))",
                 "transform": "translateX(-50%)", "border-radius": "999px",
                 "background": "#252525", "color": "#FFFFFF",
+                "box-sizing": "border-box", "padding": "0 8px",
+                "border": "1px solid rgba(255,255,255,.2)",
+                "font": "500 11px/1.2 system-ui, sans-serif",
             },
-            ".preview-dock-scroll": {"display": "flex", "flex-wrap": "nowrap", "overflow-x": "auto", "white-space": "nowrap"},
+            ".preview-dock-scroll": {
+                "display": "flex", "flex-wrap": "nowrap", "align-items": "center",
+                "height": "100%", "padding": "2px 4px", "box-sizing": "border-box", "gap": "8px",
+                "overflow-x": "auto", "overflow-y": "hidden",
+                "overscroll-behavior-x": "contain", "white-space": "nowrap",
+            },
             ".preview-designs": {"display": "flex", "flex": "0 0 auto", "flex-wrap": "nowrap"},
             ".preview-palette": {"display": "flex", "flex": "0 0 auto", "flex-wrap": "nowrap"},
-            ".preview-group-label": {"color": "#BDBDBD"},
+            ".preview-group-label": {"color": "#BDBDBD", "font-size": "10px"},
+            ".preview-dock-icon": {"flex": "0 0 12px", "width": "12px", "height": "12px"},
+            ".preview-dock-divider": {"height": "16px"},
             ".palette-original .preview-palette-dot": {"background": "#B31942"},
             ".palette-logo .preview-palette-dot": {"background": "#082B73"},
         }
         for selector in (".preview-design", ".palette-option"):
-            required_styles[selector] = {"min-width": "44px", "min-height": "44px", "background": "transparent", "border": "0", "border-radius": "999px", "color": "#FFFFFF"}
+            # A 34px border-box pill leaves 28px inside its border and scroll padding.
+            # Keep the 28px internal chips fully inset without changing client targets.
+            required_styles[selector] = {
+                "min-width": "44px", "min-height": "28px", "height": "28px",
+                "padding": "0 10px", "box-sizing": "border-box",
+                "background": "transparent", "border": "0", "border-radius": "999px",
+                "color": "#FFFFFF",
+            }
         for selector in (".preview-design:hover", ".palette-option:hover"):
             required_styles[selector] = {"background": "rgba(255,255,255,.12)", "color": "#FFFFFF"}
         for selector in (".preview-design.is-active", '.palette-option[aria-pressed="true"]'):

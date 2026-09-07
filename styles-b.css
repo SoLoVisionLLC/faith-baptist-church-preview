@@ -156,14 +156,15 @@ figcaption { padding-top: .75rem; color: var(--muted); }
 }
 
 /* Floating comparison pill */
-body { padding-bottom: calc(84px + env(safe-area-inset-bottom)) !important; }
+/* Internal preview controls use compact chips; client touch targets stay 44px. */
+body { padding-bottom: calc(64px + env(safe-area-inset-bottom)) !important; }
 .preview-dock {
   position: fixed;
   inset: auto auto calc(16px + env(safe-area-inset-bottom)) 50%;
   z-index: 100;
   width: max-content;
   max-width: calc(100% - 2 * max(16px, env(safe-area-inset-left), env(safe-area-inset-right)));
-  height: 44px;
+  height: 34px;
   margin: 0;
   padding: 0 8px;
   box-sizing: border-box;
@@ -181,7 +182,7 @@ body { padding-bottom: calc(84px + env(safe-area-inset-bottom)) !important; }
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   height: 100%;
   padding: 2px 4px;
   box-sizing: border-box;
@@ -213,7 +214,7 @@ body { padding-bottom: calc(84px + env(safe-area-inset-bottom)) !important; }
   font-weight: 700;
   letter-spacing: .06em;
 }
-.preview-dock-icon { display: block; flex: 0 0 14px; width: 14px; height: 14px; }
+.preview-dock-icon { display: block; flex: 0 0 12px; width: 12px; height: 12px; }
 .preview-design, .palette-option {
   display: inline-flex;
   flex: 0 0 auto;
@@ -221,8 +222,9 @@ body { padding-bottom: calc(84px + env(safe-area-inset-bottom)) !important; }
   justify-content: center;
   gap: 4px;
   min-width: 44px;
-  min-height: 44px;
-  padding: 0 8px;
+  min-height: 28px;
+  height: 28px;
+  padding: 0 10px;
   box-sizing: border-box;
   border: 0;
   border-radius: 999px;
@@ -238,7 +240,7 @@ body { padding-bottom: calc(84px + env(safe-area-inset-bottom)) !important; }
 .preview-design strong { font: inherit; }
 .preview-design:hover, .palette-option:hover { background: rgba(255,255,255,.12); color: #FFFFFF; }
 .preview-design.is-active, .palette-option[aria-pressed="true"] { background: #BC2026; color: #FFFFFF; }
-.preview-dock-divider { flex: 0 0 1px; width: 1px; height: 24px; background: rgba(255,255,255,.28); }
+.preview-dock-divider { flex: 0 0 1px; width: 1px; height: 16px; background: rgba(255,255,255,.28); }
 .preview-palette-dot { flex: 0 0 8px; width: 8px; height: 8px; box-sizing: border-box; border: 1px solid rgba(255,255,255,.7); border-radius: 50%; }
 .palette-original .preview-palette-dot { background: #B31942; }
 .palette-logo .preview-palette-dot { background: #082B73; }
