@@ -1,0 +1,53 @@
+{
+  "rasters": [
+    {
+      "file": "front.png",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_03bb9f01ae214a5fab9b14226879ee59/view?project=solosocialstudio",
+      "original_dimensions": {
+        "width": 277,
+        "height": 600
+      },
+      "alt": "Faith Baptist Church brick exterior with a white steeple and cross beneath a clear blue sky.",
+      "sha256": "7b0bce3499ed9df95327af8a9693b70a2876a36be53810d91edf4685ffaa0f3f"
+    },
+    {
+      "file": "church1.jpg",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_a1df2d0ef4c3455cb97d6c24734c16bf/view?project=solosocialstudio",
+      "original_dimensions": {
+        "width": 600,
+        "height": 450
+      },
+      "alt": "Faith Baptist Church across a green lawn with a landscaped flower bed and white steeple.",
+      "sha256": "9abdb0fd06c69aa12ef11f4954afb50131ad133c5a3314a675c1a136577977f6"
+    },
+    {
+      "file": "church2.jpg",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_01e265a73d32472384612eda393c8ebb/view?project=solosocialstudio",
+      "original_dimensions": {
+        "width": 450,
+        "height": 600
+      },
+      "alt": "Faith Baptist Church sanctuary with a central pulpit, stone wall, wooden cross, and American flag.",
+      "sha256": "6725c18ecea252cd3ad842fae16844a0c1ff1a8f2a4a2a011853bc0a8b68bb92"
+    },
+    {
+      "file": "church3.jpg",
+      "source_url": "https://appwrite.sololink.cloud/v1/storage/buckets/posts/files/f_a357ae8b004b4d0f816a9037f18bffae/view?project=solosocialstudio",
+      "original_dimensions": {
+        "width": 450,
+        "height": 600
+      },
+      "alt": "Faith Baptist Church sanctuary viewed down the center aisle toward the cross and altar.",
+      "sha256": "75c7128197dd074613eec92fe233e04dff3539c5394f56696b4196a969969b3c"
+    }
+  ],
+  "fonts": {
+    "JetBrainsMono-Bold.woff2": "08863c7964612257a90bd821e3127dc5ccb0b5046f881673a1ade5809eb21d0f",
+    "LiberationSansNarrow-Bold.ttf": "4cd16b98cea43a9ce4471df068634fce71ab279dfc9b303b6b188bd96b35226a",
+    "Fraunces-Latin.woff2": "7234ed860a9cc83045413c4faee63c960a8f2d1917adcf728119307d56e0d783",
+    "SourceSans3-Latin.woff2": "59fbf777295755670788ca809b72d082721afbbdfcac37c5c987c1a7e0c74f4d",
+    "Karla-Latin.woff2": "3b1eb09a53fd7b26c107b099b3da5fb2ac90b77297cb3ad713a7b40438ae718b",
+    "Inter-Latin.woff2": "f7ab715caa2c78facb4334b211c81ee66f037cf9c99ca3f24acd543e84a93278"
+  },
+  "evidence_scope": "Original local raster manifest and hashes; no fresh remote HTTP verification is claimed."
+}
