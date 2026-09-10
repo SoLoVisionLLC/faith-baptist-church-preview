@@ -2,16 +2,16 @@
 
 NAME = "Faith Baptist Church"
 ADDRESS = "11275 W. Twp. Rd. 116, Fostoria, OH 44830"
-PHONE = "419-348-2171"
-PHONE_TEL = "+1" + PHONE.replace("-", "")
+PHONE = "(419) 348-2171"
+PHONE_TEL = "+14193482171"
 DIRECTIONS = "https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830"
 IDENTITY = "Bible believing. Gospel driven. Growing together in God's Word."
 
 DIRECTION_CONTRACT = """<!--
 THESIS: Service times are the interface. Refuse the conventional church hero followed by a generic card grid.
-OWN-WORLD: Deep navy fields, cold white reading surfaces, brick action color, compressed sans display, sharp image plates, and a numbered weekly compass.
+OWN-WORLD: Old Glory navy fields, white reading surfaces, Old Glory red actions, compressed sans display, sharp image plates, and a numbered weekly compass.
 STORY: A visitor sees who Faith Baptist Church is, understands the complete weekly rhythm, confirms children and nursery options, and chooses Plan Your Visit.
-FIRST VIEWPORT: church1.jpg occupies the left 58 percent. The right 42 percent is navy with the name, exact identity line, Plan Your Visit action, and a vertical Sunday/Wednesday time rail. The CTA is visible at 390x844 without scrolling.
+FIRST VIEWPORT: An architectural image plate meets a navy identity panel, red direction markers, and prominent Sunday time labels. Mobile stacks the image and identity with the visit action before the compass.
 FORM: Pinned Impeccable Persuade control. Build the brief's committed world, not a softened generic church layout.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
 -->"""
@@ -47,14 +47,19 @@ def nav(active):
 def compass(compact=False):
     cls = "compass compact-compass" if compact else "compass"
     heading = "Weekly compass" if compact else "Service-Time Compass"
-    return f'''<section class="{cls}" aria-labelledby="compass-title{'-compact' if compact else ''}">
-  <div class="compass-heading"><h2 id="compass-title{'-compact' if compact else ''}">{heading}</h2></div>
-  <ol class="compass-line">
-    <li><span class="compass-number">01</span><div><strong>9:00 AM</strong><p>Sunday School for adults and teens</p></div></li>
-    <li><span class="compass-number">02</span><div><strong>10:00 AM</strong><p>Sunday main service</p><p>Young children's Sunday School and nursery for tots during Sunday programming</p></div></li>
-    <li><span class="compass-number">03</span><div><strong>6:00 PM</strong><p>Sunday evening service</p></div></li>
-    <li><span class="compass-number">04</span><div><strong>Wednesday 7:00 PM</strong><p>Prayer and Bible study</p></div></li>
-  </ol>
+    points = (
+        ('Sunday', '9:00 AM', 'Sunday School for adults and teens'),
+        ('Sunday', '10:00 AM', "Main Service. Young Children's Sunday School. Nursery during Sunday programming."),
+        ('Sunday', '6:00 PM', 'Sunday Evening Service'),
+        ('Wednesday', '7:00 PM', 'Prayer &amp; Bible Study'),
+    )
+    choices = ''.join(f'''<li><input type="radio" name="gathering" id="gathering-{i}" value="{day} {time}" {'checked' if i == 2 else ''}>
+      <label for="gathering-{i}"><span class="compass-number" aria-hidden="true">0{i}</span><span class="compass-detail"><span class="compass-day">{day}</span><strong>{time}</strong><span>{detail}</span></span></label></li>'''
+      for i, (day, time, detail) in enumerate(points, 1))
+    return f'''<section class="{cls}" aria-labelledby="compass-title">
+  <div class="compass-heading"><h2 id="compass-title">{heading}</h2><p>Come in. Find a seat. Feel at home.</p>
+    <p class="compass-status" role="status" aria-live="polite" aria-atomic="true" hidden></p><a class="button" href="/visit/">Plan Your Visit <span aria-hidden="true">↗</span></a></div>
+  <fieldset class="compass-choices"><legend>Choose a gathering</legend><ol class="compass-line">{choices}</ol></fieldset>
 </section>'''
 
 
@@ -63,12 +68,13 @@ def inner_intro(title, text):
 
 
 HOME = f'''<section class="first-view" aria-labelledby="home-title">
-  <div class="hero-photo">{image("land")}</div>
+  <div class="hero-photo">{image("land")}<p class="photo-anchor">A church family<br>for Fostoria.</p></div>
   <div class="hero-panel">
     <h1 id="home-title">Faith Baptist Church</h1>
     <p class="identity">{IDENTITY}</p>
-    <a class="button" href="/visit/">Plan Your Visit</a>
-    <div class="hero-rail" aria-label="Weekly service times"><span>Sun 9:00</span><span>Sun 10:00</span><span>Sun 6:00</span><span>Wed 7:00</span></div>
+    <a class="button" href="/visit/">Plan Your Visit <span aria-hidden="true">↗</span></a>
+    <a class="hero-times-link" href="#compass-title">View Service Times</a>
+    <div class="hero-rail" aria-label="Sunday morning service times"><span><small>Sunday School</small>9:00 <small>AM</small></span><span><small>Main Service</small>10:00 <small>AM</small></span></div>
   </div>
 </section>
 {compass()}
@@ -78,23 +84,23 @@ HOME = f'''<section class="first-view" aria-labelledby="home-title">
 </section>
 <section class="conviction" aria-labelledby="conviction-title">{image("close")}<div><h2 id="conviction-title">What we believe</h2><ul><li>Bible believing.</li><li>Gospel driven.</li><li>We teach from the KJV Bible.</li></ul><a href="/beliefs/">What We Believe</a></div></section>
 <section class="ministry-rhythm" aria-labelledby="ministry-title"><h2 id="ministry-title">Ministry rhythm</h2><div><strong>Sunday 9:00 AM</strong><p>Sunday School for adults and teens.</p></div><div><strong>Sunday 10:00 AM</strong><p>Main service, young children's Sunday School, and nursery for tots.</p></div><div><strong>Sunday 6:00 PM</strong><p>Sunday evening service.</p></div><div><strong>Wednesday 7:00 PM</strong><p>Prayer and Bible study.</p></div></section>
-<section class="visit-close"><div><h2>Plan Your Visit</h2><address>{ADDRESS}</address><a href="tel:{PHONE_TEL}">Call the Church: {PHONE}</a><a href="{DIRECTIONS}" rel="noopener">Get Directions</a></div><a class="button button-light" href="/visit/">Plan Your Visit</a></section>'''
+<section class="visit-close"><div><p>We saved you a seat.</p><h2>Plan Your Visit</h2><address>{ADDRESS}</address><a href="tel:{PHONE_TEL}">Call the Church: {PHONE}</a><a href="{DIRECTIONS}" rel="noopener">Get Directions</a></div><a class="button button-light" href="/visit/">Plan Your Visit <span aria-hidden="true">↗</span></a></section>'''
 
-VISIT = f'''{inner_intro("Plan Your Visit", "The complete schedule, location, and confirmed children and nursery information are here for your visit.")}
+VISIT = f'''{inner_intro("Plan Your Visit", "Come in. Find a seat. Feel at home.")}
 {compass(True)}
 <section class="visit-grid"><div><h2>Address and directions</h2><address>{ADDRESS}</address><a class="button" href="{DIRECTIONS}" rel="noopener">Get Directions</a></div><div><h2>Children and nursery</h2><p>Young children's Sunday School begins Sunday at 10:00 AM. A nursery for tots is available during Sunday programming.</p><a href="tel:{PHONE_TEL}">Call the Church: {PHONE}</a></div>{image("front", "visit-portrait")}</section>'''
 
-BELIEFS = f'''{inner_intro("What We Believe", "These are the confirmed convictions of Faith Baptist Church.")}
+BELIEFS = f'''{inner_intro("What We Believe", "Truth does not move with the times.")}
 <section class="beliefs-equal">{image("close")}<div><ol><li><span>01</span><strong>Bible believing.</strong></li><li><span>02</span><strong>Gospel driven.</strong></li><li><span>03</span><strong>We teach from the KJV Bible.</strong></li></ol></div></section>{compass(True)}'''
 
-MINISTRIES = f'''{inner_intro("Ministries", "Recurring gatherings follow one clear weekly line.")}
+MINISTRIES = f'''{inner_intro("Ministries", "Grow together. Right where you are.")}
 <section class="ministry-map"><div><span>Sunday 9:00 AM</span><h2>Adults and teens Sunday School</h2></div><div><span>Sunday 10:00 AM</span><h2>Main service</h2></div><div><span>Sunday 10:00 AM</span><h2>Young children's Sunday School</h2></div><div><span>Sunday programming</span><h2>Nursery for tots</h2></div><div><span>Sunday 6:00 PM</span><h2>Sunday evening service</h2></div><div><span>Wednesday 7:00 PM</span><h2>Prayer and Bible study</h2></div></section>{image("wide", "ministry-photo")}{compass(True)}'''
 
-EVENTS = f'''{inner_intro("Events & Announcements", "The recurring weekly schedule is listed below.")}
+EVENTS = f'''{inner_intro("Events & Announcements", "Bible believing. Gospel driven. Growing together in God's Word.")}
 {compass(True)}
-<section class="announcement"><h2>Current announcements will appear here when supplied.</h2></section>'''
+<section class="announcement"><h2>We saved you a seat.</h2><a class="button button-light" href="tel:{PHONE_TEL}">Call the Church</a></section>'''
 
-CONTACT = f'''{inner_intro("Contact Faith Baptist Church", "Call the church or open directions to the exact address.")}
+CONTACT = f'''{inner_intro("Contact Faith Baptist Church", "A church family for Fostoria.")}
 <section class="contact-destination"><div><a class="contact-phone" href="tel:{PHONE_TEL}">{PHONE}</a><address>{ADDRESS}</address><a class="button" href="{DIRECTIONS}" rel="noopener">Get Directions</a></div>{image("front", "contact-portrait")}</section>{compass(True)}'''
 
 PAGES = (
@@ -119,6 +125,7 @@ def page(slug, title, description, body):
 <meta name="description" content="{description}">
 <link rel="stylesheet" href="/styles.css">
 <link rel="icon" href="/assets/front.png">
+<script src="/compass.js" defer></script>
 </head>
 <body class="v-e p-{slug or 'home'}">
 {DIRECTION_CONTRACT}

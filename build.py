@@ -30,10 +30,10 @@ ROUTES = {
 }
 
 NAME = 'Faith Baptist Church'
-ADDRESS = '11275 W. Township Rd. 116, Fostoria, OH 44830'
+ADDRESS = '11275 W. Twp. Rd. 116, Fostoria, OH 44830'
 PHONE_DISPLAY = '(419) 348-2171'
 PHONE_TEL = '+14193482171'
-MAPS_DIR = 'https://www.google.com/maps/dir/?api=1&destination=11275+W.+Township+Rd.+116%2C+Fostoria%2C+OH+44830'
+MAPS_DIR = 'https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830'
 D_ADDRESS = '11275 W. Twp. Rd. 116, Fostoria, OH 44830'
 D_MAPS_DIR = 'https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830'
 TAGLINE = "Bible believing. Gospel driven. Growing together in God&rsquo;s Word."
@@ -240,8 +240,8 @@ def footer_c():
   <div class="c-footer-primary">
     <p class="c-footer-name">{NAME}</p>
     <address>{A_ADDRESS}</address>
-    <a href="tel:{PHONE_TEL}">{A_PHONE_DISPLAY}</a>
-    <a href="{A_MAPS_DIR}" rel="noopener">Directions</a>
+    <a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a>
+    <a href="{A_MAPS_DIR}" rel="noopener">Get Directions</a>
   </div>
   <nav class="c-footer-navigation" aria-label="Footer">{links}</nav>
 </footer>'''
@@ -269,6 +269,10 @@ def nav_d(active):
       <span>Faith Baptist</span><strong>Church</strong>
     </a>
     <nav class="d-primary-nav" aria-label="Primary navigation">{links}</nav>
+    <details class="d-menu">
+      <summary>Menu</summary>
+      <nav aria-label="Mobile navigation">{links}</nav>
+    </details>
     <div class="d-header-actions">
       <a class="d-call" href="tel:{PHONE_TEL}" aria-label="Call Faith Baptist Church at {PHONE_DISPLAY}">Call the Church</a>
       <a class="d-plan" href="/visit/"{visit_current}>Plan Your Visit</a>
@@ -289,7 +293,7 @@ def footer_d():
       <p class="d-footer-name"><strong>{NAME}</strong></p>
       <address>{D_ADDRESS}</address>
       <p><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></p>
-      <p><a href="{D_MAPS_DIR}" rel="noopener">Get directions</a></p>
+      <p><a href="{D_MAPS_DIR}" rel="noopener">Get Directions</a></p>
     </div>
     <nav aria-label="Footer navigation">{links}</nav>
   </div>
@@ -309,7 +313,7 @@ HEAD = '''<!DOCTYPE html>
 </head>
 <body class="v-{variant} p-{slug}">
 {nav}
-<main id="main">
+<main id="main" tabindex="-1">
 '''
 
 HEAD_A = '''<!DOCTYPE html>
@@ -353,7 +357,7 @@ def page(variant, slug, title, desc, body):
     if variant == 'c':
         active = '/' if not slug else f'/{slug}/'
         html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active))
-        return html + body + '\n</main>\n' + footer_c() + '\n</body>\n</html>\n'
+        return html + body + '\n</main>\n' + footer_c() + '\n<script src="/variant-c.js" defer></script>\n</body>\n</html>\n'
     if variant == 'd':
         active = '/' + slug if slug else '/'
         html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
@@ -394,6 +398,7 @@ def a_schedule():
       <div class="schedule-row"><span>Main service</span><strong>10:00 AM</strong><span></span></div>
       <div class="schedule-row"><span>Young children's Sunday School</span><strong>10:00 AM</strong><span></span></div>
       <div class="schedule-row"><span>Sunday evening service</span><strong>6:00 PM</strong><span></span></div>
+      <p class="schedule-note">Nursery is available during Sunday programming.</p>
     </div>
   </div>
   <div class="day-group">
@@ -409,6 +414,7 @@ A_HOME = f'''
 <section class="home-hero" aria-labelledby="home-title">
   {a_image('land', 'hero-image')}
   <div class="hero-copy">
+    <p class="eyebrow">Fostoria, Ohio</p>
     <h1 id="home-title">Faith Baptist Church</h1>
     <p>{A_IDENTITY}</p>
     <div class="actions"><a class="button primary" href="/visit/">Plan Your Visit</a><a class="button secondary" href="/events/">View Service Times</a></div>
@@ -417,8 +423,9 @@ A_HOME = f'''
 {a_schedule()}
 <section class="welcome-grid page-width" aria-labelledby="welcome-title">
   <div>
-    <h2 id="welcome-title">Welcome</h2>
-    <p>Faith Baptist Church is in Fostoria, Ohio. Our recurring gatherings include Sunday services and Wednesday prayer and Bible study.</p>
+    <p class="eyebrow">Welcome</p>
+    <h2 id="welcome-title">A church family for Fostoria.</h2>
+    <p>The Bible is open. The gospel is clear. And there is a place here for you and your whole family.</p>
   </div>
   <div class="location-block">
     <h2>Find the church</h2>
@@ -435,13 +442,15 @@ A_HOME = f'''
 <section class="beliefs-split page-width" aria-labelledby="beliefs-title">
   {a_image('close', 'sanctuary-close')}
   <div>
-    <h2 id="beliefs-title">Confirmed beliefs</h2>
+    <p class="eyebrow">What We Believe</p>
+    <h2 id="beliefs-title">Truth does not move with the times.</h2>
     <ul class="belief-statements"><li>Bible believing.</li><li>Gospel driven.</li><li>KJV Bible.</li></ul>
     <a href="/beliefs/">What We Believe</a>
   </div>
 </section>
 <section class="ministry-list page-width" aria-labelledby="ministry-title">
-  <h2 id="ministry-title">Recurring ministries</h2>
+  <p class="eyebrow">Ministries</p>
+  <h2 id="ministry-title">Grow together. Right where you are.</h2>
   <div class="ministry-row"><h3>Adults and teens</h3><p>Sunday School at 9:00 AM.</p></div>
   <div class="ministry-row"><h3>Young children</h3><p>Sunday School at 10:00 AM.</p></div>
   <div class="ministry-row"><h3>Nursery for tots</h3><p>Available during Sunday programming.</p></div>
@@ -449,13 +458,13 @@ A_HOME = f'''
 </section>
 <figure class="wide-sanctuary">{a_image('wide')}</figure>
 <section class="visit-close page-width" aria-labelledby="visit-close-title">
-  <div><h2 id="visit-close-title">Plan your visit</h2><p>Sunday School begins at 9:00 AM. The Sunday main service begins at 10:00 AM.</p></div>
-  <div><address>{A_ADDRESS}</address><a href="{A_MAPS_DIR}" rel="noopener">Directions</a><a href="tel:{PHONE_TEL}">Call the Church</a></div>
+  <div><p class="eyebrow">Plan Your Visit</p><h2 id="visit-close-title">We saved you a seat.</h2><p>Sunday School begins at 9:00 AM. The Sunday main service begins at 10:00 AM.</p><a class="button primary" href="/visit/">Plan Your Visit</a></div>
+  <div><address>{A_ADDRESS}</address><a href="{A_MAPS_DIR}" rel="noopener">Get Directions</a><a href="tel:{PHONE_TEL}">Call the Church</a></div>
 </section>'''
 
 A_VISIT = f'''
 <section class="page-intro image-split page-width">
-  <div><h1>Plan Your Visit</h1><p>Service times, the church address, and confirmed children and nursery information are listed below.</p></div>
+  <div><p class="eyebrow">Come in. Find a seat. Feel at home.</p><h1>Plan Your Visit</h1><p>The Bible is open. The gospel is clear. And there is a place here for you and your whole family.</p><a class="button primary" href="{A_MAPS_DIR}" rel="noopener">Get Directions</a></div>
   {a_image('front', 'exterior-portrait')}
 </section>
 {a_schedule()}
@@ -468,11 +477,11 @@ A_VISIT = f'''
 A_BELIEFS = f'''
 <section class="beliefs-page image-split page-width">
   {a_image('close', 'sanctuary-close')}
-  <div><h1>What We Believe</h1><ul class="belief-statements"><li>Bible believing.</li><li>Gospel driven.</li><li>KJV Bible.</li></ul></div>
+  <div><p class="eyebrow">Truth does not move with the times.</p><h1>What We Believe</h1><p>The Bible is our foundation. The gospel is our message. Prayer shapes our life.</p><ul class="belief-statements"><li>Bible believing.</li><li>Gospel driven.</li><li>KJV Bible.</li></ul><a class="button primary" href="/visit/">Plan Your Visit</a></div>
 </section>'''
 
 A_MINISTRIES = f'''
-<section class="page-intro page-width"><h1>Recurring Ministries</h1><p>Confirmed weekly gatherings at Faith Baptist Church.</p></section>
+<section class="page-intro page-width"><p class="eyebrow">Adults, teens, and young children</p><h1>Grow together. Right where you are.</h1><p>Sunday School, worship, prayer, and Bible study at Faith Baptist Church.</p></section>
 <section class="ministry-list page-width" aria-label="Recurring gatherings">
   <div class="ministry-row"><h2>Adults and teens Sunday School</h2><p>Sunday at 9:00 AM.</p></div>
   <div class="ministry-row"><h2>Sunday main service</h2><p>Sunday at 10:00 AM.</p></div>
@@ -484,13 +493,13 @@ A_MINISTRIES = f'''
 <figure class="wide-sanctuary">{a_image('wide')}</figure>'''
 
 A_EVENTS = f'''
-<section class="page-intro page-width"><h1>Weekly Services and Announcements</h1><p>The confirmed weekly schedule is listed below.</p></section>
+<section class="page-intro page-width"><p class="eyebrow">Sunday and Wednesday</p><h1>Our week together.</h1><p>Sunday School, worship, prayer, and Bible study at Faith Baptist Church.</p></section>
 {a_schedule()}
-<section class="announcement-note page-width" aria-labelledby="announcements-title"><h2 id="announcements-title">Announcements</h2><p>Current announcements will appear here when supplied.</p></section>'''
+<section class="announcement-note page-width" aria-labelledby="announcements-title"><h2 id="announcements-title">Questions before you visit?</h2><p><a class="button primary" href="tel:{PHONE_TEL}">Call the Church</a></p></section>'''
 
 A_CONTACT = f'''
 <section class="contact-page image-split page-width">
-  <div><h1>Contact Faith Baptist Church</h1><h2>Call</h2><p><a class="contact-phone" href="tel:{PHONE_TEL}">Call the Church: {A_PHONE_DISPLAY}</a></p><h2>Address</h2><address>{A_ADDRESS}</address><p><a class="button primary" href="{A_MAPS_DIR}" rel="noopener">Get Directions</a></p></div>
+  <div><p class="eyebrow">A church family for Fostoria.</p><h1>Contact Faith Baptist Church</h1><h2>Call</h2><p><a class="contact-phone" href="tel:{PHONE_TEL}">Call the Church: {A_PHONE_DISPLAY}</a></p><h2>Address</h2><address>{A_ADDRESS}</address><p><a class="button primary" href="{A_MAPS_DIR}" rel="noopener">Get Directions</a></p></div>
   {a_image('land', 'contact-exterior')}
 </section>'''
 
@@ -498,23 +507,23 @@ A_CONTACT = f'''
 # ---------------- Variant B: Sunday Starts Here ----------------
 
 B_HOME = '''
-<section class="home-hero"><div class="hero-photo"><img src="/assets/front.png" width="277" height="600" alt="''' + B_ALT['front'] + '''"></div><div class="hero-plan"><h1>Faith Baptist Church</h1><p class="hero-line">''' + TAGLINE + '''</p><div class="sunday-plan" aria-label="Sunday schedule"><div><strong>9:00 AM</strong><span>Sunday School for adults and teens</span></div><div><strong>10:00 AM</strong><span>Main service, young children's class, and nursery</span></div><div><strong>6:00 PM</strong><span>Sunday Evening Service</span></div></div><p>''' + CTA_PLAN + '''</p></div></section>
-<section class="today-band" aria-labelledby="today-title"><h2 id="today-title">Today at Faith Baptist</h2><p><strong>Sunday:</strong> 9:00 AM Sunday School, 10:00 AM main service and children's classes, 6:00 PM evening service.</p><p><strong>Wednesday:</strong> 7:00 PM Prayer and Bible Study.</p></section>
-<section class="task-grid" aria-labelledby="questions-title"><h2 id="questions-title">Plan the practical details</h2><a class="task task-wide" href="/visit/"><strong>This Sunday</strong><span>See every service time and children's option.</span></a><a class="task" href="/ministries/"><strong>For Children</strong><span>Young children's class and nursery details.</span></a><a class="task" href="/events/"><strong>Wednesday Prayer and Bible Study</strong><span>Join us at 7:00 PM.</span></a><a class="task task-location" href="''' + MAPS_DIR + '''" rel="noopener"><strong>Find Us</strong><span>''' + B_ADDRESS + '''</span></a></section>
-<section class="place-story"><img src="/assets/church1.jpg" width="600" height="450" alt="''' + B_ALT['land'] + '''"><div><h2>A local church in Fostoria</h2><p>We are Bible believing, gospel driven, and growing together in God's Word.</p><p><a href="tel:+14193482171">Call the Church at 419-348-2171</a></p></div></section>
-<section class="ministry-groups"><h2>Our weekly rhythm</h2><div><h3>Sunday Learning</h3><p>Adults and teens meet at 9:00 AM. Young children's Sunday School meets at 10:00 AM, with nursery available for tots.</p></div><div><h3>Worship Gatherings</h3><p>The main service begins Sunday at 10:00 AM. Sunday Evening Service begins at 6:00 PM.</p></div><div><h3>Midweek Prayer</h3><p>Wednesday Prayer and Bible Study begins at 7:00 PM.</p></div></section>
-<section class="photo-story" aria-label="Inside Faith Baptist Church"><figure><img src="/assets/church2.jpg" width="450" height="600" alt="''' + B_ALT['close'] + '''"><figcaption>The central pulpit and cross inside the sanctuary.</figcaption></figure><figure><img src="/assets/church3.jpg" width="450" height="600" alt="''' + B_ALT['wide'] + '''"><figcaption>The center aisle leads toward the cross and altar.</figcaption></figure></section>
-<section class="location-close"><h2>Plan Your Visit</h2><p>''' + B_ADDRESS + '''</p><p><a href="tel:+14193482171">419-348-2171</a></p><p><a class="btn btn-primary" href="/visit/">Plan Your Visit</a> <a class="btn btn-secondary" href="''' + MAPS_DIR + '''" rel="noopener">Get Directions</a></p></section>'''
+<section class="home-hero"><div class="hero-photo"><img src="/assets/church1.jpg" width="600" height="450" alt="''' + B_ALT['land'] + '''"><p class="photo-caption">A church family for Fostoria.</p></div><div class="hero-plan"><p class="eyebrow">Come in. Find a seat. Feel at home.</p><h1>Faith Baptist Church</h1><p class="hero-line">''' + TAGLINE + '''</p><div class="sunday-plan" aria-label="Sunday schedule"><div><strong>9:00 <small>AM</small></strong><span>Sunday School for adults and teens</span></div><div><strong>10:00 <small>AM</small></strong><span>Main service, young children's Sunday School, and nursery</span></div><div><strong>6:00 <small>PM</small></strong><span>Sunday Evening Service</span></div></div><div class="hero-actions">''' + CTA_PLAN + '''<a class="btn btn-secondary" href="/events/">View Service Times</a></div></div></section>
+<section class="today-band" aria-labelledby="today-title"><h2 id="today-title">Today at Faith Baptist</h2><p><strong>Sunday</strong>9:00 AM Sunday School<br>10:00 AM main service and young children's Sunday School<br>6:00 PM evening service</p><p><strong>Wednesday</strong><span class="band-time">7:00 PM</span>Prayer and Bible Study</p></section>
+<section class="task-grid" aria-labelledby="questions-title"><h2 id="questions-title">Plan the practical details</h2><a class="task task-wide" href="/visit/"><strong>This Sunday</strong><span class="task-time">10:00 <small>AM</small></span><span>Main service. Young children's Sunday School. Nursery during Sunday programming.</span><span class="task-link">Plan Your Visit <span aria-hidden="true">↗</span></span></a><a class="task" href="/ministries/"><strong>Children and Nursery</strong><span>Young children's Sunday School at 10:00 AM, with nursery during Sunday programming.</span><span class="task-link">Ministries <span aria-hidden="true">↗</span></span></a><a class="task" href="/events/"><strong>Wednesday Prayer and Bible Study</strong><span>7:00 PM</span><span class="task-link">Our weekly rhythm <span aria-hidden="true">↗</span></span></a><a class="task task-location" href="''' + MAPS_DIR + '''" rel="noopener"><strong>Get Directions <span aria-hidden="true">↗</span></strong><span>''' + B_ADDRESS + '''</span></a></section>
+<section class="place-story"><figure class="place-portrait"><img src="/assets/front.png" width="277" height="600" alt="''' + B_ALT['front'] + '''"></figure><div><p class="eyebrow">Faith Baptist Church</p><h2>A local church in Fostoria</h2><p>The Bible is open. The gospel is clear. And there is a place here for you and your whole family.</p><p><a href="tel:+14193482171">Call the Church at 419-348-2171</a></p></div></section>
+<section class="ministry-groups"><h2>Our weekly rhythm</h2><div><p class="rhythm-day">Sunday</p><h3>Sunday Learning</h3><p>Adults and teens meet at 9:00 AM. Young children's Sunday School meets at 10:00 AM, with nursery available for tots during Sunday programming.</p></div><div><p class="rhythm-day">Sunday</p><h3>Worship Gatherings</h3><p>The main service begins Sunday at 10:00 AM. Sunday Evening Service begins at 6:00 PM.</p></div><div><p class="rhythm-day">Wednesday</p><h3>Midweek Prayer</h3><p>Wednesday Prayer and Bible Study begins at 7:00 PM.</p></div></section>
+<section class="photo-story" aria-labelledby="inside-title"><h2 id="inside-title">Inside Faith Baptist Church</h2><figure><img src="/assets/church2.jpg" width="450" height="600" alt="''' + B_ALT['close'] + '''"><figcaption>The central pulpit and cross inside the sanctuary.</figcaption></figure><figure><img src="/assets/church3.jpg" width="450" height="600" alt="''' + B_ALT['wide'] + '''"><figcaption>The center aisle leads toward the cross and altar.</figcaption></figure></section>
+<section class="location-close"><p class="eyebrow">We saved you a seat.</p><h2>Plan Your Visit</h2><p>''' + B_ADDRESS + '''</p><p><a href="tel:+14193482171">419-348-2171</a></p><div class="hero-actions"><a class="btn btn-primary" href="/visit/">Plan Your Visit</a><a class="btn btn-secondary" href="''' + MAPS_DIR + '''" rel="noopener">Get Directions</a></div></section>'''
 
-B_VISIT = '''<section class="page-intro"><h1>Plan Your Visit</h1><p>Use this checklist for service times, children and nursery, location, and a direct call.</p></section><section class="visit-checklist"><div><h2>Times</h2>''' + sched_table() + '''</div><div><h2>Children and Nursery</h2><p>Adults and teens meet for Sunday School at 9:00 AM. Young children's Sunday School meets at 10:00 AM, with nursery available for tots during Sunday programming.</p></div><div><h2>Location</h2><p>''' + B_ADDRESS + '''</p><p><a class="btn btn-secondary" href="''' + MAPS_DIR + '''" rel="noopener">Get Directions</a></p></div><div><h2>Call</h2><p><a class="phone-action" href="tel:+14193482171">Call the Church at 419-348-2171</a></p></div></section><img class="feature portrait-feature" src="/assets/front.png" width="277" height="600" alt="''' + B_ALT['front'] + '''">'''
+B_VISIT = '''<section class="page-intro"><p class="eyebrow">Come in. Find a seat. Feel at home.</p><h1>Plan Your Visit</h1><p>The Bible is open. The gospel is clear. And there is a place here for you and your whole family.</p></section><section class="visit-checklist"><div><h2>Times</h2>''' + sched_table() + '''</div><div><h2>Children and Nursery</h2><p>Adults and teens meet for Sunday School at 9:00 AM. Young children's Sunday School meets at 10:00 AM, with nursery available for tots during Sunday programming.</p></div><div><h2>Location</h2><p>''' + B_ADDRESS + '''</p><p><a class="btn btn-secondary" href="''' + MAPS_DIR + '''" rel="noopener">Get Directions</a></p></div><div><h2>Call</h2><p><a class="phone-action" href="tel:+14193482171">Call the Church at 419-348-2171</a></p></div></section><img class="feature portrait-feature" src="/assets/front.png" width="277" height="600" alt="''' + B_ALT['front'] + '''">'''
 
-B_BELIEFS = '''<section class="page-intro"><h1>What We Believe</h1><p>These are the confirmed convictions Faith Baptist Church has shared.</p></section><section class="belief-layout"><img src="/assets/church2.jpg" width="450" height="600" alt="''' + B_ALT['close'] + '''"><div><h2>Bible believing</h2><p>We are Bible believing.</p><h2>Gospel driven</h2><p>We are gospel driven.</p><h2>KJV Bible</h2><p>We teach from the KJV Bible.</p></div></section>'''
+B_BELIEFS = '''<section class="page-intro"><p class="eyebrow">Truth does not move with the times.</p><h1>What We Believe</h1><p>''' + TAGLINE + '''</p></section><section class="belief-layout"><img src="/assets/church2.jpg" width="450" height="600" alt="''' + B_ALT['close'] + '''"><div><h2>Bible believing</h2><p>The Bible is our foundation.</p><h2>Gospel driven</h2><p>The gospel is our message.</p><h2>KJV Bible</h2><p>We teach from the KJV Bible.</p><a class="btn btn-primary" href="/visit/">Plan Your Visit</a></div></section>'''
 
-B_MINISTRIES = '''<section class="page-intro"><h1>Ministries</h1><p>Our ministries follow a clear weekly rhythm for adults, teens, children, and tots.</p></section><section class="ministry-groups"><div><h2>Sunday Learning</h2><p>Sunday School begins at 9:00 AM for adults and teens. Young children's Sunday School begins at 10:00 AM. Nursery is available for tots during Sunday programming.</p></div><div><h2>Worship Gatherings</h2><p>The main service begins Sunday at 10:00 AM. Sunday Evening Service begins at 6:00 PM.</p></div><div><h2>Midweek Prayer</h2><p>Wednesday Prayer and Bible Study begins at 7:00 PM.</p></div></section><img class="feature" src="/assets/church3.jpg" width="450" height="600" alt="''' + B_ALT['wide'] + '''"><p class="center-action"><a class="btn btn-primary" href="/visit/">Plan Your Visit</a></p>'''
+B_MINISTRIES = '''<section class="page-intro"><p class="eyebrow">Adults, teens, and young children</p><h1>Ministries</h1><p>Grow together. Right where you are.</p></section><section class="ministry-groups"><div><p class="rhythm-day">Sunday</p><h2>Sunday Learning</h2><p>Sunday School begins at 9:00 AM for adults and teens. Young children's Sunday School begins at 10:00 AM. Nursery is available for tots during Sunday programming.</p></div><div><p class="rhythm-day">Sunday</p><h2>Worship Gatherings</h2><p>The main service begins Sunday at 10:00 AM. Sunday Evening Service begins at 6:00 PM.</p></div><div><p class="rhythm-day">Wednesday</p><h2>Midweek Prayer</h2><p>Wednesday Prayer and Bible Study begins at 7:00 PM.</p></div></section><img class="feature" src="/assets/church3.jpg" width="450" height="600" alt="''' + B_ALT['wide'] + '''"><p class="center-action"><a class="btn btn-primary" href="/visit/">Plan Your Visit</a></p>'''
 
-B_EVENTS = '''<section class="page-intro"><h1>Events and Announcements</h1><p>Our recurring schedule is grouped by Sunday and Wednesday.</p></section><section class="weekly-groups"><div><h2>Sunday</h2><p><strong>9:00 AM</strong> Sunday School for adults and teens</p><p><strong>10:00 AM</strong> Main service, young children's Sunday School, and nursery</p><p><strong>6:00 PM</strong> Sunday Evening Service</p></div><div><h2>Wednesday</h2><p><strong>7:00 PM</strong> Prayer and Bible Study</p></div></section><section class="announcement-note"><h2>Current Announcements</h2><p>Current announcements will appear here when supplied.</p></section>'''
+B_EVENTS = '''<section class="page-intro"><p class="eyebrow">Sunday and Wednesday</p><h1>Our weekly rhythm</h1><p>Worship, prayer, and Bible study at Faith Baptist Church.</p></section><section class="weekly-groups"><div><h2>Sunday</h2><p><strong>9:00 AM</strong> Sunday School for adults and teens</p><p><strong>10:00 AM</strong> Main service, young children's Sunday School, and nursery during Sunday programming</p><p><strong>6:00 PM</strong> Sunday Evening Service</p></div><div><h2>Wednesday</h2><p><strong>7:00 PM</strong> Prayer and Bible Study</p></div></section><section class="announcement-note"><h2>Questions before you visit?</h2><p><a class="btn btn-primary" href="tel:+14193482171">Call the Church</a></p></section>'''
 
-B_CONTACT = '''<section class="page-intro"><h1>Contact Faith Baptist Church</h1><p>Call the church or open directions to the exact address.</p></section><section class="contact-layout"><div><h2>Call</h2><p><a class="phone-action" href="tel:+14193482171">419-348-2171</a></p><h2>Address</h2><p>''' + B_ADDRESS + '''</p><p><a class="btn btn-secondary" href="''' + MAPS_DIR + '''" rel="noopener">Get Directions</a></p></div><img src="/assets/church1.jpg" width="600" height="450" alt="''' + B_ALT['land'] + '''"></section>'''
+B_CONTACT = '''<section class="page-intro"><p class="eyebrow">A church family for Fostoria.</p><h1>Contact Faith Baptist Church</h1><p>Come in. Find a seat. Feel at home.</p></section><section class="contact-layout"><div><h2>Call</h2><p><a class="phone-action" href="tel:+14193482171">419-348-2171</a></p><h2>Address</h2><p>''' + B_ADDRESS + '''</p><p><a class="btn btn-secondary" href="''' + MAPS_DIR + '''" rel="noopener">Get Directions</a></p></div><img src="/assets/church1.jpg" width="600" height="450" alt="''' + B_ALT['land'] + '''"></section>'''
 
 
 # ---------------- Variant C — Gathered and Growing / Organic Biomorphic 11 ----------------
@@ -530,15 +539,15 @@ def c_image(key, class_name=''):
 C_HOME = f'''
 <section class="c-home-hero c-page-shell" aria-labelledby="home-title">
   <div class="hero-copy">
-    <p class="c-kicker">Fostoria, Ohio</p>
+    <p class="c-kicker">A church family for Fostoria.</p>
     <h1 id="home-title">Faith Baptist Church</h1>
     <p class="identity-line">{A_IDENTITY}</p>
     <div class="c-actions"><a class="c-button c-button-primary" href="/visit/">Plan Your Visit</a><a class="c-button c-button-secondary" href="/events/">View Service Times</a></div>
   </div>
-  <figure class="hero-image-plate"><div class="hero-image-mask">{c_image('land')}</div></figure>
+  <figure class="hero-image-plate"><div class="hero-image-mask">{c_image('land')}</div><figcaption>Come in. Find a seat.<br>Feel at home.</figcaption></figure>
 </section>
-<section class="rhythm-section c-page-shell" aria-labelledby="rhythm-title">
-  <div class="section-intro"><p class="c-kicker">Complete weekly schedule</p><h2 id="rhythm-title">Weekly Rhythm</h2></div>
+<section class="rhythm-section c-page-shell" aria-labelledby="rhythm-title" data-c-reveal>
+  <div class="section-intro"><p class="c-kicker">Sunday &amp; Wednesday</p><h2 id="rhythm-title">Weekly Rhythm</h2></div>
   <ol class="weekly-rhythm">
     <li class="rhythm-stop"><p><strong>Sunday</strong> <time datetime="09:00">9:00 AM</time></p><p>Sunday School for adults and teens.</p></li>
     <li class="rhythm-stop"><p><strong>Sunday</strong> <time datetime="10:00">10:00 AM</time></p><p>Main service. Young children's Sunday School begins at 10:00 AM. A nursery for tots is available during Sunday programming.</p></li>
@@ -546,34 +555,36 @@ C_HOME = f'''
     <li class="rhythm-stop"><p><strong>Wednesday</strong> <time datetime="19:00">7:00 PM</time></p><p>Prayer and Bible study.</p></li>
   </ol>
 </section>
-<section class="growing-section c-page-shell" aria-labelledby="growing-title">
-  <div class="section-intro"><p class="c-kicker">Recurring ministries</p><h2 id="growing-title">Growing Together</h2></div>
+<section class="growing-section c-page-shell" aria-labelledby="growing-title" data-c-reveal>
+  <div class="section-intro"><p class="c-kicker">Grow together. Right where you are.</p><h2 id="growing-title">Growing Together</h2><p>The Bible is open. The gospel is clear. And there is a place here for you and your whole family.</p></div>
   <div class="growing-cluster">
     <article class="growing-panel panel-wide"><h3>Adults and Teens</h3><p>Sunday School at 9:00 AM.</p></article>
     <article class="growing-panel panel-tall"><h3>Young Children</h3><p>Sunday School at 10:00 AM.</p></article>
     <article class="growing-panel panel-small"><h3>Nursery</h3><p>Available for tots during Sunday programming.</p></article>
   </div>
 </section>
-<section class="place-section c-page-shell" aria-labelledby="place-title">
-  <div class="section-intro"><p class="c-kicker">Church grounds and sanctuary</p><h2 id="place-title">A Real Place</h2></div>
-  <div class="real-place-gallery">
-    <figure class="place-photo place-portrait">{c_image('front')}</figure>
-    <figure class="place-photo place-close">{c_image('close')}</figure>
-    <figure class="place-photo place-wide">{c_image('wide')}</figure>
+<section class="place-section c-page-shell" aria-labelledby="place-title" data-c-reveal>
+  <div class="section-intro"><p class="c-kicker">Fostoria, Ohio</p><h2 id="place-title">A Real Place</h2><p>Come in. Find a seat. Feel at home.</p></div>
+  <nav class="c-gallery-links" aria-label="Church photographs"><a href="#c-gallery-front">The church</a><a href="#c-gallery-close">The pulpit</a><a href="#c-gallery-wide">The sanctuary</a></nav>
+  <div class="real-place-gallery" id="c-gallery" tabindex="0" role="region" aria-label="Church photographs">
+    <figure class="place-photo place-portrait" id="c-gallery-front" tabindex="-1">{c_image('front')}</figure>
+    <figure class="place-photo place-close" id="c-gallery-close" tabindex="-1">{c_image('close')}</figure>
+    <figure class="place-photo place-wide" id="c-gallery-wide" tabindex="-1">{c_image('wide')}</figure>
   </div>
+  <div class="c-gallery-controls" hidden><button type="button" data-gallery-prev aria-controls="c-gallery" aria-label="Previous church photograph">&#8592;</button><p class="c-gallery-status" aria-live="polite" aria-atomic="true">1 / 3</p><button type="button" data-gallery-next aria-controls="c-gallery" aria-label="Next church photograph">&#8594;</button></div>
 </section>
-<section class="belief-field c-page-shell" aria-labelledby="belief-title">
-  <div><p class="c-kicker">Confirmed convictions</p><h2 id="belief-title">What We Believe</h2></div>
+<section class="belief-field c-page-shell" aria-labelledby="belief-title" data-c-reveal>
+  <div><p class="c-kicker">Truth does not move with the times.</p><h2 id="belief-title">What We Believe</h2></div>
   <ul><li>Bible believing.</li><li>Gospel driven.</li><li>We teach from the KJV Bible.</li></ul>
-  <a class="c-text-link" href="/beliefs/">Read our confirmed beliefs</a>
+  <a class="c-text-link" href="/beliefs/">What We Believe <span aria-hidden="true">&#8599;</span></a>
 </section>
 <section class="visit-field c-page-shell" aria-labelledby="visit-title">
-  <div><p class="c-kicker">Fostoria, Ohio</p><h2 id="visit-title">Plan Your Visit</h2><address>{A_ADDRESS}</address></div>
-  <div class="visit-actions"><a href="tel:{PHONE_TEL}">{A_PHONE_DISPLAY}</a><a class="c-button c-button-dark" href="{A_MAPS_DIR}" rel="noopener">Get Directions</a></div>
+  <div><p class="c-kicker">We saved you a seat.</p><h2 id="visit-title">Plan Your Visit</h2><address>{A_ADDRESS}</address></div>
+  <div class="visit-actions"><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a><a class="c-button c-button-dark" href="{A_MAPS_DIR}" rel="noopener">Get Directions</a></div>
 </section>'''
 
 C_VISIT = f'''
-<section class="inner-intro c-page-shell"><p class="c-kicker">Sunday and Wednesday</p><h1>Plan Your Visit</h1><p>Find the complete weekly schedule, location, children and nursery information, and church phone below.</p></section>
+<section class="inner-intro c-page-shell"><p class="c-kicker">We saved you a seat.</p><h1>Plan Your Visit</h1><p>Come in. Find a seat. Feel at home.</p></section>
 <section class="visit-quick c-page-shell" aria-label="Phone and directions"><a class="c-button c-button-primary" href="tel:{PHONE_TEL}">Call the Church</a><address>{A_ADDRESS}</address><a class="c-text-link" href="{A_MAPS_DIR}" rel="noopener">Get Directions</a></section>
 <section class="visit-layout c-page-shell" aria-labelledby="visit-schedule-title">
   <div class="visit-schedule"><h2 id="visit-schedule-title">Weekly schedule</h2>
@@ -581,17 +592,17 @@ C_VISIT = f'''
     <div class="schedule-row"><h3>Main service</h3><strong>10:00 AM</strong></div>
     <div class="schedule-row"><h3>Young children's Sunday School</h3><strong>10:00 AM</strong></div>
     <div class="schedule-row"><h3>Sunday evening service</h3><strong>6:00 PM</strong></div>
-    <div class="schedule-row"><h3>Prayer and Bible study Wednesday at 7:00 PM.</h3></div>
+    <div class="schedule-row"><h3>Wednesday Prayer &amp; Bible Study</h3><strong>7:00 PM</strong></div>
     <div class="children-note"><h2>Children and nursery</h2><p>A nursery for tots is available during Sunday programming.</p></div>
   </div>
   <figure class="visit-photo-mask">{c_image('front')}</figure>
 </section>'''
 
 C_BELIEFS = f'''
-<section class="beliefs-inner c-page-shell"><div><h1>What We Believe</h1><p>These are the confirmed convictions of Faith Baptist Church.</p><ul><li>Bible believing.</li><li>Gospel driven.</li><li>We teach from the KJV Bible.</li></ul></div><figure class="belief-photo-mask">{c_image('close')}</figure></section>'''
+<section class="beliefs-inner c-page-shell"><div><p class="c-kicker">Truth does not move with the times.</p><h1>What We Believe</h1><p>The Bible is our foundation. The gospel is our message. Prayer shapes our life.</p><ul><li>Bible believing.</li><li>Gospel driven.</li><li>We teach from the KJV Bible.</li></ul><a class="c-button c-button-primary" href="/visit/">Plan Your Visit</a></div><figure class="belief-photo-mask">{c_image('close')}</figure></section>'''
 
 C_MINISTRIES = f'''
-<section class="inner-intro c-page-shell"><p class="c-kicker">Recurring weekly gatherings</p><h1>Ministries</h1><p>These recurring gatherings are available each week at Faith Baptist Church.</p></section>
+<section class="inner-intro c-page-shell"><p class="c-kicker">Growing Together</p><h1>Ministries</h1><p>Grow together. Right where you are.</p></section>
 <section class="ministry-cluster c-page-shell" aria-label="Recurring ministries">
   <article class="ministry-shape ministry-a"><h2>Adults and teens Sunday School</h2><p>Sunday at 9:00 AM.</p></article>
   <article class="ministry-shape ministry-b"><h2>Main service</h2><p>Sunday at 10:00 AM.</p></article>
@@ -603,19 +614,19 @@ C_MINISTRIES = f'''
 <figure class="ministry-photo c-page-shell">{c_image('wide')}</figure>'''
 
 C_EVENTS = '''
-<section class="inner-intro c-page-shell"><p class="c-kicker">Recurring gatherings</p><h1>Events &amp; Announcements</h1><p>The recurring weekly schedule is listed below.</p><p>Current announcements will appear here when supplied.</p></section>
+<section class="inner-intro c-page-shell"><p class="c-kicker">Sunday &amp; Wednesday</p><h1>Events &amp; Announcements</h1><p>Growing together in God's Word.</p></section>
 <section class="rhythm-section c-page-shell" aria-labelledby="events-rhythm-title"><h2 id="events-rhythm-title">Weekly Rhythm</h2>
   <ol class="weekly-rhythm">
     <li class="rhythm-stop"><p><strong>Sunday School</strong> <time datetime="09:00">9:00 AM</time></p><p>Adults and teens.</p></li>
     <li class="rhythm-stop"><p><strong>Main service</strong> <time datetime="10:00">10:00 AM</time></p><p>Young children's Sunday School <time datetime="10:00">10:00 AM</time>. Nursery for tots during Sunday programming.</p></li>
-    <li class="rhythm-stop"><p><strong>Sunday evening service</strong> <time datetime="18:00">6:00 PM</time></p></li>
-    <li class="rhythm-stop"><p>Prayer and Bible study Wednesday at <time datetime="19:00">7:00 PM.</time></p></li>
+    <li class="rhythm-stop"><p><strong>Sunday evening service</strong> <time datetime="18:00">6:00 PM</time></p><p>Sunday Evening Service.</p></li>
+    <li class="rhythm-stop"><p><strong>Wednesday</strong> <time datetime="19:00">7:00 PM</time></p><p>Prayer and Bible study.</p></li>
   </ol>
 </section>'''
 
 C_CONTACT = f'''
-<section class="inner-intro c-page-shell"><p class="c-kicker">Phone and directions</p><h1>Contact Faith Baptist Church</h1><p>Call the church or open directions to the exact address.</p></section>
-<section class="contact-details c-page-shell" aria-label="Contact details"><a class="contact-phone" href="tel:{PHONE_TEL}"><span>Call the Church</span>{A_PHONE_DISPLAY}</a><address>{A_ADDRESS}</address><a class="c-button c-button-primary" href="{A_MAPS_DIR}" rel="noopener">Get Directions</a></section>
+<section class="inner-intro c-page-shell"><p class="c-kicker">A church family for Fostoria.</p><h1>Contact Faith Baptist Church</h1><p>We saved you a seat.</p></section>
+<section class="contact-details c-page-shell" aria-label="Contact details"><a class="contact-phone" href="tel:{PHONE_TEL}"><span>Call the Church</span>{PHONE_DISPLAY}</a><address>{A_ADDRESS}</address><a class="c-button c-button-primary" href="{A_MAPS_DIR}" rel="noopener">Get Directions</a></section>
 <figure class="contact-photo c-page-shell">{c_image('land')}</figure>'''
 
 
@@ -640,18 +651,18 @@ D_SCHEDULE = [
 
 def d_schedule_table(caption='Weekly gathering times'):
     rows = ''.join(
-        '<tr>'
-        f'<th scope="row" data-label="Day">{day}</th>'
-        f'<td data-label="Gathering">{gathering}</td>'
-        f'<td class="schedule-time" data-label="Time">{time}</td>'
+        '<tr role="row">'
+        f'<th role="rowheader" scope="row" data-label="Day">{day}</th>'
+        f'<td role="cell" data-label="Gathering">{gathering}</td>'
+        f'<td role="cell" class="schedule-time{" d-schedule-note" if "During" in time else ""}" data-label="Time">{time}</td>'
         '</tr>'
         for day, gathering, time in D_SCHEDULE
     )
     return f'''
-<table class="d-schedule-table">
+<table class="d-schedule-table" role="table">
   <caption>{caption}</caption>
-  <thead><tr><th scope="col">Day</th><th scope="col">Gathering</th><th scope="col">Time</th></tr></thead>
-  <tbody>{rows}</tbody>
+  <thead role="rowgroup"><tr role="row"><th role="columnheader" scope="col">Day</th><th role="columnheader" scope="col">Gathering</th><th role="columnheader" scope="col">Time</th></tr></thead>
+  <tbody role="rowgroup">{rows}</tbody>
 </table>'''
 
 
@@ -660,7 +671,7 @@ D_HOME = '''
   <div class="d-hero-copy">
     <p class="d-eyebrow">Faithful gatherings in Fostoria</p>
     <h1 id="d-home-title">Faith Baptist <em>Church</em></h1>
-    <p class="d-identity">Bible believing. Gospel driven. Growing together in God&rsquo;s Word.</p>
+    <p class="d-identity">Bible believing. Gospel driven. Growing together in God's Word.</p>
     <div class="d-hero-actions">
       <a class="btn btn-accent" href="/visit/">Plan Your Visit</a>
       <a class="btn btn-secondary" href="#weekly-schedule">View Service Times</a>
@@ -668,6 +679,7 @@ D_HOME = '''
   </div>
   <figure class="d-hero-media">
     <img src="/assets/church1.jpg" width="600" height="450" alt="''' + IMG_D['land'] + '''">
+    <figcaption class="d-sunday"><span>Sunday · Main Service</span><strong class="schedule-time">10:00 AM</strong><span>Come in. Find a seat. Feel at home.</span></figcaption>
   </figure>
 </section>
 
@@ -676,12 +688,12 @@ D_HOME = '''
     <p class="d-kicker">Start with what matters</p>
     <h2 id="visitor-questions-title">New Visitor Questions</h2>
   </div>
-  <ul class="d-question-list">
-    <li><a href="#weekly-schedule"><span class="d-question">When do you gather?</span><span class="d-answer">Sunday at 9:00 AM, 10:00 AM, and 6:00 PM; Wednesday at 7:00 PM. <strong>View schedule</strong></span></a></li>
-    <li><a href="/visit/#children"><span class="d-question">What is available for children?</span><span class="d-answer">Young children&rsquo;s Sunday School meets at 10:00 AM, with nursery for tots during Sunday programming. <strong>See family details</strong></span></a></li>
-    <li><a href="''' + D_MAPS_DIR + '''" rel="noopener"><span class="d-question">Where is the church?</span><span class="d-answer">11275 W. Twp. Rd. 116, Fostoria, OH 44830. <strong>Get directions</strong></span></a></li>
-    <li><a href="tel:+14193482171"><span class="d-question">Would you rather call?</span><span class="d-answer">Speak with the church at (419) 348-2171. <strong>Call the Church</strong></span></a></li>
-  </ul>
+  <ol class="d-question-list">
+    <li><a href="#weekly-schedule"><span class="d-question-number" aria-hidden="true">01</span><span class="d-question">When do you gather?</span><span class="d-answer">Sunday at 9:00 AM, 10:00 AM, and 6:00 PM; Wednesday at 7:00 PM. <strong>View schedule <span aria-hidden="true">↗</span></strong></span></a></li>
+    <li><a href="/visit/#children"><span class="d-question-number" aria-hidden="true">02</span><span class="d-question">What is available for children?</span><span class="d-answer">Young children&rsquo;s Sunday School meets at 10:00 AM, with nursery for tots during Sunday programming. <strong>See family details <span aria-hidden="true">↗</span></strong></span></a></li>
+    <li><a href="''' + D_MAPS_DIR + '''" rel="noopener"><span class="d-question-number" aria-hidden="true">03</span><span class="d-question">Where is the church?</span><span class="d-answer">11275 W. Twp. Rd. 116, Fostoria, OH 44830. <strong>Get Directions <span aria-hidden="true">↗</span></strong></span></a></li>
+    <li><a href="tel:+14193482171"><span class="d-question-number" aria-hidden="true">04</span><span class="d-question">Would you rather call?</span><span class="d-answer">Speak with the church at (419) 348-2171. <strong>Call the Church <span aria-hidden="true">↗</span></strong></span></a></li>
+  </ol>
 </section>
 
 <section class="d-section d-weekly" id="weekly-schedule" aria-labelledby="weekly-schedule-title">
@@ -695,14 +707,14 @@ D_HOME = '''
 <section class="d-proof" aria-labelledby="proof-title">
   <div class="d-section d-proof-inner">
     <div class="d-section-heading">
-      <p class="d-kicker">Confirmed details</p>
-      <h2 id="proof-title">Verified Place and Schedule Proof</h2>
-      <p>These are the church building, sanctuary, location, and direct phone details.</p>
+      <p class="d-kicker">Faith Baptist Church</p>
+      <h2 id="proof-title">A church family for Fostoria.</h2>
+      <p>The Bible is open. The gospel is clear. And there is a place here for you and your whole family.</p>
     </div>
     <div class="d-proof-facts" aria-label="Church contact details">
       <p><span>Address</span><strong>11275 W. Twp. Rd. 116, Fostoria, OH 44830</strong></p>
       <p><span>Phone</span><a href="tel:+14193482171">(419) 348-2171</a></p>
-      <a class="btn btn-accent" href="''' + D_MAPS_DIR + '''" rel="noopener">Open Directions</a>
+      <a class="btn btn-accent" href="''' + D_MAPS_DIR + '''" rel="noopener">Get Directions</a>
     </div>
     <div class="d-photo-grid">
       <figure class="d-photo d-photo-portrait"><img src="/assets/front.png" width="277" height="600" loading="lazy" alt="''' + IMG_D['front'] + '''"><figcaption>Church exterior and steeple</figcaption></figure>
@@ -715,19 +727,19 @@ D_HOME = '''
 
 <section class="d-section d-beliefs" aria-labelledby="confirmed-beliefs-title">
   <div class="d-section-heading">
-    <p class="d-kicker">What is confirmed</p>
+    <p class="d-kicker">Truth does not move with the times.</p>
     <h2 id="confirmed-beliefs-title">Confirmed Beliefs</h2>
   </div>
   <div class="d-belief-grid">
-    <article><h3>Bible believing</h3><p>God&rsquo;s Word shapes our life together.</p></article>
-    <article><h3>Gospel driven</h3><p>The gospel remains at the center of our gatherings.</p></article>
-    <article><h3>KJV Bible</h3><p>Teaching uses the King James Version.</p></article>
+    <article><span class="d-belief-number" aria-hidden="true">01</span><h3>Bible believing</h3><p>The Bible is our foundation.</p></article>
+    <article><span class="d-belief-number" aria-hidden="true">02</span><h3>Gospel driven</h3><p>The gospel is our message.</p></article>
+    <article><span class="d-belief-number" aria-hidden="true">03</span><h3>KJV Bible</h3><p>Teaching uses the King James Version.</p></article>
   </div>
 </section>
 
 <section class="d-contact-cta" aria-labelledby="contact-cta-title">
   <div>
-    <p class="d-kicker">One direct next step</p>
+    <p class="d-kicker">We saved you a seat.</p>
     <h2 id="contact-cta-title">Questions before you visit?</h2>
     <p>Call Faith Baptist Church at (419) 348-2171.</p>
   </div>
@@ -736,19 +748,19 @@ D_HOME = '''
 
 D_VISIT = '''
 <section class="d-page-intro" aria-labelledby="visit-title">
-  <p class="d-kicker">Plan with confirmed details</p>
+  <p class="d-kicker">Come in. Find a seat. Feel at home.</p>
   <h1 id="visit-title">Plan Your Visit</h1>
-  <p>Find the full weekly schedule, location, directions, and children&rsquo;s ministry details in one place.</p>
+  <p>The Bible is open. The gospel is clear. And there is a place here for you and your whole family.</p>
 </section>
 <section class="d-section d-priority-details" aria-labelledby="visit-contact-title">
   <h2 id="visit-contact-title">Phone and directions</h2>
   <p><strong>Call:</strong> <a href="tel:+14193482171">(419) 348-2171</a></p>
   <p><strong>Address:</strong> 11275 W. Twp. Rd. 116, Fostoria, OH 44830</p>
-  <p><a class="btn btn-accent" href="''' + D_MAPS_DIR + '''" rel="noopener">Open Directions</a></p>
+  <p><a class="btn btn-accent" href="''' + D_MAPS_DIR + '''" rel="noopener">Get Directions</a></p>
 </section>
 <section class="d-section d-weekly" aria-labelledby="visit-schedule-title">
-  <h2 id="visit-schedule-title">Full weekly schedule</h2>
-''' + d_schedule_table('Confirmed weekly gathering times') + '''
+  <h2 id="visit-schedule-title">Weekly Schedule</h2>
+''' + d_schedule_table('Sunday and Wednesday gatherings') + '''
 </section>
 <section class="d-section d-children" id="children" aria-labelledby="children-title">
   <h2 id="children-title">Children and nursery</h2>
@@ -761,27 +773,29 @@ D_VISIT = '''
 
 D_BELIEFS = '''
 <section class="d-page-intro" aria-labelledby="beliefs-title">
-  <p class="d-kicker">A concise foundation</p>
+  <p class="d-kicker">Truth does not move with the times.</p>
   <h1 id="beliefs-title">What We Believe</h1>
-  <p>These are the three convictions confirmed by Faith Baptist Church.</p>
+  <p>Bible believing. Gospel driven. Growing together in God's Word.</p>
 </section>
-<section class="d-section d-beliefs" aria-label="Confirmed convictions">
+<section class="d-section d-beliefs" aria-labelledby="beliefs-foundation-title">
+  <div class="d-section-heading"><p class="d-kicker">Our foundation</p><h2 id="beliefs-foundation-title">Confirmed Beliefs</h2></div>
   <div class="d-belief-grid">
-    <article><h2>Bible believing</h2><p>God&rsquo;s Word shapes our life together.</p></article>
-    <article><h2>Gospel driven</h2><p>The gospel remains at the center of our gatherings.</p></article>
-    <article><h2>KJV Bible</h2><p>Teaching uses the King James Version.</p></article>
+    <article><span class="d-belief-number" aria-hidden="true">01</span><h3>Bible believing</h3><p>The Bible is our foundation.</p></article>
+    <article><span class="d-belief-number" aria-hidden="true">02</span><h3>Gospel driven</h3><p>The gospel is our message.</p></article>
+    <article><span class="d-belief-number" aria-hidden="true">03</span><h3>KJV Bible</h3><p>Teaching uses the King James Version.</p></article>
   </div>
 </section>
 <figure class="d-inner-media d-sanctuary-media">
   <img src="/assets/church2.jpg" width="450" height="600" loading="lazy" alt="''' + IMG_D['close'] + '''">
   <figcaption>Faith Baptist Church sanctuary</figcaption>
-</figure>'''
+</figure>
+<section class="d-contact-cta" aria-labelledby="beliefs-visit-title"><div><p class="d-kicker">We saved you a seat.</p><h2 id="beliefs-visit-title">Plan Your Visit</h2><p>Come in. Find a seat. Feel at home.</p></div><a class="btn btn-accent" href="/visit/">Plan Your Visit</a></section>'''
 
 D_MINISTRIES = '''
 <section class="d-page-intro" aria-labelledby="ministries-title">
-  <p class="d-kicker">Gather throughout the week</p>
+  <p class="d-kicker">Grow together. Right where you are.</p>
   <h1 id="ministries-title">Ministries</h1>
-  <p>Explore the confirmed Sunday and Wednesday ministries for adults, teens, children, and tots.</p>
+  <p>Sunday School for adults, teens, and young children. Nursery during Sunday programming. Prayer and Bible study on Wednesday.</p>
 </section>
 <section class="d-section d-ministry-list" aria-labelledby="ministry-list-title">
   <h2 id="ministry-list-title">Weekly ministries</h2>
@@ -793,25 +807,28 @@ D_MINISTRIES = '''
     <div><dt>Sunday Evening Service</dt><dd>Sunday at <span class="schedule-time">6:00 PM</span></dd></div>
     <div><dt>Prayer &amp; Bible Study</dt><dd>Wednesday at <span class="schedule-time">7:00 PM</span></dd></div>
   </dl>
-</section>'''
+</section>
+<figure class="d-inner-media d-sanctuary-media"><img src="/assets/church3.jpg" width="450" height="600" loading="lazy" alt="''' + IMG_D['wide'] + '''"><figcaption>Wide view of the sanctuary</figcaption></figure>
+<section class="d-contact-cta" aria-labelledby="ministries-visit-title"><div><p class="d-kicker">A church family for Fostoria.</p><h2 id="ministries-visit-title">Questions before you visit?</h2><p>Call Faith Baptist Church at (419) 348-2171.</p></div><a class="btn btn-accent" href="tel:+14193482171">Call the Church</a></section>'''
 
 D_EVENTS = '''
 <section class="d-page-intro" aria-labelledby="events-title">
   <p class="d-kicker">The recurring church week</p>
   <h1 id="events-title">Events &amp; Announcements</h1>
-  <p>Use this confirmed weekly schedule to choose a gathering.</p>
+  <p>Come in. Find a seat. Feel at home.</p>
 </section>
 <section class="d-section d-weekly" aria-labelledby="events-schedule-title">
-  <h2 id="events-schedule-title">Recurring weekly schedule</h2>
+  <h2 id="events-schedule-title">Weekly Schedule</h2>
 ''' + d_schedule_table('Recurring weekly gatherings') + '''
-  <p class="d-announcement-note">Announcements appear here when supplied.</p>
-</section>'''
+  <p class="d-announcement-note">Questions about gathering with us? <a href="tel:+14193482171">Call the Church</a> at (419) 348-2171.</p>
+</section>
+<section class="d-contact-cta" aria-labelledby="events-visit-title"><div><p class="d-kicker">We saved you a seat.</p><h2 id="events-visit-title">Plan Your Visit</h2><p>11275 W. Twp. Rd. 116, Fostoria, OH 44830</p></div><a class="btn btn-accent" href="/visit/">Plan Your Visit</a></section>'''
 
 D_CONTACT = '''
 <section class="d-page-intro" aria-labelledby="contact-title">
-  <p class="d-kicker">Direct church contact</p>
+  <p class="d-kicker">A church family for Fostoria.</p>
   <h1 id="contact-title">Contact</h1>
-  <p>Call the church or open directions to the confirmed Fostoria address.</p>
+  <p>Questions before you visit? Call Faith Baptist Church at (419) 348-2171.</p>
 </section>
 <section class="d-section d-priority-details" aria-labelledby="contact-details-title">
   <h2 id="contact-details-title">Phone and location</h2>
@@ -819,7 +836,7 @@ D_CONTACT = '''
   <address>11275 W. Twp. Rd. 116, Fostoria, OH 44830</address>
   <div class="d-contact-actions">
     <a class="btn btn-accent" href="tel:+14193482171">Call the Church</a>
-    <a class="btn btn-secondary" href="''' + D_MAPS_DIR + '''" rel="noopener">Open Directions</a>
+    <a class="btn btn-secondary" href="''' + D_MAPS_DIR + '''" rel="noopener">Get Directions</a>
   </div>
 </section>
 <figure class="d-inner-media">
@@ -833,15 +850,15 @@ PAGES = {
         ('', 'Welcome to Faith Baptist Church | Fostoria, Ohio', 'Faith Baptist Church service times and visit information in Fostoria, Ohio.', A_HOME),
         ('visit', 'Plan Your Visit | Faith Baptist Church', 'Service times, directions, children, and nursery information for Faith Baptist Church.', A_VISIT),
         ('beliefs', 'What We Believe | Faith Baptist Church', 'Bible believing. Gospel driven. KJV Bible.', A_BELIEFS),
-        ('ministries', 'Recurring Ministries | Faith Baptist Church', 'Confirmed recurring gatherings at Faith Baptist Church.', A_MINISTRIES),
-        ('events', 'Weekly Services and Announcements | Faith Baptist Church', 'The confirmed weekly schedule for Faith Baptist Church.', A_EVENTS),
+        ('ministries', 'Recurring Ministries | Faith Baptist Church', 'Sunday and Wednesday gatherings at Faith Baptist Church.', A_MINISTRIES),
+        ('events', 'Weekly Services and Announcements | Faith Baptist Church', 'The weekly schedule for Faith Baptist Church.', A_EVENTS),
         ('contact', 'Contact Faith Baptist Church | Phone and Directions', 'Phone, address, and directions for Faith Baptist Church in Fostoria, Ohio.', A_CONTACT),
     ],
     'b': [
         ('', 'Faith Baptist Church | Sunday Starts Here | Fostoria, OH', 'Sunday School 9:00 AM, worship 10:00 AM, evening service 6:00 PM. Plan your visit to Faith Baptist Church in Fostoria, Ohio.', B_HOME),
         ('visit', 'Plan Your Visit | Faith Baptist Church', 'Your first-Sunday checklist: times, kids, location, and what to expect.', B_VISIT),
         ('beliefs', 'What We Believe | Faith Baptist Church', 'Bible believing. Gospel driven. KJV foundation.', B_BELIEFS),
-        ('ministries', 'Ministries | Faith Baptist Church', 'Six weekly ministries for every age at Faith Baptist Church.', B_MINISTRIES),
+        ('ministries', 'Ministries | Faith Baptist Church', 'Sunday School, children, nursery, and weekly gatherings at Faith Baptist Church.', B_MINISTRIES),
         ('events', 'Events and Announcements | Faith Baptist Church', 'The weekly rhythm of Faith Baptist Church gatherings.', B_EVENTS),
         ('contact', 'Contact | Faith Baptist Church', 'Tap to call Faith Baptist Church: (419) 348-2171.', B_CONTACT),
     ],
@@ -854,11 +871,11 @@ PAGES = {
         ('contact', 'Contact Faith Baptist Church | Phone and Directions', 'Phone, address, and directions for Faith Baptist Church.', C_CONTACT),
     ],
     'd': [
-        ('', 'Faith Baptist Church — Fostoria, Ohio', 'Bible believing. Gospel driven. Growing together in God’s Word. View confirmed gathering times and plan your visit.', D_HOME),
-        ('visit', 'Plan Your Visit — Faith Baptist Church', 'Confirmed gathering times, directions, and children’s ministry details for Faith Baptist Church.', D_VISIT),
+        ('', 'Faith Baptist Church — Fostoria, Ohio', 'Bible believing. Gospel driven. Growing together in God’s Word. View gathering times and plan your visit.', D_HOME),
+        ('visit', 'Plan Your Visit — Faith Baptist Church', 'Gathering times, directions, and children’s ministry details for Faith Baptist Church.', D_VISIT),
         ('beliefs', 'What We Believe — Faith Baptist Church', 'Bible believing. Gospel driven. Teaching from the KJV Bible.', D_BELIEFS),
-        ('ministries', 'Ministries — Faith Baptist Church', 'Confirmed Sunday and Wednesday ministries at Faith Baptist Church.', D_MINISTRIES),
-        ('events', 'Events & Announcements — Faith Baptist Church', 'Recurring weekly gatherings and supplied announcements at Faith Baptist Church.', D_EVENTS),
+        ('ministries', 'Ministries — Faith Baptist Church', 'Sunday and Wednesday ministries at Faith Baptist Church.', D_MINISTRIES),
+        ('events', 'Events & Announcements — Faith Baptist Church', 'Recurring weekly gatherings and service times at Faith Baptist Church.', D_EVENTS),
         ('contact', 'Contact — Faith Baptist Church', 'Phone, address, and directions to Faith Baptist Church in Fostoria, Ohio.', D_CONTACT),
     ],
 }
@@ -882,16 +899,17 @@ def main():
             shutil.copy(f'{ROOT}/nginx-b.conf', f'{SITE}/{v}/nginx.conf')
         for fn in ('front.png', 'church1.jpg', 'church2.jpg', 'church3.jpg'):
             shutil.copy(f'{ROOT}/assets/{fn}', f'{SITE}/{v}/assets/{fn}')
+        if v == 'd':
+            d_fonts = os.path.join(SITE, 'd', 'assets', 'fonts')
+            os.makedirs(d_fonts, exist_ok=True)
+            for fn in ('Inter-Latin.woff2', 'JetBrainsMono-Bold.woff2', 'Inter-OFL.txt', 'JetBrainsMono-OFL.txt', 'Variant-D-PROVENANCE.md'):
+                shutil.copy(os.path.join(ROOT, 'assets', 'fonts', fn), os.path.join(d_fonts, fn))
         if v == 'c':
+            shutil.copy(os.path.join(ROOT, 'variant-c.js'), os.path.join(SITE, 'c', 'variant-c.js'))
             c_fonts = os.path.join(SITE, 'c', 'assets', 'fonts')
             os.makedirs(c_fonts, exist_ok=True)
             for fn in C_FONT_ASSETS:
                 shutil.copy(os.path.join(ROOT, 'assets', 'fonts', fn), os.path.join(c_fonts, fn))
-            for source, alias in (
-                ('Fraunces-Latin.woff2', 'fraunces-latin.woff2'),
-                ('Karla-Latin.woff2', 'karla-latin.woff2'),
-            ):
-                shutil.copy(os.path.join(ROOT, 'assets', 'fonts', source), os.path.join(c_fonts, alias))
     e_root = os.path.join(SITE, 'e')
     os.makedirs(os.path.join(e_root, 'assets'), exist_ok=True)
     for slug, title, desc, body in variant_e.PAGES:
@@ -900,6 +918,7 @@ def main():
         with open(os.path.join(outdir, 'index.html'), 'w') as output:
             output.write(variant_e.page(slug, title, desc, body))
     shutil.copy(f'{ROOT}/styles-e.css', os.path.join(e_root, 'styles.css'))
+    shutil.copy(os.path.join(ROOT, 'compass.js'), os.path.join(e_root, 'compass.js'))
     for fn in ('front.png', 'church1.jpg', 'church2.jpg', 'church3.jpg'):
         shutil.copy(f'{ROOT}/assets/{fn}', os.path.join(e_root, 'assets', fn))
     e_fonts = os.path.join(e_root, 'assets', 'fonts')

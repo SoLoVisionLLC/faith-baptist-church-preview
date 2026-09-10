@@ -1,5 +1,7 @@
 # Product
 
+> Current implementation authority: Quill’s approved Revision 3 brief. This local task excludes deployment, CRM/QA edits, commits and pushes. Historical delivery requirements below apply to a later authorized release, not this implementation diff.
+
 <!-- impeccable:product-schema 1 -->
 
 ## Platform
@@ -39,7 +41,7 @@ Faith Baptist Church is **Bible believing. Gospel driven. Growing together in Go
 - Phone: **419-348-2171**.
 - Phone link: `tel:+14193482171`.
 - Identity line: **Bible believing. Gospel driven. Growing together in God's Word.**
-- Confirmed belief language is limited to: Bible believing, gospel driven, and teaches from the KJV Bible.
+- Belief language includes the original Bible believing, gospel driven and KJV Bible statements, plus Quill’s approved Revision 3 client wording: “The Bible is our foundation.”, “The gospel is our message.” and “Prayer shapes our life.”
 - Sunday School: **9:00 AM** for adults and teens.
 - Main Service: **Sunday at 10:00 AM**.
 - Young children's Sunday School: **Sunday at 10:00 AM**.
@@ -52,7 +54,7 @@ Faith Baptist Church is **Bible believing. Gospel driven. Growing together in Go
 - `/visit`: complete schedule, exact address, directions link, children and nursery facts, call action, exterior portrait image, and no unverified first-visit promises.
 - `/beliefs`: only the three confirmed conviction statements, sanctuary close image, and no expanded statement of faith.
 - `/ministries`: adult and teen Sunday School, young children's Sunday School, nursery, Sunday worship gatherings, and Wednesday prayer and Bible study.
-- `/events`: recurring weekly schedule plus a visitor-facing statement that current announcements will appear when supplied; no empty cards or invented events.
+- `/events`: recurring weekly schedule and a church call action; no supplied-content notices, empty cards or invented events.
 - `/contact`: phone, exact address, directions link, and no fake form.
 
 ### Truth and public-copy hard gates
