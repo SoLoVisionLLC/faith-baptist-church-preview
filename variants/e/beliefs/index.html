@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>What We Believe | Faith Baptist Church</title>
 <meta name="description" content="Bible believing, gospel driven, and teaching from the KJV Bible.">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css?v=20260907-dock-v8-typography">
 <link rel="icon" href="/assets/front.png">
 <script src="/compass.js" defer></script>
 </head>
@@ -19,6 +19,20 @@ FIRST VIEWPORT: An architectural image plate meets a navy identity panel, red di
 FORM: Pinned Impeccable Persuade control. Build the brief's committed world, not a softened generic church layout.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
 -->
+<aside class="preview-dock" aria-label="Faith Baptist preview comparison">
+  <div class="preview-dock-scroll">
+    <nav class="preview-designs" aria-label="Preview designs">
+      <span class="preview-group-label"><svg class="preview-dock-icon preview-layers-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg>VARIANT:</span>
+      <a class="preview-design" href="https://faithbaptistchurch-a.sololink.cloud/beliefs/" title="Design A: Plain Welcome" aria-label="Design A: Plain Welcome"><span class="preview-design-code" aria-hidden="true">A</span><strong>(Plain Welcome)</strong></a><a class="preview-design" href="https://faithbaptistchurch-b.sololink.cloud/beliefs/" title="Design B: Sunday Starts Here" aria-label="Design B: Sunday Starts Here"><span class="preview-design-code" aria-hidden="true">B</span><strong>(Sunday Starts Here)</strong></a><a class="preview-design" href="https://faithbaptistchurch-c.sololink.cloud/beliefs/" title="Design C: Rooted &amp; Rising" aria-label="Design C: Rooted &amp; Rising"><span class="preview-design-code" aria-hidden="true">C</span><strong>(Rooted &amp; Rising)</strong></a><a class="preview-design" href="https://faithbaptist-d.sololink.cloud/beliefs/" title="Design D: Accessible &amp; Ethical" aria-label="Design D: Accessible &amp; Ethical"><span class="preview-design-code" aria-hidden="true">D</span><strong>(Accessible &amp; Ethical)</strong></a><a class="preview-design is-active" href="https://faithbaptist-e.sololink.cloud/beliefs/" aria-current="page" title="Design E: Service-Time Compass" aria-label="Design E: Service-Time Compass"><span class="preview-design-code" aria-hidden="true">E</span><strong>(Service-Time Compass)</strong></a>
+    </nav>
+    <span class="preview-dock-divider" aria-hidden="true"></span>
+    <div class="preview-palette" role="group" aria-label="Color palette">
+      <span class="preview-group-label"><svg class="preview-dock-icon preview-palette-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3a9 9 0 1 0 0 18h1a2 2 0 0 0 1.5-3.3 1.8 1.8 0 0 1 1.4-3H18a3 3 0 0 0 3-3A8.8 8.8 0 0 0 12 3Z"/><circle cx="7.5" cy="10" r=".8"/><circle cx="11" cy="7" r=".8"/><circle cx="15.5" cy="8" r=".8"/></svg>PALETTE:</span>
+      <button class="palette-option palette-original" type="button" aria-pressed="true" data-palette="original"><span class="preview-palette-dot" aria-hidden="true"></span>Original</button>
+      <button class="palette-option palette-logo" type="button" aria-pressed="false" data-palette="logo"><span class="preview-palette-dot" aria-hidden="true"></span>Logo</button>
+    </div>
+  </div>
+</aside>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <a class="wordmark" href="/">Faith Baptist Church</a>
@@ -36,5 +50,24 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
       <label for="gathering-4"><span class="compass-number" aria-hidden="true">04</span><span class="compass-detail"><span class="compass-day">Wednesday</span><strong>7:00 PM</strong><span>Prayer &amp; Bible Study</span></span></label></li></ol></fieldset>
 </section></main>
 <footer class="site-footer"><p><strong>Faith Baptist Church</strong></p><address>11275 W. Twp. Rd. 116, Fostoria, OH 44830</address><a href="tel:+14193482171">(419) 348-2171</a><a href="https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830" rel="noopener">Get Directions</a><nav aria-label="Footer"><a href="/">Home</a><a href="/visit/">Plan Your Visit</a><a href="/beliefs/">What We Believe</a><a href="/ministries/">Ministries</a><a href="/events/">Events & Announcements</a><a href="/contact/">Contact</a></nav></footer>
+<script>
+(() => {
+  const options = document.querySelectorAll('[data-palette]');
+  if (!options.length) return;
+  const setPalette = (palette) => {
+    const enabled = palette === 'logo';
+    if (enabled) document.body.setAttribute('data-logo-palette', '');
+    else document.body.removeAttribute('data-logo-palette');
+    options.forEach((option) => option.setAttribute('aria-pressed', String(option.dataset.palette === palette)));
+  };
+  const stored = window.localStorage.getItem('faith-baptist-palette');
+  setPalette(stored === 'logo' ? 'logo' : 'original');
+  options.forEach((option) => option.addEventListener('click', () => {
+    const palette = option.dataset.palette === 'logo' ? 'logo' : 'original';
+    window.localStorage.setItem('faith-baptist-palette', palette);
+    setPalette(palette);
+  }));
+})();
+</script>
 </body>
 </html>

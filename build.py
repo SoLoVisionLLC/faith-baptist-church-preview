@@ -3,6 +3,7 @@
 import os, shutil
 
 import variant_e
+from preview_dock import ASSET_VERSION, PALETTE_SCRIPT, preview_dock
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(ROOT, 'variants')
@@ -38,6 +39,22 @@ D_ADDRESS = '11275 W. Twp. Rd. 116, Fostoria, OH 44830'
 D_MAPS_DIR = 'https://www.google.com/maps/dir/?api=1&destination=11275+W.+Twp.+Rd.+116%2C+Fostoria%2C+OH+44830'
 TAGLINE = "Bible believing. Gospel driven. Growing together in God&rsquo;s Word."
 POSITIONING = 'Rooted in the Word. Centered on the Gospel. A church family for Fostoria.'
+
+VARIANT_DOMAINS = {
+    'a': 'https://faithbaptistchurch-a.sololink.cloud',
+    'b': 'https://faithbaptistchurch-b.sololink.cloud',
+    'c': 'https://faithbaptistchurch-c.sololink.cloud',
+    'd': 'https://faithbaptist-d.sololink.cloud',
+    'e': 'https://faithbaptist-e.sololink.cloud',
+}
+VARIANT_NAMES = {
+    'a': ('A', 'Plain Welcome'),
+    'b': ('B', 'Sunday Starts Here'),
+    'c': ('C', 'Rooted & Rising'),
+    'd': ('D', 'Accessible & Ethical'),
+    'e': ('E', 'Service-Time Compass'),
+}
+
 
 A_ADDRESS = '11275 W. Twp. Rd. 116, Fostoria, OH 44830'
 A_PHONE_DISPLAY = '419-348-2171'
@@ -308,10 +325,11 @@ HEAD = '''<!DOCTYPE html>
 <meta name="robots" content="noindex, nofollow">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}">
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-{variant} p-{slug}">
+{dock}
 {nav}
 <main id="main" tabindex="-1">
 '''
@@ -324,10 +342,11 @@ HEAD_A = '''<!DOCTYPE html>
 <meta name="robots" content="noindex, nofollow">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}">
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-a p-{slug}">
+{dock}
 {nav}
 <main id="main" tabindex="-1">
 '''
@@ -340,10 +359,11 @@ HEAD_C = '''<!DOCTYPE html>
 <meta name="robots" content="noindex, nofollow">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}">
 <link rel="icon" href="/assets/front.png">
 </head>
 <body class="v-c p-{slug}">
+{dock}
 <div class="ambient-layer" aria-hidden="true"><span class="ambient-shape ambient-one"></span><span class="ambient-shape ambient-two"></span></div>
 {nav}
 <main id="main" tabindex="-1">
@@ -352,20 +372,20 @@ HEAD_C = '''<!DOCTYPE html>
 def page(variant, slug, title, desc, body):
     if variant == 'a':
         active = '/' + slug if slug else '/'
-        html = HEAD_A.format(title=title, desc=desc, slug=slug or 'home', nav=nav_a(active))
-        return html + body + '\n</main>\n' + footer_a() + '\n</body>\n</html>\n'
+        html = HEAD_A.format(title=title, desc=desc, slug=slug or 'home', nav=nav_a(active), dock=preview_dock(variant, slug), ASSET_VERSION=ASSET_VERSION)
+        return html + body + '\n</main>\n' + footer_a() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     if variant == 'c':
         active = '/' if not slug else f'/{slug}/'
-        html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active))
-        return html + body + '\n</main>\n' + footer_c() + '\n<script src="/variant-c.js" defer></script>\n</body>\n</html>\n'
+        html = HEAD_C.format(title=title, desc=desc, slug=slug or 'home', nav=nav_c(active), dock=preview_dock(variant, slug), ASSET_VERSION=ASSET_VERSION)
+        return html + body + '\n</main>\n' + footer_c() + '\n<script src="/variant-c.js" defer></script>\n' + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     if variant == 'd':
         active = '/' + slug if slug else '/'
         html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
-                           nav=nav_d(active))
-        return html + body + '\n</main>\n' + footer_d() + '\n</body>\n</html>\n'
+                           nav=nav_d(active), dock=preview_dock(variant, slug), ASSET_VERSION=ASSET_VERSION)
+        return html + body + '\n</main>\n' + footer_d() + PALETTE_SCRIPT + '\n</body>\n</html>\n'
     html = HEAD.format(title=title, desc=desc, variant=variant, slug=slug,
-                       nav=nav('/' + slug if slug else '/', variant))
-    return html + body + '\n</main>\n' + footer(variant) + '\n</body>\n</html>\n'
+                       nav=nav('/' + slug if slug else '/', variant), dock=preview_dock(variant, slug), ASSET_VERSION=ASSET_VERSION)
+    return html + body + '\n</main>\n' + footer(variant) + PALETTE_SCRIPT + '\n</body>\n</html>\n'
 
 
 # ---------------- shared sections ----------------

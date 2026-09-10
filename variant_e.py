@@ -1,5 +1,7 @@
 """Variant E: Impeccable 4.1.1 Persuade, Service-Time Compass."""
 
+from preview_dock import ASSET_VERSION, PALETTE_SCRIPT, preview_dock
+
 NAME = "Faith Baptist Church"
 ADDRESS = "11275 W. Twp. Rd. 116, Fostoria, OH 44830"
 PHONE = "(419) 348-2171"
@@ -24,7 +26,6 @@ MEDIA = {
 }
 
 ROUTES = (("/", "Home"), ("/visit/", "Plan Your Visit"), ("/beliefs/", "What We Believe"), ("/ministries/", "Ministries"), ("/events/", "Events & Announcements"), ("/contact/", "Contact"))
-
 
 def image(key, class_name=""):
     src, alt, width, height = MEDIA[key]
@@ -123,16 +124,18 @@ def page(slug, title, description, body):
 <meta name="robots" content="noindex, nofollow">
 <title>{title}</title>
 <meta name="description" content="{description}">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css?v={ASSET_VERSION}">
 <link rel="icon" href="/assets/front.png">
 <script src="/compass.js" defer></script>
 </head>
 <body class="v-e p-{slug or 'home'}">
 {DIRECTION_CONTRACT}
+{preview_dock("e", slug)}
 <a class="skip-link" href="#main">Skip to content</a>
 {nav(route)}
 <main id="main" tabindex="-1">{body}</main>
 <footer class="site-footer"><p><strong>{NAME}</strong></p><address>{ADDRESS}</address><a href="tel:{PHONE_TEL}">{PHONE}</a><a href="{DIRECTIONS}" rel="noopener">Get Directions</a><nav aria-label="Footer">{''.join(f'<a href="{href}">{label}</a>' for href, label in ROUTES)}</nav></footer>
+{PALETTE_SCRIPT}
 </body>
 </html>
 '''
